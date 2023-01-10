@@ -1,0 +1,33 @@
+.navs {
+  .navs-header {
+    height: 40px;
+  }
+  .navs-body {
+    height: calc(100% - 80px);
+    overflow-y: auto;
+    .navs-body-item {
+      padding: 4px 10px;
+      &:hover {
+        cursor: pointer;
+        background-color: #dadada;
+      }
+      &.active {
+        background-color: skyblue;
+      }
+      .navs-body-item-name {
+        width: calc(100% - 20px);
+      }
+      .navs-body-item-delete {
+        width: 20px;
+      }
+    }
+  }
+  .navs-footer {
+    height: 40px;
+    input {
+      height: 0px;
+      width: 0px;
+      opacity: 0;
+    }
+  }
+}

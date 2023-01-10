@@ -1,0 +1,31 @@
+.navs .navs-header {
+  height: 40px;
+}
+.navs .navs-body {
+  height: calc(100% - 80px);
+  overflow-y: auto;
+}
+.navs .navs-body .navs-body-item {
+  padding: 4px 10px;
+}
+.navs .navs-body .navs-body-item:hover {
+  cursor: pointer;
+  background-color: #dadada;
+}
+.navs .navs-body .navs-body-item.active {
+  background-color: skyblue;
+}
+.navs .navs-body .navs-body-item .navs-body-item-name {
+  width: calc(100% - 20px);
+}
+.navs .navs-body .navs-body-item .navs-body-item-delete {
+  width: 20px;
+}
+.navs .navs-footer {
+  height: 40px;
+}
+.navs .navs-footer input {
+  height: 0px;
+  width: 0px;
+  opacity: 0;
+}
