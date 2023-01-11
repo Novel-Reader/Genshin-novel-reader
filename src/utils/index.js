@@ -12,8 +12,29 @@ const parseTxtToHTML = (txt) => {
   return txt.split('\n').filter(item => item.trim().length > 0);
 }
 
+const isSameObject = (a, b) => {
+  let k;
+  for (k in a) {
+    if (a.hasOwnProperty(k)) {
+      if ((typeof a[k] === 'function' && typeof b[k] === 'function')) {
+        continue;
+      }
+      if (!b.hasOwnProperty(k) || a[k] !== b[k]) {
+        return false;
+      }
+    }
+  }
+  for (k in b) {
+    if (b.hasOwnProperty(k) && !a.hasOwnProperty(k)) {
+      return false;
+    }
+  }
+  return true;
+}
+
 // parseMarkdownToHTML
 
 export {
-  parseTxtToHTML
+  parseTxtToHTML,
+  isSameObject,
 };

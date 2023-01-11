@@ -1,16 +1,53 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import './index.css'
+import PropTypes from 'prop-types';
+import { Nav, NavItem, NavLink } from 'reactstrap';
+import BasicSettings from './basic-settings';
+import './index.css';
 
 export default class Settings extends Component {
 
+  // 这里应该把设置对象传过来
   static propTypes = {
+  }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeTab: 'basic',
+    };
+  }
+
+  toggle = (tab) => {
+    if (this.state.activeTab !== tab) {
+      this.setState({activeTab: tab});
+    }
+    // 这里切换后，也需要重新设置主题样式
+    // 如果是高级模式，切换成初级模式，那么切换成默认的初级样式，这里写一个默认值
   }
 
   render() {
+    const { activeTab } = this.state;
     return (
-      <div id="settings" className="settings">设置栏</div>
+      <div id="settings" className="settings">
+        <div className='settings-header'>
+          <Nav fill justified pills tabs>
+            <NavItem>
+              <NavLink className={activeTab === 'basic' ? 'active' : ''} onClick={this.toggle.bind(this, 'basic')}>
+                基本设置
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink className={activeTab === 'advance' ? 'active' : ''} onClick={this.toggle.bind(this, 'advance')}>
+                高级设置
+              </NavLink>
+            </NavItem>
+          </Nav>
+        </div>
+        <div className='settings-body'>
+          {/* 渲染初级页面还是高级页面 */}
+          <BasicSettings changeStyle={this.props.changeStyle} style={this.props.style} />
+        </div>
+      </div>
     )
   }
 }
