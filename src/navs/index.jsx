@@ -28,6 +28,7 @@ export default class Navs extends Component {
     const that = this;
     reader.onload = function () {
       const { name, size } = file;
+      // 这里应该打开对话框，提示用户输入名称和用户，然后可以存入数据库
       that.props.addFile({
         name,
         size,
@@ -35,6 +36,9 @@ export default class Navs extends Component {
       });
     }
   }
+
+  // 这里可以点击添加按钮
+  // 打开对话框，然后从数据库中检索全部的数据，这样可以从数据库加载到本地
 
   render() {
     const { currentIndex } = this.props;

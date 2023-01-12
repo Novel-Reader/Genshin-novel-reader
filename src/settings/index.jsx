@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import BasicSettings from './basic-settings';
+import AdvanceSettings from './advance-settings';
+
 import './index.css';
 
 export default class Settings extends Component {
@@ -44,8 +45,12 @@ export default class Settings extends Component {
           </Nav>
         </div>
         <div className='settings-body'>
-          {/* 渲染初级页面还是高级页面 */}
-          <BasicSettings changeStyle={this.props.changeStyle} style={this.props.style} />
+          {activeTab === 'basic' &&
+            <BasicSettings changeStyle={this.props.changeStyle} style={this.props.style} />
+          }
+          {activeTab === 'advance' &&
+            <AdvanceSettings changeStyle={this.props.changeStyle} style={this.props.style} />
+          }
         </div>
       </div>
     )

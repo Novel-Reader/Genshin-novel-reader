@@ -6,6 +6,7 @@ function httpServer() {
 
   var app = express();
 
+  // 处理跨域
   app.all("*", function (req, res, next) {
     // cross origin
     res.header("Access-Control-Allow-Origin", "*");
@@ -18,6 +19,7 @@ function httpServer() {
     }
   });
 
+  // 测试网络
   app.get('/ping/', (req, res) => {
     res.send("pong");
   });
@@ -30,11 +32,33 @@ function httpServer() {
     res.send('Hello POST');
   });
 
-  // not support yet
+  // 用户API
+  // 列出全部的用户
   app.get('/users', function(req, res) {
-    res.send('user list page');
-  })
+    res.send(new Promise((resolve, reject) => {
+      try {
+        var sql = `SELECT * FROM user`;
+        DBHelper(sql, (err, results) => {
+          if (err) {
+            logger.error(err); 
+            reject(err);
+            return;
+          }
+          logger.info(results);
+          var operation = results.length > 0 ? results[0] : null;
+          // TODO
+          res.status(200).send(results);
+          resolve(operation);
+        });
+      } catch (error) {
+        logger.error(error);
+        res.status(500).send('Interal server error');
+        return;
+      }
+    }));
+  });
 
+  // 获取指定用户信息
   app.get('/user', function(req, res) {
     res.send(new Promise((resolve, reject) => {
       try {
@@ -49,7 +73,7 @@ function httpServer() {
           logger.info(results);
           var operation = results.length > 0 ? results[0] : null;
           // TODO
-          res.status(200).send('');
+          res.status(200).send(results);
           resolve(operation);
         });
       } catch (error) {
@@ -60,13 +84,36 @@ function httpServer() {
     }));
   })
 
+  // 增加用户
   app.post('/user', function(req, res) {
     res.send('return created user info');
   })
 
+  // 删除用户
   app.delete('/user', function(req, res) {
     res.send('return success or error');
   })
+
+  // 文件 API
+  // 获取全部的文件列表
+  app.get('/novel-list', (req, res) => {
+    res.send('');
+  });
+
+  // 获取某个文件的详情
+  app.get('/novel', (req, res) => {
+    res.send('');
+  });
+
+  // 增加文件
+  app.post('/novel', (req, res) => {
+    res.send('');
+  });
+  
+  // 删除文件
+  app.delete('/novel', (req, res) => {
+    res.send('');
+  });
 
   // const PORT = process.env.PORT || 8081;
   var server = app.listen(8081, function () {   

@@ -33,20 +33,20 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    this.initFromServer();
+  }
+
+  initFromServer = () => {
     this.api.checkNet().then(res => {
       if (res && res.data === 'pong') {
         console.log('已经成功链接服务器，可以使用网络');
         this.canUseNet = true;
-        this.initFromServer();
+        // 从服务端获取当前存储的样式和配置等，或者把这部分存储在 localStorage 中，这个是本地配置，不需要存放在服务端
       }
     }).catch(err => {
       console.error('连接网络失败，无法从数据库获取资源');
       this.canUseNet = false;
     });
-  }
-
-  initFromServer = () => {
-    // 从服务端获取当前存储的样式和配置等，或者把这部分存储在 localStorage 中，这个是本地配置，不需要存放在服务端
   }
 
   // { name, size, context }
@@ -59,6 +59,7 @@ export default class App extends Component {
       files,
       currentIndex: files.length - 1,
     });
+    // 这里应该存入数据库
   }
 
   changeIndex = (currentIndex) => {

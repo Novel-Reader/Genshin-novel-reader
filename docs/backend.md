@@ -26,17 +26,10 @@ MySQL 作为数据库
 
 数据库表1-用户表
 
-~~~sql
-CREATE TABLE `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-~~~
-
-数据库表2-文件表
+数据库表2-书籍表
+```
+mysqldump -u root -proot --skip-add-locks --skip-add-drop-table --skip-comments novel  > sql/mysql.sql
+```
 
 ### 存在的问题
 
