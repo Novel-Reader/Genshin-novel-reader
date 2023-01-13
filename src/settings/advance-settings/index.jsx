@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import AdvanceThemeSettings from './advance-theme-settings';
+import ColorSettings from './color-settings';
+import FontSettings from './font-settings';
+import { FONT_SIZES, FONT_FAMILYS, FONT_WEIGHTS, LINE_HEIGHTS } from '../constants';
 
 export default class AdvanceSettings extends Component {
 
@@ -8,13 +11,57 @@ export default class AdvanceSettings extends Component {
   }
   
   render() {
+    const changeStyle = this.changeStyle;
     return (
-      <div className='advance-settings'>
+      <div className='advance-settings' style={{padding: '16px'}}>
         {/* 将来考虑权限控制 */}
-        {
+        {/* {
           window.isPro ? <>欢迎使用高级功能</> : <>请升级到专业版本</>
-        }
-        <AdvanceThemeSettings />
+        } */}
+        <FontSettings
+          options={FONT_SIZES}
+          title="字号"
+          save={(option) => {this.changeStyle({fontSize: option.value});}}
+        />
+        <div className='setting-divide-line'></div>
+        <FontSettings
+          options={FONT_FAMILYS}
+          title="字体"
+          save={(option) => {this.changeStyle({fontFamily: option.value});}}
+        />
+        <div className='setting-divide-line'></div>
+        <FontSettings
+          options={FONT_WEIGHTS}
+          title="粗细"
+          save={(option) => {this.changeStyle({fontWeight: option.value});}}
+        />
+        <div className='setting-divide-line'></div>
+        <FontSettings
+          options={LINE_HEIGHTS}
+          title="行高"
+          save={(option) => {this.changeStyle({lineHeight: option.value});}}
+        />
+        <div className='setting-divide-line'></div>
+        {/* 文字颜色设置 */}
+        <ColorSettings
+          changeStyle={changeStyle}
+          title='文字颜色'
+          color='#666' // init color
+          settingKey="color"
+        />
+        <div className='setting-divide-line'></div>
+        {/* 背景色设置 */}
+        <ColorSettings
+          changeStyle={changeStyle}
+          title='背景颜色'
+          color='#aaa' // init color
+          settingKey="backgroundColor"
+        />
+        <div className='setting-divide-line'></div>
+        {/* 背景图设置 */}
+        <AdvanceThemeSettings
+          changeStyle={changeStyle}
+        />
       </div>
     )
   }

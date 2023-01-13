@@ -22,3 +22,9 @@
 .d-block {
   display: block;
 }
+
+/* 这个放在 setting 中 */
+.setting-divide-line {
+  margin: 14px 16px;
+  border-bottom: 1px solid #e2e2e2;
+}

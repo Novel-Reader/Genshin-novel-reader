@@ -9,37 +9,34 @@ export default class AdvanceThemeSettings extends Component {
     this.state = {
       currentSelected: null,
     };
+    // 最好是 16 ：9 的比例
+    // 图片在外部服务器，所以加载特别慢
+    
     this.options = [
-      { value: 1, label: '神里凌华' },
-      { value: 2, label: '雷电将军' },
-      { value: 3, label: '珊瑚宫心海' },
-      { value: 4, label: '荒泷一斗' },
+      { value: 'https://julia-1994.github.io/images/KamisatoAyaka/02.jpg', label: '神里凌华' },
+      { value: 'https://julia-1994.github.io/images/Xiaogong/%E5%AE%B5%E5%AE%AB-100948840_p0.jpg', label: '宵宫' },
+      { value: 'https://julia-1994.github.io/images/Barbara/100974140_p0.jpg', label: '芭芭拉' },
+      { value: 'https://julia-1994.github.io/images/Keqing/%E5%88%BB%E6%99%B4-101081619_p0.png', label: '刻晴' },
     ];
   }
 
-  // 最好是 16 ：9 的比例
-  // 图片在外部服务器，所以加载特别慢
-  // https://julia-1994.github.io/images/KamisatoAyaka/02.jpg
-  // https://julia-1994.github.io/images/Xiaogong/%E5%AE%B5%E5%AE%AB-100948840_p0.jpg
-  // https://julia-1994.github.io/images/Xiaogong/%E5%AE%B5%E5%AE%AB-101128510_p0.jpg
-  // https://julia-1994.github.io/images/Barbara/101042063_p0.jpg
-  // https://julia-1994.github.io/images/Barbara/100974140_p0.jpg
-  // https://julia-1994.github.io/images/Keqing/%E5%88%BB%E6%99%B4-101081619_p0.png
-
-  onChange = (e) => {
-    this.setState({ currentSelected: e });
-    console.log(e);
+  onChange = (option) => {
+    this.setState({ currentSelected: option });
+    // 这个组件目前只处理背景图，不考虑全局的字体和背景色
+    // 现在 value 是字符串，未来考虑改成对象，包括下面三个属性
     // backgroundImage
     // color
     // backgroundColor
+    this.props.changeStyle({
+      backgroundImage: option.value
+    });
   }
 
   render() {
-    // 这个后期再说，技术比较成熟
     const preCls = 'advance-theme-settings'
     return (
       <div className={preCls}>
-        <Label>原神系列主题</Label>
+        <Label>系列主题</Label>
         <Select
           value={this.state.currentSelected}
           options={this.options}
