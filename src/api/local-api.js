@@ -21,7 +21,10 @@ export default class LocalAPI {
     return this.req.get(url);
   }
 
-  
+  getUser() {
+    const url = `${this.server}/user/`;
+    return this.req.get(url);
+  }
 
   // https://www.jb51.net/article/254229.htm
   // longtext 字段完全可以存放全部的内容。搜索的性能可能比较差，目前只搜索名称字段，不需要搜索详情。

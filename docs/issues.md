@@ -35,3 +35,15 @@ app.all("*", function (req, res, next) {
 5 node 不支持 ES6 语法
 
 运行服务前，需要用 babel 编译成 es5 后才能执行
+
+
+6 发送请求时，数据库报错
+
+```
+/novel-reader/node_modules/mysql/lib/protocol/Parser.js:437
+throw err; // Rethrow non-MySQL errors
+Error: Cannot set headers after they are sent to the client at new NodeError (node:internal/errors:393:5)
+```
+报错是服务器返回了多个相应，应该返回一个值 res.send(data)，然后 return
+
+参考：https://blog.csdn.net/qq_48009509/article/details/121625588

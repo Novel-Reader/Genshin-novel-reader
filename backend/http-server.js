@@ -35,54 +35,28 @@ function httpServer() {
   // 用户API
   // 列出全部的用户
   app.get('/users', function(req, res) {
-    res.send(new Promise((resolve, reject) => {
-      try {
-        var sql = `SELECT * FROM user`;
-        DBHelper(sql, (err, results) => {
-          if (err) {
-            logger.error(err); 
-            reject(err);
-            return;
-          }
-          logger.info(results);
-          var operation = results.length > 0 ? results[0] : null;
-          // TODO
-          res.status(200).send(results);
-          resolve(operation);
-        });
-      } catch (error) {
-        logger.error(error);
-        res.status(500).send('Interal server error');
-        return;
-      }
-    }));
+    // test no permission
+    let a = 10;
+    if (a === 10) {
+      res.status(403).send({'error_massage': '没有权限测试'});
+      return;
+    }
   });
 
   // 获取指定用户信息
   app.get('/user', function(req, res) {
-    res.send(new Promise((resolve, reject) => {
-      try {
-        var username = 'Tom';
-        var sql = `SELECT * FROM user WHERE name='${username}'`;
-        DBHelper(sql, (err, results) => {
-          if (err) {
-            logger.error(err); 
-            reject(err);
-            return;
-          }
-          logger.info(results);
-          var operation = results.length > 0 ? results[0] : null;
-          // TODO
-          res.status(200).send(results);
-          resolve(operation);
-        });
-      } catch (error) {
-        logger.error(error);
-        res.status(500).send('Interal server error');
+    var username = 'Tom';
+    var sql = `SELECT * FROM user WHERE name='${username}'`;
+    DBHelper(sql, (err, results) => {
+      if (err) {
+        logger.error(err); 
+        reject(err);
         return;
       }
-    }));
-  })
+      res.status(200).send(results[0]);
+      return;
+    });
+  });
 
   // 增加用户
   app.post('/user', function(req, res) {
