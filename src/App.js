@@ -3,7 +3,8 @@ import Main from './main';
 import Navs from './navs';
 import Settings from './settings';
 import LocalAPI from './api/local-api';
-import { isSameObject } from './utils';
+import { isSameObject, getLocalValue, setLocalValue } from './utils';
+import { DEFAULT_STYLE } from './settings/constants';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/common.css'
@@ -13,15 +14,10 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
-    const defaultStyle = {
-      fontSize: '16px',
-      color: '#212529',
-      backgroundColor: 'rgb(251, 246, 236)',
-    };
     this.state = {
       files: [],
       currentIndex: -1,
-      style: defaultStyle,
+      style: JSON.parse(getLocalValue('novel-reader-style')) || DEFAULT_STYLE,
     };
     this.api = new LocalAPI();
     this.api.init({
@@ -29,7 +25,7 @@ export default class App extends Component {
       username: '1@1.com',
       password: '1',
     });
-    this.canUseNet = false;
+    this.isPro = false;
   }
 
   componentDidMount() {
@@ -39,18 +35,18 @@ export default class App extends Component {
   initFromServer = () => {
     this.api.checkNet().then(res => {
       if (res && res.data === 'pong') {
-        console.log('已经成功链接服务器，可以使用网络');
-        this.canUseNet = true;
-        // 从服务端获取当前存储的样式和配置等，或者把这部分存储在 localStorage 中，这个是本地配置，不需要存放在服务端
+        console.log('已经成功连接服务器，可以使用网络');
+        this.isPro = true;
         this.api.getUser().then(res => {
+          // TODO test query user and check is Pro version
           console.log(res.data);
         }).catch(err => {
           console.error(err);
         });
       }
     }).catch(err => {
-      console.error('连接网络失败，无法从数据库获取资源');
-      this.canUseNet = false;
+      console.error('连接服务器失败，无法从数据库获取资源');
+      this.isPro = false;
     });
   }
 
@@ -64,7 +60,7 @@ export default class App extends Component {
       files,
       currentIndex: files.length - 1,
     });
-    // 这里应该存入数据库
+    // TODO save into database
   }
 
   changeIndex = (currentIndex) => {
@@ -72,13 +68,19 @@ export default class App extends Component {
   }
 
   deleteFile = (index) => {
-    console.log(index);
+    let files = this.state.files.slice(0);
+    files.splice(index, 1);
+    this.setState({
+      files,
+      currentIndex: files.length - 1,
+    })
   }
 
   changeStyle = (newStyle) => {
     let style = Object.assign({}, this.state.style, newStyle);
     if (!isSameObject(style, this.state.style)) {
       this.setState({ style });
+      setLocalValue('novel-reader-style', JSON.stringify(style));
     }
   }
 

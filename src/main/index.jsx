@@ -9,7 +9,7 @@ const LONG_PAGE = 'long_page';
 export default class Main extends Component {
 
   static propTypes = {
-    currentFile: PropTypes.string,
+    currentFile: PropTypes.object,
     style: PropTypes.object,
   }
 

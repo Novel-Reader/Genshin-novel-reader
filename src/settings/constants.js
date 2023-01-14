@@ -36,4 +36,10 @@ const LINE_HEIGHTS = [
   { value: 3, label: '3' },
 ];
 
-export { FONT_SIZES, FONT_FAMILYS, FONT_WEIGHTS, LINE_HEIGHTS };
+const DEFAULT_STYLE = {
+  fontSize: '16px',
+  color: '#212529',
+  backgroundColor: 'rgb(251, 246, 236)',
+};
+
+export { FONT_SIZES, FONT_FAMILYS, FONT_WEIGHTS, LINE_HEIGHTS, DEFAULT_STYLE };
