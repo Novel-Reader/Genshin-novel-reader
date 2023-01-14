@@ -5,7 +5,7 @@ configure({
     logger: { 
       type: 'dateFile', 
       filename: './novel-server.log',
-      pattern: ".yyyy-MM-dd", 
+      pattern: "yyyy-MM-dd", 
       keepFileExt: true,
       layout: {
         type: 'pattern',

@@ -1,8 +1,8 @@
-# 后端技术点
+## 后端技术点
 
-后端目前仅考虑最基本的增删改查，数据库也只使用一张表进行存储，不考虑性能的问题。
+### 服务器
 
-目前考虑 express 作为后端
+使用 express 作为后端，目前仅考虑基本的 RestAPI 请求，不考虑高并发，负载均衡等性能问题。
 
 https://www.expressjs.com.cn/starter/hello-world.html
 
@@ -14,23 +14,22 @@ https://blog.csdn.net/weixin_41697143/article/details/119904196
 
 ### 第三方库
 
-- body-parser - node.js 中间件，用于处理 JSON, Raw, Text 和 URL 编码的数据。
-- cookie-parser - 这就是一个解析Cookie的工具。通过req.cookies可以取到传过来的cookie，并把它们转成对象。
-- multer - node.js 中间件，用于处理 enctype="multipart/form-data"（设置表单的MIME编码）的表单数据。
+- body-parser - node.js 中间件，用于处理 JSON, Raw, Text 和 URL 编码的数据
+
+- cookie-parser - 这就是一个解析Cookie的工具。通过req.cookies可以取到传过来的cookie，并把它们转成对象
+
+- multer - node.js 中间件，用于处理 enctype="multipart/form-data"（设置表单的MIME编码）的表单数据
 
 ### 数据库设计
 
-MySQL 作为数据库
+MySQL 作为数据库，实现基本的增删改查，不考虑性能的问题
 
 数据库名：novel
 
 数据库表1-用户表
 
 数据库表2-书籍表
+
 ```
 mysqldump -u root -proot --skip-add-locks --skip-add-drop-table --skip-comments novel  > sql/mysql.sql
 ```
-
-### 存在的问题
-
-一次性请求一本小说，是否有必要，用户也不可能一次性阅读完？也给服务器带来很大的压力。最好的办法是分页请求。这个服务端和数据库怎么实现？

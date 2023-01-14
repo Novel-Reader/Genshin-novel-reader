@@ -1,73 +1,70 @@
 # novel-reader
-This is a novel reader SPA
 
-# Getting Started with Create React App
+This is a novel reader frontend SPA demo.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 开发说明
 
-## Available Scripts
+- npm install 安装依赖
+- npm run start-backend 运行服务端
+- npm run start-frontend 运行客户端
+- npm run build 打包客户端代码
+- npm run test 测试（暂不支持）
 
-In the project directory, you can run:
+## 项目结构
 
-### `npm start`
+### 整体结构
+~~~
+├── README.md
+├── backend 后端代码
+├── dist 打包后的后端文件
+├── build 打包后的前端代码
+├── docs 文档
+├── example 测试案例
+├── img 图片资源
+├── node_modules 第三方依赖
+├── novel-server.log 后端日志
+├── public 公共文件
+└── src 前端代码
+~~~
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 文档结构
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+~~~
+├── backend.md 后端文档
+├── change.md 更新日志
+├── frontend.md 前端文档
+├── issues.md 开发问题及解决
+└── product.md 产品文档
+~~~
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 前端结构
 
-### `npm run build`
+~~~
+├── App.js 项目主文件
+├── api 接口
+├── css 样式
+├── index.js 入口文件
+├── main 主页
+│   ├── index.jsx
+│   ├── long-page 长页面展示
+│   └── short-page 分页展示
+├── navs 导航栏
+├── settings 设置栏
+│   ├── advance-settings 高级设置
+│   ├── basic-settings 基本设置
+│   ├── constants.js 常量
+└── utils 工具函数
+~~~
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 后端结构
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+~~~
+├── app.js 入口文件
+├── connect.js 功能函数（暂不支持）
+├── db-helper.js 数据库函数
+├── http-server.js 后端路由
+├── logger.js 日志函数
+└── sql
+    └── mysql.sql 数据库文件
+~~~
