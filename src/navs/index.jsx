@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Button } from 'reactstrap';
 import classnames from 'classnames';
+import NavFooter from './nav-footer';
 
 import './index.css';
 
@@ -16,29 +16,6 @@ export default class Navs extends Component {
     this.state = {
     };
   }
-
-  onClick = () => {
-    this.uploadRef.click();
-  }
-
-  onFileChange = (e) => {
-    const file = this.uploadRef.files[0];
-    var reader = new FileReader();
-    reader.readAsText(file, 'utf-8');
-    const that = this;
-    reader.onload = function () {
-      const { name, size } = file;
-      // 这里应该打开对话框，提示用户输入名称和用户，然后可以存入数据库
-      that.props.addFile({
-        name,
-        size,
-        context: this.result,
-      });
-    }
-  }
-
-  // 这里可以点击添加按钮
-  // 打开对话框，然后从数据库中检索全部的数据，这样可以从数据库加载到本地
 
   render() {
     const { currentIndex } = this.props;
@@ -59,10 +36,7 @@ export default class Navs extends Component {
             )
           })}
         </div>
-        <div className="navs-footer">
-          <Button onClick={this.onClick} color="primary">上传</Button>
-          <input type="file" accept=".txt, .md" onChange={this.onFileChange} ref={node => this.uploadRef = node}></input>
-        </div>
+        <NavFooter addFile={this.props.addFile} />
       </div>
     )
   }

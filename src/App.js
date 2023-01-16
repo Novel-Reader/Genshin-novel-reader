@@ -48,7 +48,14 @@ export default class App extends Component {
     });
   }
 
-  // { name, size, context }
+  // {
+  //   name,
+  //   size,
+  //   author,
+  //   context,
+  //   abstract,
+  //   tag,
+  // }
   // 当前直接存文本，不需要处理段落或者标题等
   // 未来可以把 context 转换成特定的段落处理
   addFile = (file) => {

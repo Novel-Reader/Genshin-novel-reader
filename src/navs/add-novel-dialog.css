@@ -1,0 +1,22 @@
+.add-novel-dialog .modal-content {
+  min-height: 300px;
+  max-height: 100%;
+}
+.add-novel-dialog .modal-body {
+  display: flex;
+}
+.add-novel-dialog .modal-body .add-novel-dialog-side {
+  width: 170px;
+  padding-right: 10px;
+}
+.add-novel-dialog .modal-body .add-novel-dialog-side .nav-item {
+  cursor: pointer;
+}
+.add-novel-dialog .modal-body .add-novel-dialog-main {
+  width: calc(100% - 170px);
+}
+.add-novel-dialog .modal-body .add-novel-dialog-main .local-file-input {
+  height: 0px;
+  width: 0px;
+  opacity: 0;
+}

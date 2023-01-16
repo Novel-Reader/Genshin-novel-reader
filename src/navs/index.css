@@ -24,8 +24,3 @@
 .navs .navs-footer {
   height: 40px;
 }
-.navs .navs-footer input {
-  height: 0px;
-  width: 0px;
-  opacity: 0;
-}
