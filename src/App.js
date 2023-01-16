@@ -6,9 +6,7 @@ import LocalAPI from './api/local-api';
 import { isSameObject, getLocalValue, setLocalValue } from './utils';
 import { DEFAULT_STYLE } from './settings/constants';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './css/common.css'
-import './css/App.css'
+import './css/App.css';
 
 export default class App extends Component {
 

@@ -44,7 +44,10 @@ export default class Navs extends Component {
     const { currentIndex } = this.props;
     return (
       <div id="navs" className="navs">
-        <div className="navs-header">导航栏</div>
+        <div className="navs-header">
+          导航栏
+          <span className="icon icon-home"></span>
+        </div>
         <div className="navs-body">
           {this.props.files.map((file, index) => {
             const isActive = currentIndex === index;
