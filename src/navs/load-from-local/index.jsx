@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, FormGroup, Form, Label, Input } from 'reactstrap';
 import Select from 'react-select';
+import { MenuSelectStyle } from '../../utils';
 
 export default class LoadFromLocal extends Component {
 
@@ -119,6 +120,7 @@ export default class LoadFromLocal extends Component {
               classNamePrefix
               isMulti
               placeholder='选择分类'
+              styles={MenuSelectStyle}
             />
           </FormGroup>
           <FormGroup>

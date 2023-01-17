@@ -3,6 +3,7 @@ import AdvanceThemeSettings from './advance-theme-settings';
 import ColorSettings from './color-settings';
 import FontSettings from './font-settings';
 import { FONT_SIZES, FONT_FAMILYS, FONT_WEIGHTS, LINE_HEIGHTS } from '../constants';
+import './index.css';
 
 export default class AdvanceSettings extends Component {
 
@@ -13,7 +14,7 @@ export default class AdvanceSettings extends Component {
   render() {
     const changeStyle = this.changeStyle;
     return (
-      <div className='advance-settings' style={{padding: '16px'}}>
+      <div className='advance-settings'>
         {/* 将来考虑权限控制 */}
         {/* {isPro ? <>欢迎使用高级功能</> : <>请升级到专业版本</>} */}
         {/* 背景图设置 */}

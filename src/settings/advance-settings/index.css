@@ -1,0 +1,7 @@
+.advance-settings {
+  padding: 0;
+}
+.advance-settings .advance-theme-settings-select,
+.advance-settings advance-font-settings {
+  cursor: pointer;
+}

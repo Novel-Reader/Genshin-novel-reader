@@ -39,9 +39,30 @@ const setLocalValue = (key, value) => {
   window.localStorage.setItem(key, value);
 }
 
+const MenuSelectStyle = {
+  option: (provided, state) => {
+    // const { isSelected, isFocused } = state;
+    const { isDisabled } = state;
+    return ({
+      ...provided,
+      cursor: isDisabled ? 'default' : 'pointer',
+      // backgroundColor: isSelected ? '#20a0ff' : (isFocused ? '#f5f5f5' : '#fff'),
+    });
+  },
+  control: (provided) => ({
+    ...provided,
+    fontSize: '14px',
+    cursor: 'pointer',
+    lineHeight: '1.5',
+  }),
+  menuPortal:  base => ({ ...base, zIndex: 9999 }),
+  indicatorSeparator: () => {},
+};
+
 export {
   parseTxtToHTML,
   isSameObject,
   getLocalValue,
   setLocalValue,
+  MenuSelectStyle,
 };

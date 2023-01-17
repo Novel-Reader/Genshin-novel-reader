@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Select from 'react-select';
 import { Label } from 'reactstrap';
+import { MenuSelectStyle } from '../../utils';
 
-// options title save
 export default class FontSettings extends Component {
 
   constructor(props) {
@@ -29,6 +29,7 @@ export default class FontSettings extends Component {
           captureMenuScroll={false}
           className={`${preCls}-select`}
           classNamePrefix
+          styles={MenuSelectStyle}
           // placeholder='选择主题'
         />
       </div>
