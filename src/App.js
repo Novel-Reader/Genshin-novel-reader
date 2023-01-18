@@ -3,7 +3,7 @@ import Main from './main';
 import Navs from './navs';
 import Settings from './settings';
 import LocalAPI from './api/local-api';
-import { isSameObject, getLocalValue, setLocalValue } from './utils';
+import { isSameObject, getLocalValue, setLocalValue, loadExample } from './utils';
 import { DEFAULT_STYLE } from './settings/constants';
 
 import './css/App.css';
@@ -13,8 +13,8 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: [],
-      currentIndex: -1,
+      files: loadExample(),
+      currentIndex: 0,
       style: JSON.parse(getLocalValue('novel-reader-style')) || DEFAULT_STYLE,
     };
     this.api = new LocalAPI();
