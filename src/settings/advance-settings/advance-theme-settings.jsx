@@ -12,12 +12,16 @@ export default class AdvanceThemeSettings extends Component {
     };
     // 最好是 16 ：9 的比例
     // 图片在外部服务器，所以加载特别慢
-    
+    const preLink = 'https://julia-1994.github.io/images/';
     this.options = [
-      { value: 'https://julia-1994.github.io/images/KamisatoAyaka/02.jpg', label: '神里凌华' },
+      { value: `${preLink}KamisatoAyaka/02.jpg`, label: '神里凌华' },
       { value: 'https://julia-1994.github.io/images/Xiaogong/%E5%AE%B5%E5%AE%AB-100948840_p0.jpg', label: '宵宫' },
       { value: 'https://julia-1994.github.io/images/Barbara/100974140_p0.jpg', label: '芭芭拉' },
-      { value: 'https://julia-1994.github.io/images/Keqing/%E5%88%BB%E6%99%B4-101081619_p0.png', label: '刻晴' },
+      { value: 'https://julia-1994.github.io/images/Keqing/391665038937_.pic_hd.jpg', label: '刻晴' },
+      { value: 'https://julia-1994.github.io/images/Amber/amber.jpg', label: '安柏' },
+      { value: 'https://julia-1994.github.io/images/Jane/441665038946_.pic_hd.jpg ', label: '丽莎' },
+      { value: 'https://julia-1994.github.io/images/Keqing/381665038936_.pic.jpg ', label: '小艾咪' },
+      { value: 'https://julia-1994.github.io/images/Noelle/01.webp', label: '诺艾尔' },
     ];
   }
 
