@@ -24,4 +24,16 @@ function ShareIcon() {
   )
 }
 
-export { StarIcon, LoadingIcon, SearchIcon, ShareIcon };
+function RightIcon() {
+  return (
+    <span className="icon icon-arrow-right2"></span>
+  )
+}
+
+function LeftIcon() {
+  return (
+    <span className="icon icon-arrow-left2"></span>
+  )
+}
+
+export { StarIcon, LoadingIcon, SearchIcon, ShareIcon, RightIcon, LeftIcon };

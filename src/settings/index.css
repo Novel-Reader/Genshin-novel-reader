@@ -1,6 +1,10 @@
+.settings .settings-header {
+  width: 200px;
+}
 .settings .settings-header .nav-tabs .nav-item {
   cursor: pointer;
 }
 .settings .settings-body {
   padding: 16px;
+  width: 200px;
 }

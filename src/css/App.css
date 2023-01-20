@@ -18,16 +18,26 @@ body, html, #root, #app {
 
 #app {
   display: flex;
+  overflow-x: hidden;
 }
 
 #main {
   height: 100%;
-  width: calc(100% - 400px);
+  width: calc(100%);
   background-color: #fafaf9;
   font-size: 16px;
 }
 
-#settings, #navs {
+#navs {
   width: 200px;
   background-color: #fff;
+  flex-shrink: 0;
+}
+
+#settings {
+  background-color: #fff;
+  height: 100%;
+  width: 200px;
+  transition: width 0.5s ease-in-out 0s;
+  flex-shrink: 0;
 }

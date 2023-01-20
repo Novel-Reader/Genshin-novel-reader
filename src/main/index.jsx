@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LongPage from './long-page';
+import FoldedIcon from './folded-icon';
 import './index.css';
 
 const LONG_PAGE = 'long_page';
@@ -34,15 +35,15 @@ export default class Main extends Component {
         </div>
       );
     }
-    // 这个 width 需要计算
     return (
       <div id="main" className="main">
         {mode === LONG_PAGE &&
-          <LongPage currentFile={currentFile.context} style={style} />
+          <LongPage currentFile={currentFile.context} style={style} isShowRightPanel={this.state.isShowRightPanel} />
         }
         {/* {mode === SHORT_PAGE &&
           <ShortPage />
         } */}
+        <FoldedIcon toggleRightPanel={this.props.toggleRightPanel} isShowRightPanel={this.props.isShowRightPanel} />
       </div>
     )
   }

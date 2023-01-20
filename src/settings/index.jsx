@@ -27,9 +27,10 @@ export default class Settings extends Component {
   }
 
   render() {
+    const { isShowRightPanel } = this.props;
     const { activeTab } = this.state;
     return (
-      <div id="settings" className="settings">
+      <div id="settings" className="settings" style={{width: isShowRightPanel ? 200 : 0}}>
         <div className='settings-header'>
           <Nav fill justified pills tabs>
             <NavItem>

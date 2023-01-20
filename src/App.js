@@ -16,6 +16,7 @@ export default class App extends Component {
       files: loadExample(),
       currentIndex: 0,
       style: JSON.parse(getLocalValue('novel-reader-style')) || DEFAULT_STYLE,
+      isShowRightPanel: true,
     };
     this.api = new LocalAPI();
     this.api.init({
@@ -89,6 +90,12 @@ export default class App extends Component {
     }
   }
 
+  toggleRightPanel = () => {
+    this.setState({
+      isShowRightPanel: !this.state.isShowRightPanel,
+    });
+  }
+
   render() {
     const { files, currentIndex, style } = this.state;
     const currentFile = files[currentIndex];
@@ -104,10 +111,13 @@ export default class App extends Component {
         <Main
           currentFile={currentFile}
           style={style}
+          toggleRightPanel={this.toggleRightPanel}
+          isShowRightPanel={this.state.isShowRightPanel}
         />
         <Settings
           style={style}
           changeStyle={this.changeStyle}
+          isShowRightPanel={this.state.isShowRightPanel}
         />
       </div>
     )
