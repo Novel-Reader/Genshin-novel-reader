@@ -1,0 +1,16 @@
+.vip-button {
+  background: linear-gradient(95.99deg, #0058db 16.4%, #9e00ff 100.83%);
+  border: none;
+  padding: 5px 10px;
+  width: fit-content;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+.vip-button .icon-star-full {
+  color: gold;
+}
+.vip-button .vip-button-text {
+  margin-left: 4px;
+}
