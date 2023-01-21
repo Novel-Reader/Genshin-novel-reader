@@ -22,8 +22,8 @@ export default class Navs extends Component {
     return (
       <div id="navs" className="navs">
         <div className="navs-header">
-          导航栏
           <span className="icon icon-home"></span>
+          <span>导航</span>
         </div>
         <div className="navs-body">
           {this.props.files.map((file, index) => {

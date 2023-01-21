@@ -10,30 +10,82 @@ export default class AdvanceThemeSettings extends Component {
     this.state = {
       currentSelected: null,
     };
-    // 最好是 16 ：9 的比例
-    // 图片在外部服务器，所以加载特别慢
     const preLink = 'https://julia-1994.github.io/images/';
     this.options = [
-      { value: `${preLink}KamisatoAyaka/02.jpg`, label: '神里凌华' },
-      { value: 'https://julia-1994.github.io/images/Xiaogong/%E5%AE%B5%E5%AE%AB-100948840_p0.jpg', label: '宵宫' },
-      { value: 'https://julia-1994.github.io/images/Barbara/100974140_p0.jpg', label: '芭芭拉' },
-      { value: 'https://julia-1994.github.io/images/Keqing/391665038937_.pic_hd.jpg', label: '刻晴' },
-      { value: 'https://julia-1994.github.io/images/Amber/amber.jpg', label: '安柏' },
-      { value: 'https://julia-1994.github.io/images/Jane/441665038946_.pic_hd.jpg ', label: '丽莎' },
-      { value: 'https://julia-1994.github.io/images/Keqing/381665038936_.pic.jpg ', label: '小艾咪' },
-      { value: 'https://julia-1994.github.io/images/Noelle/01.webp', label: '诺艾尔' },
+      {
+        value: {
+          color: 'rgb(34, 36, 47)',
+          backgroundColor: 'rgb(236, 237, 235)',
+          backgroundImage: `${preLink}KamisatoAyaka/02.jpg`,
+        },
+        label: '神里凌华'
+      },
+      {
+        value: {
+          color: 'rgb(97, 30, 30)',
+          backgroundColor: 'rgb(236, 194, 155)',
+          backgroundImage: `${preLink}Xiaogong/%E5%AE%B5%E5%AE%AB-100948840_p0.jpg`,
+        },
+        label: '宵宫'
+      },
+      {
+        value: {
+          color: 'rgb(64, 44, 105)',
+          backgroundColor: 'rgb(188, 232, 255)',
+          backgroundImage: `${preLink}Barbara/100974140_p0.jpg`,
+        },
+        label: '芭芭拉'
+      },
+      {
+        value: {
+          color: 'color: rgb(53, 58, 96)',
+          backgroundColor: 'rgb(264, 231, 237)',
+          backgroundImage: `${preLink}Keqing/391665038937_.pic_hd.jpg`,
+        },
+        label: '刻晴'
+      },
+      {
+        value: {
+          color: 'color: rgb(178, 66, 65)',
+          backgroundColor: 'rgb(188, 232, 255)',
+          backgroundImage: `${preLink}Amber/amber.jpg`,
+        },
+        label: '安柏'
+      },
+      {
+        value: {
+          color: 'color: rgb(53, 58, 96)',
+          backgroundColor: 'rgb(264, 231, 237)',
+          backgroundImage: `${preLink}Jane/441665038946_.pic_hd.jpg`,
+        },
+        label: '丽莎'
+      },
+      {
+        value: {
+          color: 'color: rgb(53, 58, 96)',
+          backgroundColor: 'rgb(264, 231, 237)',
+          backgroundImage: `${preLink}Keqing/381665038936_.pic.jpg`,
+        },
+        label: '小艾咪'
+      },
+      {
+        value: {
+          color: 'color: rgb(181,82,92)',
+          backgroundColor: 'rgb(253, 243, 239)',
+          backgroundImage: `${preLink}/Noelle/01.webp`,
+        },
+        label: '诺艾尔'
+      },
     ];
   }
 
   onChange = (option) => {
     this.setState({ currentSelected: option });
-    // 这个组件目前只处理背景图，不考虑全局的字体和背景色
-    // 现在 value 是字符串，未来考虑改成对象，包括下面三个属性
-    // backgroundImage
-    // color
-    // backgroundColor
+    const { backgroundImage, backgroundColor, color } = option.value;
     this.props.changeStyle({
-      backgroundImage: option.value
+      backgroundImage,
+      backgroundColor,
+      color,
     });
   }
 

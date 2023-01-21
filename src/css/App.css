@@ -40,4 +40,5 @@ body, html, #root, #app {
   width: 200px;
   transition: width 0.5s ease-in-out 0s;
   flex-shrink: 0;
+  border-left: 1px solid #ccc;
 }

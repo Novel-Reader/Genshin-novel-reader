@@ -1,5 +1,10 @@
 .navs .navs-header {
   height: 40px;
+  padding: 5px;
+}
+.navs .navs-header .icon-home {
+  margin-right: 5px;
+  color: #666;
 }
 .navs .navs-body {
   height: calc(100% - 80px);
@@ -23,4 +28,7 @@
 }
 .navs .navs-footer {
   height: 40px;
+}
+.navs .navs-footer .btn {
+  width: 100%;
 }

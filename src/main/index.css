@@ -10,6 +10,7 @@
   background-color: #fff;
   border-radius: 50% 0 0 50%;
   border: 1px solid #ccc;
+  border-right: none;
   cursor: pointer;
   line-height: 30px;
   padding-left: 7px;
