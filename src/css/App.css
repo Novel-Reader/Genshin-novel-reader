@@ -26,6 +26,7 @@ body, html, #root, #app {
   width: calc(100%);
   background-color: #fafaf9;
   font-size: 16px;
+  position: relative;
 }
 
 #navs {
