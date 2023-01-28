@@ -28,22 +28,22 @@ export default class AddNovelDialog extends Component {
             <Nav pills vertical>
               <NavItem>
                 <NavLink className={activeTab === 'local' ? 'active' : ''} onClick={this.toggle.bind(this, 'local')}>
-                  从本地文件导入
+                  本地导入
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink className={activeTab === 'network' ? 'active' : ''} onClick={this.toggle.bind(this, 'network')}>
-                  从在线数据库导入
+                  在线导入
                 </NavLink>
               </NavItem>
             </Nav>
           </div>
           <div className='add-novel-dialog-main'>
             {activeTab === 'local' &&
-              <LoadFromLocal />
+              <LoadFromLocal addFile={this.props.addFile} toggleDialog={this.props.toggleDialog} />
             }
             {activeTab === 'network' &&
-              <LoadFromServer  />
+              <LoadFromServer addFile={this.props.addFile} toggleDialog={this.props.toggleDialog} />
             }
           </div>
         </ModalBody>

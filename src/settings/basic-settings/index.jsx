@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import FontSettings from './font-settings';
 import ThemeSettings from './theme-settings';
+import './index.css';
 
 export default class BasicSettings extends Component {
 
@@ -47,6 +48,7 @@ export default class BasicSettings extends Component {
     return (
       <div className='basic-settings'>
         <FontSettings onSave={this.onSaveFont} />
+        <div className='setting-divide-line'></div>
         <ThemeSettings onSave={this.onSaveTheme} />
       </div>
     )

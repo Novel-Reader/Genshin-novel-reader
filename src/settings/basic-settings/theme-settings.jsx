@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup } from 'reactstrap';
+import { Button, ButtonGroup, Label } from 'reactstrap';
 
 export default class ThemeSettings extends Component {
 
@@ -19,8 +19,8 @@ export default class ThemeSettings extends Component {
     const { theme } = this.state;
     const { setTheme } = this;
     return (
-      <div>
-        <h5>页面主题</h5>
+      <div className="theme-settings">
+        <Label>页面主题</Label>
         <ButtonGroup>
           <Button
             color="primary"

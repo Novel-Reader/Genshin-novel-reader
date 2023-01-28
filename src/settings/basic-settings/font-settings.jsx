@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup } from 'reactstrap';
+import { Button, ButtonGroup, Label } from 'reactstrap';
 
 export default class FontSettings extends Component {
 
@@ -20,7 +20,7 @@ export default class FontSettings extends Component {
     const { setFontSize } = this;
     return (
       <div>
-        <h5>文字大小</h5>
+        <Label>文字大小</Label>
         <ButtonGroup>
           <Button
             color="primary"

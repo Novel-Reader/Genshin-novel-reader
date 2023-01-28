@@ -67,7 +67,7 @@ const loadExample = () => {
     files.push({
       name: item,
       context: exampleObj[item],
-    })
+    });
   }
   return files;
 }

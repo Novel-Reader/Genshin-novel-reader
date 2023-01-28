@@ -59,14 +59,17 @@ export default class LoadFromLocal extends Component {
   }
 
   onUpload = () => {
+    const { filename, file, author, abstract, currentSelected } = this.state;
+    const tag = currentSelected ? currentSelected.map(option => option.value).join(' ') : '';
     this.props.addFile({
-      name: this.state.filename.trim(),
-      size: this.state.file.size,
-      author: this.state.author,
-      context: this.result,
-      abstract: this.state.abstract.trim(),
-      tag: this.state.currentSelected.map(option => option.value).join(' '),
+      name: filename.trim(),
+      size: file.size,
+      author: author,
+      context: this.tmpFile,
+      abstract: abstract.trim(),
+      tag,
     });
+    this.props.toggleDialog();
   }
 
   render() {
@@ -74,7 +77,13 @@ export default class LoadFromLocal extends Component {
       return (
         <div>
           <Button onClick={this.onClick} color="primary">选择文件</Button>
-          <input className="local-file-input" type="file" accept=".txt, .md" onChange={this.onFileChange} ref={node => this.uploadRef = node}></input>
+          <input
+            className="local-file-input"
+            type="file"
+            accept=".txt, .md"
+            onChange={this.onFileChange}
+            ref={node => this.uploadRef = node}
+          ></input>
         </div>
       );
     }
