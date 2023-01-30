@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames';
 import NavFooter from './nav-footer';
+import NavHeader from './nav-header';
+import NavBody from './nav-body';
 
 import './index.css';
 
@@ -21,21 +22,14 @@ export default class Navs extends Component {
     const { currentIndex } = this.props;
     return (
       <div id="navs" className="navs">
-        <div className="navs-header">
-          <span className="icon icon-home"></span>
-          <span>导航</span>
-        </div>
-        <div className="navs-body">
-          {this.props.files.map((file, index) => {
-            const isActive = currentIndex === index;
-            return (
-              <div key={index} className={classnames('navs-body-item text-truncate d-flex', {'active': isActive})}>
-                <span className='navs-body-item-name text-truncate' onClick={() => this.props.changeIndex(index)}>{file.name}</span>
-                <span className="navs-body-item-delete d-block" onClick={() => this.props.deleteFile(index)}>x</span>
-              </div>
-            )
-          })}
-        </div>
+        <NavHeader
+        />
+        <NavBody
+          files={this.props.files}
+          changeIndex={this.props.changeIndex}
+          deleteFile={this.props.deleteFile}
+          currentIndex={currentIndex}
+        />
         <NavFooter addFile={this.props.addFile} />
       </div>
     )

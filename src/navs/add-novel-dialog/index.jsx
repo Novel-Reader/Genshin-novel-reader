@@ -3,7 +3,7 @@ import { Nav, NavItem, NavLink, Modal, ModalHeader, ModalBody } from 'reactstrap
 import LoadFromLocal from './load-from-local';
 import LoadFromServer from './load-from-server';
 
-import './add-novel-dialog.css';
+import './index.css';
 
 export default class AddNovelDialog extends Component {
 

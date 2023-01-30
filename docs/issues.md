@@ -46,3 +46,11 @@ Error: Cannot set headers after they are sent to the client at new NodeError (no
 报错是服务器返回了多个响应，应该返回一个值 res.send(data)，然后 return
 
 参考：https://blog.csdn.net/qq_48009509/article/details/121625588
+
+
+## 待解决技术问题
+
+### 静态资源引用路径
+
+静态资源（图片、字体文件）是否需要打包到 JS 中？目前图片已经打包，但是字体图标没有打包，未来图片是否存在无法显示的问题等？
+
