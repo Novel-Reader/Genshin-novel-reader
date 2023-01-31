@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import LongPage from './long-page';
-import FoldedIcon from './folded-icon';
-import './index.css';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import LongPage from "./long-page";
+import FoldedIcon from "./folded-icon";
+import "./index.css";
 
-const LONG_PAGE = 'long_page';
+const LONG_PAGE = "long_page";
 // const SHORT_PAGE = 'short_page';
 
 export default class Main extends Component {
@@ -45,6 +45,6 @@ export default class Main extends Component {
         } */}
         <FoldedIcon toggleRightPanel={this.props.toggleRightPanel} isShowRightPanel={this.props.isShowRightPanel} />
       </div>
-    )
+    );
   }
 }

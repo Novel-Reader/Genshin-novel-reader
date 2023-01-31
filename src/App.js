@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import Main from './main';
-import Navs from './navs';
-import Settings from './settings';
-import LocalAPI from './api/local-api';
-import { isSameObject, getLocalValue, setLocalValue, loadExample } from './utils';
-import { DEFAULT_STYLE } from './settings/constants';
+import React, { Component } from "react";
+import Main from "./main";
+import Navs from "./navs";
+import Settings from "./settings";
+import LocalAPI from "./api/local-api";
+import { isSameObject, getLocalValue, setLocalValue, loadExample } from "./utils";
+import { DEFAULT_STYLE } from "./settings/constants";
 
-import './css/App.css';
+import "./css/App.css";
 
 export default class App extends Component {
 
@@ -15,14 +15,14 @@ export default class App extends Component {
     this.state = {
       files: loadExample(),
       currentIndex: 0,
-      style: JSON.parse(getLocalValue('novel-reader-style')) || DEFAULT_STYLE,
+      style: JSON.parse(getLocalValue("novel-reader-style")) || DEFAULT_STYLE,
       isShowRightPanel: true,
     };
     this.api = new LocalAPI();
     this.api.init({
-      server: 'http://127.0.0.1:8081',
-      username: '1@1.com',
-      password: '1',
+      server: "http://127.0.0.1:8081",
+      username: "1@1.com",
+      password: "1",
     });
     this.isPro = false;
   }
@@ -33,8 +33,8 @@ export default class App extends Component {
 
   initFromServer = () => {
     this.api.checkNet().then(res => {
-      if (res && res.data === 'pong') {
-        console.log('已经成功连接服务器，可以使用网络');
+      if (res && res.data === "pong") {
+        console.log("已经成功连接服务器，可以使用网络");
         this.isPro = true;
         this.api.getUser().then(res => {
           // TODO test query user and check is Pro version
@@ -44,7 +44,7 @@ export default class App extends Component {
         });
       }
     }).catch(err => {
-      console.error('连接服务器失败，无法从数据库获取资源');
+      console.error("连接服务器失败，无法从数据库获取资源");
       this.isPro = false;
     });
   }
@@ -79,14 +79,14 @@ export default class App extends Component {
     this.setState({
       files,
       currentIndex: files.length - 1,
-    })
+    });
   }
 
   changeStyle = (newStyle) => {
     let style = Object.assign({}, this.state.style, newStyle);
     if (!isSameObject(style, this.state.style)) {
       this.setState({ style });
-      setLocalValue('novel-reader-style', JSON.stringify(style));
+      setLocalValue("novel-reader-style", JSON.stringify(style));
     }
   }
 
@@ -120,6 +120,6 @@ export default class App extends Component {
           isShowRightPanel={this.state.isShowRightPanel}
         />
       </div>
-    )
+    );
   }
 }

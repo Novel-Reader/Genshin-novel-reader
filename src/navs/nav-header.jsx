@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export default class NavHeader extends Component {
   render() {
@@ -7,6 +7,6 @@ export default class NavHeader extends Component {
         <span className="icon icon-home"></span>
         <span>导航</span>
       </div>
-    )
+    );
   }
 }

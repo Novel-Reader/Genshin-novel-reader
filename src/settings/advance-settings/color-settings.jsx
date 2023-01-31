@@ -1,6 +1,6 @@
-import React from 'react';
-import { Label, Popover } from 'reactstrap';
-import { SketchPicker } from 'react-color';
+import React from "react";
+import { Label, Popover } from "reactstrap";
+import { SketchPicker } from "react-color";
 
 export default class ColorSettings extends React.Component {
 
@@ -13,18 +13,18 @@ export default class ColorSettings extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener('click', this.onDocumentClick);
+    document.addEventListener("click", this.onDocumentClick);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.onDocumentClick);
+    document.removeEventListener("click", this.onDocumentClick);
   }
 
   onDocumentClick = (e) => {
     if (!this.state.isShowPicker) return;
     let dom = e.target;
     while (dom) {
-      if (dom.className.includes('font-color-settings-picker')) {
+      if (dom.className.includes("font-color-settings-picker")) {
         return;
       }
       dom = dom.parentElement;
@@ -51,7 +51,7 @@ export default class ColorSettings extends React.Component {
       height: 20,
       backgroundColor: this.state.color,
       margin: 10,
-      border: '1px solid #ccc',
+      border: "1px solid #ccc",
     };
     return (
       <div>

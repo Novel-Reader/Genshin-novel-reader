@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Button, ButtonGroup, Label } from 'reactstrap';
+import React, { Component } from "react";
+import { Button, ButtonGroup, Label } from "reactstrap";
 
 export default class FontSettings extends Component {
 
@@ -48,6 +48,6 @@ export default class FontSettings extends Component {
           </Button>
         </ButtonGroup>
       </div>
-    )
+    );
   }
 }

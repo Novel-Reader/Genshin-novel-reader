@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import Select from 'react-select';
-import { Label } from 'reactstrap';
-import { MenuSelectStyle } from '../../utils';
+import React, { Component } from "react";
+import Select from "react-select";
+import { Label } from "reactstrap";
+import { MenuSelectStyle } from "../../utils";
 
 export default class FontSettings extends Component {
 
@@ -18,7 +18,7 @@ export default class FontSettings extends Component {
   }
 
   render() {
-    const preCls = 'advance-font-settings'
+    const preCls = "advance-font-settings";
     return (
       <div className={preCls}>
         <Label>{this.props.title}</Label>
@@ -33,7 +33,7 @@ export default class FontSettings extends Component {
           // placeholder='选择主题'
         />
       </div>
-    )
+    );
   }
 }
 

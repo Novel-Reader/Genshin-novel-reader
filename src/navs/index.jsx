@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import NavFooter from './nav-footer';
-import NavHeader from './nav-header';
-import NavBody from './nav-body';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import NavFooter from "./nav-footer";
+import NavHeader from "./nav-header";
+import NavBody from "./nav-body";
 
-import './index.css';
+import "./index.css";
 
 export default class Navs extends Component {
 
@@ -32,6 +32,6 @@ export default class Navs extends Component {
         />
         <NavFooter addFile={this.props.addFile} />
       </div>
-    )
+    );
   }
 }

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import VipButton from '../../common/vip-button';
+import React, { Component } from "react";
+import VipButton from "../../common/vip-button";
 
 export default class LoadFromServer extends Component {
   render() {
@@ -8,6 +8,6 @@ export default class LoadFromServer extends Component {
         这是 VIP 用户专属功能
         <VipButton />
       </div>
-    )
+    );
   }
 }

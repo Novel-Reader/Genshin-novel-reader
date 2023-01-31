@@ -1,7 +1,7 @@
-import React from 'react';
-import { StarIcon } from '../icons';
-import VipDialog from '../vip-dialog';
-import './index.css';
+import React from "react";
+import { StarIcon } from "../icons";
+import VipDialog from "../vip-dialog";
+import "./index.css";
 
 export default function VipButton() {
 
@@ -21,5 +21,5 @@ export default function VipButton() {
         <VipDialog toggleUpgrade={toggleUpgrade} />
       }
     </>
-  )
+  );
 }

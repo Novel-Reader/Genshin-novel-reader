@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Button } from 'reactstrap';
-import AddNovelDialog from './add-novel-dialog';
+import React, { Component } from "react";
+import { Button } from "reactstrap";
+import AddNovelDialog from "./add-novel-dialog";
 
 export default class NavFooter extends Component {
 
@@ -25,6 +25,6 @@ export default class NavFooter extends Component {
           <AddNovelDialog toggleDialog={this.toggleDialog} addFile={this.props.addFile} />
         }
       </>
-    )
+    );
   }
 }

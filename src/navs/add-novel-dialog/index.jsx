@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import { Nav, NavItem, NavLink, Modal, ModalHeader, ModalBody } from 'reactstrap';
-import LoadFromLocal from './load-from-local';
-import LoadFromServer from './load-from-server';
+import React, { Component } from "react";
+import { Nav, NavItem, NavLink, Modal, ModalHeader, ModalBody } from "reactstrap";
+import LoadFromLocal from "./load-from-local";
+import LoadFromServer from "./load-from-server";
 
-import './index.css';
+import "./index.css";
 
 export default class AddNovelDialog extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: 'local',
+      activeTab: "local",
     };
   }
 
@@ -27,22 +27,22 @@ export default class AddNovelDialog extends Component {
           <div className='add-novel-dialog-side'>
             <Nav pills vertical>
               <NavItem>
-                <NavLink className={activeTab === 'local' ? 'active' : ''} onClick={this.toggle.bind(this, 'local')}>
+                <NavLink className={activeTab === "local" ? "active" : ""} onClick={this.toggle.bind(this, "local")}>
                   本地导入
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className={activeTab === 'network' ? 'active' : ''} onClick={this.toggle.bind(this, 'network')}>
+                <NavLink className={activeTab === "network" ? "active" : ""} onClick={this.toggle.bind(this, "network")}>
                   在线导入
                 </NavLink>
               </NavItem>
             </Nav>
           </div>
           <div className='add-novel-dialog-main'>
-            {activeTab === 'local' &&
+            {activeTab === "local" &&
               <LoadFromLocal addFile={this.props.addFile} toggleDialog={this.props.toggleDialog} />
             }
-            {activeTab === 'network' &&
+            {activeTab === "network" &&
               <LoadFromServer addFile={this.props.addFile} toggleDialog={this.props.toggleDialog} />
             }
           </div>

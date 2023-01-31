@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Button, FormGroup, Form, Label, Input } from 'reactstrap';
-import Select from 'react-select';
-import { MenuSelectStyle } from '../../utils';
+import React, { Component } from "react";
+import { Button, FormGroup, Form, Label, Input } from "reactstrap";
+import Select from "react-select";
+import { MenuSelectStyle } from "../../utils";
 
 export default class LoadFromLocal extends Component {
 
@@ -9,16 +9,16 @@ export default class LoadFromLocal extends Component {
     super(props);
     this.state = {
       file: null,
-      filename: '',
-      author: '',
-      abstract: '',
+      filename: "",
+      author: "",
+      abstract: "",
       currentSelected: null,
     };
     this.options = [
-      { value: '古典', label: '古典' },
-      { value: '同人', label: '同人' },
-      { value: '言情', label: '言情' },
-      { value: '其他', label: '其他' },
+      { value: "古典", label: "古典" },
+      { value: "同人", label: "同人" },
+      { value: "言情", label: "言情" },
+      { value: "其他", label: "其他" },
     ];
   }
 
@@ -33,7 +33,7 @@ export default class LoadFromLocal extends Component {
   onFileChange = (e) => {
     const file = this.uploadRef.files[0];
     let reader = new FileReader();
-    reader.readAsText(file, 'utf-8');
+    reader.readAsText(file, "utf-8");
     const that = this;
     reader.onload = function () {
       that.tmpFile = this.result;
@@ -42,13 +42,13 @@ export default class LoadFromLocal extends Component {
       }, () => {
         that.initFileInfo();
       }); 
-    }
+    };
   }
 
   initFileInfo = () => {
     this.setState({
       filename: this.state.file.name,
-      author: '',
+      author: "",
       abstract: this.tmpFile.slice(0, 100).trim(),
     });
   }
@@ -60,7 +60,7 @@ export default class LoadFromLocal extends Component {
 
   onUpload = () => {
     const { filename, file, author, abstract, currentSelected } = this.state;
-    const tag = currentSelected ? currentSelected.map(option => option.value).join(' ') : '';
+    const tag = currentSelected ? currentSelected.map(option => option.value).join(" ") : "";
     this.props.addFile({
       name: filename.trim(),
       size: file.size,
@@ -125,7 +125,7 @@ export default class LoadFromLocal extends Component {
               options={this.options}
               onChange={this.onChange}
               captureMenuScroll={false}
-              className={`load-from-local-type-select`}
+              className={"load-from-local-type-select"}
               classNamePrefix
               isMulti
               placeholder='选择分类'

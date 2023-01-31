@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { Nav, NavItem, NavLink } from 'reactstrap';
-import BasicSettings from './basic-settings';
-import AdvanceSettings from './advance-settings';
+import React, { Component } from "react";
+import { Nav, NavItem, NavLink } from "reactstrap";
+import BasicSettings from "./basic-settings";
+import AdvanceSettings from "./advance-settings";
 
-import './index.css';
+import "./index.css";
 
 export default class Settings extends Component {
 
@@ -14,7 +14,7 @@ export default class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: 'basic',
+      activeTab: "basic",
     };
   }
 
@@ -34,26 +34,26 @@ export default class Settings extends Component {
         <div className='settings-header'>
           <Nav fill justified pills tabs>
             <NavItem>
-              <NavLink className={activeTab === 'basic' ? 'active' : ''} onClick={this.toggle.bind(this, 'basic')}>
+              <NavLink className={activeTab === "basic" ? "active" : ""} onClick={this.toggle.bind(this, "basic")}>
                 基本设置
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink className={activeTab === 'advance' ? 'active' : ''} onClick={this.toggle.bind(this, 'advance')}>
+              <NavLink className={activeTab === "advance" ? "active" : ""} onClick={this.toggle.bind(this, "advance")}>
                 高级设置
               </NavLink>
             </NavItem>
           </Nav>
         </div>
         <div className='settings-body'>
-          {activeTab === 'basic' &&
+          {activeTab === "basic" &&
             <BasicSettings changeStyle={this.props.changeStyle} style={this.props.style} />
           }
-          {activeTab === 'advance' &&
+          {activeTab === "advance" &&
             <AdvanceSettings changeStyle={this.props.changeStyle} style={this.props.style} />
           }
         </div>
       </div>
-    )
+    );
   }
 }

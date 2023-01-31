@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { parseTxtToHTML } from '../../utils';
-import ScrollTopIcon from '../../common/scroll-top-button';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { parseTxtToHTML } from "../../utils";
+import ScrollTopIcon from "../../common/scroll-top-button";
 
-import './index.css';
+import "./index.css";
 
 export default class LongPage extends Component {
 
@@ -57,7 +57,7 @@ export default class LongPage extends Component {
   render() {
     const { currentFile, style = {} } = this.props;
     const list = parseTxtToHTML(currentFile);
-    const defaultImage = 'https://julia-1994.github.io/images/KamisatoAyaka/02.jpg';
+    const defaultImage = "https://julia-1994.github.io/images/KamisatoAyaka/02.jpg";
     const pageStyle = {
       backgroundImage: `url('${style.backgroundImage || defaultImage}')`,
     };
@@ -72,6 +72,6 @@ export default class LongPage extends Component {
           <ScrollTopIcon onClick={this.scrollToTop} bottom={this.state.isShowTopIcon ? 20 : -70}/>
         }
       </div>
-    )
+    );
   }
 }
