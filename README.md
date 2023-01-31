@@ -42,19 +42,42 @@ This is a novel reader frontend SPA demo.
 
 ~~~
 ├── App.js 项目主文件
+├── App.test.js 项目测试
 ├── api 接口
-├── css 样式
+│   └── local-api.js
+├── common 公共组件
+│   ├── icons.jsx
+│   ├── scroll-top-button
+│   ├── vip-button
+│   └── vip-dialog
+├── css 公共样式
+│   ├── App.css
+│   ├── common.css
+│   └── font.css
 ├── index.js 入口文件
 ├── main 主页
-│   ├── index.jsx
+│   ├── folded-icon 折叠设置栏图标
 │   ├── long-page 长页面展示
 │   └── short-page 分页展示
-├── navs 导航栏
-├── settings 设置栏
+├── navs 左侧导航栏
+│   ├── add-novel-dialog
+│   │   ├── load-from-local.jsx
+│   │   └── load-from-server.jsx
+│   ├── nav-body.jsx
+│   ├── nav-footer.jsx
+│   └── nav-header.jsx
+├── settings 右侧设置栏
 │   ├── advance-settings 高级设置
+│   │   ├── advance-theme-settings.jsx
+│   │   ├── color-settings.jsx
+│   │   ├── font-settings.jsx
 │   ├── basic-settings 基本设置
-│   ├── constants.js 常量
+│   │   ├── font-settings.jsx
+│   │   └── theme-settings.jsx
+│   ├── constants.js
 └── utils 工具函数
+    ├── example.json 实例小说文件
+    └── index.js
 ~~~
 
 ### 后端结构
