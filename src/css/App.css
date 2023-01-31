@@ -29,12 +29,6 @@ body, html, #root, #app {
   position: relative;
 }
 
-#navs {
-  width: 200px;
-  background-color: #fff;
-  flex-shrink: 0;
-}
-
 #settings {
   background-color: #fff;
   height: 100%;

@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import classnames from "classnames";
 
-export default class NavBody extends Component {
+// 文件树组件
+export default class FileTree extends Component {
   render() {
+    const { files, currentIndex } = this.props;
     return (
-      <div className="navs-body">
-        {this.props.files.map((file, index) => {
-          const isActive = this.props.currentIndex === index;
+      <div>
+        {files.map((file, index) => {
+          const isActive = currentIndex === index;
           return (
             <div key={index} className={classnames("navs-body-item text-truncate d-flex", {"active": isActive})}>
               <span className='navs-body-item-name text-truncate' onClick={() => this.props.changeIndex(index)}>{file.name}</span>

@@ -14,7 +14,7 @@ function LoadingIcon() {
 
 function SearchIcon() {
   return (
-    <span className="icon icon-search"></span>
+    <span className="icon icon-search" title="搜索"></span>
   );
 }
 
@@ -36,4 +36,16 @@ function LeftIcon() {
   );
 }
 
-export { StarIcon, LoadingIcon, SearchIcon, ShareIcon, RightIcon, LeftIcon };
+function ListIcon() {
+  return <span className="icon icon-list2" title="切换到大纲视图"></span>;
+}
+
+function TreeIcon() {
+  return <span className="icon icon-tree" title="切换到文档树视图"></span>;
+}
+
+function BackIcon() {
+  return <span className="icon icon-arrow-left2"></span>;
+}
+
+export { StarIcon, LoadingIcon, SearchIcon, ShareIcon, RightIcon, LeftIcon, ListIcon, TreeIcon, BackIcon };
