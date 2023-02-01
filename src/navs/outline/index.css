@@ -1,0 +1,8 @@
+.outline {
+  padding: 10px;
+  border-top: 1px solid #e2e2e2;
+}
+.outline .outline-novel-index {
+  cursor: pointer;
+  margin: 4px;
+}

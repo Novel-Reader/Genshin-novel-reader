@@ -8,7 +8,7 @@ This is a novel reader frontend SPA demo.
 - npm run start-backend 运行服务端
 - npm run start-frontend 运行客户端
 - npm run build 打包客户端代码
-- npm run test 测试（暂不支持）
+- npm run test 测试
 
 ## 项目结构
 
@@ -19,7 +19,7 @@ This is a novel reader frontend SPA demo.
 ├── dist 打包后的后端文件
 ├── build 打包后的前端代码
 ├── docs 文档
-├── example 测试案例
+├── example 案例
 ├── img 图片资源
 ├── node_modules 第三方依赖
 ├── novel-server.log 后端日志
@@ -42,7 +42,6 @@ This is a novel reader frontend SPA demo.
 
 ~~~
 ├── App.js 项目主文件
-├── App.test.js 项目测试
 ├── api 接口
 │   └── local-api.js
 ├── common 公共组件
@@ -75,6 +74,7 @@ This is a novel reader frontend SPA demo.
 │   │   ├── font-settings.jsx
 │   │   └── theme-settings.jsx
 │   ├── constants.js
+├── test 单元测试
 └── utils 工具函数
     ├── example.json 实例小说文件
     └── index.js

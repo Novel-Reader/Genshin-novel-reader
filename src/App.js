@@ -4,6 +4,7 @@ import Navs from "./navs";
 import Settings from "./settings";
 import LocalAPI from "./api/local-api";
 import { isSameObject, getLocalValue, setLocalValue, loadExample } from "./utils";
+import { convertNovel2Pages } from './utils/parse';
 import { DEFAULT_STYLE } from "./settings/constants";
 
 import "./css/App.css";
@@ -12,11 +13,21 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
+    // 暂时全部按照无段落处理
+    // 未来可以改变设置，改变设置后，重新计算全部的段落。计算后可以放在缓存中，避免多次计算
+    const files = loadExample().map(file => {
+      return Object.assign({}, file, {
+        context: convertNovel2Pages(file.context, false).context,
+        type: 'pages',
+      });
+    });
     this.state = {
-      files: loadExample(),
+      files,
+      // currentIndex 改成 currentFileIndex 因为未来可能很多 index，或者每一个 state 加个注释
       currentIndex: 0,
       style: JSON.parse(getLocalValue("novel-reader-style")) || DEFAULT_STYLE,
       isShowRightPanel: true,
+      currentPageIndex: 0,
     };
     this.api = new LocalAPI();
     this.api.init({
@@ -29,6 +40,10 @@ export default class App extends Component {
 
   componentDidMount() {
     this.initFromServer();
+  }
+
+  changePageIndex = (currentPageIndex) => {
+    this.setState({ currentPageIndex });
   }
 
   initFromServer = () => {
@@ -107,12 +122,16 @@ export default class App extends Component {
           changeIndex={this.changeIndex}
           deleteFile={this.deleteFile}
           currentIndex={currentIndex}
+          currentFile={currentFile}
+          currentPageIndex={this.state.currentPageIndex}
+          changePageIndex={this.changePageIndex}
         />
         <Main
           currentFile={currentFile}
           style={style}
           toggleRightPanel={this.toggleRightPanel}
           isShowRightPanel={this.state.isShowRightPanel}
+          currentPageIndex={this.state.currentPageIndex}
         />
         <Settings
           style={style}
