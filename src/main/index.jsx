@@ -17,17 +17,13 @@ export default class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // 模式：长页面，还是分页展示
       mode: LONG_PAGE,
-      // 内容：支持本地上传，或者从服务端请求，这个应该在上层组件管理 texts 和 current_index，然后传参到这里获取当前的文本。
-      // 目前这个状态先写成常量
-      // 后续不同等级的标题，需要渲染成单独的字号等？
     };
   }
 
   render() {
     const { mode } = this.state;
-    const { currentFile, style } = this.props;
+    const { currentFile, style, currentPageIndex } = this.props;
     if (!currentFile) {
       return (
         <div id="main" className="main error center">
@@ -35,10 +31,27 @@ export default class Main extends Component {
         </div>
       );
     }
+
+    // 目前支持三种数据结构（多段落，多页面，单页面）
+    let context = '';
+    if (currentFile.type === 'pages') {
+      context = currentFile.context[currentPageIndex];
+    }
+    // else if (currentFile.type === 'paragraph') {
+    //   context = currentFile.context[currentPageIndex];
+    // }
+    else {
+      context = currentFile.context;
+    }
+
     return (
       <div id="main" className="main">
         {mode === LONG_PAGE &&
-          <LongPage currentFile={currentFile.context} style={style} isShowRightPanel={this.state.isShowRightPanel} />
+          <LongPage
+            context={context}
+            style={style}
+            isShowRightPanel={this.state.isShowRightPanel}
+          />
         }
         {/* {mode === SHORT_PAGE &&
           <ShortPage />

@@ -8,7 +8,7 @@ import "./index.css";
 export default class LongPage extends Component {
 
   static propTypes = {
-    currentFile: PropTypes.string,
+    context: PropTypes.string,
     style: PropTypes.object,
   }
 
@@ -55,8 +55,8 @@ export default class LongPage extends Component {
   }
 
   render() {
-    const { currentFile, style = {} } = this.props;
-    const list = parseTxtToHTML(currentFile);
+    const { context, style = {} } = this.props;
+    const list = parseTxtToHTML(context);
     const defaultImage = "https://julia-1994.github.io/images/KamisatoAyaka/02.jpg";
     const pageStyle = {
       backgroundImage: `url('${style.backgroundImage || defaultImage}')`,
