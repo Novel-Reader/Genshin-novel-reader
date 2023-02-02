@@ -4,19 +4,28 @@
 }
 .add-novel-dialog .modal-body {
   display: flex;
+  padding: 0;
 }
 .add-novel-dialog .modal-body .add-novel-dialog-side {
-  width: 110px;
-  padding-right: 10px;
+  width: 180px;
+  padding: 10px;
+  border-right: 1px solid #e6e6dd;
 }
 .add-novel-dialog .modal-body .add-novel-dialog-side .nav-item {
   cursor: pointer;
 }
 .add-novel-dialog .modal-body .add-novel-dialog-main {
-  width: calc(100% - 110px);
+  width: calc(100% - 180px);
+  padding: 10px;
 }
 .add-novel-dialog .modal-body .add-novel-dialog-main .local-file-input {
   height: 0px;
   width: 0px;
   opacity: 0;
+}
+.add-novel-dialog .modal-body .add-novel-dialog-main .local-file-info .load-from-local-abstract {
+  min-height: 120px;
+}
+.add-novel-dialog .modal-body .add-novel-dialog-main .local-file-info .modal-footer {
+  border-top: none;
 }

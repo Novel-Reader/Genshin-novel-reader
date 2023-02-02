@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, FormGroup, Form, Label, Input } from "reactstrap";
+import { Button, FormGroup, Form, Label, Input, ModalFooter } from "reactstrap";
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
 
@@ -125,7 +125,7 @@ export default class LoadFromLocal extends Component {
               options={this.options}
               onChange={this.onChange}
               captureMenuScroll={false}
-              className={"load-from-local-type-select"}
+              className="load-from-local-type-select"
               classNamePrefix
               isMulti
               placeholder='选择分类'
@@ -137,6 +137,7 @@ export default class LoadFromLocal extends Component {
               摘要（默认选择原文前 100 字）
             </Label>
             <Input
+              className="load-from-local-abstract"
               id="abstract"
               name="text"
               type="textarea"
@@ -144,8 +145,10 @@ export default class LoadFromLocal extends Component {
               onChange={(e) => { this.setState({ abstract: e.target.value }); }}
             />
           </FormGroup>
-          <Button onClick={this.onUpload} color="primary">上传</Button>
-          <Button onClick={this.onClear} color="secondary">取消</Button>
+          <ModalFooter>
+            <Button onClick={this.onUpload} color="primary">上传</Button>
+            <Button onClick={this.onClear} color="secondary">取消</Button>
+          </ModalFooter>
         </Form>
       </div>
     );

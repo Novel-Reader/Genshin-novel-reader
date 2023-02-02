@@ -5,19 +5,30 @@
   }
   .modal-body {
     display: flex;
+    padding: 0;
     .add-novel-dialog-side {
-      width: 110px;
-      padding-right: 10px;
+      width: 180px;
+      padding: 10px;
+      border-right: 1px solid #e6e6dd;
       .nav-item {
         cursor: pointer;
       }
     }
     .add-novel-dialog-main {
-      width: calc(100% - 110px);
+      width: calc(100% - 180px);
+      padding: 10px;
       .local-file-input {
         height: 0px;
         width: 0px;
         opacity: 0;
+      }
+      .local-file-info {
+        .load-from-local-abstract {
+          min-height: 120px;
+        }
+        .modal-footer {
+          border-top: none;
+        }
       }
     }
   }
