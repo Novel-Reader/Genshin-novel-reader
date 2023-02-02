@@ -7,7 +7,7 @@ export default class ScrollTopIcon extends Component {
     const id = "novel-scroll-top-icon";
     return (
       <>
-        <div className="scroll-top-icon" onClick={this.props.onClick} style={{bottom: this.props.bottom}} id={id}></div>
+        <div className="scroll-top-icon" onClick={this.props.onClick} style={this.props.style} id={id}></div>
         <UncontrolledTooltip
           placement='right'
           target={id}

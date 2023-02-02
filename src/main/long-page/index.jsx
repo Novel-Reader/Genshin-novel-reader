@@ -39,8 +39,9 @@ export default class LongPage extends Component {
       isMoving: true,
     }, () => {
       let currentTop = this.longPageRef.scrollTop;
+      const indent = currentTop / 50;
       this.timer = setInterval(() => {
-        currentTop = currentTop - 100;
+        currentTop = currentTop - indent * 3;
         this.longPageRef.scrollTop = currentTop;
         if (currentTop < 0) {
           clearInterval(this.timer);
@@ -61,6 +62,7 @@ export default class LongPage extends Component {
     const pageStyle = {
       backgroundImage: `url('${style.backgroundImage || defaultImage}')`,
     };
+    const scrollIconStyle = {bottom: this.state.isShowTopIcon ? 20 : -70};
     return (
       <div className="long-page" style={pageStyle} onScroll={this.onScroll} ref={node => this.longPageRef = node}>
         <div className='long-page-container' style={Object.assign({}, style, {opacity: 0.75})}>
@@ -68,9 +70,7 @@ export default class LongPage extends Component {
             return (<p key={index}>{item}</p>);
           })}
         </div>
-        {
-          <ScrollTopIcon onClick={this.scrollToTop} bottom={this.state.isShowTopIcon ? 20 : -70}/>
-        }
+        <ScrollTopIcon onClick={this.scrollToTop} style={scrollIconStyle}/>
       </div>
     );
   }

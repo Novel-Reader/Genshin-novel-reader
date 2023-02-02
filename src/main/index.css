@@ -1,5 +1,10 @@
 #main {
+  height: 100%;
+  width: calc(100%);
+  background-color: #fafaf9;
+  font-size: 16px;
   position: relative;
+  overflow: hidden;
 }
 #main .folder-icon {
   position: absolute;
@@ -10,7 +15,6 @@
   background-color: #fff;
   border-radius: 50% 0 0 50%;
   border: 1px solid #ccc;
-  border-right: none;
   cursor: pointer;
   line-height: 30px;
   padding-left: 7px;
