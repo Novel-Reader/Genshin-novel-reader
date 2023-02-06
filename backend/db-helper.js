@@ -1,14 +1,5 @@
 var mysql = require('mysql');
-
-// 这个项目主要是前端，所以配置先按照本地，写成固定的配置
-var CONFIG = {
-  host: '127.0.0.1',
-  user: 'root',
-  password: 'rootroot',
-  database: 'novel',
-  port: 3306,
-};
-// 默认手动新建数据库
+var CONFIG = require('./config/config.json');
 
 var mysql_config = {
   host    : CONFIG.host,
