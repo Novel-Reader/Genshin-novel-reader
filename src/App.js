@@ -6,6 +6,7 @@ import LocalAPI from "./api/local-api";
 import { isSameObject, getLocalValue, setLocalValue, loadExample } from "./utils";
 import { convertNovel2Pages } from './utils/parse';
 import { DEFAULT_STYLE } from "./settings/constants";
+import LoginDialog from "./common/login-dialog";
 
 import "./css/App.css";
 
@@ -28,6 +29,7 @@ export default class App extends Component {
       style: JSON.parse(getLocalValue("novel-reader-style")) || DEFAULT_STYLE,
       isShowRightPanel: true,
       currentPageIndex: 0,
+      isShowLogin: false,
     };
     this.api = new LocalAPI();
     this.api.init({
@@ -35,7 +37,7 @@ export default class App extends Component {
       username: "1@1.com",
       password: "1",
     });
-    this.isPro = false;
+    this.isConnect = false;
   }
 
   componentDidMount() {
@@ -50,17 +52,12 @@ export default class App extends Component {
     this.api.checkNet().then(res => {
       if (res && res.data === "pong") {
         console.log("已经成功连接服务器，可以使用网络");
-        this.isPro = true;
-        this.api.getUser().then(res => {
-          // TODO test query user and check is Pro version
-          console.log(res.data);
-        }).catch(err => {
-          console.error(err);
-        });
+        this.isConnect = true;
+        this.toggleLoginDialog();
       }
     }).catch(err => {
-      console.error("连接服务器失败，无法从数据库获取资源");
-      this.isPro = false;
+      console.error("连接服务器失败，开启离线模式");
+      this.isConnect = false;
     });
   }
 
@@ -115,6 +112,12 @@ export default class App extends Component {
     });
   }
 
+  toggleLoginDialog = () => {
+    this.setState({
+      isShowLogin: !this.state.isShowLogin,
+    });
+  }
+
   render() {
     const { files, currentIndex, style } = this.state;
     const currentFile = files[currentIndex];
@@ -142,6 +145,9 @@ export default class App extends Component {
           changeStyle={this.changeStyle}
           isShowRightPanel={this.state.isShowRightPanel}
         />
+        {this.state.isShowLogin &&
+          <LoginDialog toggle={this.toggleLoginDialog} api={this.api} />
+        }
       </div>
     );
   }
