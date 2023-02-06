@@ -46,7 +46,7 @@
     "form-data": "^2.5.1"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint ./src/**/*.jsx --fix && ./node_modules/.bin/eslint ./src/**/*.js --fix",
+    "lint": "./node_modules/.bin/eslint ./src/**/*.js[x] --fix",
     "start-frontend": "react-scripts start",
     "start-backend": "rm -rf ./dist && mkdir dist && cp -r ./backend/config ./dist && ./node_modules/.bin/babel backend --out-dir dist/ && export NODE_ENV=development && nodemon --exec babel-node ./dist/app.js",
     "build": "react-scripts build && cp -r media ./build",

@@ -14,7 +14,7 @@ const parseTxtToHTML = (txt) => {
 };
 
 const isSameObject = (a, b) => {
-  if (typeof a !== 'object' || typeof b !== 'object') return false;
+  if (typeof a !== "object" || typeof b !== "object") return false;
   if (!a || !b) return false;
   let k;
   for (k in a) {

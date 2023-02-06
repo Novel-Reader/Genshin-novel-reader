@@ -33,8 +33,8 @@ export default class Main extends Component {
     }
 
     // 目前支持三种数据结构（多段落，多页面，单页面）
-    let context = '';
-    if (currentFile.type === 'pages') {
+    let context = "";
+    if (currentFile.type === "pages") {
       context = currentFile.context[currentPageIndex];
     }
     // else if (currentFile.type === 'paragraph') {
