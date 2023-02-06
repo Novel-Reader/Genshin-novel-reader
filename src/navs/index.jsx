@@ -57,7 +57,7 @@ export default class Navs extends Component {
           {currentNav === "filetree" &&
             <FileTree
               files={this.props.files}
-              changeIndex={this.props.changeIndex}
+              changeFileIndex={this.props.changeFileIndex}
               deleteFile={this.props.deleteFile}
               currentIndex={currentIndex}
               searchValue={searchValue}

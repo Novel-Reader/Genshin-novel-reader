@@ -84,8 +84,11 @@ export default class App extends Component {
     // TODO save into database
   }
 
-  changeIndex = (currentIndex) => {
-    this.setState({ currentIndex });
+  changeFileIndex = (currentIndex) => {
+    this.setState({
+      currentIndex,
+      currentPageIndex: 0,
+    });
   }
 
   deleteFile = (index) => {
@@ -94,6 +97,7 @@ export default class App extends Component {
     this.setState({
       files,
       currentIndex: files.length - 1,
+      currentPageIndex: 0,
     });
   }
 
@@ -119,7 +123,7 @@ export default class App extends Component {
         <Navs
           addFile={this.addFile}
           files={files}
-          changeIndex={this.changeIndex}
+          changeFileIndex={this.changeFileIndex}
           deleteFile={this.deleteFile}
           currentIndex={currentIndex}
           currentFile={currentFile}
