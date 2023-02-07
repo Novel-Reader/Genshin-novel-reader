@@ -46,6 +46,7 @@ class LocalAPI {
     return this.req.post(url, options);
   }
 
+  // 这里应该是管理员界面，然后支持管理员搜索用户，支持管理用户
   /**
    * get all users in dabatase
    * @returns {array} user list
@@ -107,6 +108,7 @@ class LocalAPI {
     return this.req.post(url, options);
   }
 
+  // 用户登录后，应该在界面右上角显示用户的头像和信息
   /**
    * change user avatar
    * @param {string} avatar image path
