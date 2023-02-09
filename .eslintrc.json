@@ -12,8 +12,8 @@
   },
   "parser": "babel-eslint",
   "rules": {
+    "quotes": "off",
     "semi": "warn",
-    "quotes": "warn",
     "no-console": "warn",
     "no-unused-vars": "warn",
     "no-unreachable": "warn",

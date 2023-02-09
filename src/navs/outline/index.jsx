@@ -7,7 +7,7 @@ export default class Outline extends Component {
     const { files, currentIndex, currentPageIndex } = this.props;
     const file = files[currentIndex];
     const { name, context, type } = file;
-    if (type === "pages") {
+    if (type === "pages" || type === "paragraphs") {
       const pageLen = context.length;
       const arr = new Array(pageLen).fill(1);
       return (
@@ -20,13 +20,12 @@ export default class Outline extends Component {
                 style={{color: currentPageIndex === index ? 'red' : '#333'}}
                 onClick={() => this.props.changePageIndex(index)}
                 key={item + index}
-              >{`第${index + 1}页`}</div>
+              >{`第${index + 1}${type === 'pages' ? '页' : '章'}`}</div>
             );
           })}
         </div>
       );
     }
-    // else if (type === "paragraph")
     return null;
   }
 }

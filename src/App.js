@@ -4,7 +4,7 @@ import Navs from "./navs";
 import Settings from "./settings";
 import LocalAPI from "./api/local-api";
 import { isSameObject, getLocalValue, setLocalValue, loadExample } from "./utils";
-import { convertNovel2Pages } from './utils/parse';
+import { parseNovel } from './utils/parse';
 import { DEFAULT_STYLE } from "./settings/constants";
 import LoginDialog from "./common/login-dialog";
 
@@ -14,13 +14,11 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
-    // 暂时全部按照无段落处理
-    // 未来可以改变设置，改变设置后，重新计算全部的段落。计算后可以放在缓存中，避免多次计算
     const files = loadExample().map(file => {
-      return Object.assign({}, file, {
-        context: convertNovel2Pages(file.context, false).context,
-        type: 'pages',
-      });
+      return Object.assign(
+        { name: file.name },
+        parseNovel(file.context)
+      );
     });
     this.state = {
       files,
@@ -32,6 +30,7 @@ export default class App extends Component {
       isShowLogin: false,
     };
     this.api = new LocalAPI();
+    // 本地配置，写在 config 中
     this.api.init({
       server: "http://127.0.0.1:8081",
       username: "1@1.com",
@@ -51,13 +50,14 @@ export default class App extends Component {
   initFromServer = () => {
     this.api.checkNet().then(res => {
       if (res && res.data === "pong") {
-        console.log("已经成功连接服务器，可以使用网络");
+        // console.log("已经成功连接服务器，可以使用网络");
         this.isConnect = true;
         this.toggleLoginDialog();
       }
     }).catch(err => {
-      console.error("连接服务器失败，开启离线模式");
+      // console.error("连接服务器失败，开启离线模式");
       this.isConnect = false;
+      this.err = err;
     });
   }
 
