@@ -19,7 +19,7 @@ export default class ThemeSettings extends Component {
     const { theme } = this.state;
     const { setTheme } = this;
     return (
-      <div className="theme-settings">
+      <div className="basic-settings-item">
         <Label>页面主题</Label>
         <ButtonGroup>
           <Button

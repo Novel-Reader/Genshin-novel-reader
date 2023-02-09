@@ -19,7 +19,7 @@ export default class FontSettings extends Component {
     const { fontSize } = this.state;
     const { setFontSize } = this;
     return (
-      <div>
+      <div className="basic-settings-item">
         <Label>文字大小</Label>
         <ButtonGroup>
           <Button

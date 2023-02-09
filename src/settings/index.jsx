@@ -47,7 +47,7 @@ export default class Settings extends Component {
         </div>
         <div className='settings-body'>
           {activeTab === "basic" &&
-            <BasicSettings changeStyle={this.props.changeStyle} style={this.props.style} />
+            <BasicSettings changeStyle={this.props.changeStyle} style={this.props.style} changeMode={this.props.changeMode} />
           }
           {activeTab === "advance" &&
             <AdvanceSettings changeStyle={this.props.changeStyle} style={this.props.style} />

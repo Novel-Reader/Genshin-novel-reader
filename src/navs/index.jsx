@@ -39,10 +39,10 @@ export default class Navs extends Component {
   }
 
   render() {
-    const { currentIndex } = this.props;
+    const { currentIndex, isShowLeftPanel } = this.props;
     const { isSearch, currentNav, searchValue } = this.state;
     return (
-      <div id="navs" className="navs">
+      <div id="navs" className="navs" style={{width: isShowLeftPanel ? 200 : 0, display: isShowLeftPanel ? 'block' : 'none'}}>
         <NavHeader
           isSearch={isSearch}
           currentNav={currentNav}

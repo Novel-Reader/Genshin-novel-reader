@@ -4,7 +4,7 @@ import Navs from "./navs";
 import Settings from "./settings";
 import LocalAPI from "./api/local-api";
 import { isSameObject, getLocalValue, setLocalValue, loadExample } from "./utils";
-import { parseNovel } from './utils/parse';
+import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from './utils/parse';
 import { DEFAULT_STYLE } from "./settings/constants";
 import LoginDialog from "./common/login-dialog";
 
@@ -14,7 +14,8 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
-    const files = loadExample().map(file => {
+    this.examples = loadExample();
+    const files = this.examples.map(file => {
       return Object.assign(
         { name: file.name },
         parseNovel(file.context)
@@ -26,6 +27,7 @@ export default class App extends Component {
       currentIndex: 0,
       style: JSON.parse(getLocalValue("novel-reader-style")) || DEFAULT_STYLE,
       isShowRightPanel: true,
+      isShowLeftPanel: true,
       currentPageIndex: 0,
       isShowLogin: false,
     };
@@ -59,6 +61,39 @@ export default class App extends Component {
       this.isConnect = false;
       this.err = err;
     });
+  }
+
+  changeMode = (mode) => {
+    let { currentIndex, files } = this.state;
+    let currentNovel = this.examples[this.state.currentIndex];
+    if (mode === 'pages') {
+      files[currentIndex] = Object.assign({name: currentNovel.name}, convertNovel2Pages(currentNovel.context));
+      this.setState({
+        files,
+        isShowLeftPanel: true,
+        isShowRightPanel: true,
+      });
+    }
+    else if (mode === 'paragraphs') {
+      if (checkParaGraph(currentNovel.context)) {
+        files[currentIndex] = Object.assign({name: currentNovel.name}, convertNovel2Paragraph(currentNovel.context));
+        this.setState({
+          files,
+          isShowLeftPanel: true,
+          isShowRightPanel: true,
+        });
+      } else {
+        // console.log('当前小说没有找到章节，不支持章节模式');
+      }
+    }
+    else if (mode === 'fullscreen') {
+      // 这是全屏的处理
+      this.setState({
+        isShowLeftPanel: false,
+        isShowRightPanel: false,
+      });
+      // 这里看一下是否改动 files 对象
+    }
   }
 
   // {
@@ -132,6 +167,7 @@ export default class App extends Component {
           currentFile={currentFile}
           currentPageIndex={this.state.currentPageIndex}
           changePageIndex={this.changePageIndex}
+          isShowLeftPanel={this.state.isShowLeftPanel}
         />
         <Main
           currentFile={currentFile}
@@ -144,6 +180,7 @@ export default class App extends Component {
           style={style}
           changeStyle={this.changeStyle}
           isShowRightPanel={this.state.isShowRightPanel}
+          changeMode={this.changeMode}
         />
         {this.state.isShowLogin &&
           <LoginDialog toggle={this.toggleLoginDialog} api={this.api} />

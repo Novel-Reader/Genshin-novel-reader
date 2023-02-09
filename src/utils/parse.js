@@ -34,7 +34,7 @@ const convertNovel2Paragraph = (txt) => {
     context: paragraphs,
     type: "paragraphs",
   };
-}
+};
 
 /**
  * Check whether there are chapters in the novel
@@ -43,7 +43,7 @@ const convertNovel2Paragraph = (txt) => {
  */
 const checkParaGraph = (content) => {
   return content.search(/第\s*\d+\s*章/g) > -1;
-}
+};
 
 /**
  * Convert novel tex
@@ -59,6 +59,6 @@ const parseNovel = (content) => {
   } else {
     return convertNovel2Pages(content);
   }
-}
+};
 
 export { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel };
