@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var CONFIG = require('./config/config.json');
+var CONFIG = require('../config/config.json');
 
 var mysql_config = {
   host    : CONFIG.host,

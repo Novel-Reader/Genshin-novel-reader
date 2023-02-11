@@ -1,14 +1,52 @@
 var express = require('express');
+var { expressjwt } = require("express-jwt");
 var logger = require('./logger');
-var DBHelper = require('./db-helper');
+var DBHelper = require('./utils/db-helper');
+var { setToken, verifyToken } = require('./utils/token');
+var { SIGNKEY } = require('./utils/constants');
 
 function httpServer() {
 
   var app = express();
 
-  // 处理 POST 请求
+  // handle POST request
   app.use(express.urlencoded());
   app.use(express.json());
+
+  // verify token
+  app.use(function(req, res, next) {
+    var token = req.headers['authorization'];    
+    if (token == undefined) {
+      return next();
+    } else {
+      verifyToken(token).then((data)=> {
+        req.data = data;
+        return next();
+      }).catch((error)=>{
+        logger.error(error);
+        return next();
+      })
+    }
+  });
+
+  // verify token expires
+  app.use(expressjwt({
+    secret: SIGNKEY,
+    algorithms: ["HS256"],
+  }).unless({
+    // Specify which routes need not be verified. In addition to login, other URLs need to be verified
+    path: ['/login']
+  }));
+
+  // When token fails, return 401 error
+  app.use(function(err, req, res, next) {
+    if (err) {
+      logger.error(err);
+      if (err.status == 401) {
+        return res.status(401).send('token is ivalid');
+      }
+    }
+  });
 
   // handle browser cross origin
   app.all("*", function (req, res, next) {
@@ -16,6 +54,8 @@ function httpServer() {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "content-type");
     res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
+    res.header("Content-Type", "application/json;charset=utf-8");
+    res.header("Access-Control-Allow-Headers", "content-type,Authorization");
     if (req.method == 'OPTIONS') {
       res.sendStatus(200);
     } else {
@@ -23,24 +63,19 @@ function httpServer() {
     }
   });
 
-  // 通过
   app.get('/ping/', (req, res) => {
     res.send("pong");
   });
 
-  // 通过
   app.get('/', function(req, res) {
     res.send('Hello GET');
   });
 
-  // 通过
   app.post('/', function(req, res) {
     res.send('Hello POST');
   });
 
-  // 通过（TODO 返回一个 token ）
   app.post('/login', function(req, res) {
-    // TODO 验证当前管理员权限
     const { email, password } = req.body;
     let sql = `SELECT * FROM user WHERE email=? and password=?`;
     DBHelper(sql, (err, results) => {
@@ -50,11 +85,13 @@ function httpServer() {
         return;
       }
       if (results.length === 0) {
-        res.status(400).send({'error_massage': '邮箱或者密码不正确'});
+        res.status(400).send({'error_massage': 'Email or password is not correct'});
         return;
       }
-      res.status(200).send('success');
-      return;
+      setToken(email).then((data) => {
+        res.status(200).json({ token: data });
+        return;
+      });
     }, [email, password]);
   });
 
@@ -129,12 +166,9 @@ function httpServer() {
     }, [email]);
   });
 
-  // 通过 删除用户
   app.delete('/user', function(req, res) {
-    // 需要验证当前管理员权限
     let email = req.query.email;
     let sql = `DELETE FROM user WHERE email=?`;
-    logger.error(115, email);
     DBHelper(sql, (err, results) => {
       if (err) {
         logger.error(err); 
@@ -147,9 +181,7 @@ function httpServer() {
     }, [email]);
   });
 
-  // 通过 更改用户密码
   app.post('/user-password', function(req, res) {
-    // 需要验证当前管理员权限
     const { email, password } = req.body;
     let sql = `update user set password = ? where email = ?`;
     DBHelper(sql, (err, results) => {
@@ -163,9 +195,7 @@ function httpServer() {
     }, [password, email]);
   });
 
-  // 通过 更改用户头像
   app.post('/user-avatar', function(req, res) {
-    // 需要验证当前管理员权限
     const { email, avatar } = req.body;
     let sql = `update user set avatar = ? where email = ?`;
     DBHelper(sql, (err, results) => {
@@ -203,12 +233,11 @@ function httpServer() {
   //   res.send('');
   // });
 
-  // 根据字段搜索文件爱那
+  // 根据字段搜索文件
   // select * from account where name ilike '%mike%';
 
-  // const PORT = process.env.PORT || 8081;
   var server = app.listen(8081, function () {   
-    var host = server.address().address  
+    var host = server.address().address;
     var port = server.address().port;
     logger.info('Starting server process: ', process.pid);
     logger.info("Server is running on port: ", host, port)
