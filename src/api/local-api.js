@@ -7,18 +7,16 @@ class LocalAPI {
   
   /**
    * init api
-   * @param {object} server, username, password
+   * @param {object} server, username, password, token
    * @returns API object
    */
-  init({server, username, password}) {
+  init({server, token}) {
     this.server = server;
-    this.username = username;
-    this.password = password;
+    this.token = token;
     if (this.server) {
       this.req = axios.create({
         baseURL: this.server,
-        // By default, all pages do not require login authentication
-        // headers: { 'Authorization': 'Token ' + this.token }
+        headers: { 'Authorization': 'Bearer ' + this.token }
       });
     }
     return this;

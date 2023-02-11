@@ -26,7 +26,7 @@ init api
 
 | Param | Type | Description |
 | --- | --- | --- |
-| server, | <code>object</code> | username, password |
+| server, | <code>object</code> | username, password, token |
 
 <a name="LocalAPI+checkNet"></a>
 

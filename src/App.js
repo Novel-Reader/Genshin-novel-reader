@@ -7,6 +7,7 @@ import { isSameObject, getLocalValue, setLocalValue, loadExample } from "./utils
 import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from './utils/parse';
 import { DEFAULT_STYLE } from "./settings/constants";
 import LoginDialog from "./common/login-dialog";
+import setting from "./setting.json";
 
 import "./css/App.css";
 
@@ -31,36 +32,32 @@ export default class App extends Component {
       currentPageIndex: 0,
       isShowLogin: false,
     };
-    this.api = new LocalAPI();
-    // 本地配置，写在 config 中
-    this.api.init({
-      server: "http://127.0.0.1:8081",
-      username: "1@1.com",
-      password: "1",
-    });
     this.isConnect = false;
   }
 
   componentDidMount() {
-    this.initFromServer();
+    if (setting.mode === 'online') {
+      this.toggleLoginDialog();
+    } else {
+      // alert("您使用的是离线模式");
+    }    
   }
 
   changePageIndex = (currentPageIndex) => {
     this.setState({ currentPageIndex });
   }
 
-  initFromServer = () => {
-    this.api.checkNet().then(res => {
-      if (res && res.data === "pong") {
-        // console.log("已经成功连接服务器，可以使用网络");
-        this.isConnect = true;
-        this.toggleLoginDialog();
-      }
-    }).catch(err => {
-      // console.error("连接服务器失败，开启离线模式");
-      this.isConnect = false;
-      this.err = err;
-    });
+  initFromServer = (token) => {
+    this.api = new LocalAPI();
+    this.api.init({server: setting.server, token});
+    // // 测试 token 是否正常使用
+    // setTimeout(() => {
+    //   this.api.getUsers().then(res => {
+    //     console.log(res);
+    //   }).catch(err => {
+    //     console.log(err);
+    //   });
+    // }, 1000);
   }
 
   changeMode = (mode) => {
@@ -87,7 +84,6 @@ export default class App extends Component {
       }
     }
     else if (mode === 'fullscreen') {
-      // 这是全屏的处理
       this.setState({
         isShowLeftPanel: false,
         isShowRightPanel: false,
@@ -183,7 +179,7 @@ export default class App extends Component {
           changeMode={this.changeMode}
         />
         {this.state.isShowLogin &&
-          <LoginDialog toggle={this.toggleLoginDialog} api={this.api} />
+          <LoginDialog toggle={this.toggleLoginDialog} initFromServer={this.initFromServer} />
         }
       </div>
     );

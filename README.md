@@ -45,7 +45,7 @@ This is a novel reader frontend SPA demo.
 ├── api 接口
 │   └── local-api.js
 ├── common 公共组件
-│   ├── icons.jsx
+│   ├── icons
 │   ├── scroll-top-button
 │   ├── vip-button
 │   └── vip-dialog
@@ -60,19 +60,19 @@ This is a novel reader frontend SPA demo.
 │   └── short-page 分页展示
 ├── navs 左侧导航栏
 │   ├── add-novel-dialog
-│   │   ├── load-from-local.jsx
-│   │   └── load-from-server.jsx
-│   ├── nav-body.jsx
-│   ├── nav-footer.jsx
-│   └── nav-header.jsx
+│   │   ├── load-from-local
+│   │   └── load-from-server
+│   ├── nav-body
+│   ├── nav-footer
+│   └── nav-header
 ├── settings 右侧设置栏
 │   ├── advance-settings 高级设置
-│   │   ├── advance-theme-settings.jsx
-│   │   ├── color-settings.jsx
-│   │   ├── font-settings.jsx
+│   │   ├── advance-theme-settings
+│   │   ├── color-settings
+│   │   ├── font-settings
 │   ├── basic-settings 基本设置
-│   │   ├── font-settings.jsx
-│   │   └── theme-settings.jsx
+│   │   ├── font-settings
+│   │   └── theme-settings
 │   ├── constants.js
 ├── test 单元测试
 └── utils 工具函数

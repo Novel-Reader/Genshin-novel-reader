@@ -30,7 +30,7 @@ export default class LoadFromLocal extends Component {
     this.setState({ currentSelected: option });
   }
 
-  onFileChange = (e) => {
+  onFileChange = () => {
     const file = this.uploadRef.files[0];
     let reader = new FileReader();
     reader.readAsText(file, "utf-8");

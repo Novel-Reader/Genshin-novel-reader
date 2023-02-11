@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Input, Label, Form, FormGroup } from 'reactstrap';
+import axios from "axios";
+import { Modal, ModalHeader, ModalBody, Button, Input, Label, Form, FormGroup } from 'reactstrap';
+import setting from "../../setting.json";
 
 export default class LoginDialog extends Component {
 
@@ -9,19 +11,25 @@ export default class LoginDialog extends Component {
     this.passwordRef = React.createRef();
   }
 
-  onClick = () => {
+  onLogin = () => {
     let email = this.emailRef.current.value.trim();
     let password = this.passwordRef.current.value;
-    this.props.api.login(email, password).then(res => {
-      if (res.data === "success") {
-        alert(`用户 ${email} 登录成功`);
+    let options = { email, password };
+    axios.post(`${setting.server}/login`, options).then(res => {
+      if (res.data.token) {
+        // alert(`用户 ${email} 登录成功`);
+        // TODO: 设置环境，用户是什么角色，是否是管理员
         // this.props.setEnv();
+        this.props.initFromServer(res.data.token);
         this.props.toggle();
       } else {
         alert('登录失败，请检查你的同户名和密码是否正确');
       }
-    }).catch(err => {
-      console.error(err);
+    }).catch((err) => {
+      if (err.response.status === 400) {
+        // alert('登录失败，请检查你的同户名和密码是否正确');
+        alert(err.response.data.error_massage);
+      }
     });
   }
 
@@ -40,9 +48,9 @@ export default class LoginDialog extends Component {
               <Input type="password" innerRef={this.passwordRef}/>
             </FormGroup>
           </Form>
-          <Button color="success" onClick={this.onClick}>登录</Button>
+          <Button color="success" onClick={this.onLogin}>登录</Button>
         </ModalBody>
       </Modal>
-    )
+    );
   }
 }
