@@ -13,6 +13,7 @@
     "deep-copy": "^1.4.2",
     "express": "^4.18.2",
     "express-jwt": "^8.4.1",
+    "glamor": "^2.20.40",
     "is-hotkey": "^0.2.0",
     "jsonwebtoken": "^9.0.0",
     "localforage": "^1.10.0",
@@ -28,6 +29,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.7.0",
     "react-sweet-progress": "^1.1.2",
+    "react-transition-group": "^4.4.5",
     "reactstrap": "^9.1.5",
     "sort-by": "^1.2.0",
     "web-vitals": "^2.1.4"
@@ -57,6 +59,7 @@
     "build-api": "./node_modules/jsdoc-to-markdown/bin/cli.js ./src/api/local-api.js > ./docs/api.md",
     "start-frontend": "react-scripts start",
     "start-backend": "rm -rf ./dist && mkdir dist && cp -r ./backend/config ./dist && ./node_modules/.bin/babel backend --out-dir dist/ && export NODE_ENV=development && nodemon --exec babel-node ./dist/app.js",
+    "start": "npm run start-frontend && npm run start-backend",
     "build": "react-scripts build && cp -r media ./build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

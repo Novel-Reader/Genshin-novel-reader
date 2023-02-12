@@ -209,8 +209,7 @@ function httpServer() {
     }, [avatar, email]);
   });
 
-  // TODO: 登录
-  // app.post('/login',
+  // 现在关键问题是，服务器中如何存储小说字段？整篇小说一起存储成一个字段，还是小说分页存储到不同的数据库表中
 
   // // 文件 API
   // // 获取全部的文件列表
@@ -237,10 +236,8 @@ function httpServer() {
   // select * from account where name ilike '%mike%';
 
   var server = app.listen(8081, function () {   
-    var host = server.address().address;
     var port = server.address().port;
-    logger.info('Starting server process: ', process.pid);
-    logger.info("Server is running on port: ", host, port)
+    logger.info("Server is running on port:", port);
   });
 }
 

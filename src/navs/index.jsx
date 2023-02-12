@@ -10,7 +10,7 @@ import "./index.css";
 export default class Navs extends Component {
 
   static propTypes = {
-    currentIndex: PropTypes.number.isRequired,
+    currentFileIndex: PropTypes.number.isRequired,
   }
 
   constructor(props) {
@@ -39,7 +39,7 @@ export default class Navs extends Component {
   }
 
   render() {
-    const { currentIndex, isShowLeftPanel } = this.props;
+    const { currentFileIndex, isShowLeftPanel } = this.props;
     const { isSearch, currentNav, searchValue } = this.state;
     return (
       <div id="navs" className="navs" style={{width: isShowLeftPanel ? 200 : 0, display: isShowLeftPanel ? 'block' : 'none'}}>
@@ -59,7 +59,7 @@ export default class Navs extends Component {
               files={this.props.files}
               changeFileIndex={this.props.changeFileIndex}
               deleteFile={this.props.deleteFile}
-              currentIndex={currentIndex}
+              currentFileIndex={currentFileIndex}
               searchValue={searchValue}
             />
           }
@@ -67,7 +67,7 @@ export default class Navs extends Component {
             <Outline
               searchValue={searchValue}
               files={this.props.files}
-              currentIndex={currentIndex}
+              currentFileIndex={currentFileIndex}
               currentPageIndex={this.props.currentPageIndex}
               changePageIndex={this.props.changePageIndex}
             />

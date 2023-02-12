@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import { Modal, ModalHeader, ModalBody, Button, Input, Label, Form, FormGroup } from 'reactstrap';
 import setting from "../../setting.json";
+import toaster from '../toast';
 
 export default class LoginDialog extends Component {
 
@@ -17,18 +18,19 @@ export default class LoginDialog extends Component {
     let options = { email, password };
     axios.post(`${setting.server}/login`, options).then(res => {
       if (res.data.token) {
-        // alert(`用户 ${email} 登录成功`);
+        toaster.success(`用户 ${email} 登录成功`);
         // TODO: 设置环境，用户是什么角色，是否是管理员
         // this.props.setEnv();
         this.props.initFromServer(res.data.token);
         this.props.toggle();
       } else {
-        alert('登录失败，请检查你的同户名和密码是否正确');
+        toaster.danger('登录失败，请检查你的同户名和密码是否正确');
       }
     }).catch((err) => {
-      if (err.response.status === 400) {
-        // alert('登录失败，请检查你的同户名和密码是否正确');
-        alert(err.response.data.error_massage);
+      if (err.response && err.response.status === 400) {
+        toaster.danger('登录失败，请检查你的同户名和密码是否正确');
+      } else {
+        toaster.danger(err);
       }
     });
   }

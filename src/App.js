@@ -7,6 +7,7 @@ import { isSameObject, getLocalValue, setLocalValue, loadExample } from "./utils
 import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from './utils/parse';
 import { DEFAULT_STYLE } from "./settings/constants";
 import LoginDialog from "./common/login-dialog";
+import toaster from './common/toast';
 import setting from "./setting.json";
 
 import "./css/App.css";
@@ -24,8 +25,7 @@ export default class App extends Component {
     });
     this.state = {
       files,
-      // currentIndex 改成 currentFileIndex 因为未来可能很多 index，或者每一个 state 加个注释
-      currentIndex: 0,
+      currentFileIndex: 0,
       style: JSON.parse(getLocalValue("novel-reader-style")) || DEFAULT_STYLE,
       isShowRightPanel: true,
       isShowLeftPanel: true,
@@ -39,7 +39,7 @@ export default class App extends Component {
     if (setting.mode === 'online') {
       this.toggleLoginDialog();
     } else {
-      // alert("您使用的是离线模式");
+      toaster.success("欢迎使用离线模式");
     }    
   }
 
@@ -53,18 +53,16 @@ export default class App extends Component {
     // // 测试 token 是否正常使用
     // setTimeout(() => {
     //   this.api.getUsers().then(res => {
-    //     console.log(res);
     //   }).catch(err => {
-    //     console.log(err);
     //   });
     // }, 1000);
   }
 
   changeMode = (mode) => {
-    let { currentIndex, files } = this.state;
-    let currentNovel = this.examples[this.state.currentIndex];
+    let { currentFileIndex, files } = this.state;
+    let currentNovel = this.examples[this.state.currentFileIndex];
     if (mode === 'pages') {
-      files[currentIndex] = Object.assign({name: currentNovel.name}, convertNovel2Pages(currentNovel.context));
+      files[currentFileIndex] = Object.assign({name: currentNovel.name}, convertNovel2Pages(currentNovel.context));
       this.setState({
         files,
         isShowLeftPanel: true,
@@ -73,14 +71,14 @@ export default class App extends Component {
     }
     else if (mode === 'paragraphs') {
       if (checkParaGraph(currentNovel.context)) {
-        files[currentIndex] = Object.assign({name: currentNovel.name}, convertNovel2Paragraph(currentNovel.context));
+        files[currentFileIndex] = Object.assign({name: currentNovel.name}, convertNovel2Paragraph(currentNovel.context));
         this.setState({
           files,
           isShowLeftPanel: true,
           isShowRightPanel: true,
         });
       } else {
-        // console.log('当前小说没有找到章节，不支持章节模式');
+        toaster.warning('当前小说没有找到章节，不支持章节模式');
       }
     }
     else if (mode === 'fullscreen') {
@@ -107,14 +105,14 @@ export default class App extends Component {
     files.push(file);
     this.setState({
       files,
-      currentIndex: files.length - 1,
+      currentFileIndex: files.length - 1,
     });
     // TODO save into database
   }
 
-  changeFileIndex = (currentIndex) => {
+  changeFileIndex = (currentFileIndex) => {
     this.setState({
-      currentIndex,
+      currentFileIndex,
       currentPageIndex: 0,
     });
   }
@@ -124,7 +122,7 @@ export default class App extends Component {
     files.splice(index, 1);
     this.setState({
       files,
-      currentIndex: files.length - 1,
+      currentFileIndex: files.length - 1,
       currentPageIndex: 0,
     });
   }
@@ -150,8 +148,8 @@ export default class App extends Component {
   }
 
   render() {
-    const { files, currentIndex, style } = this.state;
-    const currentFile = files[currentIndex];
+    const { files, currentFileIndex, style } = this.state;
+    const currentFile = files[currentFileIndex];
     return (
       <div id="app">
         <Navs
@@ -159,7 +157,7 @@ export default class App extends Component {
           files={files}
           changeFileIndex={this.changeFileIndex}
           deleteFile={this.deleteFile}
-          currentIndex={currentIndex}
+          currentFileIndex={currentFileIndex}
           currentFile={currentFile}
           currentPageIndex={this.state.currentPageIndex}
           changePageIndex={this.changePageIndex}
