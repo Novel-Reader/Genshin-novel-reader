@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import './index.css';
 
-// 页面大纲组件(暂不支持搜索)
 export default class Outline extends Component {
   render() {
     const { files, currentFileIndex, currentPageIndex } = this.props;
     const file = files[currentFileIndex];
     const { name, context, type } = file;
-    if (type === "pages" || type === "paragraphs") {
+    if (type === 'pages' || type === 'paragraphs') {
       const pageLen = context.length;
       const arr = new Array(pageLen).fill(1);
       return (

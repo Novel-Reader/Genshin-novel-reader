@@ -33,7 +33,7 @@ export default class Main extends Component {
     }
 
     let context = "";
-    if (currentFile.type === "pages" || currentFile.type === 'paragraphs') {
+    if (currentFile.type === 'pages' || currentFile.type === 'paragraphs') {
       context = currentFile.context[currentPageIndex];
     }
     else {

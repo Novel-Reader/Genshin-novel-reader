@@ -2,7 +2,7 @@
  * convert no paragraph novel string into pages
  * @param {string} txt novel text 
  * @param {bool} isMobile 
- * @returns {object} { context: [], type: 'pages' }
+ * @returns {object} { context: [], type: pages }
  */
 const convertNovel2Pages = (txt, isMobile = false) => {
   const txtLen = txt.length;
@@ -17,7 +17,7 @@ const convertNovel2Pages = (txt, isMobile = false) => {
   }
   return {
     context: pages,
-    type: "pages",
+    type: 'pages',
   };
 };
 
@@ -32,7 +32,7 @@ const convertNovel2Paragraph = (txt) => {
   paragraphs = paragraphs.filter((item) => item.length);
   return {
     context: paragraphs,
-    type: "paragraphs",
+    type: 'paragraphs',
   };
 };
 

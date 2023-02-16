@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AdvanceThemeSettings from "./advance-theme-settings";
 import ColorSettings from "./color-settings";
 import FontSettings from "./font-settings";
-import { FONT_SIZES, FONT_FAMILYS, FONT_WEIGHTS, LINE_HEIGHTS } from "../constants";
+import { FONT_SIZES, FONT_FAMILYS, FONT_WEIGHTS, LINE_HEIGHTS } from "../../utils/constants";
 import "./index.css";
 
 export default class AdvanceSettings extends Component {

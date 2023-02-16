@@ -6,7 +6,7 @@ import LocalAPI from "./api/local-api";
 import { isSameObject, getLocalValue, setLocalValue, loadExample } from "./utils";
 import { isUp, isDown } from './utils/hotkey';
 import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from './utils/parse';
-import { DEFAULT_STYLE } from "./settings/constants";
+import { DEFAULT_STYLE } from "./utils/constants";
 import LoginDialog from "./common/login-dialog";
 import toaster from './common/toast';
 import setting from "./setting.json";

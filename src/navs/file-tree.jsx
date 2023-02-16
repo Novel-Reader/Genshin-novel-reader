@@ -4,11 +4,12 @@ import { DeleteIcon } from '../common/icons';
 
 export default class FileTree extends Component {
   render() {
-    const { files, currentFileIndex } = this.props;
+    const { files, currentFileIndex, searchValue } = this.props;
     return (
       <div>
         {files.map((file, index) => {
           const isActive = currentFileIndex === index;
+          if (searchValue && !file.name.includes(searchValue)) return null;
           return (
             <div key={index} className={classnames("navs-body-item text-truncate d-flex", {"active": isActive})}>
               <span className='navs-body-item-name text-truncate' onClick={() => this.props.changeFileIndex(index)}>{file.name}</span>

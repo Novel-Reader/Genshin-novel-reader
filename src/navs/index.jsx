@@ -65,7 +65,6 @@ export default class Navs extends Component {
           }
           {currentNav === "outline" &&
             <Outline
-              searchValue={searchValue}
               files={this.props.files}
               currentFileIndex={currentFileIndex}
               currentPageIndex={this.props.currentPageIndex}
