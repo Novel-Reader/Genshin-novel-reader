@@ -1,7 +1,7 @@
 .navs {
-  background-color: #fff;
+  background-color: #fafafa;
   flex-shrink: 0;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #cccccc;
 }
 .navs .navs-header {
   height: 40px;
@@ -15,14 +15,14 @@
 .navs .navs-header .navs-header-search .navs-header-search-input {
   margin: 0 5px;
   border: 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #cccccc;
   border-radius: 0;
 }
 .navs .navs-header .navs-header-search .navs-header-search-input:focus {
   box-shadow: none;
 }
 .navs .navs-header .navs-header-icon {
-  color: #999;
+  color: #999999;
   height: 30px;
   line-height: 30px;
   font-size: 13px;
@@ -37,16 +37,16 @@
 }
 .navs .navs-body .navs-body-item:hover {
   cursor: pointer;
-  background-color: #dadada;
 }
 .navs .navs-body .navs-body-item.active {
-  background-color: skyblue;
+  background-color: #eeeeee;
 }
 .navs .navs-body .navs-body-item .navs-body-item-name {
   width: calc(100% - 20px);
 }
 .navs .navs-body .navs-body-item .navs-body-item-delete {
   width: 20px;
+  color: #999999;
 }
 .navs .navs-footer {
   height: 40px;

@@ -1,7 +1,9 @@
+@import "../css/variables.less";
+
 .navs {
-  background-color: #fff;
+  background-color: @background-color;
   flex-shrink: 0;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid @border-color;
   .navs-header {
     height: 40px;
     padding: 5px 10px;
@@ -12,7 +14,7 @@
       .navs-header-search-input {
         margin: 0 5px;
         border: 0;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid @border-color;
         border-radius: 0;
         &:focus {
           box-shadow: none;
@@ -20,7 +22,7 @@
       }
     }
     .navs-header-icon {
-      color: #999;
+      color: @icon-color;
       height: 30px;
       line-height: 30px;
       font-size: 13px;
@@ -34,16 +36,16 @@
       padding: 4px 10px;
       &:hover {
         cursor: pointer;
-        background-color: #dadada;
       }
       &.active {
-        background-color: skyblue;
+        background-color: @highlight-color;
       }
       .navs-body-item-name {
         width: calc(100% - 20px);
       }
       .navs-body-item-delete {
         width: 20px;
+        color: @icon-color;
       }
     }
   }

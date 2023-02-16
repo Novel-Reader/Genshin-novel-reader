@@ -48,4 +48,8 @@ function BackIcon() {
   return <span className="icon icon-arrow-left2"></span>;
 }
 
-export { StarIcon, LoadingIcon, SearchIcon, ShareIcon, RightIcon, LeftIcon, ListIcon, TreeIcon, BackIcon };
+function DeleteIcon() {
+  return <span className="icon icon-cancel-circle"></span>;
+}
+
+export { StarIcon, LoadingIcon, SearchIcon, ShareIcon, RightIcon, LeftIcon, ListIcon, TreeIcon, BackIcon, DeleteIcon };
