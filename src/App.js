@@ -4,6 +4,7 @@ import Navs from "./navs";
 import Settings from "./settings";
 import LocalAPI from "./api/local-api";
 import { isSameObject, getLocalValue, setLocalValue, loadExample } from "./utils";
+import { isUp, isDown } from './utils/hotkey';
 import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from './utils/parse';
 import { DEFAULT_STYLE } from "./settings/constants";
 import LoginDialog from "./common/login-dialog";
@@ -40,7 +41,12 @@ export default class App extends Component {
       this.toggleLoginDialog();
     } else {
       toaster.success("欢迎使用离线模式");
-    }    
+    }
+    document.addEventListener('keydown', this.onKeydown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.onKeydown);
   }
 
   changePageIndex = (currentPageIndex) => {
@@ -56,6 +62,28 @@ export default class App extends Component {
     //   }).catch(err => {
     //   });
     // }, 1000);
+  }
+
+  onKeydown = (e) => {
+    const { files, currentFileIndex, currentPageIndex } = this.state;
+    if (isUp(e)) {
+      e.preventDefault();
+      if (currentPageIndex === 0) {
+        toaster.warning('已经是第一页了');
+        return;
+      }
+      this.changePageIndex(currentPageIndex - 1);
+    }
+    else if (isDown(e)) {
+      e.preventDefault();
+      const file = files[currentFileIndex];
+      const maxIndex = file.context.length - 1;
+      if (currentPageIndex === maxIndex) {
+        toaster.warning('已经是最后一页了');
+        return;
+      }
+      this.changePageIndex(currentPageIndex + 1);
+    }
   }
 
   changeMode = (mode) => {
