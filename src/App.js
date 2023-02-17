@@ -6,7 +6,7 @@ import LocalAPI from "./api/local-api";
 import { isSameObject, getLocalValue, setLocalValue, loadExample } from "./utils";
 import { isUp, isDown } from './utils/hotkey';
 import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from './utils/parse';
-import { DEFAULT_STYLE } from "./utils/constants";
+import { DEFAULT_STYLE, PAGES, PARAGRAPHS, FULLSCREEN } from "./utils/constants";
 import LoginDialog from "./common/login-dialog";
 import toaster from './common/toast';
 import setting from "./setting.json";
@@ -89,7 +89,7 @@ export default class App extends Component {
   changeMode = (mode) => {
     let { currentFileIndex, files } = this.state;
     let currentNovel = this.examples[this.state.currentFileIndex];
-    if (mode === 'pages') {
+    if (mode === PAGES) {
       files[currentFileIndex] = Object.assign({name: currentNovel.name}, convertNovel2Pages(currentNovel.context));
       this.setState({
         files,
@@ -97,7 +97,7 @@ export default class App extends Component {
         isShowRightPanel: true,
       });
     }
-    else if (mode === 'paragraphs') {
+    else if (mode === PARAGRAPHS) {
       if (checkParaGraph(currentNovel.context)) {
         files[currentFileIndex] = Object.assign({name: currentNovel.name}, convertNovel2Paragraph(currentNovel.context));
         this.setState({
@@ -109,7 +109,7 @@ export default class App extends Component {
         toaster.warning('当前小说没有找到章节，不支持章节模式');
       }
     }
-    else if (mode === 'fullscreen') {
+    else if (mode === FULLSCREEN) {
       this.setState({
         isShowLeftPanel: false,
         isShowRightPanel: false,

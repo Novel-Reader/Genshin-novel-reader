@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { PAGES, PARAGRAPHS } from "../../utils/constants";
 import './index.css';
 
 export default class Outline extends Component {
@@ -6,7 +7,7 @@ export default class Outline extends Component {
     const { files, currentFileIndex, currentPageIndex } = this.props;
     const file = files[currentFileIndex];
     const { name, context, type } = file;
-    if (type === 'pages' || type === 'paragraphs') {
+    if (type === PAGES || type === PARAGRAPHS) {
       const pageLen = context.length;
       const arr = new Array(pageLen).fill(1);
       return (
@@ -19,7 +20,7 @@ export default class Outline extends Component {
                 style={{color: currentPageIndex === index ? 'red' : '#333'}}
                 onClick={() => this.props.changePageIndex(index)}
                 key={item + index}
-              >{`第${index + 1}${type === 'pages' ? '页' : '章'}`}</div>
+              >{`第${index + 1}${type === PAGES ? '页' : '章'}`}</div>
             );
           })}
         </div>

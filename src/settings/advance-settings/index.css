@@ -5,3 +5,9 @@
 .advance-settings advance-font-settings {
   cursor: pointer;
 }
+.advance-settings #font-color-settings-current {
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  border: 1px solid #ccc;
+}

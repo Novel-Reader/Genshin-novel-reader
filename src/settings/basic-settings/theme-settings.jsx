@@ -1,53 +1,33 @@
-import React, { Component } from "react";
+import React from "react";
 import { Button, ButtonGroup, Label } from "reactstrap";
 
-export default class ThemeSettings extends Component {
+export default function ThemeSettings(props) {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      theme: props.theme || 2,
-    };
+  const [theme, setTheme] = React.useState(props.theme || 2);
+
+  function onClick(theme) {
+    props.onSave(theme);
+    setTheme(theme);
   }
 
-  setTheme = (theme) => {
-    this.setState({ theme });
-    this.props.onSave(theme);
-  }  
-
-  render() {
-    const { theme } = this.state;
-    const { setTheme } = this;
-    return (
-      <div className="basic-settings-item">
-        <Label>页面主题</Label>
-        <ButtonGroup>
-          <Button
-            color="primary"
-            outline
-            onClick={() => setTheme(1)}
-            active={theme === 1}
-          >
-            日间
-          </Button>
-          <Button
-            color="primary"
-            outline
-            onClick={() => setTheme(2)}
-            active={theme === 2}
-          >
-            护眼
-          </Button>
-          <Button
-            color="primary"
-            outline
-            onClick={() => setTheme(3)}
-            active={theme === 3}
-          >
-            夜间
-          </Button>
-        </ButtonGroup>
-      </div>
-    );
-  }
+  return (
+    <div className="basic-settings-item">
+      <Label>页面主题</Label>
+      <ButtonGroup>
+        {['日间', '护眼', '夜间'].map((item, index) => {
+          return (
+            <Button
+              key={index}
+              color="primary"
+              outline
+              onClick={() => onClick(index)}
+              active={theme === index}
+            >
+              {item}
+            </Button>
+          );
+        })}
+      </ButtonGroup>
+    </div>
+  );
 }
