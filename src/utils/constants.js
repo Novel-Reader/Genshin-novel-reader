@@ -42,4 +42,8 @@ const DEFAULT_STYLE = {
   backgroundColor: "rgb(251, 246, 236)",
 };
 
-export { FONT_SIZES, FONT_FAMILYS, FONT_WEIGHTS, LINE_HEIGHTS, DEFAULT_STYLE };
+const PAGES = 'pages';
+const PARAGRAPHS = 'paragraphs';
+const FULLSCREEN = 'fullscreen';
+
+export { FONT_SIZES, FONT_FAMILYS, FONT_WEIGHTS, LINE_HEIGHTS, DEFAULT_STYLE, PAGES, PARAGRAPHS, FULLSCREEN };

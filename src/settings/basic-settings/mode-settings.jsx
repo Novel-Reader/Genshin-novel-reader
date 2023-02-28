@@ -1,37 +1,33 @@
 import React from "react";
 import { Button, ButtonGroup, Label } from "reactstrap";
+import { PAGES, PARAGRAPHS, FULLSCREEN } from "../../utils/constants";
 
-export default class ModeSettings extends React.PureComponent {
+const MODES = [
+  { type: PAGES, name: '分页' },
+  { type: PARAGRAPHS, name: '章节' },
+  { type: FULLSCREEN, name: '全屏' },
+];
 
-  render() {
-    const { changeMode } = this.props;
-    return (
-      <div className="basic-settings-item">
-        <Label>阅读模式</Label>
-        <ButtonGroup>
-          <Button
-            color="primary"
-            outline
-            onClick={() => changeMode('pages')}
-          >
-            分页
-          </Button>
-          <Button
-            color="primary"
-            outline
-            onClick={() => changeMode('paragraphs')}
-          >
-            章节
-          </Button>
-          <Button
-            color="primary"
-            outline
-            onClick={() => changeMode('fullscreen')}
-          >
-            全屏
-          </Button>
-        </ButtonGroup>
-      </div>
-    );
-  }
+export default function ModeSettings(props) {
+
+  const { changeMode } = props;
+  return (
+    <div className="basic-settings-item">
+      <Label>阅读模式</Label>
+      <ButtonGroup>
+        {MODES.map((mode, index) => {
+          return (
+            <Button
+              key={index}
+              color="primary"
+              outline
+              onClick={() => changeMode(mode.type)}
+            >
+              {mode.name}
+            </Button>
+          );
+        })}
+      </ButtonGroup>
+    </div>
+  );
 }

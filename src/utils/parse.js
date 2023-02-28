@@ -1,3 +1,4 @@
+import { PAGES, PARAGRAPHS } from "./constants";
 /**
  * convert no paragraph novel string into pages
  * @param {string} txt novel text 
@@ -17,7 +18,7 @@ const convertNovel2Pages = (txt, isMobile = false) => {
   }
   return {
     context: pages,
-    type: 'pages',
+    type: PAGES,
   };
 };
 
@@ -25,14 +26,14 @@ const convertNovel2Pages = (txt, isMobile = false) => {
  * convert novel string into paragraphs
  * By default, the chapter is complete and there is no omission
  * @param {string} txt novel text 
- * @returns {object} { context: [], type: 'paragraphs' }
+ * @returns {object} { context: [], type: paragraphs }
  */
 const convertNovel2Paragraph = (txt) => {
   let paragraphs = txt.split(/第\s*\d+\s*章/g);
   paragraphs = paragraphs.filter((item) => item.length);
   return {
     context: paragraphs,
-    type: 'paragraphs',
+    type: PARAGRAPHS,
   };
 };
 

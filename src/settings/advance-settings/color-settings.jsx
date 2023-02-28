@@ -33,12 +33,13 @@ export default class ColorSettings extends React.Component {
       isShowPicker: false,
     });
   }
+
   handleChangeComplete = (colorObj) => {
     this.setState({ color: colorObj.hex });
     this.props.changeStyle({
       [this.props.settingKey]: colorObj.hex,
     });
-  };
+  }
 
   toggle = (e) => {
     e.stopPropagation();
@@ -46,17 +47,10 @@ export default class ColorSettings extends React.Component {
   }
 
   render() {
-    const style = {
-      width: 20,
-      height: 20,
-      backgroundColor: this.state.color,
-      margin: 10,
-      border: "1px solid #ccc",
-    };
     return (
       <div>
         <Label>{this.props.title}</Label>
-        <div style={style} onClick={this.toggle} id='font-color-settings-current'></div>
+        <div style={{ backgroundColor: this.state.color }} onClick={this.toggle} id='font-color-settings-current'></div>
         {this.state.isShowPicker &&
           <Popover placement="left" isOpen={this.state.isShowPicker} target='font-color-settings-current' fade={false} hideArrow>
             <SketchPicker

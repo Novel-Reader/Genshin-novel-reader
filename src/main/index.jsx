@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import LongPage from "./long-page";
 import FoldedIcon from "./folded-icon";
+import { PAGES, PARAGRAPHS } from "../utils/constants";
 import "./index.css";
 
 const LONG_PAGE = "long_page";
@@ -33,7 +34,7 @@ export default class Main extends Component {
     }
 
     let context = "";
-    if (currentFile.type === 'pages' || currentFile.type === 'paragraphs') {
+    if (currentFile.type === PAGES || currentFile.type === PARAGRAPHS) {
       context = currentFile.context[currentPageIndex];
     }
     else {
