@@ -53,7 +53,11 @@ Error: Cannot set headers after they are sent to the client at new NodeError (no
 
 参考：https://blog.csdn.net/qq_48009509/article/details/121625588
 
+### 数据库存储小说会不会太长
 
+查阅数据库资料，logntext 字段的长度足够长，存放一个 10MB 的小说也绰绰有余。
+
+执行查询语句时，可以不返回小说详情，先返回小说的标题等信息，这样查询的速度回更快。
 
 ## 待解决技术问题
 
@@ -61,3 +65,6 @@ Error: Cannot set headers after they are sent to the client at new NodeError (no
 
 静态资源（图片、字体文件）是否需要打包到 JS 中？目前图片已经打包，但是字体图标没有打包，未来图片是否存在无法显示的问题等？
 
+### 数据库分页查找
+
+如果想加载某个章节的数据，能否从 longtext 字段中返回指定的字符串，不需要一次性返回全部的页面
