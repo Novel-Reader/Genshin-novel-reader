@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Button, FormGroup, Form, Label, Input, ModalFooter } from "reactstrap";
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
+import setting from "../../setting.json";
+import toaster from '../../common/toast';
 
 export default class LoadFromLocal extends Component {
 
@@ -20,6 +22,8 @@ export default class LoadFromLocal extends Component {
       { value: "言情", label: "言情" },
       { value: "其他", label: "其他" },
     ];
+    this.isOnline = setting.mode === 'online';
+    this.checkboxRef = React.createRef();
   }
 
   onClick = () => {
@@ -61,15 +65,33 @@ export default class LoadFromLocal extends Component {
   onUpload = () => {
     const { filename, file, author, abstract, currentSelected } = this.state;
     const tag = currentSelected ? currentSelected.map(option => option.value).join(" ") : "";
-    this.props.addFile({
+    const fileObj = {
       name: filename.trim(),
       size: file.size,
       author: author,
       context: this.tmpFile,
       abstract: abstract.trim(),
       tag,
-    });
+    };
+    this.props.addFile(fileObj);
+    if (this.isOnline && this.checkboxRef.current.checked) {
+      this.uploadToServer(fileObj);
+    }
     this.props.toggleDialog();
+  }
+
+  uploadToServer = (fileObj) => {
+    const { name, author, context, abstract } = fileObj;
+    const cover_photo = '';
+    const price = 100;
+    toaster.warning('正在上传中...');
+    window.app.api.addNovel(name, cover_photo, author, context, price, abstract).then((res) => {
+      toaster.success('上传成功');
+      toaster.success(res);
+    }).catch(err => {
+      toaster.danger('上传失败');
+      toaster.danger(err);
+    });
   }
 
   render() {
@@ -145,6 +167,15 @@ export default class LoadFromLocal extends Component {
               onChange={(e) => { this.setState({ abstract: e.target.value }); }}
             />
           </FormGroup>
+          {this.isOnline &&
+            <FormGroup check>
+              <Input type="checkbox" innerRef={this.checkboxRef}/>
+              {' '}
+              <Label check>
+                是否同步到线上
+              </Label>
+            </FormGroup>
+          }
           <ModalFooter>
             <Button onClick={this.onUpload} color="primary">上传</Button>
             <Button onClick={this.onClear} color="secondary">取消</Button>

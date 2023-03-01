@@ -122,10 +122,75 @@ class LocalAPI {
     return this.req.post(url, options);
   }
 
-  // 文件相关 API
-  // https://www.jb51.net/article/254229.htm
-  // longtext 字段完全可以存放全部的内容。搜索的性能可能比较差，目前只搜索名称字段，不需要搜索详情。
-  // 请求后，本地做一个缓存，避免频繁请求数据库
+  /**
+   * add novel to dabatase
+   * @param {string} name 
+   * @param {string} cover_photo 
+   * @param {string} author 
+   * @param {string} detail 
+   * @param {number} price 
+   * @param {string} brief 
+   * @returns success
+   */
+  addNovel(name, cover_photo, author, detail, price, brief) {
+    const url = `${this.server}/api/v1/novel`;
+    let options = { name, cover_photo, author, detail, price, brief };
+    return this.req.post(url, options);
+  }
+
+  /**
+   * delete novel by id
+   * @param {string} id
+   * @returns boolean
+   */
+  deleteNovel(id) {
+    const url = `${this.server}/api/v1/novel?id=${id}`;
+    return this.req.delete(url);
+  }
+
+  /**
+   * get novels list
+   * @returns novels
+   */
+  getNovelList() {
+    const url = `${this.server}/api/v1/novel_list`;
+    return this.req.get(url);
+  }
+
+  /**
+   * get novel detail by id
+   * @param {string} id 
+   * @returns novel
+   */
+  getNovelDetail(id) {
+    const url = `${this.server}/api/v1/novel?id=${id}`;
+    return this.req.get(url);
+  }
+
+  searchNovelByName(name) {
+    const url = `${this.server}/api/v1/novel`;
+    let options = { name };
+    return this.req.post(url, options);
+  }
+
+  searchNovelByAuthor(author) {
+    const url = `${this.server}/api/v1/novel`;
+    let options = { author };
+    return this.req.post(url, options);
+  }
+
+  searchNovelByPrice(price) {
+    const url = `${this.server}/api/v1/novel`;
+    let options = { price };
+    return this.req.post(url, options);
+  }
+
+  searchNovel(name, auther, price) {
+    const url = `${this.server}/api/v1/novel`;
+    let options = { name, auther, price };
+    return this.req.post(url, options);
+  }
+
 }
 
 export default LocalAPI;

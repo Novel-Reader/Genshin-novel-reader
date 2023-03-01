@@ -33,7 +33,6 @@ export default class App extends Component {
       currentPageIndex: 0,
       isShowLogin: false,
     };
-    this.isConnect = false;
   }
 
   componentDidMount() {
@@ -43,10 +42,12 @@ export default class App extends Component {
       toaster.success("欢迎使用离线模式");
     }
     document.addEventListener('keydown', this.onKeydown);
+    window.app = this;
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onKeydown);
+    window.app = null;
   }
 
   changePageIndex = (currentPageIndex) => {
