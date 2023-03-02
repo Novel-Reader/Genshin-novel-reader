@@ -252,18 +252,16 @@ function httpServer() {
     }, [id]);
   });
 
-  // 查询全部的小说列表（性能）
+  // 查询全部的小说列表（性能）应该获取前12个
   app.get('/api/v1/novel_list', function(req, res) {
-    // 验证管理员
-    let sql = `SELECT name, author, price FROM book`;
+    let sql = `SELECT id, name, cover_photo, author, brief, price FROM book`;
     DBHelper(sql, (err, results) => {
       if (err) {
         logger.error(err); 
         res.status(400).send({'error_massage': err});
         return;
       }
-      logger.info(results);
-      res.status(200).send('success');
+      res.status(200).send(results);
       return;
     }, []);
   });
