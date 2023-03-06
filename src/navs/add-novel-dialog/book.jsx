@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 
 export default function Book(props) {
   const { novel } = props;
-  const { author, brief, cover_photo, id, name, price } = novel
+  const { author, brief, id, name, price } = novel;
   return (
     <tr key={id} className="book">
       <td scope="row">
@@ -19,8 +19,8 @@ export default function Book(props) {
         {brief}
       </td>
       <td>
-        <Button color="primary" onClick={() => {props.onClick(id)}} size="sm">下载</Button>
+        <Button color="primary" onClick={() => {props.onClick(id);}} size="sm">下载</Button>
       </td>
     </tr>
-  )
+  );
 }

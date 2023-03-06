@@ -35,8 +35,8 @@ export default class LoadFromServer extends Component {
 
   // 需要放到本地文档中，需要测试
   onClickNovel = (id) => {
-    window.app.api.getNovelDetail(id).then((res) => {
-      console.log(res);
+    window.app.api.getNovelDetail(id).then(() => {
+      // console.log(res);
     }).catch(err => {
       toaster.danger(err);
     });
