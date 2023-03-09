@@ -168,26 +168,26 @@ class LocalAPI {
   }
 
   searchNovelByName(name) {
-    const url = `${this.server}/api/v1/novel`;
+    const url = `${this.server}/api/v1/search-novel`;
     let options = { name };
     return this.req.post(url, options);
   }
 
   searchNovelByAuthor(author) {
-    const url = `${this.server}/api/v1/novel`;
+    const url = `${this.server}/api/v1/search-novel`;
     let options = { author };
     return this.req.post(url, options);
   }
 
   searchNovelByPrice(price) {
-    const url = `${this.server}/api/v1/novel`;
+    const url = `${this.server}/api/v1/search-novel`;
     let options = { price };
     return this.req.post(url, options);
   }
 
-  searchNovel(name, auther, price) {
-    const url = `${this.server}/api/v1/novel`;
-    let options = { name, auther, price };
+  searchNovel(name, author, price) {
+    const url = `${this.server}/api/v1/search-novel`;
+    let options = { name, author, price };
     return this.req.post(url, options);
   }
 

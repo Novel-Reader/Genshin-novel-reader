@@ -266,12 +266,8 @@ function httpServer() {
     }, []);
   });
 
-  // 根据字段查询某个名称，标签，作者
-  // 目前是精确查询，未来支持模糊查询
-  // select * from book where name ilike '%mike%';
-  app.post('/api/v1/novel', function(req, res) {
+  app.post('/api/v1/search-novel', function(req, res) {
     let { name, author, price } = req.body;
-    // 至少有一项，否则返回错误
     if (!name && !author && !price) {
       res.status(400).send({'error_massage': 'query parameters is null'});
     }
@@ -279,34 +275,31 @@ function httpServer() {
     let params = [];
     let sql_list = [];
     if (name) {
-      sql_list.push(' name=? ');
-      params.push(name);
+      sql_list.push(' name LIKE ? ');
+      params.push(`%${name}%`);
     }
     if (author) {
-      sql_list.push(' author=? ');
-      params.push(author);
+      sql_list.push(' author LIKE ? ');
+      params.push(`%${author}%`);
     }
     if (price) {
       sql_list.push(' price=? ');
       params.push(price);
     }
     sql += sql_list.join('and');
-    logger.info(297, sql, params);
-
     DBHelper(sql, (err, results) => {
       if (err) {
         logger.error(err); 
         res.status(400).send({'error_massage': err});
         return;
       }
-      logger.info(results);
-      res.status(200).send('success');
+      res.status(200).send(results);
       return;
     }, params);
   });
 
   // 获取某个小说的全文详情
-  app.get('/api/v1/novel', function(req, res) {
+  app.get('/api/v1/search-novel', function(req, res) {
     let id = req.query.id;
     let sql = `SELECT * from book WHERE id=?`;
     DBHelper(sql, (err, results) => {
