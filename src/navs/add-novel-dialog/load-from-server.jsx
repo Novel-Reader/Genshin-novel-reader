@@ -19,7 +19,9 @@ export default class LoadFromServer extends Component {
   }
 
   componentDidMount() {
-    this.loadNovelsFromServer();
+    if (this.isOnline) {
+      this.loadNovelsFromServer();
+    }
   }
 
   loadNovelsFromServer = () => {

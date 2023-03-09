@@ -68,3 +68,9 @@ Error: Cannot set headers after they are sent to the client at new NodeError (no
 ### 数据库分页查找
 
 如果想加载某个章节的数据，能否从 longtext 字段中返回指定的字符串，不需要一次性返回全部的页面
+
+### token 如何在不同页面传参
+
+登录页面验证后，如何在不同页面传参
+
+是否考虑 session 和 单点登录等技术？
