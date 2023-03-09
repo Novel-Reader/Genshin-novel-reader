@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import VipButton from "../../common/vip-button";
 import setting from "../../setting.json";
 import toaster from '../../common/toast';
-import { Table } from "reactstrap";
+import { Table, Button } from "reactstrap";
 import Book from './book';
+import SearchFromServer from './search-from-server';
+
 export default class LoadFromServer extends Component {
 
   constructor(props) {
@@ -12,6 +14,7 @@ export default class LoadFromServer extends Component {
     this.state = {
       isLoading: true,
       novelList: [],
+      isSearch: false,
     };
   }
 
@@ -42,35 +45,39 @@ export default class LoadFromServer extends Component {
     });
   }
 
+  changeSearch = () => {
+    this.setState({ isSearch: true });
+  }
+
   render() {
     if (!this.isOnline) {
       return (
         <div>
-          这是 VIP 用户联网专属功能
+          这是联网专属功能
           <VipButton />
         </div>
       );
     }
+    if (this.state.isSearch) {
+      return (
+        <SearchFromServer />
+      );
+    }
     return (
       <div className="novel-list">
+        <div>
+          <h3>热点小说</h3>
+          <Button onClick={this.changeSearch}>在线搜索</Button>
+        </div>
+        {/* LoadingIcon */}
         <Table>
           <thead>
             <tr>
-              <th>
-                名称
-              </th>
-              <th>
-                作者
-              </th>
-              <th>
-                价格
-              </th>
-              <th>
-                简介
-              </th>
-              <th>
-                操作
-              </th>
+              <th>名称</th>
+              <th>作者</th>
+              <th>价格</th>
+              <th>简介</th>
+              <th>操作</th>
             </tr>
           </thead>
           <tbody>
