@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import toaster from '../../common/toast';
-import { Table } from "reactstrap";
 import { Button, Input, Label, Form, FormGroup } from 'reactstrap';
-import Book from './book';
+import BookList from './book-list';
 
 export default class SearchFromServer extends Component {
 
@@ -62,21 +61,7 @@ export default class SearchFromServer extends Component {
           </Form>
           <Button color="success" onClick={this.searchNovels}>搜索</Button>
         </div>
-        <Table>
-          {/* TODO：LoadingIcon */}
-          <thead>
-            <tr>
-              <th>名称</th>
-              <th>作者</th>
-              <th>价格</th>
-              <th>简介</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.novelList.map(item => <Book novel={item} onClick={this.onClickNovel}/>)}
-          </tbody>
-        </Table>
+        <BookList novelList={this.state.novelList} onClickNovel={this.props.onClickNovel}/>
       </div>
     );
   }

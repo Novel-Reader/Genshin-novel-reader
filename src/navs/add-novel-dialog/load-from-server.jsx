@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import VipButton from "../../common/vip-button";
 import setting from "../../setting.json";
 import toaster from '../../common/toast';
-import { Table, Button } from "reactstrap";
-import Book from './book';
+import { Button } from "reactstrap";
+import BookList from './book-list';
 import SearchFromServer from './search-from-server';
 
 export default class LoadFromServer extends Component {
@@ -36,10 +36,19 @@ export default class LoadFromServer extends Component {
     });
   }
 
-  // 需要放到本地文档中，需要测试
   onClickNovel = (id) => {
-    window.app.api.getNovelDetail(id).then(() => {
-      // console.log(res);
+    window.app.api.getNovelDetail(id).then((res) => {
+      const file = res.data[0];
+      const { author, brief, cover_photo, detail, name, price } = file;
+      const fileObj = {
+        name,
+        author,
+        cover_photo,
+        context: detail,
+        abstract: brief,
+        price,
+      };
+      this.props.addFile(fileObj);
     }).catch(err => {
       toaster.danger(err);
     });
@@ -60,7 +69,7 @@ export default class LoadFromServer extends Component {
     }
     if (this.state.isSearch) {
       return (
-        <SearchFromServer />
+        <SearchFromServer onClickNovel={this.onClickNovel} />
       );
     }
     return (
@@ -69,22 +78,9 @@ export default class LoadFromServer extends Component {
           <h3>热点小说</h3>
           <Button onClick={this.changeSearch}>在线搜索</Button>
         </div>
-        {/* LoadingIcon */}
-        <Table>
-          <thead>
-            <tr>
-              <th>名称</th>
-              <th>作者</th>
-              <th>价格</th>
-              <th>简介</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.novelList.map(item => <Book novel={item} onClick={this.onClickNovel}/>)}
-          </tbody>
-        </Table>
+        <BookList novelList={this.state.novelList} onClickNovel={this.onClickNovel} />
       </div>
     );
   }
+
 }

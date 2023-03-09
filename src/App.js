@@ -136,7 +136,6 @@ export default class App extends Component {
       files,
       currentFileIndex: files.length - 1,
     });
-    // TODO save into database
   }
 
   changeFileIndex = (currentFileIndex) => {

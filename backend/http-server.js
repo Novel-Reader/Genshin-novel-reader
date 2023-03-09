@@ -252,9 +252,9 @@ function httpServer() {
     }, [id]);
   });
 
-  // 查询全部的小说列表（性能）应该获取前12个
+  // 首页展示小说列表（前10个）
   app.get('/api/v1/novel_list', function(req, res) {
-    let sql = `SELECT id, name, cover_photo, author, brief, price FROM book`;
+    let sql = `SELECT id, name, cover_photo, author, brief, price FROM book limit 10`;
     DBHelper(sql, (err, results) => {
       if (err) {
         logger.error(err); 
@@ -266,12 +266,13 @@ function httpServer() {
     }, []);
   });
 
+  // 搜索小说（返回满足条件的前10个）
   app.post('/api/v1/search-novel', function(req, res) {
     let { name, author, price } = req.body;
     if (!name && !author && !price) {
       res.status(400).send({'error_massage': 'query parameters is null'});
     }
-    let sql = `SELECT name, author, price, brief FROM book WHERE `;
+    let sql = `SELECT id, name, author, price, brief, cover_photo FROM book WHERE `;
     let params = [];
     let sql_list = [];
     if (name) {
@@ -287,6 +288,7 @@ function httpServer() {
       params.push(price);
     }
     sql += sql_list.join('and');
+    sql += ' limit 10';
     DBHelper(sql, (err, results) => {
       if (err) {
         logger.error(err); 
@@ -298,18 +300,18 @@ function httpServer() {
     }, params);
   });
 
-  // 获取某个小说的全文详情
+  // 获取小说全文详情
   app.get('/api/v1/search-novel', function(req, res) {
     let id = req.query.id;
     let sql = `SELECT * from book WHERE id=?`;
+    // todo: 每次下载一次，数据库记录下载的次数（下载热榜），也便于进行热点监控和预警
     DBHelper(sql, (err, results) => {
       if (err) {
         logger.error(err); 
         res.status(400).send({'error_massage': err});
         return;
       }
-      logger.info(results);
-      res.status(200).send('success');
+      res.status(200).send(results);
       return;
     }, [id]);
   });

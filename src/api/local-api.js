@@ -163,7 +163,7 @@ class LocalAPI {
    * @returns novel
    */
   getNovelDetail(id) {
-    const url = `${this.server}/api/v1/novel?id=${id}`;
+    const url = `${this.server}/api/v1/search-novel?id=${id}`;
     return this.req.get(url);
   }
 
