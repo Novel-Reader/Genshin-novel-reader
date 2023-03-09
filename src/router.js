@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MediaQuery from 'react-responsive';
 import App from "./App";
 import AppMobile from './App-mobile';
-import ErrorPage from "./pages/error-page";
+// import ErrorPage from "./pages/error-page";
 import Admin from "./pages/admin";
 
 const router = createBrowserRouter([
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         </MediaQuery>
       </>
     ),
-    errorElement: <ErrorPage />,
+    errorElement: <App />,
   },
   {
     path: "admin/",
