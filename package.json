@@ -1,6 +1,7 @@
 {
   "name": "novel-reader",
   "version": "0.7.0",
+  "homepage": "/novel-demo/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
