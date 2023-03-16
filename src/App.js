@@ -7,7 +7,6 @@ import { isSameObject, getLocalValue, setLocalValue, loadExample } from "./utils
 import { isUp, isDown } from './utils/hotkey';
 import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from './utils/parse';
 import { DEFAULT_STYLE, PAGES, PARAGRAPHS, FULLSCREEN } from "./utils/constants";
-import LoginDialog from "./common/login-dialog";
 import toaster from './common/toast';
 import setting from "./setting.json";
 
@@ -31,13 +30,13 @@ export default class App extends Component {
       isShowRightPanel: true,
       isShowLeftPanel: true,
       currentPageIndex: 0,
-      isShowLogin: false,
     };
+    this.api = null;
   }
 
   componentDidMount() {
     if (setting.mode === 'online') {
-      this.toggleLoginDialog();
+      this.initFromServer();
     } else {
       toaster.success("欢迎使用离线模式");
     }
@@ -54,15 +53,11 @@ export default class App extends Component {
     this.setState({ currentPageIndex });
   }
 
-  initFromServer = (token) => {
+  initFromServer = () => {
+    // TODO
+    const token = window.location.search.slice(7);
     this.api = new LocalAPI();
-    this.api.init({server: setting.server, token});
-    // // 测试 token 是否正常使用
-    // setTimeout(() => {
-    //   this.api.getUsers().then(res => {
-    //   }).catch(err => {
-    //   });
-    // }, 1000);
+    this.api.init({server: setting.server, token: token});
   }
 
   onKeydown = (e) => {
@@ -169,12 +164,6 @@ export default class App extends Component {
     });
   }
 
-  toggleLoginDialog = () => {
-    this.setState({
-      isShowLogin: !this.state.isShowLogin,
-    });
-  }
-
   render() {
     const { files, currentFileIndex, style } = this.state;
     const currentFile = files[currentFileIndex];
@@ -204,9 +193,6 @@ export default class App extends Component {
           isShowRightPanel={this.state.isShowRightPanel}
           changeMode={this.changeMode}
         />
-        {this.state.isShowLogin &&
-          <LoginDialog toggle={this.toggleLoginDialog} initFromServer={this.initFromServer} />
-        }
       </div>
     );
   }

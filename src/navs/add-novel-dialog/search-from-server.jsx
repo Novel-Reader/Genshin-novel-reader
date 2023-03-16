@@ -8,7 +8,7 @@ export default class SearchFromServer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
+      isLoading: false,
       novelList: [],
     };
     this.nameRef = React.createRef();
@@ -28,6 +28,7 @@ export default class SearchFromServer extends Component {
       toaster.danger('必须填写任意一项');
       return;
     }
+    this.setState({ isSearch: true });
     window.app.api.searchNovel(name, author, price).then((res) => {
       this.setState({
         isLoading: false,
@@ -61,7 +62,11 @@ export default class SearchFromServer extends Component {
           </Form>
           <Button color="success" onClick={this.searchNovels}>搜索</Button>
         </div>
-        <BookList novelList={this.state.novelList} onClickNovel={this.props.onClickNovel}/>
+        {this.state.isLoading ? 
+          <div>正在搜索中，请稍后...</div>
+          :
+          <BookList novelList={this.state.novelList} onClickNovel={this.props.onClickNovel}/>
+        }
       </div>
     );
   }
