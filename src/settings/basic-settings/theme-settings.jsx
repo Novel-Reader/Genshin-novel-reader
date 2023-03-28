@@ -1,11 +1,11 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Button, ButtonGroup, Label } from "reactstrap";
 
-export default function ThemeSettings(props) {
-
+function ThemeSettings (props) {
   const [theme, setTheme] = React.useState(props.theme || 2);
 
-  function onClick(theme) {
+  function onClick (theme) {
     props.onSave(theme);
     setTheme(theme);
   }
@@ -31,3 +31,13 @@ export default function ThemeSettings(props) {
     </div>
   );
 }
+
+ThemeSettings.propTypes = {
+  onSave: PropTypes.func.isRequired,
+  theme: PropTypes.number
+};
+
+ThemeSettings.defaultProps = {
+};
+
+export default ThemeSettings;

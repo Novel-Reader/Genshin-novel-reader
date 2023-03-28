@@ -8,41 +8,47 @@ import Outline from "./outline";
 import "./index.css";
 
 export default class Navs extends Component {
-
   static propTypes = {
-    currentFileIndex: PropTypes.number.isRequired,
-  }
+    files: PropTypes.array.isRequired,
+    addFile: PropTypes.func.isRequired,
+    deleteFile: PropTypes.func.isRequired,
+    changeFileIndex: PropTypes.func.isRequired,
+    isShowLeftPanel: PropTypes.bool.isRequired,
+    currentPageIndex: PropTypes.number.isRequired,
+    changePageIndex: PropTypes.func.isRequired,
+    currentFileIndex: PropTypes.number.isRequired
+  };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       isSearch: false,
       searchValue: "",
-      currentNav: "filetree", // filetree or outline 文件树或者大纲
+      currentNav: "filetree" // filetree or outline 文件树或者大纲
     };
   }
 
   changeCurrentNav = (currentNav) => {
     this.setState({ currentNav });
-  }
+  };
 
   openSearch = () => {
     this.setState({ isSearch: true });
-  }
+  };
 
   closeSearch = () => {
-    this.setState({ isSearch: false, searchValue: "", });
-  }
+    this.setState({ isSearch: false, searchValue: "" });
+  };
 
   onSearchChange = (e) => {
     this.setState({ searchValue: e.target.value });
-  }
+  };
 
-  render() {
+  render () {
     const { currentFileIndex, isShowLeftPanel } = this.props;
     const { isSearch, currentNav, searchValue } = this.state;
     return (
-      <div id="navs" className="navs" style={{width: isShowLeftPanel ? 200 : 0, display: isShowLeftPanel ? 'block' : 'none'}}>
+      <div id="navs" className="navs" style={{ width: isShowLeftPanel ? 200 : 0, display: isShowLeftPanel ? 'block' : 'none' }}>
         <NavHeader
           isSearch={isSearch}
           currentNav={currentNav}

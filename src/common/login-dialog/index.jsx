@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from "axios";
 import { Modal, ModalHeader, ModalBody, Button, Input, Label, Form, FormGroup } from 'reactstrap';
 import setting from "../../setting.json";
 import toaster from '../toast';
 
-export default class LoginDialog extends Component {
-
-  constructor(props) {
+class LoginDialog extends Component {
+  constructor (props) {
     super(props);
     this.emailRef = React.createRef();
     this.passwordRef = React.createRef();
   }
 
   onLogin = () => {
-    let email = this.emailRef.current.value.trim();
-    let password = this.passwordRef.current.value;
-    let options = { email, password };
+    const email = this.emailRef.current.value.trim();
+    const password = this.passwordRef.current.value;
+    const options = { email, password };
     axios.post(`${setting.server}/login`, options).then(res => {
       if (res.data.token) {
         toaster.success(`用户 ${email} 登录成功`);
@@ -24,18 +24,18 @@ export default class LoginDialog extends Component {
         this.props.initFromServer(res.data.token);
         this.props.toggle();
       } else {
-        toaster.danger('登录失败，请检查你的同户名和密码是否正确');
+        toaster.danger('登录失败，请检查你的用户名和密码是否正确');
       }
     }).catch((err) => {
       if (err.response && err.response.status === 400) {
-        toaster.danger('登录失败，请检查你的同户名和密码是否正确');
+        toaster.danger('登录失败，请检查你的用户名和密码是否正确');
       } else {
         toaster.danger(err);
       }
     });
-  }
+  };
 
-  render() {
+  render () {
     return (
       <Modal isOpen={true} toggle={this.props.toggle} className="login-dialog">
         <ModalHeader toggle={this.props.toggle}>登录</ModalHeader>
@@ -56,3 +56,10 @@ export default class LoginDialog extends Component {
     );
   }
 }
+
+LoginDialog.propTypes = {
+  initFromServer: PropTypes.func.isRequired,
+  toggle: PropTypes.func.isRequired
+};
+
+export default LoginDialog;

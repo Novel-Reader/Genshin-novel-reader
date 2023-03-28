@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import toaster from '../../common/toast';
 import { Button, Input, Label, Form, FormGroup } from 'reactstrap';
 import BookList from './book-list';
 
-export default class SearchFromServer extends Component {
-
-  constructor(props) {
+class SearchFromServer extends Component {
+  constructor (props) {
     super(props);
     this.state = {
       isLoading: false,
-      novelList: [],
+      novelList: []
     };
     this.nameRef = React.createRef();
     this.authorRef = React.createRef();
@@ -32,17 +32,17 @@ export default class SearchFromServer extends Component {
     window.app.api.searchNovel(name, author, price).then((res) => {
       this.setState({
         isLoading: false,
-        novelList: res.data,
+        novelList: res.data
       });
     }).catch(err => {
       toaster.danger(err);
       this.setState({
-        isLoading: false,
+        isLoading: false
       });
     });
-  }
+  };
 
-  render() {
+  render () {
     return (
       <div className="novel-list">
         <div>
@@ -62,12 +62,17 @@ export default class SearchFromServer extends Component {
           </Form>
           <Button color="success" onClick={this.searchNovels}>搜索</Button>
         </div>
-        {this.state.isLoading ? 
-          <div>正在搜索中，请稍后...</div>
-          :
-          <BookList novelList={this.state.novelList} onClickNovel={this.props.onClickNovel}/>
+        {this.state.isLoading
+          ? <div>正在搜索中，请稍后...</div>
+          : <BookList novelList={this.state.novelList} onClickNovel={this.props.onClickNovel}/>
         }
       </div>
     );
   }
 }
+
+SearchFromServer.propTypes = {
+  onClickNovel: PropTypes.func.isRequired
+};
+
+export default SearchFromServer;

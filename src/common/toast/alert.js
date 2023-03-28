@@ -7,11 +7,11 @@ const propTypes = {
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   onRemove: PropTypes.func.isRequired,
   children: PropTypes.string,
-  isRemoveable: PropTypes.bool,
+  isRemoveable: PropTypes.bool
 };
 
 class Alert extends React.PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.containerStyle = css({
       borderRadius: '3px',
@@ -21,7 +21,7 @@ class Alert extends React.PureComponent {
       boxSizing: 'border-box',
       boxShadow: 'rgba(67, 90, 111, 0.3) 0px 0px 1px, rgba(67, 90, 111, 0.47) 0px 8px 10px -4px',
       justifyContent: 'space-between',
-      flexDirection: 'row',
+      flexDirection: 'row'
     });
     this.containerBorderSuccess = css({
       borderLeft: '3px solid rgb(71, 184, 129)'
@@ -66,18 +66,18 @@ class Alert extends React.PureComponent {
     });
   }
 
-  getContainerStyle(intent) {
+  getContainerStyle (intent) {
     switch (intent) {
       case 'success':
-        return { borderStyle: this.containerBorderSuccess, iconColor: css({color: 'rgb(71, 184, 129)'}), iconClass: 'icon icon-happy' };
+        return { borderStyle: this.containerBorderSuccess, iconColor: css({ color: 'rgb(71, 184, 129)' }), iconClass: 'icon icon-happy' };
       case 'warning':
-        return { borderStyle: this.containerBorderWarn, iconColor: css({color: 'rgb(217, 130, 43)'}) , iconClass: 'icon icon-warning' };
-      case  'danger':
-        return { borderStyle: this.containerBorderDanger, iconColor: css({color: 'rgb(236, 76, 71)'}), iconClass: 'icon icon-notification' };
+        return { borderStyle: this.containerBorderWarn, iconColor: css({ color: 'rgb(217, 130, 43)' }), iconClass: 'icon icon-warning' };
+      case 'danger':
+        return { borderStyle: this.containerBorderDanger, iconColor: css({ color: 'rgb(236, 76, 71)' }), iconClass: 'icon icon-notification' };
     }
   }
 
-  render() {
+  render () {
     const toastStyle = this.getContainerStyle(this.props.intent);
     return (
       <div {...css(toastStyle.borderStyle, this.containerStyle)}>
@@ -86,7 +86,7 @@ class Alert extends React.PureComponent {
         </div>
         <div className={this.toastTextContainer}>
           <p className={this.toastTextTitle}>{this.props.title}</p>
-          {this.props.children ? <p className={this.toastTextChild}>{this.props.children}</p> : null}
+          {this.props.children ? <p className={this.toastTextChild}>{this.props.children}</p> : ''}
         </div>
         {this.props.isRemoveable && (
           <div onClick={this.props.onRemove} className={this.toastClose}>

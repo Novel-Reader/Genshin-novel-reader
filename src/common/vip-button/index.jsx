@@ -3,11 +3,10 @@ import { StarIcon } from "../icons";
 import VipDialog from "../vip-dialog";
 import "./index.css";
 
-export default function VipButton() {
-
+export default function VipButton () {
   const [isOpen, setOpen] = React.useState(false);
 
-  function toggleUpgrade() {
+  function toggleUpgrade () {
     setOpen(!isOpen);
   }
 

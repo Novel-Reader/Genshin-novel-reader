@@ -13,8 +13,7 @@ import setting from "./setting.json";
 import "./css/App.css";
 
 export default class App extends Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.examples = loadExample();
     const files = this.examples.map(file => {
@@ -29,12 +28,12 @@ export default class App extends Component {
       style: JSON.parse(getLocalValue("novel-reader-style")) || DEFAULT_STYLE,
       isShowRightPanel: true,
       isShowLeftPanel: true,
-      currentPageIndex: 0,
+      currentPageIndex: 0
     };
     this.api = null;
   }
 
-  componentDidMount() {
+  componentDidMount () {
     if (setting.mode === 'online') {
       this.initFromServer();
     } else {
@@ -44,21 +43,21 @@ export default class App extends Component {
     window.app = this;
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     document.removeEventListener('keydown', this.onKeydown);
     window.app = null;
   }
 
   changePageIndex = (currentPageIndex) => {
     this.setState({ currentPageIndex });
-  }
+  };
 
   initFromServer = () => {
     // TODO
     const token = window.location.search.slice(7);
     this.api = new LocalAPI();
-    this.api.init({server: setting.server, token: token});
-  }
+    this.api.init({ server: setting.server, token });
+  };
 
   onKeydown = (e) => {
     const { files, currentFileIndex, currentPageIndex } = this.state;
@@ -69,8 +68,7 @@ export default class App extends Component {
         return;
       }
       this.changePageIndex(currentPageIndex - 1);
-    }
-    else if (isDown(e)) {
+    } else if (isDown(e)) {
       e.preventDefault();
       const file = files[currentFileIndex];
       const maxIndex = file.context.length - 1;
@@ -80,39 +78,37 @@ export default class App extends Component {
       }
       this.changePageIndex(currentPageIndex + 1);
     }
-  }
+  };
 
   changeMode = (mode) => {
-    let { currentFileIndex, files } = this.state;
-    let currentNovel = this.examples[this.state.currentFileIndex];
+    const { currentFileIndex, files } = this.state;
+    const currentNovel = this.examples[this.state.currentFileIndex];
     if (mode === PAGES) {
-      files[currentFileIndex] = Object.assign({name: currentNovel.name}, convertNovel2Pages(currentNovel.context));
+      files[currentFileIndex] = Object.assign({ name: currentNovel.name }, convertNovel2Pages(currentNovel.context));
       this.setState({
         files,
         isShowLeftPanel: true,
-        isShowRightPanel: true,
+        isShowRightPanel: true
       });
-    }
-    else if (mode === PARAGRAPHS) {
+    } else if (mode === PARAGRAPHS) {
       if (checkParaGraph(currentNovel.context)) {
-        files[currentFileIndex] = Object.assign({name: currentNovel.name}, convertNovel2Paragraph(currentNovel.context));
+        files[currentFileIndex] = Object.assign({ name: currentNovel.name }, convertNovel2Paragraph(currentNovel.context));
         this.setState({
           files,
           isShowLeftPanel: true,
-          isShowRightPanel: true,
+          isShowRightPanel: true
         });
       } else {
         toaster.warning('当前小说没有找到章节，不支持章节模式');
       }
-    }
-    else if (mode === FULLSCREEN) {
+    } else if (mode === FULLSCREEN) {
       this.setState({
         isShowLeftPanel: false,
-        isShowRightPanel: false,
+        isShowRightPanel: false
       });
       // 这里看一下是否改动 files 对象
     }
-  }
+  };
 
   // {
   //   name,
@@ -125,46 +121,46 @@ export default class App extends Component {
   // 当前直接存文本，不需要处理段落或者标题等
   // 未来可以把 context 转换成特定的段落处理
   addFile = (file) => {
-    let files = this.state.files.slice(0);
+    const files = this.state.files.slice(0);
     files.push(file);
     this.setState({
       files,
-      currentFileIndex: files.length - 1,
+      currentFileIndex: files.length - 1
     });
-  }
+  };
 
   changeFileIndex = (currentFileIndex) => {
     this.setState({
       currentFileIndex,
-      currentPageIndex: 0,
+      currentPageIndex: 0
     });
-  }
+  };
 
   deleteFile = (index) => {
-    let files = this.state.files.slice(0);
+    const files = this.state.files.slice(0);
     files.splice(index, 1);
     this.setState({
       files,
       currentFileIndex: files.length - 1,
-      currentPageIndex: 0,
+      currentPageIndex: 0
     });
-  }
+  };
 
   changeStyle = (newStyle) => {
-    let style = Object.assign({}, this.state.style, newStyle);
+    const style = Object.assign({}, this.state.style, newStyle);
     if (!isSameObject(style, this.state.style)) {
       this.setState({ style });
       setLocalValue("novel-reader-style", JSON.stringify(style));
     }
-  }
+  };
 
   toggleRightPanel = () => {
     this.setState({
-      isShowRightPanel: !this.state.isShowRightPanel,
+      isShowRightPanel: !this.state.isShowRightPanel
     });
-  }
+  };
 
-  render() {
+  render () {
     const { files, currentFileIndex, style } = this.state;
     const currentFile = files[currentFileIndex];
     return (

@@ -1,8 +1,8 @@
-import { useRouteError } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React from "react";
+import { useRouteError, Link } from "react-router-dom";
 import './index.css';
 
-export default function ErrorPage() {
+export default function ErrorPage () {
   const error = useRouteError();
   return (
     <div id="error-page" className="d-flex center">

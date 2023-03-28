@@ -9,7 +9,7 @@ const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'u
  * the ToasterManger and the toast API.
  */
 export default class Toaster {
-  constructor() {
+  constructor () {
     if (!isBrowser) return;
     const container = document.createElement('div');
     container.setAttribute('data-evergreen-toaster-container', '');
@@ -26,33 +26,33 @@ export default class Toaster {
 
   _bindNotify = handler => {
     this.notifyHandler = handler;
-  }
+  };
 
   _bindGetToasts = handler => {
     this.getToastsHandler = handler;
-  }
+  };
 
   _bindCloseAll = handler => {
     this.closeAllHandler = handler;
-  }
+  };
 
   getToasts = () => {
     return this.getToastsHandler();
-  }
+  };
 
   closeAll = () => {
     return this.closeAllHandler();
-  }
+  };
 
   success = (title, settings = {}) => {
     return this.notifyHandler(title, { ...settings, intent: 'success' });
-  }
+  };
 
   warning = (title, settings = {}) => {
     return this.notifyHandler(title, { ...settings, intent: 'warning' });
-  }
+  };
 
   danger = (title, settings = {}) => {
     return this.notifyHandler(title, { ...settings, intent: 'danger' });
-  }
+  };
 }

@@ -10,7 +10,7 @@ const wrapperClass = css({
   left: 0,
   right: 0,
   position: 'fixed',
-  zIndex: 10000,
+  zIndex: 10000
 });
 
 const hasCustomId = settings => Object.hasOwnProperty.call(settings, 'id');
@@ -23,11 +23,11 @@ export default class ToastManager extends React.PureComponent {
     bindGetToasts: PropTypes.func.isRequired,
     // Function called with the `this.closeAll` function.
     bindCloseAll: PropTypes.func.isRequired
-  }
+  };
 
   static idCounter = 0;
 
-  constructor(props, context) {
+  constructor (props, context) {
     super(props, context);
     props.bindNotify(this.notify);
     props.bindGetToasts(this.getToasts);
@@ -39,11 +39,11 @@ export default class ToastManager extends React.PureComponent {
 
   getToasts = () => {
     return this.state.toasts;
-  }
+  };
 
   closeAll = () => {
     this.getToasts().forEach(toast => toast.close());
-  }
+  };
 
   notify = (title, settings) => {
     // If there's a custom toast ID passed, close existing toasts with the same custom ID
@@ -63,7 +63,7 @@ export default class ToastManager extends React.PureComponent {
       };
     });
     return instance;
-  }
+  };
 
   createToastInstance = (title, settings) => {
     const uniqueId = ++ToastManager.idCounter;
@@ -81,12 +81,12 @@ export default class ToastManager extends React.PureComponent {
       id,
       title,
       description: settings.description,
-      hasCloseButton: hasCloseButton,
-      duration: duration,
+      hasCloseButton,
+      duration,
       close: () => this.closeToast(id),
       intent: settings.intent
     };
-  }
+  };
 
   /**
    * This will set isShown on the Toast which will close the toast.
@@ -106,7 +106,7 @@ export default class ToastManager extends React.PureComponent {
         })
       };
     });
-  }
+  };
 
   removeToast = id => {
     this.onClose && this.onClose();
@@ -115,9 +115,9 @@ export default class ToastManager extends React.PureComponent {
         toasts: previousState.toasts.filter(toast => toast.id !== id)
       };
     });
-  }
+  };
 
-  render() {
+  render () {
     return (
       <span className={wrapperClass}>
         {this.state.toasts.map(({ id, description, ...props }) => {

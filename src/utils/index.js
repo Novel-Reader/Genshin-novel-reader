@@ -3,7 +3,7 @@ import exampleObj from "./example.json";
 /**
  * parse text file to html dom
  * @param {string} txt
- * @return {doms} 
+ * @return {doms}
  */
 const parseTxtToHTML = (txt) => {
   // 考虑性能问题：不能特别长
@@ -49,7 +49,7 @@ const MenuSelectStyle = {
     const { isDisabled } = state;
     return ({
       ...provided,
-      cursor: isDisabled ? "default" : "pointer",
+      cursor: isDisabled ? "default" : "pointer"
       // backgroundColor: isSelected ? '#20a0ff' : (isFocused ? '#f5f5f5' : '#fff'),
     });
   },
@@ -57,18 +57,18 @@ const MenuSelectStyle = {
     ...provided,
     fontSize: "14px",
     cursor: "pointer",
-    lineHeight: "1.5",
+    lineHeight: "1.5"
   }),
-  menuPortal:  base => ({ ...base, zIndex: 9999 }),
-  indicatorSeparator: () => {},
+  menuPortal: base => ({ ...base, zIndex: 9999 }),
+  indicatorSeparator: () => {}
 };
 
 const loadExample = () => {
-  let files = [];
-  for (let item in exampleObj) {
+  const files = [];
+  for (const item in exampleObj) {
     files.push({
       name: item,
-      context: exampleObj[item],
+      context: exampleObj[item]
     });
   }
   return files;
@@ -80,5 +80,5 @@ export {
   getLocalValue,
   setLocalValue,
   MenuSelectStyle,
-  loadExample,
+  loadExample
 };

@@ -4,31 +4,30 @@ import { Button } from 'reactstrap';
 import './index.css';
 
 export default class Login extends Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       isShowLogin: false,
-      isShowRegister: false,
+      isShowRegister: false
     };
   }
 
   toggleLoginDialog = () => {
     this.setState({ isShowLogin: !this.state.isShowLogin });
-  }
+  };
 
   toggleRegisterDialog = () => {
     alert('暂不支持新用户注册哦，请联系管理员');
     this.setState({ isShowRegister: !this.state.isShowRegister });
-  }
+  };
 
   initFromServer = (token) => {
     setTimeout(() => {
       window.location.href = window.location.href + 'reader' + `?token=${token}`;
     }, 1000);
-  }
+  };
 
-  render() {
+  render () {
     return (
       <>
         <div className="login">

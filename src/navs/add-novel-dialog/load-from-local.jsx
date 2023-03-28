@@ -1,26 +1,26 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Button, FormGroup, Form, Label, Input, ModalFooter } from "reactstrap";
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
 import setting from "../../setting.json";
 import toaster from '../../common/toast';
 
-export default class LoadFromLocal extends Component {
-
-  constructor(props) {
+class LoadFromLocal extends Component {
+  constructor (props) {
     super(props);
     this.state = {
       file: null,
       filename: "",
       author: "",
       abstract: "",
-      currentSelected: null,
+      currentSelected: null
     };
     this.options = [
       { value: "古典", label: "古典" },
       { value: "同人", label: "同人" },
       { value: "言情", label: "言情" },
-      { value: "其他", label: "其他" },
+      { value: "其他", label: "其他" }
     ];
     this.isOnline = setting.mode === 'online';
     this.checkboxRef = React.createRef();
@@ -28,39 +28,39 @@ export default class LoadFromLocal extends Component {
 
   onClick = () => {
     this.uploadRef.click();
-  }
+  };
 
   onChange = (option) => {
     this.setState({ currentSelected: option });
-  }
+  };
 
   onFileChange = () => {
     const file = this.uploadRef.files[0];
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsText(file, "utf-8");
     const that = this;
     reader.onload = function () {
       that.tmpFile = this.result;
       that.setState({
-        file: file,
+        file
       }, () => {
         that.initFileInfo();
-      }); 
+      });
     };
-  }
+  };
 
   initFileInfo = () => {
     this.setState({
       filename: this.state.file.name,
       author: "",
-      abstract: this.tmpFile.slice(0, 100).trim(),
+      abstract: this.tmpFile.slice(0, 100).trim()
     });
-  }
+  };
 
   onClear = () => {
     this.setState({ file: null });
     this.tmpFile = null;
-  }
+  };
 
   onUpload = () => {
     const { filename, file, author, abstract, currentSelected } = this.state;
@@ -68,17 +68,17 @@ export default class LoadFromLocal extends Component {
     const fileObj = {
       name: filename.trim(),
       size: file.size,
-      author: author,
+      author,
       context: this.tmpFile,
       abstract: abstract.trim(),
-      tag,
+      tag
     };
     this.props.addFile(fileObj);
     if (this.isOnline && this.checkboxRef.current.checked) {
       this.uploadToServer(fileObj);
     }
     this.props.toggleDialog();
-  }
+  };
 
   uploadToServer = (fileObj) => {
     const { name, author, context, abstract } = fileObj;
@@ -92,9 +92,9 @@ export default class LoadFromLocal extends Component {
       toaster.danger('上传失败');
       toaster.danger(err);
     });
-  }
+  };
 
-  render() {
+  render () {
     if (!this.state.file) {
       return (
         <div>
@@ -104,7 +104,7 @@ export default class LoadFromLocal extends Component {
             type="file"
             accept=".txt, .md"
             onChange={this.onFileChange}
-            ref={node => this.uploadRef = node}
+            ref={node => { this.uploadRef = node; }}
           ></input>
         </div>
       );
@@ -185,3 +185,10 @@ export default class LoadFromLocal extends Component {
     );
   }
 }
+
+LoadFromLocal.propTypes = {
+  addFile: PropTypes.func.isRequired,
+  toggleDialog: PropTypes.func.isRequired
+};
+
+export default LoadFromLocal;

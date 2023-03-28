@@ -7,5 +7,5 @@ const isDown = isHotkey('down');
 export {
   isSpace,
   isUp,
-  isDown,
+  isDown
 };

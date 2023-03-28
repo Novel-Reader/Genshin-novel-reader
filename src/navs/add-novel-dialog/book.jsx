@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 
-export default function Book(props) {
+function Book (props) {
   const { novel } = props;
-  const { id, author, brief, cover_photo, name, price } = novel;
+  const { id, author, brief, cover_photo: coverPhoto, name, price } = novel;
   return (
     <div className="book">
       <div className="book-left">
-        <img src={cover_photo} alt="cover"/>
+        <img src={coverPhoto} alt="cover"/>
       </div>
       <div className="book-right">
         <div className="book-right-name">{name.slice(0, name.indexOf('.'))}</div>
@@ -15,9 +16,16 @@ export default function Book(props) {
         <p className="book-right-detail">{brief.replace(/\s+/ig, '').slice(0, 50)}</p>
         <div className="book-right-price">
           <span>{price}$</span>
-          <Button color="primary" onClick={() => {props.onClick(id);}} size="sm">下载</Button>
+          <Button color="primary" onClick={() => { props.onClick(id); }} size="sm">下载</Button>
         </div>
       </div>
     </div>
   );
 }
+
+Book.propTypes = {
+  novel: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired
+};
+
+export default Book;

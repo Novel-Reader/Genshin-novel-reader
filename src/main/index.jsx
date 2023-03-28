@@ -9,20 +9,22 @@ const LONG_PAGE = "long_page";
 // const SHORT_PAGE = 'short_page';
 
 export default class Main extends Component {
-
   static propTypes = {
+    currentPageIndex: PropTypes.number.isRequired,
+    toggleRightPanel: PropTypes.func.isRequired,
+    isShowRightPanel: PropTypes.bool.isRequired,
     currentFile: PropTypes.object,
-    style: PropTypes.object,
-  }
+    style: PropTypes.object
+  };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
-      mode: LONG_PAGE,
+      mode: LONG_PAGE
     };
   }
 
-  render() {
+  render () {
     const { mode } = this.state;
     const { currentFile, style, currentPageIndex } = this.props;
     if (!currentFile) {
@@ -36,8 +38,7 @@ export default class Main extends Component {
     let context = "";
     if (currentFile.type === PAGES || currentFile.type === PARAGRAPHS) {
       context = currentFile.context[currentPageIndex];
-    }
-    else {
+    } else {
       context = currentFile.context;
     }
 
