@@ -6,17 +6,16 @@ import ScrollTopIcon from "../../common/scroll-top-button";
 import "./index.css";
 
 export default class LongPage extends Component {
-
   static propTypes = {
     context: PropTypes.string,
-    style: PropTypes.object,
-  }
+    style: PropTypes.object
+  };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       isMoving: false,
-      isShowTopIcon: false,
+      isShowTopIcon: false
     };
     this.timer = null;
   }
@@ -24,19 +23,19 @@ export default class LongPage extends Component {
   onScroll = (e) => {
     if (!this.state.isMoving && !this.state.isShowTopIcon && e.target.scrollTop > window.innerHeight) {
       this.setState({
-        isShowTopIcon: true,
+        isShowTopIcon: true
       });
     }
     if (!this.state.isMoving && this.state.isShowTopIcon && e.target.scrollTop < window.innerHeight) {
       this.setState({
-        isShowTopIcon: false,
+        isShowTopIcon: false
       });
     }
-  }
+  };
 
   scrollToTop = () => {
     this.setState({
-      isMoving: true,
+      isMoving: true
     }, () => {
       let currentTop = this.longPageRef.scrollTop;
       const indent = currentTop / 50;
@@ -48,24 +47,24 @@ export default class LongPage extends Component {
           this.timer = null;
           this.setState({
             isMoving: false,
-            isShowTopIcon: false,
+            isShowTopIcon: false
           });
         }
       }, 20);
     });
-  }
+  };
 
-  render() {
+  render () {
     const { context, style = {} } = this.props;
     const list = parseTxtToHTML(context);
     const defaultImage = "https://julia-1994.github.io/images/KamisatoAyaka/02.jpg";
     const pageStyle = {
-      backgroundImage: `url('${style.backgroundImage || defaultImage}')`,
+      backgroundImage: `url('${style.backgroundImage || defaultImage}')`
     };
-    const scrollIconStyle = {bottom: this.state.isShowTopIcon ? 20 : -70};
+    const scrollIconStyle = { bottom: this.state.isShowTopIcon ? 20 : -70 };
     return (
-      <div className="long-page" style={pageStyle} onScroll={this.onScroll} ref={node => this.longPageRef = node}>
-        <div className='long-page-container' style={Object.assign({}, style, {opacity: 0.75})}>
+      <div className="long-page" style={pageStyle} onScroll={this.onScroll} ref={node => { this.longPageRef = node; }}>
+        <div className='long-page-container' style={Object.assign({}, style, { opacity: 0.75 })}>
           {list.map((item, index) => {
             return (<p key={index}>{item}</p>);
           })}

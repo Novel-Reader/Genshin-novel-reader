@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { UncontrolledTooltip } from "reactstrap";
 import "./index.css";
 
-export default class ScrollTopIcon extends Component {
-  render() {
+class ScrollTopIcon extends Component {
+  render () {
     const id = "novel-scroll-top-icon";
     return (
       <>
@@ -12,7 +13,7 @@ export default class ScrollTopIcon extends Component {
           placement='right'
           target={id}
           fade={false}
-          delay={{show: 0, hide: 0}}
+          delay={{ show: 0, hide: 0 }}
         >
           {"回到顶部"}
         </UncontrolledTooltip>
@@ -20,3 +21,10 @@ export default class ScrollTopIcon extends Component {
     );
   }
 }
+
+ScrollTopIcon.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  style: PropTypes.object.isRequired
+};
+
+export default ScrollTopIcon;

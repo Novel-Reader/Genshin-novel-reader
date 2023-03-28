@@ -1,27 +1,27 @@
-var { configure, getLogger } = require('log4js');
+const { configure, getLogger } = require('log4js');
 
 configure({
-  appenders: { 
-    logger: { 
-      type: 'dateFile', 
+  appenders: {
+    logger: {
+      type: 'dateFile',
       filename: './novel-server.log',
-      pattern: "yyyy-MM-dd", 
+      pattern: "yyyy-MM-dd",
       keepFileExt: true,
       layout: {
         type: 'pattern',
-        pattern: '[%d{yyyy-MM-dd hh:mm:ss}] [%p] %f{1}[%l] - %m',
-      },
-    },
+        pattern: '[%d{yyyy-MM-dd hh:mm:ss}] [%p] %f{1}[%l] - %m'
+      }
+    }
   },
-  categories: { 
-    default: {  
-      appenders: ['logger'], 
+  categories: {
+    default: {
+      appenders: ['logger'],
       level: 'info',
-      enableCallStack: true,
+      enableCallStack: true
     }
   }
 });
 
-var logger = getLogger('novel-server');
+const logger = getLogger('novel-server');
 
 module.exports = logger;

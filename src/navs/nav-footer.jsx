@@ -1,21 +1,21 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Button } from "reactstrap";
 import AddNovelDialog from "./add-novel-dialog";
 
-export default class NavFooter extends Component {
-
-  constructor(props) {
+class NavFooter extends Component {
+  constructor (props) {
     super(props);
     this.state = {
-      isShowAddDialog: false,
+      isShowAddDialog: false
     };
   }
 
   toggleDialog = () => {
     this.setState({ isShowAddDialog: !this.state.isShowAddDialog });
-  }
+  };
 
-  render() {
+  render () {
     return (
       <>
         <div className="navs-footer">
@@ -28,3 +28,9 @@ export default class NavFooter extends Component {
     );
   }
 }
+
+NavFooter.propTypes = {
+  addFile: PropTypes.func.isRequired
+};
+
+export default NavFooter;

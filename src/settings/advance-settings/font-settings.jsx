@@ -1,23 +1,23 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import Select from "react-select";
 import { Label } from "reactstrap";
 import { MenuSelectStyle } from "../../utils";
 
-export default class FontSettings extends Component {
-
-  constructor(props) {
+class FontSettings extends Component {
+  constructor (props) {
     super(props);
     this.state = {
-      selected: null,
+      selected: null
     };
   }
 
   onChange = (option) => {
     this.setState({ selected: option });
     this.props.save(option);
-  }
+  };
 
-  render() {
+  render () {
     const preCls = "advance-font-settings";
     return (
       <div className={preCls}>
@@ -37,3 +37,10 @@ export default class FontSettings extends Component {
   }
 }
 
+FontSettings.propTypes = {
+  title: PropTypes.string.isRequired,
+  options: PropTypes.array.isRequired,
+  save: PropTypes.func.isRequired
+};
+
+export default FontSettings;

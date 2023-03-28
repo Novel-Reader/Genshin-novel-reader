@@ -57,18 +57,18 @@ export default class Toast extends React.PureComponent {
     children: PropTypes.node,
     hasCloseButton: PropTypes.bool,
     isShown: PropTypes.bool
-  }
+  };
 
   static defaultProps = {
     intent: 'none'
-  }
+  };
 
   state = {
     isShown: true,
     height: 0
-  }
+  };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     if (prevProps.isShown !== this.props.isShown) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
@@ -77,11 +77,11 @@ export default class Toast extends React.PureComponent {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.startCloseTimer();
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.clearCloseTimer();
   }
 
@@ -94,7 +94,7 @@ export default class Toast extends React.PureComponent {
     this.setState({
       isShown: false
     });
-  }
+  };
 
   startCloseTimer = () => {
     if (this.props.duration) {
@@ -102,30 +102,30 @@ export default class Toast extends React.PureComponent {
         this.close();
       }, this.props.duration * 1000);
     }
-  }
+  };
 
   clearCloseTimer = () => {
     if (this.closeTimer) {
       clearTimeout(this.closeTimer);
       this.closeTimer = null;
     }
-  }
+  };
 
   handleMouseEnter = () => {
     this.clearCloseTimer();
-  }
+  };
 
   handleMouseLeave = () => {
     this.startCloseTimer();
-  }
+  };
 
   onRef = ref => {
     if (ref === null) return;
     const { height } = ref.getBoundingClientRect();
     this.setState({ height });
-  }
+  };
 
-  render() {
+  render () {
     return (
       <Transition
         appear
@@ -148,11 +148,7 @@ export default class Toast extends React.PureComponent {
           >
             <div ref={this.onRef} style={{ padding: 8 }}>
               <Alert
-                intent={this.props.intent}
-                title={this.props.title}
-                aria-label={this.props.title}
-                children={this.props.children || ''}
-                isRemoveable={this.props.hasCloseButton}
+                {...this.props}
                 onRemove={(event) => this.close(event)}
               />
             </div>

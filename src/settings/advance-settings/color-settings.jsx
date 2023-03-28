@@ -1,22 +1,22 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Label, Popover } from "reactstrap";
 import { SketchPicker } from "react-color";
 
-export default class ColorSettings extends React.Component {
-
-  constructor(props) {
+class ColorSettings extends React.Component {
+  constructor (props) {
     super(props);
     this.state = {
       color: this.props.color,
-      isShowPicker: false,
+      isShowPicker: false
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     document.addEventListener("click", this.onDocumentClick);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     document.removeEventListener("click", this.onDocumentClick);
   }
 
@@ -30,23 +30,23 @@ export default class ColorSettings extends React.Component {
       dom = dom.parentElement;
     }
     this.setState({
-      isShowPicker: false,
+      isShowPicker: false
     });
-  }
+  };
 
   handleChangeComplete = (colorObj) => {
     this.setState({ color: colorObj.hex });
     this.props.changeStyle({
-      [this.props.settingKey]: colorObj.hex,
+      [this.props.settingKey]: colorObj.hex
     });
-  }
+  };
 
   toggle = (e) => {
     e.stopPropagation();
     this.setState({ isShowPicker: !this.state.isShowPicker });
-  }
+  };
 
-  render() {
+  render () {
     return (
       <div>
         <Label>{this.props.title}</Label>
@@ -64,3 +64,12 @@ export default class ColorSettings extends React.Component {
     );
   }
 }
+
+ColorSettings.propTypes = {
+  color: PropTypes.string.isRequired,
+  changeStyle: PropTypes.func.isRequired,
+  settingKey: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
+};
+
+export default ColorSettings;

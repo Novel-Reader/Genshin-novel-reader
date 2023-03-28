@@ -14,7 +14,7 @@ if (setting.mode === 'online') {
   router = createBrowserRouter([
     {
       path: "/",
-      element: <Login />,
+      element: <Login />
     },
     {
       path: "/reader",
@@ -28,18 +28,18 @@ if (setting.mode === 'online') {
           </MediaQuery>
         </>
       ),
-      errorElement: <App />,
+      errorElement: <App />
     },
     {
       path: "admin/",
-      element: <Admin />,
-    },
+      element: <Admin />
+    }
     // {
     //   path: "register/",
     //   element: <Register />,
     // },
     // and renders this element in case something went wrong
-    // errorElement: <ErrorBoundary />,
+    // errorElement: <ErrorBoundary />
   ]);
 }
 
@@ -57,7 +57,7 @@ if (setting.mode === 'offline') {
           </MediaQuery>
         </>
       ),
-      errorElement: <App />,
+      errorElement: <App />
     }
   ]);
 }

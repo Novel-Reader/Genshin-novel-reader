@@ -1,24 +1,24 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Nav, NavItem, NavLink, Modal, ModalHeader, ModalBody } from "reactstrap";
 import LoadFromLocal from "./load-from-local";
 import LoadFromServer from "./load-from-server";
 
 import "./index.css";
 
-export default class AddNovelDialog extends Component {
-
-  constructor(props) {
+class AddNovelDialog extends Component {
+  constructor (props) {
     super(props);
     this.state = {
-      activeTab: "local",
+      activeTab: "local"
     };
   }
 
   toggle = (activeTab) => {
     this.setState({ activeTab });
-  }
+  };
 
-  render() {
+  render () {
     const { activeTab } = this.state;
     return (
       <Modal isOpen={true} toggle={this.props.toggleDialog} className="add-novel-dialog" size="lg">
@@ -51,3 +51,10 @@ export default class AddNovelDialog extends Component {
     );
   }
 }
+
+AddNovelDialog.propTypes = {
+  toggleDialog: PropTypes.func.isRequired,
+  addFile: PropTypes.func.isRequired
+};
+
+export default AddNovelDialog;

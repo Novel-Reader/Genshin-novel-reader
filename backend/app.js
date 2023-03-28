@@ -1,3 +1,3 @@
-var httpServer = require('./http-server');
+const httpServer = require('./http-server');
 
 httpServer();

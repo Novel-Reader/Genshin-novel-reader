@@ -1,28 +1,29 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Input } from "reactstrap";
 import { SearchIcon, ListIcon, TreeIcon, BackIcon } from "../common/icons";
-
-class NavIcon extends React.PureComponent {
-  render() {
-    return (
-      <div className="navs-header-icon" onClick={this.props.onClick}>
-        {this.props.children}
-      </div>
-    );
-  }
-}
+import NavIcon from './nav-icon';
 
 export default class NavHeader extends React.Component {
+  static propTypes = {
+    changeCurrentNav: PropTypes.func.isRequired,
+    closeSearch: PropTypes.func.isRequired,
+    openSearch: PropTypes.func.isRequired,
+    onSearchChange: PropTypes.func.isRequired,
+    searchValue: PropTypes.string.isRequired,
+    isSearch: PropTypes.bool,
+    currentNav: PropTypes.string
+  };
 
   openOutline = () => {
     this.props.changeCurrentNav("outline");
-  }
+  };
 
   openFileTree = () => {
     this.props.changeCurrentNav("filetree");
-  }
+  };
 
-  render() {
+  render () {
     const { isSearch, currentNav } = this.props;
     if (isSearch === true) {
       return (

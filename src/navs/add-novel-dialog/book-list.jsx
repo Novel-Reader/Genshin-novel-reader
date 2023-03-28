@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Book from './book';
 import './book-list.css';
 
-export default function BookList(props) {
-  if (!Array.isArray(props.novelList) || props.novelList.length == 0) {
+function BookList (props) {
+  if (!Array.isArray(props.novelList) || props.novelList.length === 0) {
     return (
       <div className="book-list">没有找到对应的小说，请换个关键词试试</div>
     );
@@ -14,3 +15,10 @@ export default function BookList(props) {
     </div>
   );
 }
+
+BookList.propTypes = {
+  novelList: PropTypes.array.isRequired,
+  onClickNovel: PropTypes.func.isRequired
+};
+
+export default BookList;

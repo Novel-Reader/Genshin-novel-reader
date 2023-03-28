@@ -9,6 +9,7 @@ module.exports = {
     'plugin:react/recommended',
     'standard'
   ],
+  ignorePatterns: ["build/*", "dist/*", "node_modules/*"],
   overrides: [
   ],
   parserOptions: {
@@ -20,7 +21,8 @@ module.exports = {
   ],
   rules: {
     'quotes': 'off',
-    'semi': 'warn',
+    'camelcase': 'off',
+    'semi': [2, "always"],
     'no-console': 'warn',
     'no-unused-vars': 'warn',
     'no-unreachable': 'warn',

@@ -1,8 +1,8 @@
 import { PAGES, PARAGRAPHS } from "./constants";
 /**
  * convert no paragraph novel string into pages
- * @param {string} txt novel text 
- * @param {bool} isMobile 
+ * @param {string} txt novel text
+ * @param {bool} isMobile
  * @returns {object} { context: [], type: pages }
  */
 const convertNovel2Pages = (txt, isMobile = false) => {
@@ -13,19 +13,19 @@ const convertNovel2Pages = (txt, isMobile = false) => {
   const pageLen = Math.ceil(txtLen / textNumber);
   for (let i = 0; i < pageLen; i++) {
     // TODO handle \n and others
-    let current = txt.slice(i * textNumber, i * textNumber + textNumber);
+    const current = txt.slice(i * textNumber, i * textNumber + textNumber);
     pages.push(current);
   }
   return {
     context: pages,
-    type: PAGES,
+    type: PAGES
   };
 };
 
 /**
  * convert novel string into paragraphs
  * By default, the chapter is complete and there is no omission
- * @param {string} txt novel text 
+ * @param {string} txt novel text
  * @returns {object} { context: [], type: paragraphs }
  */
 const convertNovel2Paragraph = (txt) => {
@@ -33,13 +33,13 @@ const convertNovel2Paragraph = (txt) => {
   paragraphs = paragraphs.filter((item) => item.length);
   return {
     context: paragraphs,
-    type: PARAGRAPHS,
+    type: PARAGRAPHS
   };
 };
 
 /**
  * Check whether there are chapters in the novel
- * @param {string} content novel text 
+ * @param {string} content novel text
  * @returns boolean
  */
 const checkParaGraph = (content) => {
