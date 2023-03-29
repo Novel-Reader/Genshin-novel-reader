@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render icons 1`] = `
+<div>
+  <span
+    className="icon icon-star-full"
+  />
+  <span
+    className="icon icon-spinner"
+  />
+  <span
+    className="icon icon-search"
+    title="搜索"
+  />
+  <span
+    className="icon icon-share2"
+  />
+  <span
+    className="icon icon-arrow-right2"
+  />
+  <span
+    className="icon icon-arrow-left2"
+  />
+  <span
+    className="icon icon-list2"
+    title="切换到大纲视图"
+  />
+  <span
+    className="icon icon-tree"
+    title="切换到文档树视图"
+  />
+  <span
+    className="icon icon-arrow-left2"
+  />
+  <span
+    className="icon icon-cancel-circle"
+  />
+</div>
+`;
