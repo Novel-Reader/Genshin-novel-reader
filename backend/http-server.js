@@ -42,7 +42,7 @@ function httpServer () {
     if (err) {
       logger.info(err);
       if (err.status === 401) {
-        return res.status(401).send('token is ivalid');
+        return res.status(401).send('Token is invalid');
       }
     }
   });
@@ -79,7 +79,7 @@ function httpServer () {
     const sql = `SELECT * FROM user WHERE email=? and password=?`;
     DBHelper(sql, (err, results) => {
       if (err) {
-        // database error, maybe not connect db
+        // database return error, maybe not connect db
         if (err.sqlMessage) {
           logger.error(err.sqlMessage);
           res.status(500).send({ error_massage: err.sqlMessage });
@@ -99,10 +99,10 @@ function httpServer () {
     }, [email, password]);
   });
 
-  // 通过 列出全部的用户信息
+  // list all user infos for admin
   app.get('/users', function (req, res) {
-    // 需要验证当前管理员权限
-    // TODO 这里应该不能返回密码
+    // check admin
+    // TODO should not return password
     const sql = `SELECT * FROM user order by id asc`;
     DBHelper(sql, (err, results) => {
       if (err) {
@@ -114,9 +114,9 @@ function httpServer () {
     });
   });
 
-  // 通过 获取指定用户信息
-  // TODO 这里应该不能返回密码
+  // get user info
   app.get('/user', function (req, res) {
+    // TODO should not return password
     const email = req.query.email;
     const sql = `SELECT * FROM user WHERE email=?`;
     DBHelper(sql, (err, results) => {
@@ -129,32 +129,31 @@ function httpServer () {
     }, [email]);
   });
 
-  // 通过 增加用户
+  // add user
   app.post('/user', function (req, res) {
     const { email, name, password } = req.body;
-    // 验证用户信息
+    // verify user info must contain email, name and password
     if (!email || !name || !password) {
-      res.status(400).send({ error_massage: '邮箱或用户名或密码为空' });
+      res.status(400).send({ error_massage: 'Email, username or password is not correct' });
       return;
     }
     if (password.length < 6) {
-      res.status(400).send({ error_massage: '密码长度太短' });
+      res.status(400).send({ error_massage: 'Password is too short' });
       return;
     }
     let sql = `SELECT * FROM user WHERE email=?`;
     DBHelper(sql, (err, results) => {
-      // 执行出错
+      // exec error
       if (err) {
         logger.error(err);
-        res.status(500).send({ error_massage: '服务器内部错误' });
+        res.status(500).send({ error_massage: 'Internal server error' });
         return;
       }
-      // 数据库中已经有这个数据了
       if (results.length > 0) {
-        res.status(400).send({ error_massage: '这个邮箱已经被使用过了' });
+        res.status(400).send({ error_massage: 'This emial is used' });
         return;
       }
-      // 数据库中没有这个邮箱，将新数据插入到数据库中
+      // If can not find email in db, insert new email into db
       sql = `insert into user (name, email, password, avatar) values(?, ?, ?, ?)`;
       DBHelper(sql, (err, results) => {
         if (err) {
@@ -233,7 +232,6 @@ function httpServer () {
     }, [name, cover_photo, author, detail, price, brief]);
   });
 
-  // 删除书籍
   app.delete('/api/v1/novel', function (req, res) {
     const id = req.query.id;
     const sql = `DELETE FROM book WHERE id=?`;
@@ -248,7 +246,7 @@ function httpServer () {
     }, [id]);
   });
 
-  // 首页展示小说列表（前10个）
+  // get novel list for index page
   app.get('/api/v1/novel_list', function (req, res) {
     const sql = `SELECT id, name, cover_photo, author, brief, price FROM book limit 10`;
     DBHelper(sql, (err, results) => {
@@ -261,7 +259,7 @@ function httpServer () {
     }, []);
   });
 
-  // 搜索小说（返回满足条件的前10个）
+  // search novel and return 10 results
   app.post('/api/v1/search-novel', function (req, res) {
     const { name, author, price } = req.body;
     if (!name && !author && !price) {
@@ -294,11 +292,12 @@ function httpServer () {
     }, params);
   });
 
-  // 获取小说全文详情
+  // get novel detail
   app.get('/api/v1/search-novel', function (req, res) {
     const id = req.query.id;
     const sql = `SELECT * from book WHERE id=?`;
-    // todo: 每次下载一次，数据库记录下载的次数（下载热榜），也便于进行热点监控和预警
+    // TODO: Once per download, the database records the number of downloads (download hot list)
+    // which also facilitates hotspot monitoring and early warning
     DBHelper(sql, (err, results) => {
       if (err) {
         logger.error(err);

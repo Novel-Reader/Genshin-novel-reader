@@ -45,7 +45,7 @@ class BasicSettings extends Component {
   };
 
   render () {
-    // TODO：这里从父组件中获取到当前的颜色，然后再给子组件传参
+    // TODO：get current from parent component
     return (
       <div className='basic-settings'>
         <FontSettings onSave={this.onSaveFont} />

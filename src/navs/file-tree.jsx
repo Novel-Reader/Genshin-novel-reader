@@ -10,7 +10,9 @@ class FileTree extends Component {
       <div>
         {files.map((file, index) => {
           const isActive = currentFileIndex === index;
-          if (searchValue && !file.name.includes(searchValue)) return null;
+          if (searchValue && !file.name.includes(searchValue)) {
+            return null;
+          }
           return (
             <div key={index} className={classnames("navs-body-item text-truncate d-flex", { active: isActive })}>
               <span className='navs-body-item-name text-truncate' onClick={() => this.props.changeFileIndex(index)}>{file.name}</span>

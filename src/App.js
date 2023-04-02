@@ -53,7 +53,6 @@ export default class App extends Component {
   };
 
   initFromServer = () => {
-    // TODO
     const token = window.location.search.slice(7);
     this.api = new LocalAPI();
     this.api.init({ server: setting.server, token });
@@ -106,21 +105,12 @@ export default class App extends Component {
         isShowLeftPanel: false,
         isShowRightPanel: false
       });
-      // 这里看一下是否改动 files 对象
+      // TODO change files data structure
     }
   };
 
-  // {
-  //   name,
-  //   size,
-  //   author,
-  //   context,
-  //   abstract,
-  //   tag,
-  // }
-  // 当前直接存文本，不需要处理段落或者标题等
-  // 未来可以把 context 转换成特定的段落处理
   addFile = (file) => {
+    // todo change new file data structure
     const files = this.state.files.slice(0);
     files.push(file);
     this.setState({

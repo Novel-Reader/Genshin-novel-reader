@@ -15,7 +15,7 @@ class ScrollTopIcon extends Component {
           fade={false}
           delay={{ show: 0, hide: 0 }}
         >
-          {"回到顶部"}
+          回到顶部
         </UncontrolledTooltip>
       </>
     );

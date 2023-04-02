@@ -24,7 +24,7 @@ export default class Navs extends Component {
     this.state = {
       isSearch: false,
       searchValue: "",
-      currentNav: "filetree" // filetree or outline 文件树或者大纲
+      currentNav: "filetree" // filetree or outline
     };
   }
 
@@ -53,7 +53,6 @@ export default class Navs extends Component {
           isSearch={isSearch}
           currentNav={currentNav}
           changeCurrentNav={this.changeCurrentNav}
-          // search
           openSearch={this.openSearch}
           searchValue={searchValue}
           onSearchChange={this.onSearchChange}

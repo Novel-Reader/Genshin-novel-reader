@@ -30,7 +30,6 @@ class FontSettings extends Component {
           className={`${preCls}-select`}
           classNamePrefix
           styles={MenuSelectStyle}
-          // placeholder='选择主题'
         />
       </div>
     );

@@ -69,11 +69,23 @@ class Alert extends React.PureComponent {
   getContainerStyle (intent) {
     switch (intent) {
       case 'success':
-        return { borderStyle: this.containerBorderSuccess, iconColor: css({ color: 'rgb(71, 184, 129)' }), iconClass: 'icon icon-happy' };
+        return {
+          borderStyle: this.containerBorderSuccess,
+          iconColor: css({ color: 'rgb(71, 184, 129)' }),
+          iconClass: 'icon icon-happy'
+        };
       case 'warning':
-        return { borderStyle: this.containerBorderWarn, iconColor: css({ color: 'rgb(217, 130, 43)' }), iconClass: 'icon icon-warning' };
+        return {
+          borderStyle: this.containerBorderWarn,
+          iconColor: css({ color: 'rgb(217, 130, 43)' }),
+          iconClass: 'icon icon-warning'
+        };
       case 'danger':
-        return { borderStyle: this.containerBorderDanger, iconColor: css({ color: 'rgb(236, 76, 71)' }), iconClass: 'icon icon-notification' };
+        return {
+          borderStyle: this.containerBorderDanger,
+          iconColor: css({ color: 'rgb(236, 76, 71)' }),
+          iconClass: 'icon icon-notification'
+        };
     }
   }
 

@@ -19,8 +19,7 @@ class LoginDialog extends Component {
     axios.post(`${setting.server}/login`, options).then(res => {
       if (res.data.token) {
         toaster.success(`用户 ${email} 登录成功`);
-        // TODO: 设置环境，用户是什么角色，是否是管理员
-        // this.props.setEnv();
+        // TODO: set user permission and env
         this.props.initFromServer(res.data.token);
         this.props.toggle();
       } else {

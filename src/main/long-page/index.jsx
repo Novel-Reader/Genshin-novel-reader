@@ -5,6 +5,8 @@ import ScrollTopIcon from "../../common/scroll-top-button";
 
 import "./index.css";
 
+const DEFAULT_IMAGE = "https://julia-1994.github.io/images/KamisatoAyaka/02.jpg";
+
 export default class LongPage extends Component {
   static propTypes = {
     context: PropTypes.string,
@@ -57,19 +59,22 @@ export default class LongPage extends Component {
   render () {
     const { context, style = {} } = this.props;
     const list = parseTxtToHTML(context);
-    const defaultImage = "https://julia-1994.github.io/images/KamisatoAyaka/02.jpg";
-    const pageStyle = {
-      backgroundImage: `url('${style.backgroundImage || defaultImage}')`
-    };
-    const scrollIconStyle = { bottom: this.state.isShowTopIcon ? 20 : -70 };
     return (
-      <div className="long-page" style={pageStyle} onScroll={this.onScroll} ref={node => { this.longPageRef = node; }}>
+      <div
+        className="long-page"
+        style={{ backgroundImage: `url('${style.backgroundImage || DEFAULT_IMAGE}')` }}
+        onScroll={this.onScroll}
+        ref={node => { this.longPageRef = node; }}
+      >
         <div className='long-page-container' style={Object.assign({}, style, { opacity: 0.75 })}>
           {list.map((item, index) => {
             return (<p key={index}>{item}</p>);
           })}
         </div>
-        <ScrollTopIcon onClick={this.scrollToTop} style={scrollIconStyle}/>
+        <ScrollTopIcon
+          onClick={this.scrollToTop}
+          style={{ bottom: this.state.isShowTopIcon ? 20 : -70 }}
+        />
       </div>
     );
   }

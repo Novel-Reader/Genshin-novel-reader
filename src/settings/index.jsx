@@ -7,7 +7,6 @@ import AdvanceSettings from "./advance-settings";
 import "./index.css";
 
 class Settings extends Component {
-  // 这里应该把设置对象传过来
   static propTypes = {
   };
 
@@ -22,8 +21,6 @@ class Settings extends Component {
     if (this.state.activeTab !== tab) {
       this.setState({ activeTab: tab });
     }
-    // 这里切换后，也需要重新设置主题样式
-    // 如果是高级模式，切换成初级模式，那么切换成默认的初级样式，这里写一个默认值
   };
 
   render () {

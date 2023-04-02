@@ -6,7 +6,6 @@ import { PAGES, PARAGRAPHS } from "../utils/constants";
 import "./index.css";
 
 const LONG_PAGE = "long_page";
-// const SHORT_PAGE = 'short_page';
 
 export default class Main extends Component {
   static propTypes = {
@@ -34,14 +33,12 @@ export default class Main extends Component {
         </div>
       );
     }
-
     let context = "";
     if (currentFile.type === PAGES || currentFile.type === PARAGRAPHS) {
       context = currentFile.context[currentPageIndex];
     } else {
       context = currentFile.context;
     }
-
     return (
       <div id="main" className="main">
         {mode === LONG_PAGE &&
@@ -51,9 +48,6 @@ export default class Main extends Component {
             isShowRightPanel={this.state.isShowRightPanel}
           />
         }
-        {/* {mode === SHORT_PAGE &&
-          <ShortPage />
-        } */}
         <FoldedIcon toggleRightPanel={this.props.toggleRightPanel} isShowRightPanel={this.props.isShowRightPanel} />
       </div>
     );

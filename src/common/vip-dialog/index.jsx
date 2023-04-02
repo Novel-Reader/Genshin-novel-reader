@@ -5,14 +5,15 @@ import "./index.css";
 
 class VipDialog extends Component {
   render () {
+    const serviceList = ["超过30万本在线小说", "在线极速查询", "在线24小时客服", "本地存储100本小说"];
     return (
       <Modal isOpen={true} toggle={this.props.toggleUpgrade} className="vip-dialog">
         <ModalHeader toggle={this.props.toggleUpgrade}>升级 VIP</ModalHeader>
         <ModalBody>
           <div style={{ marginBottom: 5 }}>你当前的账户不支持这个功能，升级 VIP，使用更多精彩的功能。</div>
-          {["超过30万本在线小说", "在线极速查询", "在线24小时客服", "本地存储100本小说"].map(item => {
+          {serviceList.map((item, index) => {
             return (
-              <div key={item}>
+              <div key={index}>
                 <Input type="checkbox" checked={true} readOnly />
                 <Label check >{item}</Label>
               </div>

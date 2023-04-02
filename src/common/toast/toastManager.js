@@ -17,11 +17,8 @@ const hasCustomId = settings => Object.hasOwnProperty.call(settings, 'id');
 
 export default class ToastManager extends React.PureComponent {
   static propTypes = {
-    // Function called with the `this.notify` function.
     bindNotify: PropTypes.func.isRequired,
-    // Function called with the `this.getToasts` function.
     bindGetToasts: PropTypes.func.isRequired,
-    // Function called with the `this.closeAll` function.
     bindCloseAll: PropTypes.func.isRequired
   };
 
@@ -108,8 +105,10 @@ export default class ToastManager extends React.PureComponent {
     });
   };
 
-  removeToast = id => {
-    this.onClose && this.onClose();
+  removeToast = (id) => {
+    if (this.onClose) {
+      this.onClose();
+    }
     this.setState(previousState => {
       return {
         toasts: previousState.toasts.filter(toast => toast.id !== id)

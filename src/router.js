@@ -3,10 +3,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MediaQuery from 'react-responsive';
 import App from "./App";
 import AppMobile from './App-mobile';
-// import ErrorPage from "./pages/error-page";
 import Admin from "./pages/admin";
 import Login from "./pages/login";
 import setting from "./setting.json";
+// import ErrorPage from "./pages/error-page";
 
 let router = {};
 
