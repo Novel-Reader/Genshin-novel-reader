@@ -21,12 +21,6 @@ export default class Login extends Component {
     this.setState({ isShowRegister: !this.state.isShowRegister });
   };
 
-  initFromServer = (token) => {
-    setTimeout(() => {
-      window.location.href = window.location.href + 'reader' + `?token=${token}`;
-    }, 1000);
-  };
-
   render () {
     return (
       <>
@@ -40,7 +34,7 @@ export default class Login extends Component {
           </header>
         </div>
         {this.state.isShowLogin &&
-          <LoginDialog toggle={this.toggleLoginDialog} initFromServer={this.initFromServer} />
+          <LoginDialog toggle={this.toggleLoginDialog} />
         }
         {/* {this.state.isShowRegister &&
           <RegisterDialog toggle={this.toggleLoginDialog} />

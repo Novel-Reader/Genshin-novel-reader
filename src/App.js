@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import cookie from 'react-cookies';
 import Main from "./main";
 import Navs from "./navs";
 import Settings from "./settings";
@@ -53,9 +54,11 @@ export default class App extends Component {
   };
 
   initFromServer = () => {
-    const token = window.location.search.slice(7);
     this.api = new LocalAPI();
-    this.api.init({ server: setting.server, token });
+    this.api.init({
+      server: setting.server,
+      token: cookie.load('novelToken')
+    });
   };
 
   onKeydown = (e) => {
