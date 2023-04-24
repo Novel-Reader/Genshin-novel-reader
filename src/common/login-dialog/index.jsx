@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from "axios";
+import cookie from 'react-cookies';
 import { Modal, ModalHeader, ModalBody, Button, Input, Label, Form, FormGroup } from 'reactstrap';
 import setting from "../../setting.json";
 import toaster from '../toast';
@@ -16,11 +17,12 @@ class LoginDialog extends Component {
     const email = this.emailRef.current.value.trim();
     const password = this.passwordRef.current.value;
     const options = { email, password };
+    // TODO loading
     axios.post(`${setting.server}/login`, options).then(res => {
       if (res.data.token) {
         toaster.success(`用户 ${email} 登录成功`);
         // TODO: set user permission and env
-        this.props.initFromServer(res.data.token);
+        this.saveToken(res.data.token);
         this.props.toggle();
       } else {
         toaster.danger('登录失败，请检查你的用户名和密码是否正确');
@@ -32,6 +34,13 @@ class LoginDialog extends Component {
         toaster.danger(err);
       }
     });
+  };
+
+  saveToken = (token) => {
+    cookie.save('novelToken', token, { path: '/' });
+    setTimeout(() => {
+      window.location.href = window.location.href + 'reader'; // redirect to novel main page
+    }, 1000);
   };
 
   render () {
@@ -57,7 +66,6 @@ class LoginDialog extends Component {
 }
 
 LoginDialog.propTypes = {
-  initFromServer: PropTypes.func.isRequired,
   toggle: PropTypes.func.isRequired
 };
 

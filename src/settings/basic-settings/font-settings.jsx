@@ -53,7 +53,7 @@ class FontSettings extends Component {
 }
 
 FontSettings.propTypes = {
-  fontSize: PropTypes.number.isRequired,
+  fontSize: PropTypes.number,
   onSave: PropTypes.func.isRequired
 };
 
