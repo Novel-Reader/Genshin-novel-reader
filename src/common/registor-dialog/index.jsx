@@ -6,21 +6,26 @@ import { Modal, ModalHeader, ModalBody, Button, Input, Label, Form, FormGroup } 
 import setting from "../../setting.json";
 import toaster from '../toast';
 
-class LoginDialog extends Component {
+export default class RegistorDialog extends Component {
+
+  static propTypes = {
+    toggle: PropTypes.func.isRequired
+  };
+
   constructor (props) {
     super(props);
     this.emailRef = React.createRef();
     this.passwordRef = React.createRef();
   }
 
-  onLogin = () => {
+  onClick = () => {
     const email = this.emailRef.current.value.trim();
     const password = this.passwordRef.current.value;
     const options = { email, password };
     // TODO loading
-    axios.post(`${setting.server}/login`, options).then(res => {
+    axios.post(`${setting.server}/registor`, options).then(res => {
       if (res.data.token) {
-        toaster.success(`用户 ${email} 登录成功`);
+        toaster.success(`用户 ${email} 注册成功`);
         // TODO: set user permission and env
         this.saveToken(res.data.token);
         this.props.toggle();
@@ -48,7 +53,7 @@ class LoginDialog extends Component {
   render () {
     return (
       <Modal isOpen={true} toggle={this.props.toggle} className="login-dialog">
-        <ModalHeader toggle={this.props.toggle}>登录</ModalHeader>
+        <ModalHeader toggle={this.props.toggle}>注册</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
@@ -60,15 +65,9 @@ class LoginDialog extends Component {
               <Input type="password" innerRef={this.passwordRef}/>
             </FormGroup>
           </Form>
-          <Button color="success" onClick={this.onLogin}>登录</Button>
+          <Button color="success" onClick={this.onClick}>注册</Button>
         </ModalBody>
       </Modal>
     );
   }
 }
-
-LoginDialog.propTypes = {
-  toggle: PropTypes.func.isRequired
-};
-
-export default LoginDialog;

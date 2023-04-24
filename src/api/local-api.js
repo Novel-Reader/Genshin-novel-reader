@@ -46,6 +46,22 @@ class LocalAPI {
   }
 
   /**
+   * user registor
+   * @param {string} email
+   * @param {string} password
+   * @returns {object} response
+   */
+  registor (email, password) {
+    const url = `${this.server}/registor`;
+    const options = {
+      email,
+      password
+    };
+    return this.req.post(url, options);
+  }
+  // 需要后端支持
+
+  /**
    * get all users in dabatase
    * @returns {array} user list
    */
