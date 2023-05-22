@@ -10,6 +10,7 @@ import setting from "./setting.json";
 
 let router = {};
 
+// TODO Login Admin 等页面，迁移到后端项目实现，这个项目只实现阅读器代码，不涉及用户登录，后台管理等业务逻辑
 if (setting.mode === 'online') {
   router = createBrowserRouter([
     {
