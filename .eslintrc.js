@@ -27,5 +27,12 @@ module.exports = {
     'no-unused-vars': 'warn',
     'no-unreachable': 'warn',
     'no-redeclare': 'warn',
+    'no-multiple-empty-lines': 'off',
+    'padded-blocks': 'off',
+    'no-trailing-spaces': 'off',
+    'react/no-children-prop': 'off',
+    'space-before-function-paren': 'off',
+    'multiline-ternary': 'off',
+    'comma-dangle': 'off',
   }
 }
