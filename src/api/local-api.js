@@ -26,7 +26,7 @@ class LocalAPI {
    * @returns pong
    */
   checkNet () {
-    const url = `${this.server}/ping/`;
+    const url = `${this.server}/api/ping/`;
     return this.req.get(url);
   }
 
@@ -37,7 +37,7 @@ class LocalAPI {
    * @returns {object} response
    */
   login (email, password) {
-    const url = `${this.server}/login`;
+    const url = `${this.server}/api/login`;
     const options = {
       email,
       password
@@ -50,7 +50,7 @@ class LocalAPI {
    * @returns {array} user list
    */
   getUsers () {
-    const url = `${this.server}/users/`;
+    const url = `${this.server}/api/users/`;
     return this.req.get(url);
   }
 
@@ -60,7 +60,7 @@ class LocalAPI {
    * @returns user object
    */
   getUserInfo (email) {
-    const url = `${this.server}/user?email=${email}`;
+    const url = `${this.server}/api/user?email=${email}`;
     return this.req.get(url);
   }
 
@@ -72,7 +72,7 @@ class LocalAPI {
    * @returns boolean
    */
   addUser (email, name, password) {
-    const url = `${this.server}/user`;
+    const url = `${this.server}/api/user`;
     const options = {
       email,
       name,
@@ -87,7 +87,7 @@ class LocalAPI {
    * @returns boolean
    */
   deleteUser (email) {
-    const url = `${this.server}/user?email=${email}`;
+    const url = `${this.server}/api/user?email=${email}`;
     return this.req.delete(url);
   }
 
@@ -98,7 +98,7 @@ class LocalAPI {
    * @returns user object
    */
   updateUserPassword (password, email) {
-    const url = `${this.server}/user-password`;
+    const url = `${this.server}/api/user-password`;
     const options = {
       email,
       password
@@ -113,7 +113,7 @@ class LocalAPI {
    * @returns user object
    */
   updateUserAvatar (avatar, email) {
-    const url = `${this.server}/user-avatar`;
+    const url = `${this.server}/api/user-avatar`;
     const options = {
       email,
       avatar
@@ -132,7 +132,7 @@ class LocalAPI {
    * @returns success
    */
   addNovel (name, cover_photo, author, detail, price, brief) {
-    const url = `${this.server}/api/v1/novel`;
+    const url = `${this.server}/api/novel`;
     const options = { name, cover_photo, author, detail, price, brief };
     return this.req.post(url, options);
   }
@@ -143,7 +143,7 @@ class LocalAPI {
    * @returns boolean
    */
   deleteNovel (id) {
-    const url = `${this.server}/api/v1/novel?id=${id}`;
+    const url = `${this.server}/api/novel?id=${id}`;
     return this.req.delete(url);
   }
 
@@ -152,7 +152,7 @@ class LocalAPI {
    * @returns novels
    */
   getNovelList () {
-    const url = `${this.server}/api/v1/novel_list`;
+    const url = `${this.server}/api/novel_list`;
     return this.req.get(url);
   }
 
@@ -162,7 +162,7 @@ class LocalAPI {
    * @returns novel
    */
   getNovelDetail (id) {
-    const url = `${this.server}/api/v1/search-novel?id=${id}`;
+    const url = `${this.server}/api/search-novel?id=${id}`;
     return this.req.get(url);
   }
 
@@ -172,7 +172,7 @@ class LocalAPI {
    * @returns {object} novel
    */
   searchNovelByName (name) {
-    const url = `${this.server}/api/v1/search-novel`;
+    const url = `${this.server}/api/search-novel`;
     const options = { name };
     return this.req.post(url, options);
   }
@@ -183,7 +183,7 @@ class LocalAPI {
    * @returns {object} novel
    */
   searchNovelByAuthor (author) {
-    const url = `${this.server}/api/v1/search-novel`;
+    const url = `${this.server}/api/search-novel`;
     const options = { author };
     return this.req.post(url, options);
   }
@@ -194,7 +194,7 @@ class LocalAPI {
    * @returns {object} novel
    */
   searchNovelByPrice (price) {
-    const url = `${this.server}/api/v1/search-novel`;
+    const url = `${this.server}/api/search-novel`;
     const options = { price };
     return this.req.post(url, options);
   }
@@ -207,7 +207,7 @@ class LocalAPI {
    * @returns {object} novel
    */
   searchNovel (name, author, price) {
-    const url = `${this.server}/api/v1/search-novel`;
+    const url = `${this.server}/api/search-novel`;
     const options = { name, author, price };
     return this.req.post(url, options);
   }
