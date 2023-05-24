@@ -12,14 +12,14 @@
 
 右侧设置栏：可以切换 tab，分别是基本设置和高级设置
 
-![](./screenshots/0.7-06.png)
+![](../screenshots/0.7-06.png)
 
 
 ## 1.2 在线模式
 
 在离线模式基础上，1.0 版本支持用户操作：用户登录，用户注册，后台管理等功能；支持小说操作：在线搜索小说，下载小说，上传小说等功能。
 
-![](./screenshots/0.7-05.png)
+![](../screenshots/0.7-05.png)
 
 
 
@@ -27,38 +27,38 @@
 
 左侧切换大纲和分页，右侧设置基本样式和阅读模式。
 
-![](./screenshots/0.5-05.png)
+![](../screenshots/0.5-05.png)
 
 
 
 设置栏可以支持拖动改变宽度，效果如下
 
-![](./screenshots/0.2-06.gif)
+![](../screenshots/0.2-06.gif)
 
 
 点击下方派蒙，可以返回到顶部
 
-![](./screenshots/0.3-01.gif)
+![](../screenshots/0.3-01.gif)
 
 不同主题原神主题色系
 
-![](./screenshots/0.2-04.png)
+![](../screenshots/0.2-04.png)
 
 支持本地上传到数据库
 
-![](./screenshots/0.7-01.png)
+![](../screenshots/0.7-01.png)
 
 支持初步用户登录和验证
 
-![](./screenshots/0.5-02.png)
+![](../screenshots/0.5-02.png)
 
 支持全屏模式和快捷键阅读
 
-![](./screenshots/0.2-05.png)
+![](../screenshots/0.2-05.png)
 
 支持不同权限管理
 
-![](./screenshots/0.2-03.png)
+![](../screenshots/0.2-03.png)
 
 其他具体实现和项目排期比较多，所以放在线上了
 
