@@ -3,8 +3,10 @@ import React, { Component } from "react";
 import ScrollTopIcon from "../common/scroll-top-button";
 import MarkdownViewer from '../common/markdown-viewer';
 import TextViewer from '../common/text-viewer';
+import CodeViewer from '../common/code-viewer';
 import FoldedIcon from "./folded-icon";
-import { PAGES, PARAGRAPHS, DEFAULT_IMAGE } from "../utils/constants";
+import { PAGES, PARAGRAPHS, DEFAULT_IMAGE, FILE_TYPES } from "../utils/constants";
+import { getSuffix } from '../utils';
 
 import "./index.css";
 
@@ -79,11 +81,16 @@ export default class Main extends Component {
         <MarkdownViewer context={context} />
       );
     }
-    // txt 格式
+    // 代码片段
+    if (currentFile && FILE_TYPES.includes('.' + getSuffix(currentFile.name.toLowerCase()))) {
+      return (
+        <CodeViewer context={context} currentFile={currentFile} />
+      );
+    }
+    // 其他都使用 txt 格式
     return (
       <TextViewer context={context}/>
     );
-    // 未来支持其他格式（js 代码片段格式等）
   };
 
   render () {

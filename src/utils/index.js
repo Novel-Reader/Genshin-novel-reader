@@ -74,11 +74,16 @@ const loadExample = () => {
   return files;
 };
 
+const getSuffix = (name) => {
+  return name.substring(name.lastIndexOf(".") + 1);
+};
+
 export {
   parseTxtToHTML,
   isSameObject,
   getLocalValue,
   setLocalValue,
   MenuSelectStyle,
-  loadExample
+  loadExample,
+  getSuffix,
 };

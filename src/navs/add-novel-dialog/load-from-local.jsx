@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, FormGroup, Form, Label, Input, ModalFooter } from "reactstrap";
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
+import { FILE_TYPES } from '../../utils/constants';
 import setting from "../../setting.json";
 import toaster from '../../common/toast';
 
@@ -102,7 +103,7 @@ class LoadFromLocal extends Component {
           <input
             className="local-file-input"
             type="file"
-            accept=".txt, .md"
+            accept={FILE_TYPES.join(',')}
             onChange={this.onFileChange}
             ref={node => { this.uploadRef = node; }}
           ></input>

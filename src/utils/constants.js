@@ -47,4 +47,24 @@ const PARAGRAPHS = 'paragraphs';
 const FULLSCREEN = 'fullscreen';
 const DEFAULT_IMAGE = "https://julia-1994.github.io/images/KamisatoAyaka/02.jpg";
 
-export { FONT_SIZES, FONT_FAMILYS, FONT_WEIGHTS, LINE_HEIGHTS, DEFAULT_STYLE, PAGES, PARAGRAPHS, FULLSCREEN, DEFAULT_IMAGE };
+const FILE_TYPES = [
+  '.txt',
+  '.md',
+  '.c',
+  '.css',
+  '.js',
+  '.py',
+];
+
+export { 
+  FILE_TYPES,
+  FONT_SIZES,
+  FONT_FAMILYS,
+  FONT_WEIGHTS,
+  LINE_HEIGHTS,
+  DEFAULT_STYLE,
+  PAGES,
+  PARAGRAPHS,
+  FULLSCREEN,
+  DEFAULT_IMAGE,
+};
