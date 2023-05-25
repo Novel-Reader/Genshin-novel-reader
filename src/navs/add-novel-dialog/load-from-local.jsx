@@ -99,7 +99,8 @@ class LoadFromLocal extends Component {
     if (!this.state.file) {
       return (
         <div>
-          <Button onClick={this.onClick} color="primary">选择文件</Button>
+          <Button onClick={this.onClick} color="primary">选择本地文件</Button>
+          <p>支持上传 {FILE_TYPES.join(' ')} 格式的文件</p>
           <input
             className="local-file-input"
             type="file"

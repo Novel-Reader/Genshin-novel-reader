@@ -106,7 +106,6 @@ export default class Main extends Component {
 
     return (
       <div id="main" className="main">
-        {/* TODO: FoldedIcon for LeftPanel */}
         <div
           className="long-page"
           style={{ backgroundImage: `url('${style.backgroundImage || DEFAULT_IMAGE}')` }}
