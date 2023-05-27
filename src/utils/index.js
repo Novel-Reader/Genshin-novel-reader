@@ -35,14 +35,6 @@ const isSameObject = (a, b) => {
   return true;
 };
 
-const getLocalValue = (key) => {
-  return window.localStorage.getItem(key);
-};
-
-const setLocalValue = (key, value) => {
-  window.localStorage.setItem(key, value);
-};
-
 const MenuSelectStyle = {
   option: (provided, state) => {
     // const { isSelected, isFocused } = state;
@@ -81,8 +73,6 @@ const getSuffix = (name) => {
 export {
   parseTxtToHTML,
   isSameObject,
-  getLocalValue,
-  setLocalValue,
   MenuSelectStyle,
   loadExample,
   getSuffix,

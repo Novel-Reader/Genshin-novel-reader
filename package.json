@@ -9,6 +9,7 @@
     "classnames": "^2.3.2",
     "glamor": "^2.20.40",
     "is-hotkey": "^0.2.0",
+    "localforage": "^1.10.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-color": "^2.19.3",

@@ -4,7 +4,8 @@ import Main from "./main";
 import Navs from "./navs";
 import Settings from "./settings";
 import LocalAPI from "./api/local-api";
-import { isSameObject, getLocalValue, setLocalValue, loadExample } from "./utils";
+import { isSameObject, loadExample } from "./utils";
+import { getLocalValue, setLocalValue, NOVEL_READER_STYLE_SAVE_KEY } from './utils/store';
 import { isUp, isDown } from './utils/hotkey';
 import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from './utils/parse';
 import { DEFAULT_STYLE, PAGES, PARAGRAPHS, FULLSCREEN } from "./utils/constants";
@@ -26,7 +27,7 @@ export default class App extends Component {
     this.state = {
       files,
       currentFileIndex: 0,
-      style: JSON.parse(getLocalValue("novel-reader-style")) || DEFAULT_STYLE,
+      style: DEFAULT_STYLE,
       isShowRightPanel: true,
       isShowLeftPanel: true,
       currentPageIndex: 0
@@ -40,6 +41,7 @@ export default class App extends Component {
     } else {
       toaster.success("欢迎使用离线模式");
     }
+    this.initDataFromLocalStore();
     document.addEventListener('keydown', this.onKeydown);
     window.app = this;
   }
@@ -48,6 +50,20 @@ export default class App extends Component {
     document.removeEventListener('keydown', this.onKeydown);
     window.app = null;
   }
+
+  /**
+   * get init data(novel-reader-style) from local store
+   * future support local novels and folder tree
+   */
+  initDataFromLocalStore = () => {
+    getLocalValue(NOVEL_READER_STYLE_SAVE_KEY).then(localStyleStr => {
+      if (localStyleStr) {
+        this.setState({
+          style: JSON.parse(localStyleStr) || DEFAULT_STYLE,
+        });
+      }
+    });
+  };
 
   changePageIndex = (currentPageIndex) => {
     this.setState({ currentPageIndex });
@@ -143,7 +159,7 @@ export default class App extends Component {
     const style = Object.assign({}, this.state.style, newStyle);
     if (!isSameObject(style, this.state.style)) {
       this.setState({ style });
-      setLocalValue("novel-reader-style", JSON.stringify(style));
+      setLocalValue(NOVEL_READER_STYLE_SAVE_KEY, JSON.stringify(style));
     }
   };
 
