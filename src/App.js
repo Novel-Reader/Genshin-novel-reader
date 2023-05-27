@@ -172,6 +172,7 @@ export default class App extends Component {
   render () {
     const { files, currentFileIndex, style } = this.state;
     const currentFile = files[currentFileIndex];
+    const isCode = (currentFile && FILE_TYPES.includes('.' + getSuffix(currentFile.name.toLowerCase())));
     return (
       <div id="app">
         <Navs
@@ -192,12 +193,24 @@ export default class App extends Component {
           isShowRightPanel={this.state.isShowRightPanel}
           currentPageIndex={this.state.currentPageIndex}
         />
-        <Settings
-          style={style}
-          changeStyle={this.changeStyle}
-          isShowRightPanel={this.state.isShowRightPanel}
-          changeMode={this.changeMode}
-        />
+        {isCode ?
+        // todo
+          <Settings
+            style={style}
+            changeStyle={this.changeStyle}
+            isShowRightPanel={this.state.isShowRightPanel}
+            changeMode={this.changeMode}
+            currentFile={currentFile}
+          />
+          :
+          <Settings
+            style={style}
+            changeStyle={this.changeStyle}
+            isShowRightPanel={this.state.isShowRightPanel}
+            changeMode={this.changeMode}
+            currentFile={currentFile}
+          />
+        }
       </div>
     );
   }

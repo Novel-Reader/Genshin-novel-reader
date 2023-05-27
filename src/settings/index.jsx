@@ -6,8 +6,14 @@ import AdvanceSettings from "./advance-settings";
 
 import "./index.css";
 
-class Settings extends Component {
+export default class Settings extends Component {
+
   static propTypes = {
+    isShowRightPanel: PropTypes.bool.isRequired,
+    changeStyle: PropTypes.func.isRequired,
+    changeMode: PropTypes.func.isRequired,
+    style: PropTypes.object.isRequired,
+    currentFile: PropTypes.object.isRequired,
   };
 
   constructor (props) {
@@ -54,12 +60,3 @@ class Settings extends Component {
     );
   }
 }
-
-Settings.propTypes = {
-  isShowRightPanel: PropTypes.bool.isRequired,
-  changeStyle: PropTypes.func.isRequired,
-  changeMode: PropTypes.func.isRequired,
-  style: PropTypes.object.isRequired
-};
-
-export default Settings;
