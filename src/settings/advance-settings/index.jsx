@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AdvanceThemeSettings from "./advance-theme-settings";
 import ColorSettings from "./color-settings";
 import FontSettings from "./font-settings";
-import { FONT_SIZES, FONT_FAMILYS, FONT_WEIGHTS, LINE_HEIGHTS } from "../../utils/constants";
+import { FONT_SIZES, FONT_FAMILYS, FONT_WEIGHTS, LINE_HEIGHTS, OPACITIES } from "../../utils/constants";
 import "./index.css";
 
 const INIT_FONT_COLOR = '#666';
@@ -50,6 +50,11 @@ function AdvanceSettings (props) {
         title='背景颜色'
         color={INIT_BACKGROUND_COLOR}
         settingKey="backgroundColor"
+      />
+      <FontSettings
+        options={OPACITIES}
+        title="背景透明度"
+        save={(option) => { changeStyle({ opacity: option.value }); }}
       />
     </div>
   );

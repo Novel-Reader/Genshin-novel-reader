@@ -36,6 +36,15 @@ const LINE_HEIGHTS = [
   { value: 3, label: "3" }
 ];
 
+const OPACITIES = [
+  { value: 0.5, label: "0.5" },
+  { value: 0.6, label: "0.6" },
+  { value: 0.7, label: "0.7" },
+  { value: 0.8, label: "0.8" },
+  { value: 0.9, label: "0.9" },
+  { value: 1.0, label: "1.0" },
+];
+
 const DEFAULT_STYLE = {
   fontSize: "16px",
   color: "#212529",
@@ -62,6 +71,7 @@ export {
   FONT_FAMILYS,
   FONT_WEIGHTS,
   LINE_HEIGHTS,
+  OPACITIES,
   DEFAULT_STYLE,
   PAGES,
   PARAGRAPHS,

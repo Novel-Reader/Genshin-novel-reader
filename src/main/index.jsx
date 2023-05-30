@@ -112,7 +112,7 @@ export default class Main extends Component {
           onScroll={this.onScroll}
           ref={node => { this.longPageRef = node; }}
         >
-          <div className='long-page-container' style={Object.assign({}, style, { opacity: 0.75 })}>
+          <div className='long-page-container' style={Object.assign({}, { opacity: 0.75 }, style)}>
             {this.renderContext()}
           </div>
           <ScrollTopIcon
