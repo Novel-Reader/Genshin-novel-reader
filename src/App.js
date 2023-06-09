@@ -172,6 +172,7 @@ export default class App extends Component {
   render () {
     const { files, currentFileIndex, style } = this.state;
     const currentFile = files[currentFileIndex];
+    const isCodeViewer = (currentFile && FILE_TYPES.includes('.' + getSuffix(currentFile.name.toLowerCase())));
     return (
       <div id="app">
         <Navs
@@ -192,12 +193,25 @@ export default class App extends Component {
           isShowRightPanel={this.state.isShowRightPanel}
           currentPageIndex={this.state.currentPageIndex}
         />
-        <Settings
-          style={style}
-          changeStyle={this.changeStyle}
-          isShowRightPanel={this.state.isShowRightPanel}
-          changeMode={this.changeMode}
-        />
+        {isCodeViewer ?
+        // todo
+          <Settings
+            style={style}
+            changeStyle={this.changeStyle}
+            isShowRightPanel={this.state.isShowRightPanel}
+            changeMode={this.changeMode}
+            currentFile={currentFile}
+          />
+          :
+          <Settings
+            style={style}
+            changeStyle={this.changeStyle}
+            isShowRightPanel={this.state.isShowRightPanel}
+            changeMode={this.changeMode}
+            currentFile={currentFile}
+          />
+          // 代码编辑界面，支持设置哪些功能？怎么进行更新数据？eventBus?
+        }
       </div>
     );
   }
