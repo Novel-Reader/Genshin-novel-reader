@@ -53,9 +53,11 @@ class App extends Component {
     window.app = this;
 
     // test
-    setInterval(() => {
-      this.props.addFileIndex(1);
-    }, 1000);
+    // setInterval(() => {
+    //   this.props.addFileIndex(1);
+    // }, 1000);
+
+    // after render, console.log(this.props.fileIndex);
   }
 
   componentWillUnmount() {
