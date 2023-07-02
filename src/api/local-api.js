@@ -169,15 +169,18 @@ class LocalAPI {
     return this.req.get(url);
   }
 
-  // editComment (id) {
-  //   const url = `${this.server}/api/comment?id=${id}`;
-  //   return this.req.put(url);
-  // }
+  // TODO 注释
+  editComment (comment_id, detail) {
+    const url = `${this.server}/api/comment`;
+    const options = { comment_id, detail };
+    return this.req.put(url, options);
+  }
 
-  // deleteComment (id) {
-  //   const url = `${this.server}/api/comment?id=${id}`;
-  //   return this.req.delete(url);
-  // }
+  // TODO 注释
+  deleteComment (comment_id) {
+    const url = `${this.server}/api/comment?id=${comment_id}`;
+    return this.req.delete(url);
+  }
 
   /**
    * get novel detail by id

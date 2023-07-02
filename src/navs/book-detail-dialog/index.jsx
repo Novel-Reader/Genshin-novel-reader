@@ -28,7 +28,7 @@ function BookDetailDialog(props) {
       <ModalBody>
         {/* 小说详情界面 */}
         {loading && <LoadingIcon/>}
-        {!loading && <CommentList comments={comments}/>}
+        {!loading && <CommentList comments={comments} novel={props.novel}/>}
         {!loading &&
           <AddComment novel={props.novel} />
         }

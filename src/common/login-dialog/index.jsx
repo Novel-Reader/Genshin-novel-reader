@@ -29,6 +29,7 @@ class LoginDialog extends Component {
         // TODO: set user permission and env
         this.saveToken(res.data.token);
         this.props.toggle();
+        cookie.save('username', email);
       } else {
         toaster.danger('登录失败，请检查你的用户名和密码是否正确');
       }

@@ -7,3 +7,8 @@
   border: 1px solid #ccc;
   margin-top: 10px;
 }
+.comment-list .comment-item .comment-btns {
+  padding: 10px 0px;
+  display: flex;
+  justify-content: flex-end;
+}

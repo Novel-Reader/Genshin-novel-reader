@@ -35,5 +35,6 @@ module.exports = {
     'multiline-ternary': 'off',
     'comma-dangle': 'off',
     'no-useless-return': 'off',
+    'operator-linebreak': 'off',
   }
 }
