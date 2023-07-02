@@ -64,7 +64,7 @@ class SearchFromServer extends Component {
         </div>
         {this.state.isLoading
           ? <div>正在搜索中，请稍后...</div>
-          : <BookList novelList={this.state.novelList} onClickNovel={this.props.onClickNovel}/>
+          : <BookList novelList={this.state.novelList} downLoadNovel={this.props.downLoadNovel}/>
         }
       </div>
     );
@@ -72,7 +72,7 @@ class SearchFromServer extends Component {
 }
 
 SearchFromServer.propTypes = {
-  onClickNovel: PropTypes.func.isRequired
+  downLoadNovel: PropTypes.func.isRequired
 };
 
 export default SearchFromServer;

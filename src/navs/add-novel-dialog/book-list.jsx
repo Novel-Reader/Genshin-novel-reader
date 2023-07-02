@@ -12,14 +12,14 @@ function BookList (props) {
   }
   return (
     <div className="book-list">
-      {props.novelList.map((item, index) => <Book key={index} novel={item} onClick={props.onClickNovel}/>)}
+      {props.novelList.map((item, index) => <Book key={index} novel={item} downLoadNovel={props.downLoadNovel}/>)}
     </div>
   );
 }
 
 BookList.propTypes = {
   novelList: PropTypes.array.isRequired,
-  onClickNovel: PropTypes.func.isRequired
+  downLoadNovel: PropTypes.func.isRequired
 };
 
 export default BookList;

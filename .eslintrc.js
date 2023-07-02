@@ -34,5 +34,6 @@ module.exports = {
     'space-before-function-paren': 'off',
     'multiline-ternary': 'off',
     'comma-dangle': 'off',
+    'no-useless-return': 'off',
   }
 }
