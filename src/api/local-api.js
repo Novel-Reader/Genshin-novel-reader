@@ -156,6 +156,29 @@ class LocalAPI {
     return this.req.get(url);
   }
 
+  // TODO 注释
+  addComment (book_id, detail, author) {
+    const url = `${this.server}/api/comment`;
+    const options = { book_id, detail, author };
+    return this.req.post(url, options);
+  }
+
+  // TODO start, limit
+  getCommentList (book_id) {
+    const url = `${this.server}/api/comment?book_id=${book_id}`;
+    return this.req.get(url);
+  }
+
+  // editComment (id) {
+  //   const url = `${this.server}/api/comment?id=${id}`;
+  //   return this.req.put(url);
+  // }
+
+  // deleteComment (id) {
+  //   const url = `${this.server}/api/comment?id=${id}`;
+  //   return this.req.delete(url);
+  // }
+
   /**
    * get novel detail by id
    * @param {string} id

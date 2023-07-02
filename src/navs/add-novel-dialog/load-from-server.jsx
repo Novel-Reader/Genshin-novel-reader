@@ -38,7 +38,7 @@ class LoadFromServer extends Component {
     });
   };
 
-  onClickNovel = (id) => {
+  downLoadNovel = (id) => {
     window.app.api.getNovelDetail(id).then((res) => {
       const file = res.data[0];
       const { author, brief, cover_photo, detail, name, price } = file;
@@ -71,7 +71,7 @@ class LoadFromServer extends Component {
     }
     if (this.state.isSearch) {
       return (
-        <SearchFromServer onClickNovel={this.onClickNovel} />
+        <SearchFromServer downLoadNovel={this.downLoadNovel} />
       );
     }
     return (
@@ -80,7 +80,7 @@ class LoadFromServer extends Component {
           <h3>热点小说</h3>
           <Button onClick={this.changeSearch}>在线搜索</Button>
         </div>
-        <BookList novelList={this.state.novelList} onClickNovel={this.onClickNovel} />
+        <BookList novelList={this.state.novelList} downLoadNovel={this.downLoadNovel} />
       </div>
     );
   }
