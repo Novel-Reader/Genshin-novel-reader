@@ -27,10 +27,8 @@ function BookDetailDialog(props) {
       <ModalHeader toggle={props.toggleDialog}>小说评论</ModalHeader>
       <ModalBody>
         {/* 小说详情界面 */}
-        {/* 小说评论列表 */}
         {loading && <LoadingIcon/>}
         {!loading && <CommentList comments={comments}/>}
-        {/* 增加评论列表 */}
         {!loading &&
           <AddComment novel={props.novel} />
         }

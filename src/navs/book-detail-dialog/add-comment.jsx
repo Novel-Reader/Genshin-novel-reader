@@ -19,7 +19,7 @@ function AddComment(props) {
       toaster.warning('评论字数不能超过100个字符');
       return;
     }
-    // 最后处理这里的昵称
+    // TODO get user nickname(database add a nickName?)
     const author = 'Tony';
     window.app.api.addComment(props.novel.id, detail, author).then((res) => {
       toaster.success('评论成功');

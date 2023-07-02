@@ -5,11 +5,12 @@ import moment from 'moment';
 import './comment-list.css';
 
 function CommentList(props) {
+  const { comments } = props;
   return (
     <div className="comment-list">
-      {props.comments.length === 0 && <span>还没有评论哦，请点击下方添加评论</span>}
-      {props.comments.length > 0 &&
-        props.comments.map(comment => {
+      {comments.length === 0 && <span>还没有评论哦，请点击下方添加评论</span>}
+      {comments.length > 0 &&
+        comments.map(comment => {
           return (
             <div className="comment-item" key={comment.id}>
               <p>{comment.author} 在 {moment(comment.created_at).format("YYYY-MM-DD HH:mm:ss")} 说:</p>

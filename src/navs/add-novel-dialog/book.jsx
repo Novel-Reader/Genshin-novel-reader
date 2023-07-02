@@ -18,7 +18,7 @@ function Book (props) {
         <p className="book-right-detail">{brief.replace(/\s+/ig, '').slice(0, 40)}</p>
         <div className="book-right-price">
           <span>{price}$</span>
-          <Button color="primary" onClick={() => setShowDetail(true)} size="sm">详情</Button>
+          <Button color="primary" onClick={() => setShowDetail(true)} size="sm">评论</Button>
           <Button color="primary" onClick={() => { props.downLoadNovel(id); }} size="sm">下载</Button>
         </div>
       </div>
