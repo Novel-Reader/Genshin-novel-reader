@@ -9,6 +9,7 @@ import { getLocalValue, setLocalValue, NOVEL_READER_STYLE_SAVE_KEY } from './uti
 import { isUp, isDown } from './utils/hotkey';
 import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from './utils/parse';
 import { DEFAULT_STYLE, PAGES, PARAGRAPHS, FULLSCREEN } from "./utils/constants";
+import { AppContext } from './context';
 import toaster from './common/toast';
 import setting from "./setting.json";
 
@@ -173,32 +174,34 @@ export default class App extends Component {
     const { files, currentFileIndex, style } = this.state;
     const currentFile = files[currentFileIndex];
     return (
-      <div id="app">
-        <Navs
-          addFile={this.addFile}
-          files={files}
-          changeFileIndex={this.changeFileIndex}
-          deleteFile={this.deleteFile}
-          currentFileIndex={currentFileIndex}
-          currentFile={currentFile}
-          currentPageIndex={this.state.currentPageIndex}
-          changePageIndex={this.changePageIndex}
-          isShowLeftPanel={this.state.isShowLeftPanel}
-        />
-        <Main
-          currentFile={currentFile}
-          style={style}
-          toggleRightPanel={this.toggleRightPanel}
-          isShowRightPanel={this.state.isShowRightPanel}
-          currentPageIndex={this.state.currentPageIndex}
-        />
-        <Settings
-          style={style}
-          changeStyle={this.changeStyle}
-          isShowRightPanel={this.state.isShowRightPanel}
-          changeMode={this.changeMode}
-        />
-      </div>
+      <AppContext.Provider value={{ api: this.api }}>
+        <div id="app">
+          <Navs
+            addFile={this.addFile}
+            files={files}
+            changeFileIndex={this.changeFileIndex}
+            deleteFile={this.deleteFile}
+            currentFileIndex={currentFileIndex}
+            currentFile={currentFile}
+            currentPageIndex={this.state.currentPageIndex}
+            changePageIndex={this.changePageIndex}
+            isShowLeftPanel={this.state.isShowLeftPanel}
+          />
+          <Main
+            currentFile={currentFile}
+            style={style}
+            toggleRightPanel={this.toggleRightPanel}
+            isShowRightPanel={this.state.isShowRightPanel}
+            currentPageIndex={this.state.currentPageIndex}
+          />
+          <Settings
+            style={style}
+            changeStyle={this.changeStyle}
+            isShowRightPanel={this.state.isShowRightPanel}
+            changeMode={this.changeMode}
+          />
+        </div>
+      </AppContext.Provider>
     );
   }
 }

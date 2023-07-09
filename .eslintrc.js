@@ -16,9 +16,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  plugins: [
-    'react'
-  ],
+  plugins: ["react-hooks"],
   rules: {
     'quotes': 'off',
     'camelcase': 'off',
@@ -36,5 +34,7 @@ module.exports = {
     'comma-dangle': 'off',
     'no-useless-return': 'off',
     'operator-linebreak': 'off',
+    "react-hooks/rules-of-hooks": 'error', // 检查 Hook 的规则
+    "react-hooks/exhaustive-deps": 'warn' // 检查 effect 的依赖
   }
 }
