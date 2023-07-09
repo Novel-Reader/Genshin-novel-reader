@@ -1,14 +1,26 @@
-.comment-list {
-  padding: 10px;
-  max-height: 300px;
+.modal-body {
   overflow-y: auto;
+  max-height: 300px;
+  padding: 10px 30px;
 }
-.comment-list .comment-item {
-  border: 1px solid #ccc;
+.modal-body .comment-list .comment-item {
+  border-bottom: 1px dashed #ccc;
   margin-top: 10px;
 }
-.comment-list .comment-item .comment-btns {
+.modal-body .comment-list .comment-item .comment-btns {
   padding: 10px 0px;
   display: flex;
   justify-content: flex-end;
+  font-size: 13px;
+}
+.modal-body .comment-list .comment-item .comment-btns span {
+  padding: 0 10px;
+  border-right: 1px dashed #ccc;
+  cursor: pointer;
+}
+.modal-body .comment-list .comment-item .comment-btns span:last-child {
+  border-right: none;
+}
+.modal-body .comment-list .comment-item .comment-btns .comment-btns-time {
+  cursor: default;
 }

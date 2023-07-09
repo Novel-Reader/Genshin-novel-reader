@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import toaster from '../../common/toast';
 import { LoadingIcon } from '../../common/icons';
 import CommentList from './comment-list';
@@ -29,13 +29,10 @@ function BookDetailDialog(props) {
         {/* 小说详情界面 */}
         {loading && <LoadingIcon/>}
         {!loading && <CommentList comments={comments} novel={props.novel}/>}
-        {!loading &&
-          <AddComment novel={props.novel} />
-        }
         {/* TODO：动态聊天室 */}
       </ModalBody>
       <ModalFooter>
-        <Button onClick={props.toggleDialog}>关闭</Button>
+        <AddComment novel={props.novel} />
       </ModalFooter>
     </Modal>
   );

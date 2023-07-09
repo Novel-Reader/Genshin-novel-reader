@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cookie from 'react-cookies';
 import moment from 'moment';
-import { Button } from 'reactstrap';
 import toaster from '../../common/toast';
 
 import './comment-list.css';
@@ -49,21 +48,27 @@ function CommentItem(props) {
 
   return (
     <div className="comment-item" key={comment.id}>
-      <p>{comment.author} 在 {moment(comment.created_at).format("YYYY-MM-DD HH:mm:ss")} 说:</p>
+      <p><b>{comment.author}</b> 说:</p>
       {edit ? 
         <textarea ref={commentElement} defaultValue={comment.detail}></textarea>
         :
         <p>{comment.detail}</p>
       }
-      {author === comment.author &&
-        <div className="comment-btns">
-          {edit ?
-            <Button onClick={() => { onFinish(); }}>完成</Button> :
-            <Button onClick={() => { setEdit(true); }}>编辑</Button>
-          }
-          <Button onClick={() => { onDelete(); }}>删除</Button>
-        </div>
-      }
+      <div className="comment-btns">
+        <span className="comment-btns-time">{moment(comment.created_at).format("YYYY-MM-DD HH:mm:ss")}</span>
+        {author === comment.author && 
+          <>
+            {
+              edit ?
+              <span onClick={() => { onFinish(); }}>完成</span> :
+              <span onClick={() => { setEdit(true); }}>编辑</span>
+            }
+          </>
+        }
+        {author === comment.author &&
+          <span onClick={() => { onDelete(); }}>删除</span>
+        }
+      </div>
     </div>
   );
 }

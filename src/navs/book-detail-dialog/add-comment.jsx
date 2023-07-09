@@ -33,8 +33,8 @@ function AddComment(props) {
   }
 
   return (
-    <div className="add-comment">
-      <textarea ref={commentElement}></textarea>
+    <div className="add-comment w-100">
+      <textarea ref={commentElement} className="w-100"></textarea>
       <Button onClick={submitComment}>提交</Button>
     </div>
   );
