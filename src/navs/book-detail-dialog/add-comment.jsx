@@ -1,14 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import cookie from 'react-cookies';
 import { Button } from 'reactstrap';
 import toaster from '../../common/toast';
+import { AppContext } from '../../context';
 
 import './add-comment.css';
 
 function AddComment(props) {
 
   const commentElement = useRef('');
+  const { api } = useContext(AppContext);
 
   function submitComment() {
     const detail = commentElement.current.value;
@@ -22,7 +24,7 @@ function AddComment(props) {
     }
     // TODO get user nickname(database add a nickName?) Now we use email
     const author = cookie.load('username');
-    window.app.api.addComment(props.novel.id, detail, author).then((res) => {
+    api.addComment(props.novel.id, detail, author).then((res) => {
       toaster.success('评论成功');
       // 应该执行一个回调函数，然后显示当前的评论
     }).catch(err => {
