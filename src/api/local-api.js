@@ -156,27 +156,48 @@ class LocalAPI {
     return this.req.get(url);
   }
 
-  // TODO 注释
+  /**
+   * add a comment
+   * @param {string} book_id 
+   * @param {string} detail 
+   * @param {string} author 
+   * @returns response
+   */
   addComment (book_id, detail, author) {
     const url = `${this.server}/api/comment`;
     const options = { book_id, detail, author };
     return this.req.post(url, options);
   }
 
-  // TODO start, limit
-  getCommentList (book_id) {
-    const url = `${this.server}/api/comment?book_id=${book_id}`;
+  /**
+   * get comment list of a book
+   * @param {string} book_id 
+   * @param {number} start 
+   * @param {number} limit 
+   * @returns array
+   */
+  getCommentList (book_id, start, limit) {
+    const url = `${this.server}/api/comment?book_id=${book_id}&start=${start}&limit=${limit}`;
     return this.req.get(url);
   }
 
-  // TODO 注释
+  /**
+   * The author of comment can edit this comment
+   * @param {string} comment_id 
+   * @param {string} detail new comment content
+   * @returns 
+   */
   editComment (comment_id, detail) {
     const url = `${this.server}/api/comment`;
     const options = { comment_id, detail };
     return this.req.put(url, options);
   }
 
-  // TODO 注释
+  /**
+   * delete a comment by id
+   * @param {string} comment_id 
+   * @returns 
+   */
   deleteComment (comment_id) {
     const url = `${this.server}/api/comment?id=${comment_id}`;
     return this.req.delete(url);

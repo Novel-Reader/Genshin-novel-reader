@@ -1,34 +1,81 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import throttle from 'lodash.throttle';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import toaster from '../../common/toast';
 import { LoadingIcon } from '../../common/icons';
 import CommentList from './comment-list';
 import AddComment from './add-comment';
 
+const LIMIT = 5;
+
 function BookDetailDialog(props) {
 
   const [loading, setLoading] = useState(true);
+  const [loadAll, setLoadAll] = useState(false);
   const [comments, setComments] = useState([]);
+  const [start, setStart] = useState(1);
+  let commentRef = null;
 
   useEffect(() => {
-    window.app.api.getCommentList(props.novel.id).then((res) => {
-      const comments = res.data;
-      setComments(comments);
+    window.app.api.getCommentList(props.novel.id, start, LIMIT).then((res) => {
+      setComments(res.data);
+      setStart(start + 1);
       setLoading(false);
+      checkLoadAll(res.data);
     }).catch(err => {
       toaster.danger('获取评论失败，请关闭对话框重试');
       toaster.danger(String(err));
     });
   }, []);
 
+  const loadMoreComment = () => {
+    if (loading || loadAll) return;
+    window.app.api.getCommentList(props.novel.id, start, LIMIT).then((res) => {
+      setComments([...comments, ...res.data]);
+      setStart(start + 1);
+      setLoading(false);
+      checkLoadAll(res.data);
+    }).catch(err => {
+      toaster.danger('获取评论失败，请关闭对话框重试');
+      toaster.danger(String(err));
+    });
+  };
+
+  const checkLoadAll = (comments) => {
+    if (comments.length < LIMIT) {
+      setLoadAll(true);
+    }
+  };
+
+  // https://lodash.com/docs/4.17.15#throttle
+  const onScroll = throttle((e) => {
+    const clientHeight = commentRef.clientHeight;
+    if (e.target.scrollTop + e.target.clientHeight > clientHeight) {
+      loadMoreComment();
+    }
+  }, 200);
+
+  const onCommentListRef = (node) => {
+    commentRef = node;
+  };
+
   return (
     <Modal isOpen={true} toggle={props.toggleDialog} className="book-datial-dialog" size="lg">
       <ModalHeader toggle={props.toggleDialog}>小说评论</ModalHeader>
-      <ModalBody>
+      <ModalBody onScroll={onScroll}>
         {/* 小说详情界面 */}
+        {/* 当有评论时，显示评论列表 */}
+        {comments.length > 0 &&
+          <CommentList
+            comments={comments}
+            novel={props.novel}
+            onRef={onCommentListRef}
+          />
+        }
+        {/* 当加载评论时，在评论列表后面，显示加载图标 */}
         {loading && <LoadingIcon/>}
-        {!loading && <CommentList comments={comments} novel={props.novel}/>}
+        {loadAll && <span>没有更多评论了</span>}
         {/* TODO：动态聊天室 */}
       </ModalBody>
       <ModalFooter>

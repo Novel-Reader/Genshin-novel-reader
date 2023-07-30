@@ -81,7 +81,7 @@ CommentItem.propTypes = {
 function CommentList(props) {
   const { comments } = props;
   return (
-    <div className="comment-list">
+    <div className="comment-list" ref={node => props.onRef(node)}>
       {comments.length === 0 && <span>还没有评论哦，请点击下方添加评论</span>}
       {comments.length > 0 &&
         comments.map(comment => {
@@ -97,6 +97,7 @@ function CommentList(props) {
 CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
   novel: PropTypes.object.isRequired,
+  onRef: PropTypes.func.isRequired,
 };
 
 export default CommentList;
