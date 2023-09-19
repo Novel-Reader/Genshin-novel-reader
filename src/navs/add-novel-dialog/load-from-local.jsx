@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, FormGroup, Form, Label, Input, ModalFooter } from "reactstrap";
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
-import { FILE_TYPES } from '../../utils/constants';
+import { INPUT_ACCEPT_FILE_TYPE } from '../../utils/constants';
 import setting from "../../setting.json";
 import toaster from '../../common/toast';
 
@@ -100,11 +100,11 @@ class LoadFromLocal extends Component {
       return (
         <div>
           <Button onClick={this.onClick} color="primary">选择本地文件</Button>
-          <p>支持上传 {FILE_TYPES.join(' ')} 格式的文件</p>
+          <p>支持上传 {INPUT_ACCEPT_FILE_TYPE} 格式的文件</p>
           <input
             className="local-file-input"
             type="file"
-            accept={FILE_TYPES.join(',')}
+            accept={INPUT_ACCEPT_FILE_TYPE}
             onChange={this.onFileChange}
             ref={node => { this.uploadRef = node; }}
           ></input>

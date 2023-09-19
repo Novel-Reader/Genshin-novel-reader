@@ -27,6 +27,8 @@ function BookDetailDialog(props) {
       toaster.danger('获取评论失败，请关闭对话框重试');
       toaster.danger(String(err));
     });
+    // 这个只有在首次加载执行上面的逻辑（获取评论列表），所以只传递空数组即可，不需要在组件更新时（start变化，或者 novel 变化）再次获取评论
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadMoreComment = () => {

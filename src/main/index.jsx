@@ -5,7 +5,7 @@ import MarkdownViewer from '../common/markdown-viewer';
 import TextViewer from '../common/text-viewer';
 import CodeViewer from '../common/code-viewer';
 import FoldedIcon from "./folded-icon";
-import { PAGES, PARAGRAPHS, DEFAULT_IMAGE, FILE_TYPES } from "../utils/constants";
+import { PAGES, PARAGRAPHS, DEFAULT_IMAGE, UPLOAD_FILE_TYPES } from "../utils/constants";
 import { getSuffix } from '../utils';
 
 import "./index.css";
@@ -75,17 +75,22 @@ export default class Main extends Component {
       context = currentFile.context;
     }
 
-    // markdown 格式
-    if (currentFile && currentFile.name.toLowerCase().includes('.md')) {
-      return (
-        <MarkdownViewer context={context} />
-      );
-    }
-    // 代码片段
-    if (currentFile && FILE_TYPES.includes('.' + getSuffix(currentFile.name.toLowerCase()))) {
-      return (
-        <CodeViewer context={context} currentFile={currentFile} />
-      );
+    const fileName = currentFile.name.toLowerCase();
+    const suffix = getSuffix(fileName);
+
+    if (currentFile) {
+      // markdown阅读器
+      if (suffix === 'md') {
+        return (
+          <MarkdownViewer context={context} />
+        );
+      }
+      // 代码片段阅读器
+      if (UPLOAD_FILE_TYPES.includes(suffix)) {
+        return (
+          <CodeViewer context={context} lan={suffix} />
+        );
+      }
     }
     // 其他都使用 txt 格式
     return (

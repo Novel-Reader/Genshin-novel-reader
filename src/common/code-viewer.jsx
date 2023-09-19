@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { getSuffix } from '../utils';
 
 function CodeViewer (props) {
-  let lan = getSuffix(props.currentFile.name);
+  let lan = props.lan;
   // TODO js 特殊处理，其他的后缀暂时不需要处理
   if (lan === 'js') {
     lan = 'javascript';
@@ -29,7 +28,7 @@ function CodeViewer (props) {
 
 CodeViewer.propTypes = {
   context: PropTypes.string.isRequired,
-  currentFile: PropTypes.object.isRequired,
+  lan: PropTypes.string.isRequired,
 };
 
 export default CodeViewer;
