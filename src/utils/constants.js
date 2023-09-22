@@ -56,17 +56,21 @@ const PARAGRAPHS = 'paragraphs';
 const FULLSCREEN = 'fullscreen';
 const DEFAULT_IMAGE = "https://julia-1994.github.io/images/KamisatoAyaka/02.jpg";
 
-const FILE_TYPES = [
-  '.txt',
-  '.md',
-  '.c',
-  '.css',
-  '.js',
-  '.py',
+const UPLOAD_FILE_TYPES = [
+  'txt',
+  'md',
+  'c',
+  'css',
+  'js',
+  'py',
 ];
 
-export { 
-  FILE_TYPES,
+// handle input accept file types
+const INPUT_ACCEPT_FILE_TYPE = UPLOAD_FILE_TYPES.map(item => '.' + item).join(',');
+
+export {
+  INPUT_ACCEPT_FILE_TYPE,
+  UPLOAD_FILE_TYPES,
   FONT_SIZES,
   FONT_FAMILYS,
   FONT_WEIGHTS,

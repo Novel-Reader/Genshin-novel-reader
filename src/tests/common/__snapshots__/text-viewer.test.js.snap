@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render text-viewer 1`] = `
+<div>
+  <div>
+    <p>
+      This is test txt file.
+    </p>
+  </div>
+</div>
+`;
