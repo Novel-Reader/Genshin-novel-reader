@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import cookie from 'react-cookies';
+import { connect } from 'react-redux';
 import Main from "./main";
 import Navs from "./navs";
 import Settings from "./settings";
@@ -12,10 +14,12 @@ import { DEFAULT_STYLE, PAGES, PARAGRAPHS, FULLSCREEN } from "./utils/constants"
 import { AppContext } from './context';
 import toaster from './common/toast';
 import setting from "./setting.json";
+import { NUM_ADD, NUM_REDUCE, NUM_CHANGE } from './reducers/reducer-types';
 
 import "./css/App.css";
 
-export default class App extends Component {
+class App extends Component {
+
   constructor (props) {
     super(props);
     this.examples = loadExample();
@@ -45,6 +49,13 @@ export default class App extends Component {
     this.initDataFromLocalStore();
     document.addEventListener('keydown', this.onKeydown);
     window.app = this;
+
+    // test
+    // setInterval(() => {
+    //   this.props.addFileIndex(1);
+    // }, 1000);
+
+    // after render, console.log(this.props.fileIndex);
   }
 
   componentWillUnmount () {
@@ -205,3 +216,22 @@ export default class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  fileIndex: PropTypes.object.isRequired,
+  addFileIndex: PropTypes.func.isRequired,
+  deleteFileIndex: PropTypes.func.isRequired,
+  changeFileIndex: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state, props) => ({ ...state, ...props });
+
+const mapDispatchToProps = (dispatch) => (
+  {
+    addFileIndex: (payload) => dispatch({ type: NUM_ADD, payload }),
+    deleteFileIndex: (payload) => dispatch({ type: NUM_REDUCE, payload }),
+    changeFileIndex: (payload) => dispatch({ type: NUM_CHANGE, payload }),
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
