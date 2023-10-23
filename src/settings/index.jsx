@@ -7,8 +7,6 @@ import AdvanceSettings from "./advance-settings";
 import "./index.css";
 
 class Settings extends Component {
-  static propTypes = {
-  };
 
   constructor (props) {
     super(props);
