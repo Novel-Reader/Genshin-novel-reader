@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import FontSettings from "./font-settings";
 import ThemeSettings from "./theme-settings";
 import ModeSettings from './mode-settings';
+import LangSettings from './lang-settings';
+
 import "./index.css";
 
 class BasicSettings extends Component {
@@ -48,6 +50,8 @@ class BasicSettings extends Component {
     // TODO：get current from parent component
     return (
       <div className='basic-settings'>
+        <LangSettings/>
+        <div className='setting-divide-line'></div>
         <FontSettings onSave={this.onSaveFont} />
         <div className='setting-divide-line'></div>
         <ThemeSettings onSave={this.onSaveTheme} />

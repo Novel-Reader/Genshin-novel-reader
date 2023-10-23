@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import cookie from 'react-cookies';
+import intl from "react-intl-universal";
 import Main from "./main";
 import Navs from "./navs";
 import Settings from "./settings";
@@ -12,6 +13,9 @@ import { DEFAULT_STYLE, PAGES, PARAGRAPHS, FULLSCREEN } from "./utils/constants"
 import { AppContext } from './context';
 import toaster from './common/toast';
 import setting from "./setting.json";
+
+// init language
+import './locale/index.js';
 
 import "./css/App.css";
 
@@ -40,7 +44,7 @@ export default class App extends Component {
     if (setting.mode === 'online') {
       this.initFromServer();
     } else {
-      toaster.success("欢迎使用离线模式");
+      toaster.success(intl.get('Welcome_to_use_offline_mode'));
     }
     this.initDataFromLocalStore();
     document.addEventListener('keydown', this.onKeydown);
