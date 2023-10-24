@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AdvanceThemeSettings from "./advance-theme-settings";
 import ColorSettings from "./color-settings";
 import FontSettings from "./font-settings";
+import WatermarkSettings from './watermark-settings';
 import { FONT_SIZES, FONT_FAMILYS, FONT_WEIGHTS, LINE_HEIGHTS, OPACITIES } from "../../utils/constants";
 import "./index.css";
 
@@ -14,6 +15,8 @@ function AdvanceSettings (props) {
   const changeStyle = props.changeStyle;
   return (
     <div className='advance-settings'>
+      <WatermarkSettings/>
+      <div className='setting-divide-line'></div>
       <AdvanceThemeSettings
         changeStyle={changeStyle}
       />
