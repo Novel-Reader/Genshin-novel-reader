@@ -4,6 +4,7 @@ import FontSettings from "./font-settings";
 import ThemeSettings from "./theme-settings";
 import ModeSettings from './mode-settings';
 import LangSettings from './lang-settings';
+import Share from './share';
 
 import "./index.css";
 
@@ -50,6 +51,8 @@ class BasicSettings extends Component {
     // TODO：get current from parent component
     return (
       <div className='basic-settings'>
+        <Share/>
+        <div className='setting-divide-line'></div>
         <LangSettings/>
         <div className='setting-divide-line'></div>
         <FontSettings onSave={this.onSaveFont} />
