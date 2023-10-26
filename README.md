@@ -14,21 +14,21 @@ A book reading and query system built using React and Express framework combined
 
 Realize the local novel reading, local novel upload, online novel reading, novel download and management process, and support users to customize the appearance and function of the reader.
 
-![](./docs/screenshots/0.7-06.png)
+![](./screenshots/0.7-06.png)
 
-![](./docs/screenshots/0.7-05.png)
+![](./screenshots/0.7-05.png)
 
 ## 文档 Docs
 
-[1.0](https://github.com/Michael18811380328/Genshin-novel-reader/tree/master/docs/v1)
+[文档网站](https://novel-reader.github.io/)
 
-[latest](https://github.com/Michael18811380328/Genshin-novel-reader/tree/master/docs/latest)
+[v 1.0](https://novel-reader.github.io/v1/00-introduction/)
+
+[v latest](https://novel-reader.github.io/latest/00-introduction/)
 
 ## 配置 Setting
 
-配置文件
-
-`setting.json`
+配置文件`setting.json`
 
 ```json
 {
