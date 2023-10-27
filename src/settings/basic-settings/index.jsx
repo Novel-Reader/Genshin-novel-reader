@@ -5,6 +5,7 @@ import ThemeSettings from "./theme-settings";
 import ModeSettings from './mode-settings';
 import LangSettings from './lang-settings';
 import Share from './share';
+import FullScreen from './full-screen';
 
 import "./index.css";
 
@@ -52,6 +53,7 @@ class BasicSettings extends Component {
     return (
       <div className='basic-settings'>
         <Share/>
+        <FullScreen/>
         <div className='setting-divide-line'></div>
         <LangSettings/>
         <div className='setting-divide-line'></div>

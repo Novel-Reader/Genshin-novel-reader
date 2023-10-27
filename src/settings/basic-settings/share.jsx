@@ -7,7 +7,8 @@ export default function Share () {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="basic-settings-item">
-      <Button onClick={() => setIsOpen(true)}>扫码分享</Button>
+      {/* todo: change button to icons in toolbar */}
+      <Button onClick={() => setIsOpen(true)} size="sm" color="primary">分享</Button>
       {isOpen &&
         <Modal isOpen={true} toggle={() => setIsOpen(false)} className="scan-dialog">
           <ModalHeader toggle={() => setIsOpen(false)}>扫码分享</ModalHeader>

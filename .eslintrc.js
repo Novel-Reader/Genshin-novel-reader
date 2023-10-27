@@ -35,6 +35,7 @@ module.exports = {
     'no-useless-return': 'off',
     'operator-linebreak': 'off',
     "object-shorthand": "off",
+    "brace-style": "off",
     "react-hooks/rules-of-hooks": 'error', // 检查 Hook 的规则
     "react-hooks/exhaustive-deps": 'warn' // 检查 effect 的依赖
   }
