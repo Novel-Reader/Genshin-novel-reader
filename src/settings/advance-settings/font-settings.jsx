@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Select from "react-select";
 import { Label } from "reactstrap";
 import { MenuSelectStyle } from "../../utils";
 
 class FontSettings extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
-      selected: null
+      selected: null,
     };
   }
 
@@ -17,7 +17,7 @@ class FontSettings extends Component {
     this.props.save(option);
   };
 
-  render () {
+  render() {
     const preCls = "advance-font-settings";
     return (
       <div className={preCls}>
@@ -39,7 +39,7 @@ class FontSettings extends Component {
 FontSettings.propTypes = {
   title: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  save: PropTypes.func.isRequired
+  save: PropTypes.func.isRequired,
 };
 
 export default FontSettings;

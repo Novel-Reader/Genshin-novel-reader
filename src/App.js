@@ -1,33 +1,44 @@
 import React, { Component } from "react";
-import cookie from 'react-cookies';
+import cookie from "react-cookies";
 import intl from "react-intl-universal";
 import Main from "./main";
 import Navs from "./navs";
 import Settings from "./settings";
 import LocalAPI from "./api/local-api";
 import { isSameObject, loadExample } from "./utils";
-import { getLocalValue, setLocalValue, NOVEL_READER_STYLE_SAVE_KEY } from './utils/store';
-import { isUp, isDown } from './utils/hotkey';
-import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from './utils/parse';
-import { DEFAULT_STYLE, PAGES, PARAGRAPHS, FULLSCREEN } from "./utils/constants";
-import { AppContext } from './context';
-import toaster from './common/toast';
+import {
+  getLocalValue,
+  setLocalValue,
+  NOVEL_READER_STYLE_SAVE_KEY,
+} from "./utils/store";
+import { isUp, isDown } from "./utils/hotkey";
+import {
+  convertNovel2Pages,
+  convertNovel2Paragraph,
+  checkParaGraph,
+  parseNovel,
+} from "./utils/parse";
+import {
+  DEFAULT_STYLE,
+  PAGES,
+  PARAGRAPHS,
+  FULLSCREEN,
+} from "./utils/constants";
+import { AppContext } from "./context";
+import toaster from "./common/toast";
 import setting from "./setting.json";
 
 // init language
-import './locale/index.js';
+import "./locale/index.js";
 
 import "./css/App.css";
 
 export default class App extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.examples = loadExample();
-    const files = this.examples.map(file => {
-      return Object.assign(
-        { name: file.name },
-        parseNovel(file.context)
-      );
+    const files = this.examples.map((file) => {
+      return Object.assign({ name: file.name }, parseNovel(file.context));
     });
     this.state = {
       files,
@@ -35,24 +46,24 @@ export default class App extends Component {
       style: DEFAULT_STYLE,
       isShowRightPanel: true,
       isShowLeftPanel: true,
-      currentPageIndex: 0
+      currentPageIndex: 0,
     };
     this.api = null;
   }
 
-  componentDidMount () {
-    if (setting.mode === 'online') {
+  componentDidMount() {
+    if (setting.mode === "online") {
       this.initFromServer();
     } else {
-      toaster.success(intl.get('Welcome_to_use_offline_mode'));
+      toaster.success(intl.get("Welcome_to_use_offline_mode"));
     }
     this.initDataFromLocalStore();
-    document.addEventListener('keydown', this.onKeydown);
+    document.addEventListener("keydown", this.onKeydown);
     window.app = this;
   }
 
-  componentWillUnmount () {
-    document.removeEventListener('keydown', this.onKeydown);
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.onKeydown);
     window.app = null;
   }
 
@@ -61,7 +72,7 @@ export default class App extends Component {
    * future support local novels and folder tree
    */
   initDataFromLocalStore = () => {
-    getLocalValue(NOVEL_READER_STYLE_SAVE_KEY).then(localStyleStr => {
+    getLocalValue(NOVEL_READER_STYLE_SAVE_KEY).then((localStyleStr) => {
       if (localStyleStr) {
         this.setState({
           style: JSON.parse(localStyleStr) || DEFAULT_STYLE,
@@ -78,7 +89,7 @@ export default class App extends Component {
     this.api = new LocalAPI();
     this.api.init({
       server: setting.server,
-      token: cookie.load('novelToken')
+      token: cookie.load("novelToken"),
     });
   };
 
@@ -87,7 +98,7 @@ export default class App extends Component {
     if (isUp(e)) {
       e.preventDefault();
       if (currentPageIndex === 0) {
-        toaster.warning('已经是第一页了');
+        toaster.warning("已经是第一页了");
         return;
       }
       this.changePageIndex(currentPageIndex - 1);
@@ -96,7 +107,7 @@ export default class App extends Component {
       const file = files[currentFileIndex];
       const maxIndex = file.context.length - 1;
       if (currentPageIndex === maxIndex) {
-        toaster.warning('已经是最后一页了');
+        toaster.warning("已经是最后一页了");
         return;
       }
       this.changePageIndex(currentPageIndex + 1);
@@ -107,27 +118,33 @@ export default class App extends Component {
     const { currentFileIndex, files } = this.state;
     const currentNovel = this.examples[this.state.currentFileIndex];
     if (mode === PAGES) {
-      files[currentFileIndex] = Object.assign({ name: currentNovel.name }, convertNovel2Pages(currentNovel.context));
+      files[currentFileIndex] = Object.assign(
+        { name: currentNovel.name },
+        convertNovel2Pages(currentNovel.context)
+      );
       this.setState({
         files,
         isShowLeftPanel: true,
-        isShowRightPanel: true
+        isShowRightPanel: true,
       });
     } else if (mode === PARAGRAPHS) {
       if (checkParaGraph(currentNovel.context)) {
-        files[currentFileIndex] = Object.assign({ name: currentNovel.name }, convertNovel2Paragraph(currentNovel.context));
+        files[currentFileIndex] = Object.assign(
+          { name: currentNovel.name },
+          convertNovel2Paragraph(currentNovel.context)
+        );
         this.setState({
           files,
           isShowLeftPanel: true,
-          isShowRightPanel: true
+          isShowRightPanel: true,
         });
       } else {
-        toaster.warning('当前小说没有找到章节，不支持章节模式');
+        toaster.warning("当前小说没有找到章节，不支持章节模式");
       }
     } else if (mode === FULLSCREEN) {
       this.setState({
         isShowLeftPanel: false,
-        isShowRightPanel: false
+        isShowRightPanel: false,
       });
       // TODO change files data structure
     }
@@ -139,14 +156,14 @@ export default class App extends Component {
     files.push(file);
     this.setState({
       files,
-      currentFileIndex: files.length - 1
+      currentFileIndex: files.length - 1,
     });
   };
 
   changeFileIndex = (currentFileIndex) => {
     this.setState({
       currentFileIndex,
-      currentPageIndex: 0
+      currentPageIndex: 0,
     });
   };
 
@@ -156,7 +173,7 @@ export default class App extends Component {
     this.setState({
       files,
       currentFileIndex: files.length - 1,
-      currentPageIndex: 0
+      currentPageIndex: 0,
     });
   };
 
@@ -170,11 +187,11 @@ export default class App extends Component {
 
   toggleRightPanel = () => {
     this.setState({
-      isShowRightPanel: !this.state.isShowRightPanel
+      isShowRightPanel: !this.state.isShowRightPanel,
     });
   };
 
-  render () {
+  render() {
     const { files, currentFileIndex, style } = this.state;
     const currentFile = files[currentFileIndex];
     return (

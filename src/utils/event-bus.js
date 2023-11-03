@@ -1,5 +1,4 @@
 export default class EventBus {
-
   eventMap = {};
 
   subscribe(key, fn) {
@@ -12,7 +11,7 @@ export default class EventBus {
   dispatch(key, ...params) {
     let fns = this.eventMap[key];
     if (fns) {
-      fns.forEach(fn => {
+      fns.forEach((fn) => {
         fn(...params);
       });
     }

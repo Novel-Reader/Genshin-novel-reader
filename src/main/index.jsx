@@ -1,67 +1,82 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import ScrollTopIcon from "../common/scroll-top-button";
-import MarkdownViewer from '../common/markdown-viewer';
-import TextViewer from '../common/text-viewer';
-import CodeViewer from '../common/code-viewer';
+import MarkdownViewer from "../common/markdown-viewer";
+import TextViewer from "../common/text-viewer";
+import CodeViewer from "../common/code-viewer";
 import FoldedIcon from "./folded-icon";
-import { PAGES, PARAGRAPHS, DEFAULT_IMAGE, UPLOAD_FILE_TYPES } from "../utils/constants";
-import { getSuffix } from '../utils';
+import {
+  PAGES,
+  PARAGRAPHS,
+  DEFAULT_IMAGE,
+  UPLOAD_FILE_TYPES,
+} from "../utils/constants";
+import { getSuffix } from "../utils";
 
 import "./index.css";
 
 export default class Main extends Component {
-
   static propTypes = {
     toggleRightPanel: PropTypes.func.isRequired,
     isShowRightPanel: PropTypes.bool.isRequired,
     currentPageIndex: PropTypes.number.isRequired,
     currentFile: PropTypes.object.isRquired,
     context: PropTypes.string,
-    style: PropTypes.object
+    style: PropTypes.object,
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       isMoving: false,
-      isShowTopIcon: false
+      isShowTopIcon: false,
     };
     this.timer = null;
   }
 
   onScroll = (e) => {
-    if (!this.state.isMoving && !this.state.isShowTopIcon && e.target.scrollTop > window.innerHeight) {
+    if (
+      !this.state.isMoving &&
+      !this.state.isShowTopIcon &&
+      e.target.scrollTop > window.innerHeight
+    ) {
       this.setState({
-        isShowTopIcon: true
+        isShowTopIcon: true,
       });
     }
-    if (!this.state.isMoving && this.state.isShowTopIcon && e.target.scrollTop < window.innerHeight) {
+    if (
+      !this.state.isMoving &&
+      this.state.isShowTopIcon &&
+      e.target.scrollTop < window.innerHeight
+    ) {
       this.setState({
-        isShowTopIcon: false
+        isShowTopIcon: false,
       });
     }
   };
 
   scrollToTop = () => {
-    this.setState({
-      isMoving: true
-    }, () => {
-      let currentTop = this.longPageRef.scrollTop;
-      const indent = currentTop / 50;
-      this.timer = setInterval(() => {
-        currentTop = currentTop - indent * 3;
-        this.longPageRef.scrollTop = currentTop;
-        if (currentTop < 0) {
-          clearInterval(this.timer);
-          this.timer = null;
-          this.setState({
-            isMoving: false,
-            isShowTopIcon: false
-          });
-        }
-      }, 20);
-    });
+    this.setState(
+      {
+        isMoving: true,
+      },
+      () => {
+        let currentTop = this.longPageRef.scrollTop;
+        const indent = currentTop / 50;
+        this.timer = setInterval(() => {
+          currentTop = currentTop - indent * 3;
+          this.longPageRef.scrollTop = currentTop;
+          if (currentTop < 0) {
+            clearInterval(this.timer);
+            this.timer = null;
+            this.setState({
+              isMoving: false,
+              isShowTopIcon: false,
+            });
+          }
+        }, 20);
+      }
+    );
   };
 
   renderContext = () => {
@@ -80,25 +95,19 @@ export default class Main extends Component {
 
     if (currentFile) {
       // markdown阅读器
-      if (suffix === 'md') {
-        return (
-          <MarkdownViewer context={context} />
-        );
+      if (suffix === "md") {
+        return <MarkdownViewer context={context} />;
       }
       // 代码片段阅读器
       if (UPLOAD_FILE_TYPES.includes(suffix)) {
-        return (
-          <CodeViewer context={context} lan={suffix} />
-        );
+        return <CodeViewer context={context} lan={suffix} />;
       }
     }
     // 其他都使用 txt 格式
-    return (
-      <TextViewer context={context}/>
-    );
+    return <TextViewer context={context} />;
   };
 
-  render () {
+  render() {
     const { currentFile, style } = this.props;
 
     if (!currentFile) {
@@ -113,11 +122,18 @@ export default class Main extends Component {
       <div id="main" className="main">
         <div
           className="long-page"
-          style={{ backgroundImage: `url('${style.backgroundImage || DEFAULT_IMAGE}')` }}
+          style={{
+            backgroundImage: `url('${style.backgroundImage || DEFAULT_IMAGE}')`,
+          }}
           onScroll={this.onScroll}
-          ref={node => { this.longPageRef = node; }}
+          ref={(node) => {
+            this.longPageRef = node;
+          }}
         >
-          <div className='long-page-container' style={Object.assign({}, { opacity: 0.75 }, style)}>
+          <div
+            className="long-page-container"
+            style={Object.assign({}, { opacity: 0.75 }, style)}
+          >
             {this.renderContext()}
           </div>
           <ScrollTopIcon

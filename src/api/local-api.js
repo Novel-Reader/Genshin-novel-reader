@@ -9,13 +9,13 @@ class LocalAPI {
    * @param {object} server, username, password, token
    * @returns API object
    */
-  init ({ server, token }) {
+  init({ server, token }) {
     this.server = server;
     this.token = token;
     if (this.server) {
       this.req = axios.create({
         baseURL: this.server,
-        headers: { Authorization: 'Bearer ' + this.token }
+        headers: { Authorization: "Bearer " + this.token },
       });
     }
     return this;
@@ -25,7 +25,7 @@ class LocalAPI {
    * check internet is connect
    * @returns pong
    */
-  checkNet () {
+  checkNet() {
     const url = `${this.server}/api/ping/`;
     return this.req.get(url);
   }
@@ -36,11 +36,11 @@ class LocalAPI {
    * @param {string} password
    * @returns {object} response
    */
-  login (email, password) {
+  login(email, password) {
     const url = `${this.server}/api/login`;
     const options = {
       email,
-      password
+      password,
     };
     return this.req.post(url, options);
   }
@@ -49,7 +49,7 @@ class LocalAPI {
    * get all users in dabatase
    * @returns {array} user list
    */
-  getUsers () {
+  getUsers() {
     const url = `${this.server}/api/users/`;
     return this.req.get(url);
   }
@@ -59,7 +59,7 @@ class LocalAPI {
    * @param {string} email
    * @returns user object
    */
-  getUserInfo (email) {
+  getUserInfo(email) {
     const url = `${this.server}/api/user?email=${email}`;
     return this.req.get(url);
   }
@@ -71,12 +71,12 @@ class LocalAPI {
    * @param {string} password
    * @returns boolean
    */
-  addUser (email, name, password) {
+  addUser(email, name, password) {
     const url = `${this.server}/api/user`;
     const options = {
       email,
       name,
-      password
+      password,
     };
     return this.req.post(url, options);
   }
@@ -86,7 +86,7 @@ class LocalAPI {
    * @param {string} email
    * @returns boolean
    */
-  deleteUser (email) {
+  deleteUser(email) {
     const url = `${this.server}/api/user?email=${email}`;
     return this.req.delete(url);
   }
@@ -97,11 +97,11 @@ class LocalAPI {
    * @param {string} user email
    * @returns user object
    */
-  updateUserPassword (password, email) {
+  updateUserPassword(password, email) {
     const url = `${this.server}/api/user-password`;
     const options = {
       email,
-      password
+      password,
     };
     return this.req.post(url, options);
   }
@@ -112,11 +112,11 @@ class LocalAPI {
    * @param {string} user email
    * @returns user object
    */
-  updateUserAvatar (avatar, email) {
+  updateUserAvatar(avatar, email) {
     const url = `${this.server}/api/user-avatar`;
     const options = {
       email,
-      avatar
+      avatar,
     };
     return this.req.post(url, options);
   }
@@ -131,7 +131,7 @@ class LocalAPI {
    * @param {string} brief
    * @returns success
    */
-  addNovel (name, cover_photo, author, detail, price, brief) {
+  addNovel(name, cover_photo, author, detail, price, brief) {
     const url = `${this.server}/api/novel`;
     const options = { name, cover_photo, author, detail, price, brief };
     return this.req.post(url, options);
@@ -142,7 +142,7 @@ class LocalAPI {
    * @param {string} id
    * @returns boolean
    */
-  deleteNovel (id) {
+  deleteNovel(id) {
     const url = `${this.server}/api/novel?id=${id}`;
     return this.req.delete(url);
   }
@@ -151,19 +151,19 @@ class LocalAPI {
    * get novels list
    * @returns novels
    */
-  getNovelList () {
+  getNovelList() {
     const url = `${this.server}/api/novel_list`;
     return this.req.get(url);
   }
 
   /**
    * add a comment
-   * @param {string} book_id 
-   * @param {string} detail 
-   * @param {string} author 
+   * @param {string} book_id
+   * @param {string} detail
+   * @param {string} author
    * @returns response
    */
-  addComment (book_id, detail, author) {
+  addComment(book_id, detail, author) {
     const url = `${this.server}/api/comment`;
     const options = { book_id, detail, author };
     return this.req.post(url, options);
@@ -171,23 +171,23 @@ class LocalAPI {
 
   /**
    * get comment list of a book
-   * @param {string} book_id 
-   * @param {number} start 
-   * @param {number} limit 
+   * @param {string} book_id
+   * @param {number} start
+   * @param {number} limit
    * @returns array
    */
-  getCommentList (book_id, start, limit) {
+  getCommentList(book_id, start, limit) {
     const url = `${this.server}/api/comment?book_id=${book_id}&start=${start}&limit=${limit}`;
     return this.req.get(url);
   }
 
   /**
    * The author of comment can edit this comment
-   * @param {string} comment_id 
+   * @param {string} comment_id
    * @param {string} detail new comment content
-   * @returns 
+   * @returns
    */
-  editComment (comment_id, detail) {
+  editComment(comment_id, detail) {
     const url = `${this.server}/api/comment`;
     const options = { comment_id, detail };
     return this.req.put(url, options);
@@ -195,10 +195,10 @@ class LocalAPI {
 
   /**
    * delete a comment by id
-   * @param {string} comment_id 
-   * @returns 
+   * @param {string} comment_id
+   * @returns
    */
-  deleteComment (comment_id) {
+  deleteComment(comment_id) {
     const url = `${this.server}/api/comment?id=${comment_id}`;
     return this.req.delete(url);
   }
@@ -208,7 +208,7 @@ class LocalAPI {
    * @param {string} id
    * @returns novel
    */
-  getNovelDetail (id) {
+  getNovelDetail(id) {
     const url = `${this.server}/api/search-novel?id=${id}`;
     return this.req.get(url);
   }
@@ -218,7 +218,7 @@ class LocalAPI {
    * @param {string} novel name
    * @returns {object} novel
    */
-  searchNovelByName (name) {
+  searchNovelByName(name) {
     const url = `${this.server}/api/search-novel`;
     const options = { name };
     return this.req.post(url, options);
@@ -229,7 +229,7 @@ class LocalAPI {
    * @param {string} author name
    * @returns {object} novel
    */
-  searchNovelByAuthor (author) {
+  searchNovelByAuthor(author) {
     const url = `${this.server}/api/search-novel`;
     const options = { author };
     return this.req.post(url, options);
@@ -240,7 +240,7 @@ class LocalAPI {
    * @param {number} price of searched novel
    * @returns {object} novel
    */
-  searchNovelByPrice (price) {
+  searchNovelByPrice(price) {
     const url = `${this.server}/api/search-novel`;
     const options = { price };
     return this.req.post(url, options);
@@ -253,7 +253,7 @@ class LocalAPI {
    * @param {number} novel price
    * @returns {object} novel
    */
-  searchNovel (name, author, price) {
+  searchNovel(name, author, price) {
     const url = `${this.server}/api/search-novel`;
     const options = { name, author, price };
     return this.req.post(url, options);

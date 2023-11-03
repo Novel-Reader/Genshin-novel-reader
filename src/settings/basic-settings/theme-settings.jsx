@@ -1,11 +1,11 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { Button, ButtonGroup, Label } from "reactstrap";
 
-function ThemeSettings (props) {
+function ThemeSettings(props) {
   const [theme, setTheme] = React.useState(props.theme || 2);
 
-  function onClick (theme) {
+  function onClick(theme) {
     props.onSave(theme);
     setTheme(theme);
   }
@@ -14,7 +14,7 @@ function ThemeSettings (props) {
     <div className="basic-settings-item">
       <Label>页面主题</Label>
       <ButtonGroup>
-        {['日间', '护眼', '夜间'].map((item, index) => {
+        {["日间", "护眼", "夜间"].map((item, index) => {
           return (
             <Button
               key={index}
@@ -34,10 +34,9 @@ function ThemeSettings (props) {
 
 ThemeSettings.propTypes = {
   onSave: PropTypes.func.isRequired,
-  theme: PropTypes.number
+  theme: PropTypes.number,
 };
 
-ThemeSettings.defaultProps = {
-};
+ThemeSettings.defaultProps = {};
 
 export default ThemeSettings;

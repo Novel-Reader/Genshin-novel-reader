@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import throttle from 'lodash.throttle';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import throttle from "lodash.throttle";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import toaster from '../../common/toast';
-import { LoadingIcon } from '../../common/icons';
-import CommentList from './comment-list';
-import AddComment from './add-comment';
+import toaster from "../../common/toast";
+import { LoadingIcon } from "../../common/icons";
+import CommentList from "./comment-list";
+import AddComment from "./add-comment";
 
 const LIMIT = 5;
 
 function BookDetailDialog(props) {
-
   const [loading, setLoading] = useState(true);
   const [loadAll, setLoadAll] = useState(false);
   const [comments, setComments] = useState([]);
@@ -18,30 +17,36 @@ function BookDetailDialog(props) {
   let commentRef = null;
 
   useEffect(() => {
-    window.app.api.getCommentList(props.novel.id, start, LIMIT).then((res) => {
-      setComments(res.data);
-      setStart(start + 1);
-      setLoading(false);
-      checkLoadAll(res.data);
-    }).catch(err => {
-      toaster.danger('获取评论失败，请关闭对话框重试');
-      toaster.danger(String(err));
-    });
+    window.app.api
+      .getCommentList(props.novel.id, start, LIMIT)
+      .then((res) => {
+        setComments(res.data);
+        setStart(start + 1);
+        setLoading(false);
+        checkLoadAll(res.data);
+      })
+      .catch((err) => {
+        toaster.danger("获取评论失败，请关闭对话框重试");
+        toaster.danger(String(err));
+      });
     // 这个只有在首次加载执行上面的逻辑（获取评论列表），所以只传递空数组即可，不需要在组件更新时（start变化，或者 novel 变化）再次获取评论
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadMoreComment = () => {
     if (loading || loadAll) return;
-    window.app.api.getCommentList(props.novel.id, start, LIMIT).then((res) => {
-      setComments([...comments, ...res.data]);
-      setStart(start + 1);
-      setLoading(false);
-      checkLoadAll(res.data);
-    }).catch(err => {
-      toaster.danger('获取评论失败，请关闭对话框重试');
-      toaster.danger(String(err));
-    });
+    window.app.api
+      .getCommentList(props.novel.id, start, LIMIT)
+      .then((res) => {
+        setComments([...comments, ...res.data]);
+        setStart(start + 1);
+        setLoading(false);
+        checkLoadAll(res.data);
+      })
+      .catch((err) => {
+        toaster.danger("获取评论失败，请关闭对话框重试");
+        toaster.danger(String(err));
+      });
   };
 
   const checkLoadAll = (comments) => {
@@ -63,20 +68,25 @@ function BookDetailDialog(props) {
   };
 
   return (
-    <Modal isOpen={true} toggle={props.toggleDialog} className="book-datial-dialog" size="lg">
+    <Modal
+      isOpen={true}
+      toggle={props.toggleDialog}
+      className="book-datial-dialog"
+      size="lg"
+    >
       <ModalHeader toggle={props.toggleDialog}>小说评论</ModalHeader>
       <ModalBody onScroll={onScroll}>
         {/* 小说详情界面 */}
         {/* 当有评论时，显示评论列表 */}
-        {comments.length > 0 &&
+        {comments.length > 0 && (
           <CommentList
             comments={comments}
             novel={props.novel}
             onRef={onCommentListRef}
           />
-        }
+        )}
         {/* 当加载评论时，在评论列表后面，显示加载图标 */}
-        {loading && <LoadingIcon/>}
+        {loading && <LoadingIcon />}
         {loadAll && <span>没有更多评论了</span>}
         {/* TODO：动态聊天室 */}
       </ModalBody>
