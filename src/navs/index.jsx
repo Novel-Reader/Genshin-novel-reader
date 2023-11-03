@@ -16,15 +16,15 @@ export default class Navs extends Component {
     isShowLeftPanel: PropTypes.bool.isRequired,
     currentPageIndex: PropTypes.number.isRequired,
     changePageIndex: PropTypes.func.isRequired,
-    currentFileIndex: PropTypes.number.isRequired
+    currentFileIndex: PropTypes.number.isRequired,
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       isSearch: false,
       searchValue: "",
-      currentNav: "filetree" // filetree or outline
+      currentNav: "filetree", // filetree or outline
     };
   }
 
@@ -44,11 +44,18 @@ export default class Navs extends Component {
     this.setState({ searchValue: e.target.value });
   };
 
-  render () {
+  render() {
     const { currentFileIndex, isShowLeftPanel } = this.props;
     const { isSearch, currentNav, searchValue } = this.state;
     return (
-      <div id="navs" className="navs" style={{ width: isShowLeftPanel ? 200 : 0, display: isShowLeftPanel ? 'block' : 'none' }}>
+      <div
+        id="navs"
+        className="navs"
+        style={{
+          width: isShowLeftPanel ? 200 : 0,
+          display: isShowLeftPanel ? "block" : "none",
+        }}
+      >
         <NavHeader
           isSearch={isSearch}
           currentNav={currentNav}
@@ -59,7 +66,7 @@ export default class Navs extends Component {
           closeSearch={this.closeSearch}
         />
         <div className="navs-body">
-          {currentNav === "filetree" &&
+          {currentNav === "filetree" && (
             <FileTree
               files={this.props.files}
               changeFileIndex={this.props.changeFileIndex}
@@ -67,15 +74,15 @@ export default class Navs extends Component {
               currentFileIndex={currentFileIndex}
               searchValue={searchValue}
             />
-          }
-          {currentNav === "outline" &&
+          )}
+          {currentNav === "outline" && (
             <Outline
               files={this.props.files}
               currentFileIndex={currentFileIndex}
               currentPageIndex={this.props.currentPageIndex}
               changePageIndex={this.props.changePageIndex}
             />
-          }
+          )}
         </div>
         <NavFooter addFile={this.props.addFile} />
       </div>

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
-import './index.css';
+import "./index.css";
 
-export default function Admin () {
+export default function Admin() {
   return (
     <div className="admin d-flex center">
       <h1>Admin Page</h1>

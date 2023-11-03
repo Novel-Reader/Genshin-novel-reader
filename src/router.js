@@ -1,8 +1,8 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import MediaQuery from 'react-responsive';
+import MediaQuery from "react-responsive";
 import App from "./App";
-import AppMobile from './App-mobile';
+import AppMobile from "./App-mobile";
 import Admin from "./pages/admin";
 import Login from "./pages/login";
 import setting from "./setting.json";
@@ -11,30 +11,30 @@ import setting from "./setting.json";
 let router = {};
 
 // TODO Login Admin 等页面，迁移到后端项目实现，这个项目只实现阅读器代码，不涉及用户登录，后台管理等业务逻辑
-if (setting.mode === 'online') {
+if (setting.mode === "online") {
   router = createBrowserRouter([
     {
       path: "/",
-      element: <Login />
+      element: <Login />,
     },
     {
       path: "/reader",
       element: (
         <>
           <MediaQuery query="(min-device-width: 767.8px)">
-            <App/>
+            <App />
           </MediaQuery>
           <MediaQuery query="(max-device-width: 767.8px)">
-            <AppMobile/>
+            <AppMobile />
           </MediaQuery>
         </>
       ),
-      errorElement: <App />
+      errorElement: <App />,
     },
     {
       path: "admin/",
-      element: <Admin />
-    }
+      element: <Admin />,
+    },
     // {
     //   path: "register/",
     //   element: <Register />,
@@ -44,22 +44,22 @@ if (setting.mode === 'online') {
   ]);
 }
 
-if (setting.mode === 'offline') {
+if (setting.mode === "offline") {
   router = createBrowserRouter([
     {
       path: "/",
       element: (
         <>
           <MediaQuery query="(min-device-width: 767.8px)">
-            <App/>
+            <App />
           </MediaQuery>
           <MediaQuery query="(max-device-width: 767.8px)">
-            <AppMobile/>
+            <AppMobile />
           </MediaQuery>
         </>
       ),
-      errorElement: <App />
-    }
+      errorElement: <App />,
+    },
   ]);
 }
 

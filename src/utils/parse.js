@@ -18,7 +18,7 @@ const convertNovel2Pages = (txt, isMobile = false) => {
   }
   return {
     context: pages,
-    type: PAGES
+    type: PAGES,
   };
 };
 
@@ -33,7 +33,7 @@ const convertNovel2Paragraph = (txt) => {
   paragraphs = paragraphs.filter((item) => item.length);
   return {
     context: paragraphs,
-    type: PARAGRAPHS
+    type: PARAGRAPHS,
   };
 };
 
@@ -52,7 +52,7 @@ const checkParaGraph = (content) => {
  * @returns object
  */
 const parseNovel = (content) => {
-  if (typeof content !== 'string') {
+  if (typeof content !== "string") {
     return {};
   }
   if (checkParaGraph(content)) {
@@ -62,4 +62,9 @@ const parseNovel = (content) => {
   }
 };
 
-export { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel };
+export {
+  convertNovel2Pages,
+  convertNovel2Paragraph,
+  checkParaGraph,
+  parseNovel,
+};

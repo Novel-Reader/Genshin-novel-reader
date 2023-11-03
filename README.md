@@ -47,7 +47,6 @@ npm install
 
 在 localhost:3000 端口开启客户端 Run frontend page on localhost:3000 :
 
-
 ```bash
 npm run start
 ```
@@ -63,4 +62,3 @@ npm run test
 1.0 版本及之前版本，客户端和服务器代码都维护在本仓库。
 
 1.0 版本后，服务端代码单独迁移成一个项目 [novel-reader-express-server](https://github.com/Novel-Reader/novel-reader-express-server)
-

@@ -1,16 +1,16 @@
-import intl from 'react-intl-universal';
-import cookie from 'react-cookies';
-import en from './en';
-import zh_CN from './zh_CN';
+import intl from "react-intl-universal";
+import cookie from "react-cookies";
+import en from "./en";
+import zh_CN from "./zh_CN";
 
 const locales = {
   en: en,
   zh_CN: zh_CN,
 };
 
-const localLang = cookie.load('lang');
+const localLang = cookie.load("lang");
 
-const defaultLang = 'en';
+const defaultLang = "en";
 
 const lang = locales[localLang] ? localLang : defaultLang;
 

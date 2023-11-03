@@ -1,8 +1,8 @@
-describe('The Home Page', () => {
-  it('successfully loads', () => {
-    cy.visit('http://localhost:3000/novel-demo') // change URL to match your dev URL
-  })
-})
+describe("The Home Page", () => {
+  it("successfully loads", () => {
+    cy.visit("http://localhost:3000/novel-demo"); // change URL to match your dev URL
+  });
+});
 
 // describe('The Login Page', () => {
 //   beforeEach(() => {

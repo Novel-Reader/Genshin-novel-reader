@@ -2,14 +2,14 @@ const FONT_SIZES = [
   { value: "12px", label: "12px" },
   { value: "16px", label: "16px" },
   { value: "20px", label: "20px" },
-  { value: "24px", label: "24px" }
+  { value: "24px", label: "24px" },
 ];
 
 const FONT_FAMILYS = [
   { value: "Segoe UI", label: "Segoe UI" },
   { value: "Roboto", label: "Roboto" },
   { value: "Helvetica Neue", label: "Helvetica Neue" },
-  { value: "Arial", label: "Arial" }
+  { value: "Arial", label: "Arial" },
 ];
 
 const FONT_WEIGHTS = [
@@ -25,7 +25,7 @@ const FONT_WEIGHTS = [
   { value: 600, label: "600" },
   { value: 700, label: "700" },
   { value: 800, label: "800" },
-  { value: 900, label: "900" }
+  { value: 900, label: "900" },
 ];
 
 const LINE_HEIGHTS = [
@@ -33,7 +33,7 @@ const LINE_HEIGHTS = [
   { value: 1.5, label: "1.5" },
   { value: 2, label: "2" },
   { value: 2.5, label: "2.5" },
-  { value: 3, label: "3" }
+  { value: 3, label: "3" },
 ];
 
 const OPACITIES = [
@@ -48,25 +48,21 @@ const OPACITIES = [
 const DEFAULT_STYLE = {
   fontSize: "16px",
   color: "#212529",
-  backgroundColor: "rgb(251, 246, 236)"
+  backgroundColor: "rgb(251, 246, 236)",
 };
 
-const PAGES = 'pages';
-const PARAGRAPHS = 'paragraphs';
-const FULLSCREEN = 'fullscreen';
-const DEFAULT_IMAGE = "https://julia-1994.github.io/images/KamisatoAyaka/02.jpg";
+const PAGES = "pages";
+const PARAGRAPHS = "paragraphs";
+const FULLSCREEN = "fullscreen";
+const DEFAULT_IMAGE =
+  "https://julia-1994.github.io/images/KamisatoAyaka/02.jpg";
 
-const UPLOAD_FILE_TYPES = [
-  'txt',
-  'md',
-  'c',
-  'css',
-  'js',
-  'py',
-];
+const UPLOAD_FILE_TYPES = ["txt", "md", "c", "css", "js", "py"];
 
 // handle input accept file types
-const INPUT_ACCEPT_FILE_TYPE = UPLOAD_FILE_TYPES.map(item => '.' + item).join(',');
+const INPUT_ACCEPT_FILE_TYPE = UPLOAD_FILE_TYPES.map((item) => "." + item).join(
+  ","
+);
 
 export {
   INPUT_ACCEPT_FILE_TYPE,

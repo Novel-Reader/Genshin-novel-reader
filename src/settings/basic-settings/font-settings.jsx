@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { Button, ButtonGroup, Label } from "reactstrap";
 
 class FontSettings extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
-      fontSize: props.fontSize || 2
+      fontSize: props.fontSize || 2,
     };
   }
 
@@ -15,7 +15,7 @@ class FontSettings extends Component {
     this.props.onSave(fontSize);
   };
 
-  render () {
+  render() {
     const { fontSize } = this.state;
     const { setFontSize } = this;
     return (
@@ -54,7 +54,7 @@ class FontSettings extends Component {
 
 FontSettings.propTypes = {
   fontSize: PropTypes.number,
-  onSave: PropTypes.func.isRequired
+  onSave: PropTypes.func.isRequired,
 };
 
 export default FontSettings;
