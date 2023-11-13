@@ -4,7 +4,7 @@
   "homepage": "/novel-demo/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
-    "axios": "^1.2.2",
+    "axios": "^1.6.0",
     "bootstrap": "^5.2.3",
     "classnames": "^2.3.2",
     "glamor": "^2.20.40",
