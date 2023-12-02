@@ -32,8 +32,6 @@ const zh = {
   'Green_theme': '护眼',
   'Nighttime': '夜间',
   'Page_Theme': '页面主题',
-  'Switch to Outline': '切换到大纲',
-  'Switch to document tree view': '切换到文档树',
   'Log in': '登录',
   'Email': '邮箱',
   'Password': '密码',

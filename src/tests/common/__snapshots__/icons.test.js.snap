@@ -23,11 +23,9 @@ exports[`render icons 1`] = `
   />
   <span
     className="icon icon-list2"
-    title="切换到大纲视图"
   />
   <span
     className="icon icon-tree"
-    title="切换到文档树视图"
   />
   <span
     className="icon icon-arrow-left2"

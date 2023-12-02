@@ -26,11 +26,11 @@ function LeftIcon() {
 }
 
 function ListIcon() {
-  return <span className="icon icon-list2" title={intl.get('Switch to Outline')}></span>;
+  return <span className="icon icon-list2"></span>;
 }
 
 function TreeIcon() {
-  return <span className="icon icon-tree" title={intl.get('Switch to document tree view')}></span>;
+  return <span className="icon icon-tree"></span>;
 }
 
 function BackIcon() {

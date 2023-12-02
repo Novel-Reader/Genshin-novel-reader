@@ -33,8 +33,6 @@ const en = {
   'Nighttime': 'Nighttime',
   'Page_Theme': 'Page theme',
   'Font_Size': 'Font size',
-  'Switch to Outline': 'Switch to Outline',
-  'Switch to document tree view': 'Switch to document tree view',
   'Log in': 'Log in',
   'Email': 'Email',
   'Password': 'Password',
