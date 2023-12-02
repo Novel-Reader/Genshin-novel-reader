@@ -74,6 +74,7 @@ const en = {
   'Read mode': 'Read mode',
   'Share': 'Share',
   'Scan code to share': 'Scan code to share',
+  'Download': 'Download',
   'Close': 'Close'
 };
 

@@ -75,6 +75,7 @@ const zh = {
   'Read mode': '阅读模式',
   'Share': '分享',
   'Scan code to share': '扫码分享',
+  'Download': '下载',
   'Close': '关闭'
 };
 

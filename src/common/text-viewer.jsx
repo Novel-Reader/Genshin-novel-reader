@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { parseTxtToHTML } from "../utils";
 
 function TextViewer(props) {
-  const list = parseTxtToHTML(props.context);
+  const list = parseTxtToHTML(props.detail);
   return (
     <div>
       {list.map((item, index) => {
@@ -14,7 +14,7 @@ function TextViewer(props) {
 }
 
 TextViewer.propTypes = {
-  context: PropTypes.string.isRequired,
+  detail: PropTypes.string.isRequired,
 };
 
 export default TextViewer;

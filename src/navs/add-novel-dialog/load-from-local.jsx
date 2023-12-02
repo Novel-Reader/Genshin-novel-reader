@@ -6,6 +6,7 @@ import { MenuSelectStyle } from "../../utils";
 import { INPUT_ACCEPT_FILE_TYPE } from "../../utils/constants";
 import setting from "../../setting.json";
 import toaster from "../../common/toast";
+import File from '../../model/file';
 
 class LoadFromLocal extends Component {
   constructor(props) {
@@ -14,9 +15,10 @@ class LoadFromLocal extends Component {
       file: null,
       filename: "",
       author: "",
-      abstract: "",
+      brief: "",
       currentSelected: null,
     };
+    // TODO 关键词或者分类，自定义上传，便于搜索
     this.options = [
       { value: "古典", label: "古典" },
       { value: "同人", label: "同人" },
@@ -42,14 +44,9 @@ class LoadFromLocal extends Component {
     const that = this;
     reader.onload = function () {
       that.tmpFile = this.result;
-      that.setState(
-        {
-          file,
-        },
-        () => {
-          that.initFileInfo();
-        }
-      );
+      that.setState({ file }, () => {
+        that.initFileInfo();
+      });
     };
   };
 
@@ -57,7 +54,7 @@ class LoadFromLocal extends Component {
     this.setState({
       filename: this.state.file.name,
       author: "",
-      abstract: this.tmpFile.slice(0, 100).trim(),
+      brief: this.tmpFile.slice(0, 100).trim(),
     });
   };
 
@@ -67,18 +64,16 @@ class LoadFromLocal extends Component {
   };
 
   onUpload = () => {
-    const { filename, file, author, abstract, currentSelected } = this.state;
-    const tag = currentSelected
-      ? currentSelected.map((option) => option.value).join(" ")
-      : "";
-    const fileObj = {
+    const { filename, file, author, brief, currentSelected } = this.state;
+    const tag = currentSelected ? currentSelected.map((option) => option.value).join(" ") : "";
+    const fileObj = new File({
       name: filename.trim(),
       size: file.size,
       author,
-      context: this.tmpFile,
-      abstract: abstract.trim(),
+      detail: this.tmpFile,
+      brief: brief.trim(),
       tag,
-    };
+    });
     this.props.addFile(fileObj);
     if (this.isOnline && this.checkboxRef.current.checked) {
       this.uploadToServer(fileObj);
@@ -87,12 +82,13 @@ class LoadFromLocal extends Component {
   };
 
   uploadToServer = (fileObj) => {
-    const { name, author, context, abstract } = fileObj;
+    const { name, author, detail, brief, tag, size } = fileObj;
+    // TODO edit cover_photo and price
     const cover_photo = "";
     const price = 100;
     toaster.warning("正在上传中...");
     window.app.api
-      .addNovel(name, cover_photo, author, context, price, abstract)
+      .addNovel(name, cover_photo, author, detail, price, brief, size, tag)
       .then((res) => {
         toaster.success("上传成功");
         toaster.success(res);
@@ -167,15 +163,15 @@ class LoadFromLocal extends Component {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="abstract">摘要（默认选择原文前 100 字）</Label>
+            <Label for="brief">摘要（默认选择原文前 100 字）</Label>
             <Input
-              className="load-from-local-abstract"
-              id="abstract"
+              className="load-from-local-brief"
+              id="brief"
               name="text"
               type="textarea"
-              value={this.state.abstract}
+              value={this.state.brief}
               onChange={(e) => {
-                this.setState({ abstract: e.target.value });
+                this.setState({ brief: e.target.value });
               }}
             />
           </FormGroup>

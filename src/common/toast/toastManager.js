@@ -24,8 +24,8 @@ export default class ToastManager extends React.PureComponent {
 
   static idCounter = 0;
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     props.bindNotify(this.notify);
     props.bindGetToasts(this.getToasts);
     props.bindCloseAll(this.closeAll);

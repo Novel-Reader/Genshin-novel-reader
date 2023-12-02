@@ -38,7 +38,7 @@ export default class App extends Component {
     super(props);
     this.examples = loadExample();
     const files = this.examples.map((file) => {
-      return Object.assign({ name: file.name }, parseNovel(file.context));
+      return Object.assign({ name: file.name }, parseNovel(file.detail));
     });
     this.state = {
       files,
@@ -105,7 +105,7 @@ export default class App extends Component {
     } else if (isDown(e)) {
       e.preventDefault();
       const file = files[currentFileIndex];
-      const maxIndex = file.context.length - 1;
+      const maxIndex = file.detail.length - 1;
       if (currentPageIndex === maxIndex) {
         toaster.warning("已经是最后一页了");
         return;
@@ -120,7 +120,7 @@ export default class App extends Component {
     if (mode === PAGES) {
       files[currentFileIndex] = Object.assign(
         { name: currentNovel.name },
-        convertNovel2Pages(currentNovel.context)
+        convertNovel2Pages(currentNovel.detail)
       );
       this.setState({
         files,
@@ -128,10 +128,10 @@ export default class App extends Component {
         isShowRightPanel: true,
       });
     } else if (mode === PARAGRAPHS) {
-      if (checkParaGraph(currentNovel.context)) {
+      if (checkParaGraph(currentNovel.detail)) {
         files[currentFileIndex] = Object.assign(
           { name: currentNovel.name },
-          convertNovel2Paragraph(currentNovel.context)
+          convertNovel2Paragraph(currentNovel.detail)
         );
         this.setState({
           files,

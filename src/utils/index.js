@@ -1,4 +1,5 @@
 import exampleObj from "./example.json";
+import File from '../model/file';
 
 /**
  * parse text file to html dom
@@ -60,11 +61,12 @@ const MenuSelectStyle = {
 
 const loadExample = () => {
   const files = [];
-  for (const item in exampleObj) {
-    files.push({
-      name: item,
-      context: exampleObj[item],
+  for (const name in exampleObj) {
+    const file = new File({
+      name: name,
+      detail: exampleObj[name],
     });
+    files.push(file);
   }
   return files;
 };

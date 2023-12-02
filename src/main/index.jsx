@@ -22,7 +22,7 @@ export default class Main extends Component {
     isShowRightPanel: PropTypes.bool.isRequired,
     currentPageIndex: PropTypes.number.isRequired,
     currentFile: PropTypes.object,
-    context: PropTypes.string,
+    detail: PropTypes.string,
     style: PropTypes.object,
   };
 
@@ -80,15 +80,15 @@ export default class Main extends Component {
     );
   };
 
-  renderContext = () => {
+  renderDetail = () => {
     const { currentFile, currentPageIndex } = this.props;
 
     // 这里数据类型处理的不好，未来重新处理
-    let context = "";
+    let detail = "";
     if (currentFile.type === PAGES || currentFile.type === PARAGRAPHS) {
-      context = currentFile.context[currentPageIndex];
+      detail = currentFile.detail[currentPageIndex];
     } else {
-      context = currentFile.context;
+      detail = currentFile.detail;
     }
 
     const fileName = currentFile.name.toLowerCase();
@@ -97,15 +97,15 @@ export default class Main extends Component {
     if (currentFile) {
       // markdown阅读器
       if (suffix === "md") {
-        return <MarkdownViewer context={context} />;
+        return <MarkdownViewer detail={detail} />;
       }
       // 代码片段阅读器
       if (UPLOAD_FILE_TYPES.includes(suffix)) {
-        return <CodeViewer context={context} lan={suffix} />;
+        return <CodeViewer detail={detail} lan={suffix} />;
       }
     }
     // 其他都使用 txt 格式
-    return <TextViewer context={context} />;
+    return <TextViewer detail={detail} />;
   };
 
   render() {
@@ -135,7 +135,7 @@ export default class Main extends Component {
             className="long-page-container"
             style={Object.assign({}, { opacity: 0.75 }, style)}
           >
-            {this.renderContext()}
+            {this.renderDetail()}
           </div>
           <ScrollTopIcon
             onClick={this.scrollToTop}

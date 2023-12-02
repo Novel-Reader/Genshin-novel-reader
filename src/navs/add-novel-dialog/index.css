@@ -23,17 +23,9 @@
   width: 0px;
   opacity: 0;
 }
-.add-novel-dialog
-  .modal-body
-  .add-novel-dialog-main
-  .local-file-info
-  .load-from-local-abstract {
+.add-novel-dialog .modal-body .add-novel-dialog-main .local-file-info .load-from-local-brief {
   min-height: 120px;
 }
-.add-novel-dialog
-  .modal-body
-  .add-novel-dialog-main
-  .local-file-info
-  .modal-footer {
+.add-novel-dialog .modal-body .add-novel-dialog-main .local-file-info .modal-footer {
   border-top: none;
 }

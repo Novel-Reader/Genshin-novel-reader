@@ -13,7 +13,7 @@ import "katex/dist/katex.min.css";
 function MarkdownViewer(props) {
   return (
     <ReactMarkdown
-      children={props.context}
+      children={props.detail}
       remarkPlugins={[remarkMath, remarkGfm]}
       rehypePlugins={[rehypeKatex]}
       components={{
@@ -39,7 +39,7 @@ function MarkdownViewer(props) {
 }
 
 MarkdownViewer.propTypes = {
-  context: PropTypes.string.isRequired,
+  detail: PropTypes.string.isRequired,
 };
 
 export default MarkdownViewer;

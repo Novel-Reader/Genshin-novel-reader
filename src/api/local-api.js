@@ -46,7 +46,7 @@ class LocalAPI {
   }
 
   /**
-   * get all users in dabatase
+   * get all users in database
    * @returns {array} user list
    */
   getUsers() {
@@ -122,18 +122,20 @@ class LocalAPI {
   }
 
   /**
-   * add novel to dabatase
+   * add novel to database
    * @param {string} name
    * @param {string} cover_photo
    * @param {string} author
    * @param {string} detail
    * @param {number} price
    * @param {string} brief
+   * @param {number} size
+   * @param {string} tag
    * @returns success
    */
-  addNovel(name, cover_photo, author, detail, price, brief) {
+  addNovel(name, cover_photo, author, detail, price, brief, size, tag) {
     const url = `${this.server}/api/novel`;
-    const options = { name, cover_photo, author, detail, price, brief };
+    const options = { name, cover_photo, author, detail, price, brief, size, tag };
     return this.req.post(url, options);
   }
 

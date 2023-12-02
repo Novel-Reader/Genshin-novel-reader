@@ -20,14 +20,14 @@ function CodeViewer(props) {
         showInlineLineNumbers={true}
         wrapLongLines={true}
       >
-        {props.context}
+        {props.detail}
       </SyntaxHighlighter>
     </div>
   );
 }
 
 CodeViewer.propTypes = {
-  context: PropTypes.string.isRequired,
+  detail: PropTypes.string.isRequired,
   lan: PropTypes.string.isRequired,
 };
 
