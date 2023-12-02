@@ -9,9 +9,9 @@ class Outline extends Component {
   render() {
     const { files, currentFileIndex, currentPageIndex } = this.props;
     const file = files[currentFileIndex];
-    const { name, context, type } = file;
+    const { name, detail, type } = file;
     if (type === PAGES || type === PARAGRAPHS) {
-      const pageLen = context.length;
+      const pageLen = detail.length;
       const arr = new Array(pageLen).fill(1);
       return (
         <div className="outline outline-pages">

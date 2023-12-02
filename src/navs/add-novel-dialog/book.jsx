@@ -24,7 +24,7 @@ function Book(props) {
         <div className="book-right-price">
           <span>{price}$</span>
           <Button color="primary" onClick={() => setShowDetail(true)} size="sm">
-            {intl('Comment')}
+            {intl.get('Comment')}
           </Button>
           <Button
             color="primary"
@@ -33,7 +33,7 @@ function Book(props) {
             }}
             size="sm"
           >
-            {intl('Download')}
+            {intl.get('Download')}
           </Button>
         </div>
       </div>

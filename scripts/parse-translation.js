@@ -38,8 +38,8 @@ getJSFiles(files, path);
 // then extract the string results line by line
 let source_arr = [];
 for (let j = 0; j < res.length; j++) {
-  let content = fs.readFileSync(res[j], 'utf-8');
-  let arr = content.split('\n');
+  let detail = fs.readFileSync(res[j], 'utf-8');
+  let arr = detail.split('\n');
   for (let k = 0; k < arr.length; k++) {
     let item = arr[k];
     // Only one translation in a row is currently considered
@@ -55,8 +55,8 @@ for (let j = 0; j < res.length; j++) {
 // 3. Find the json file and parse the existing translations
 let target_path = './src/locale/en.js';
 let target_dict = {};
-let content = fs.readFileSync(target_path, 'utf-8');
-let arr = content.split('\n');
+let detail = fs.readFileSync(target_path, 'utf-8');
+let arr = detail.split('\n');
 for (let k = 0; k < arr.length; k++) {
   let item = arr[k];
   // Only one translation in a row is currently considered

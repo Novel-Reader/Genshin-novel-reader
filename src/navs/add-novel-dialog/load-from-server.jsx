@@ -7,6 +7,7 @@ import toaster from "../../common/toast";
 import { Button } from "reactstrap";
 import BookList from "./book-list";
 import SearchFromServer from "./search-from-server";
+import File from '../../model/file';
 
 class LoadFromServer extends Component {
   constructor(props) {
@@ -46,17 +47,7 @@ class LoadFromServer extends Component {
     window.app.api
       .getNovelDetail(id)
       .then((res) => {
-        const file = res.data[0];
-        const { author, brief, cover_photo, detail, name, price } = file;
-        const fileObj = {
-          name,
-          author,
-          cover_photo,
-          context: detail,
-          abstract: brief,
-          price,
-        };
-        this.props.addFile(fileObj);
+        this.props.addFile(new File(res.data[0]));
       })
       .catch((err) => {
         toaster.danger(err);

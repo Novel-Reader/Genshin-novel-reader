@@ -3,7 +3,7 @@ import { PAGES, PARAGRAPHS } from "./constants";
  * convert no paragraph novel string into pages
  * @param {string} txt novel text
  * @param {bool} isMobile
- * @returns {object} { context: [], type: pages }
+ * @returns {object} { detail: [], type: pages }
  */
 const convertNovel2Pages = (txt, isMobile = false) => {
   const txtLen = txt.length;
@@ -17,7 +17,7 @@ const convertNovel2Pages = (txt, isMobile = false) => {
     pages.push(current);
   }
   return {
-    context: pages,
+    detail: pages,
     type: PAGES,
   };
 };
@@ -26,39 +26,39 @@ const convertNovel2Pages = (txt, isMobile = false) => {
  * convert novel string into paragraphs
  * By default, the chapter is complete and there is no omission
  * @param {string} txt novel text
- * @returns {object} { context: [], type: paragraphs }
+ * @returns {object} { detail: [], type: paragraphs }
  */
 const convertNovel2Paragraph = (txt) => {
   let paragraphs = txt.split(/第\s*\d+\s*章/g);
   paragraphs = paragraphs.filter((item) => item.length);
   return {
-    context: paragraphs,
+    detail: paragraphs,
     type: PARAGRAPHS,
   };
 };
 
 /**
  * Check whether there are chapters in the novel
- * @param {string} content novel text
+ * @param {string} detail novel text
  * @returns boolean
  */
-const checkParaGraph = (content) => {
-  return content.search(/第\s*\d+\s*章/g) > -1;
+const checkParaGraph = (detail) => {
+  return detail.search(/第\s*\d+\s*章/g) > -1;
 };
 
 /**
  * Convert novel tex
- * @param {string} content novel text
+ * @param {string} detail novel text
  * @returns object
  */
-const parseNovel = (content) => {
-  if (typeof content !== "string") {
+const parseNovel = (detail) => {
+  if (typeof detail !== "string") {
     return {};
   }
-  if (checkParaGraph(content)) {
-    return convertNovel2Paragraph(content);
+  if (checkParaGraph(detail)) {
+    return convertNovel2Paragraph(detail);
   } else {
-    return convertNovel2Pages(content);
+    return convertNovel2Pages(detail);
   }
 };
 
