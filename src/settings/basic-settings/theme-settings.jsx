@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import { Button, ButtonGroup, Label } from "reactstrap";
 
 function ThemeSettings(props) {
@@ -10,11 +11,17 @@ function ThemeSettings(props) {
     setTheme(theme);
   }
 
+  const THEMES = [
+    intl.get('Daytime'),
+    intl.get('Green_theme'),
+    intl.get('Nighttime'),
+  ];
+
   return (
     <div className="basic-settings-item">
-      <Label>页面主题</Label>
+      <Label>{intl.get('Page_Theme')}</Label>
       <ButtonGroup>
-        {["日间", "护眼", "夜间"].map((item, index) => {
+        {THEMES.map((item, index) => {
           return (
             <Button
               key={index}

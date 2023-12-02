@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Input } from "reactstrap";
+import intl from "react-intl-universal";
 import { SearchIcon, ListIcon, TreeIcon, BackIcon } from "../common/icons";
 import NavIcon from "./nav-icon";
 
@@ -36,7 +37,7 @@ export default class NavHeader extends React.Component {
               className="navs-header-search-input"
               value={this.props.searchValue}
               onChange={this.props.onSearchChange}
-              placeholder="查找"
+              placeholder={intl.get('Search')}
               autoFocus
             ></Input>
           </div>
@@ -49,7 +50,7 @@ export default class NavHeader extends React.Component {
           <NavIcon onClick={this.openOutline}>
             <ListIcon />
           </NavIcon>
-          <span>文件</span>
+          <span>{intl.get('File')}</span>
           <NavIcon onClick={this.props.openSearch}>
             <SearchIcon />
           </NavIcon>
@@ -62,7 +63,7 @@ export default class NavHeader extends React.Component {
           <NavIcon onClick={this.openFileTree}>
             <TreeIcon />
           </NavIcon>
-          <span>大纲</span>
+          <span>{intl.get('Outline')}</span>
           <NavIcon onClick={this.props.openSearch}>
             <SearchIcon />
           </NavIcon>

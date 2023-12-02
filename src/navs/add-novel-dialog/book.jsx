@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import { Button } from "reactstrap";
 import BookDetailDialog from "../book-detail-dialog";
 
@@ -23,7 +24,7 @@ function Book(props) {
         <div className="book-right-price">
           <span>{price}$</span>
           <Button color="primary" onClick={() => setShowDetail(true)} size="sm">
-            评论
+            {intl('Comment')}
           </Button>
           <Button
             color="primary"
@@ -32,17 +33,17 @@ function Book(props) {
             }}
             size="sm"
           >
-            下载
+            {intl('Download')}
           </Button>
         </div>
       </div>
-      {showDetail && (
+      {showDetail &&
         <BookDetailDialog
           downLoadNovel={props.downLoadNovel}
           novel={novel}
           toggleDialog={() => setShowDetail(false)}
         />
-      )}
+      }
     </div>
   );
 }

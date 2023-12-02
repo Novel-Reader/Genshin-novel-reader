@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import { Nav, NavItem, NavLink } from "reactstrap";
 import BasicSettings from "./basic-settings";
 import AdvanceSettings from "./advance-settings";
@@ -36,7 +37,7 @@ class Settings extends Component {
                 className={activeTab === "basic" ? "active" : ""}
                 onClick={this.toggle.bind(this, "basic")}
               >
-                基本设置
+                {intl.get('Basic_settings')}
               </NavLink>
             </NavItem>
             <NavItem>
@@ -44,7 +45,7 @@ class Settings extends Component {
                 className={activeTab === "advance" ? "active" : ""}
                 onClick={this.toggle.bind(this, "advance")}
               >
-                高级设置
+                {intl.get('Advanced_settings')}
               </NavLink>
             </NavItem>
           </Nav>

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import cookie from "react-cookies";
 import moment from "moment";
+import intl from "react-intl-universal";
 import toaster from "../../common/toast";
 
 import "./comment-list.css";
@@ -15,23 +16,23 @@ function CommentItem(props) {
   function onFinish() {
     const detail = commentElement.current.value;
     if (detail.length < 8) {
-      toaster.warning("评论字数至少8个字符");
+      toaster.warning(intl.get('Comment should have at least 8 characters in length'));
       return;
     }
-    if (detail.length > 100) {
-      toaster.warning("评论字数不能超过100个字符");
+    if (detail.length > 1000) {
+      toaster.warning(intl.get('The comment word count cannot exceed 1000 characters'));
       return;
     }
     window.app.api
       .editComment(comment.id, detail)
       .then((res) => {
-        toaster.success("保存成功");
+        toaster.success(intl.get('Successfully saved'));
         setEdit(false);
         // 应该执行一个回调函数，然后显示当前的评论
         // 这个直接更改父组件中的某个评论记录即可
       })
       .catch((err) => {
-        toaster.danger("保存失败，请重试");
+        toaster.danger(intl.get('Error, please try again'));
         toaster.danger(String(err));
       });
     return;
@@ -41,12 +42,12 @@ function CommentItem(props) {
     window.app.api
       .deleteComment(comment.id)
       .then((res) => {
-        toaster.success("删除成功");
+        toaster.danger(intl.get('The comment has been deleted'));
         // 应该执行一个回调函数，然后显示当前的评论
         // 这个直接更改父组件中的某个评论记录即可
       })
       .catch((err) => {
-        toaster.danger("保存失败，请重试");
+        toaster.danger(intl.get('Error, please try again'));
         toaster.danger(String(err));
       });
   }
@@ -54,7 +55,7 @@ function CommentItem(props) {
   return (
     <div className="comment-item" key={comment.id}>
       <p>
-        <b>{comment.author}</b> 说:
+        <b>{comment.author}</b> {intl.get('Say')}:
       </p>
       {edit ? (
         <textarea ref={commentElement} defaultValue={comment.detail}></textarea>
@@ -73,7 +74,7 @@ function CommentItem(props) {
                   onFinish();
                 }}
               >
-                完成
+                {intl.get('Save')}
               </span>
             ) : (
               <span
@@ -81,7 +82,7 @@ function CommentItem(props) {
                   setEdit(true);
                 }}
               >
-                编辑
+                {intl.get('Edit')}
               </span>
             )}
           </>
@@ -92,7 +93,7 @@ function CommentItem(props) {
               onDelete();
             }}
           >
-            删除
+            {intl.get('Delete')}
           </span>
         )}
       </div>

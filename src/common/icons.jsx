@@ -1,4 +1,5 @@
 import React from "react";
+import intl from "react-intl-universal";
 
 function StarIcon() {
   return <span className="icon icon-star-full"></span>;
@@ -25,11 +26,11 @@ function LeftIcon() {
 }
 
 function ListIcon() {
-  return <span className="icon icon-list2" title="切换到大纲视图"></span>;
+  return <span className="icon icon-list2" title={intl.get('Switch to Outline')}></span>;
 }
 
 function TreeIcon() {
-  return <span className="icon icon-tree" title="切换到文档树视图"></span>;
+  return <span className="icon icon-tree" title={intl.get('Switch to document tree view')}></span>;
 }
 
 function BackIcon() {

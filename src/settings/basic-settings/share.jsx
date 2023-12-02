@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import intl from "react-intl-universal";
+import intl from "react-intl-universal";
 import { Button, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { QRCodeSVG } from "qrcode.react";
 
@@ -9,7 +9,7 @@ export default function Share() {
     <div className="basic-settings-item">
       {/* todo: change button to icons in toolbar */}
       <Button onClick={() => setIsOpen(true)} size="sm" color="primary">
-        分享
+        {intl.get('Share')}
       </Button>
       {isOpen && (
         <Modal
@@ -17,7 +17,7 @@ export default function Share() {
           toggle={() => setIsOpen(false)}
           className="scan-dialog"
         >
-          <ModalHeader toggle={() => setIsOpen(false)}>扫码分享</ModalHeader>
+          <ModalHeader toggle={() => setIsOpen(false)}>{intl.get('Scan code to share')}</ModalHeader>
           <ModalBody style={{ display: "flex", justifyContent: "center" }}>
             <QRCodeSVG
               value={window.location.href}
@@ -30,7 +30,7 @@ export default function Share() {
             />
           </ModalBody>
           <ModalFooter>
-            <Button onClick={() => setIsOpen(false)}>关闭</Button>
+            <Button onClick={() => setIsOpen(false)}>{intl.get('Close')}</Button>
           </ModalFooter>
         </Modal>
       )}

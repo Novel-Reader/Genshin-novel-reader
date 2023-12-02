@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import {
   Nav,
   NavItem,
@@ -43,7 +44,7 @@ class AddNovelDialog extends Component {
                   className={activeTab === "local" ? "active" : ""}
                   onClick={this.toggle.bind(this, "local")}
                 >
-                  本地导入
+                  {intl.get('Local import')}
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -51,7 +52,7 @@ class AddNovelDialog extends Component {
                   className={activeTab === "network" ? "active" : ""}
                   onClick={this.toggle.bind(this, "network")}
                 >
-                  在线导入
+                  {intl.get('Online import')}
                 </NavLink>
               </NavItem>
             </Nav>

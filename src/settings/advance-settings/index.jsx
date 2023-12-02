@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import AdvanceThemeSettings from "./advance-theme-settings";
 import ColorSettings from "./color-settings";
 import FontSettings from "./font-settings";
@@ -27,28 +28,28 @@ function AdvanceSettings(props) {
       <div className="setting-divide-line"></div>
       <FontSettings
         options={FONT_SIZES}
-        title="字号"
+        title={intl.get('Font size')}
         save={(option) => {
           changeStyle({ fontSize: option.value });
         }}
       />
       <FontSettings
         options={FONT_FAMILYS}
-        title="字体"
+        title={intl.get('Font typeface')}
         save={(option) => {
           changeStyle({ fontFamily: option.value });
         }}
       />
       <FontSettings
         options={FONT_WEIGHTS}
-        title="粗细"
+        title={intl.get('Font weight')}
         save={(option) => {
           changeStyle({ fontWeight: option.value });
         }}
       />
       <FontSettings
         options={LINE_HEIGHTS}
-        title="行高"
+        title={intl.get('Line height')}
         save={(option) => {
           changeStyle({ lineHeight: option.value });
         }}
@@ -56,19 +57,19 @@ function AdvanceSettings(props) {
       <div className="setting-divide-line"></div>
       <ColorSettings
         changeStyle={changeStyle}
-        title="文字颜色"
+        title={intl.get('Font color')}
         color={INIT_FONT_COLOR}
         settingKey="color"
       />
       <ColorSettings
         changeStyle={changeStyle}
-        title="背景颜色"
+        title={intl.get('Background color')}
         color={INIT_BACKGROUND_COLOR}
         settingKey="backgroundColor"
       />
       <FontSettings
         options={OPACITIES}
-        title="背景透明度"
+        title={intl.get('Background transparency')}
         save={(option) => {
           changeStyle({ opacity: option.value });
         }}

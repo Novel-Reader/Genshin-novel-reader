@@ -6,7 +6,12 @@ module.exports = {
     es2021: true,
   },
   extends: ["plugin:react/recommended", "standard"],
-  ignorePatterns: ["build/*", "dist/*", "node_modules/*"],
+  ignorePatterns: [
+    "build/*",
+    "dist/*",
+    "node_modules/*",
+    "src/locale/*"
+  ],
   overrides: [],
   parserOptions: {
     ecmaVersion: "latest",

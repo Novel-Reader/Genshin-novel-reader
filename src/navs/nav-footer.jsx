@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button } from "reactstrap";
+import intl from "react-intl-universal";
 import AddNovelDialog from "./add-novel-dialog";
 
 class NavFooter extends Component {
@@ -20,7 +21,7 @@ class NavFooter extends Component {
       <>
         <div className="navs-footer">
           <Button onClick={this.toggleDialog} color="primary">
-            增加作品
+            {intl.get('Add')}
           </Button>
         </div>
         {this.state.isShowAddDialog && (

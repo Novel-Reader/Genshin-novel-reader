@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import toaster from "../../common/toast";
+import intl from "react-intl-universal";
 import { Button, Input, Label, Form, FormGroup } from "reactstrap";
 import BookList from "./book-list";
 
@@ -21,11 +22,11 @@ class SearchFromServer extends Component {
     const price = this.priceRef.current.value;
     const author = this.authorRef.current.value.trim();
     if (price < 0) {
-      toaster.danger("书籍价格应该大于0");
+      toaster.danger(intl.get('The book price should be greater than 0'));
       return;
     }
     if (!name && !price && !author && price !== 0) {
-      toaster.danger("必须填写任意一项");
+      toaster.danger(intl.get('Missing some required fields'));
       return;
     }
     this.setState({ isSearch: true });
@@ -51,24 +52,24 @@ class SearchFromServer extends Component {
         <div>
           <Form>
             <FormGroup>
-              <Label>名称(可选)</Label>
+              <Label>{intl.get('Name')}</Label>
               <Input type="text" innerRef={this.nameRef} autoFocus />
             </FormGroup>
             <FormGroup>
-              <Label>作者(可选)</Label>
+              <Label>{intl.get('Author')}</Label>
               <Input type="text" innerRef={this.authorRef} />
             </FormGroup>
             <FormGroup>
-              <Label>价格(可选)</Label>
+              <Label>{intl.get('Price')}</Label>
               <Input type="number" innerRef={this.priceRef} />
             </FormGroup>
           </Form>
           <Button color="success" onClick={this.searchNovels}>
-            搜索
+            {intl.get('Search')}
           </Button>
         </div>
         {this.state.isLoading ? (
-          <div>正在搜索中，请稍后...</div>
+          <div>{intl.get('Searching, please wait')}</div>
         ) : (
           <BookList
             novelList={this.state.novelList}

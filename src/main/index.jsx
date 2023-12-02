@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import intl from "react-intl-universal";
 import ScrollTopIcon from "../common/scroll-top-button";
 import MarkdownViewer from "../common/markdown-viewer";
 import TextViewer from "../common/text-viewer";
@@ -20,7 +21,7 @@ export default class Main extends Component {
     toggleRightPanel: PropTypes.func.isRequired,
     isShowRightPanel: PropTypes.bool.isRequired,
     currentPageIndex: PropTypes.number.isRequired,
-    currentFile: PropTypes.object.isRquired,
+    currentFile: PropTypes.object,
     context: PropTypes.string,
     style: PropTypes.object,
   };
@@ -113,7 +114,7 @@ export default class Main extends Component {
     if (!currentFile) {
       return (
         <div id="main" className="main error center">
-          当前没有文本，请上传并选择文本
+          {intl.get('There is currently no text available, please upload and select the text')}
         </div>
       );
     }

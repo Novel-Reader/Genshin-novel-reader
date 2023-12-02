@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+// import intl from "react-intl-universal";
 import { PAGES, PARAGRAPHS } from "../../utils/constants";
 
 import "./index.css";
