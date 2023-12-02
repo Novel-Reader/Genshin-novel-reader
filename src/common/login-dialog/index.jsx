@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import axios from "axios";
 import cookie from "react-cookies";
 import {
@@ -65,15 +66,15 @@ class LoginDialog extends Component {
   render() {
     return (
       <Modal isOpen={true} toggle={this.props.toggle} className="login-dialog">
-        <ModalHeader toggle={this.props.toggle}>登录</ModalHeader>
+        <ModalHeader toggle={this.props.toggle}>{intl.get('Log in')}</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label>邮箱</Label>
+              <Label>{intl.get('Email')}</Label>
               <Input type="text" innerRef={this.emailRef} autoFocus />
             </FormGroup>
             <FormGroup>
-              <Label>密码</Label>
+              <Label>{intl.get('Password')}</Label>
               <Input type="password" innerRef={this.passwordRef} />
             </FormGroup>
           </Form>
@@ -83,7 +84,7 @@ class LoginDialog extends Component {
             </Button>
           ) : (
             <Button color="success" onClick={this.onLogin}>
-              登录
+              {intl.get('Log in')}
             </Button>
           )}
         </ModalBody>

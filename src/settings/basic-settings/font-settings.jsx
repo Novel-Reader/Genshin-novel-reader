@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import { Button, ButtonGroup, Label } from "reactstrap";
 
 class FontSettings extends Component {
@@ -20,7 +21,7 @@ class FontSettings extends Component {
     const { setFontSize } = this;
     return (
       <div className="basic-settings-item">
-        <Label>文字大小</Label>
+        <Label>{intl.get('Font_Size')}</Label>
         <ButtonGroup>
           <Button
             color="primary"
@@ -28,7 +29,7 @@ class FontSettings extends Component {
             onClick={() => setFontSize(1)}
             active={fontSize === 1}
           >
-            大
+            {intl.get('Large')}
           </Button>
           <Button
             color="primary"
@@ -36,7 +37,7 @@ class FontSettings extends Component {
             onClick={() => setFontSize(2)}
             active={fontSize === 2}
           >
-            中
+            {intl.get('Middle')}
           </Button>
           <Button
             color="primary"
@@ -44,7 +45,7 @@ class FontSettings extends Component {
             onClick={() => setFontSize(3)}
             active={fontSize === 3}
           >
-            小
+            {intl.get('Small')}
           </Button>
         </ButtonGroup>
       </div>

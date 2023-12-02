@@ -58,6 +58,7 @@
     "cypress:open": "cypress open",
     "prettier": "prettier --check --write .",
     "lint": "./node_modules/.bin/eslint ./src/**/*.js[x] --fix",
+    "translate": "node scripts/parse-translation.js",
     "build-api": "./node_modules/jsdoc-to-markdown/bin/cli.js ./src/api/local-api.js >> ./docs/3.3-api.md",
     "start": "react-scripts start",
     "build": "react-scripts build && cp -r media ./build",

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import { Button, ButtonGroup, Label } from "reactstrap";
 import { PAGES, PARAGRAPHS, FULLSCREEN } from "../../utils/constants";
 
@@ -10,7 +11,21 @@ const MODES = [
 ];
 
 function ModeSettings(props) {
+
   const { changeMode } = props;
+
+  const getName = (name) => {
+    if (name === "分页") {
+      return intl.get('Seperate');
+    }
+    if (name === "章节") {
+      return intl.get('Paragraph');
+    }
+    if (name === "全屏") {
+      return intl.get('Fullscreen');
+    } 
+  };
+
   return (
     <div className="basic-settings-item">
       <Label>阅读模式</Label>
@@ -23,7 +38,7 @@ function ModeSettings(props) {
               outline
               onClick={() => changeMode(mode.type)}
             >
-              {mode.name}
+              {getName(mode.name)}
             </Button>
           );
         })}

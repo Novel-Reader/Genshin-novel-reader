@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import throttle from "lodash.throttle";
+import intl from "react-intl-universal";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import toaster from "../../common/toast";
 import { LoadingIcon } from "../../common/icons";
@@ -26,7 +27,7 @@ function BookDetailDialog(props) {
         checkLoadAll(res.data);
       })
       .catch((err) => {
-        toaster.danger("获取评论失败，请关闭对话框重试");
+        toaster.danger(intl.get('Getting comments failed, please close the dialog box and try again'));
         toaster.danger(String(err));
       });
     // 这个只有在首次加载执行上面的逻辑（获取评论列表），所以只传递空数组即可，不需要在组件更新时（start变化，或者 novel 变化）再次获取评论
@@ -44,7 +45,7 @@ function BookDetailDialog(props) {
         checkLoadAll(res.data);
       })
       .catch((err) => {
-        toaster.danger("获取评论失败，请关闭对话框重试");
+        toaster.danger(intl.get('Getting comments failed, please close the dialog box and try again'));
         toaster.danger(String(err));
       });
   };
@@ -74,7 +75,7 @@ function BookDetailDialog(props) {
       className="book-datial-dialog"
       size="lg"
     >
-      <ModalHeader toggle={props.toggleDialog}>小说评论</ModalHeader>
+      <ModalHeader toggle={props.toggleDialog}>{intl.get('Comment')}</ModalHeader>
       <ModalBody onScroll={onScroll}>
         {/* 小说详情界面 */}
         {/* 当有评论时，显示评论列表 */}
@@ -87,7 +88,7 @@ function BookDetailDialog(props) {
         )}
         {/* 当加载评论时，在评论列表后面，显示加载图标 */}
         {loading && <LoadingIcon />}
-        {loadAll && <span>没有更多评论了</span>}
+        {loadAll && <span>{intl.get('No more comment')}</span>}
         {/* TODO：动态聊天室 */}
       </ModalBody>
       <ModalFooter>

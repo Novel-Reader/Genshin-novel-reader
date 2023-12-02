@@ -1,6 +1,7 @@
 import React, { useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import cookie from "react-cookies";
+import intl from "react-intl-universal";
 import { Button } from "reactstrap";
 import toaster from "../../common/toast";
 import { AppContext } from "../../context";
@@ -14,11 +15,11 @@ function AddComment(props) {
   function submitComment() {
     const detail = commentElement.current.value;
     if (detail.length < 8) {
-      toaster.warning("评论字数至少8个字符");
+      toaster.warning(intl.get('Comment should have at least 8 characters in length'));
       return;
     }
-    if (detail.length > 100) {
-      toaster.warning("评论字数不能超过100个字符");
+    if (detail.length > 1000) {
+      toaster.warning(intl.get('The comment word count cannot exceed 1000 characters'));
       return;
     }
     // TODO get user nickname(database add a nickName?) Now we use email
@@ -26,11 +27,11 @@ function AddComment(props) {
     api
       .addComment(props.novel.id, detail, author)
       .then((res) => {
-        toaster.success("评论成功");
+        toaster.success(intl.get('Comment successful'));
         // 应该执行一个回调函数，然后显示当前的评论
       })
       .catch((err) => {
-        toaster.danger("评论失败，请重试");
+        toaster.danger(intl.get('Error, please try again'));
         toaster.danger(String(err));
       });
     return;
@@ -39,7 +40,7 @@ function AddComment(props) {
   return (
     <div className="add-comment w-100">
       <textarea ref={commentElement} className="w-100"></textarea>
-      <Button onClick={submitComment}>提交</Button>
+      <Button onClick={submitComment}>{intl.get('Save')}</Button>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import VipButton from "../../common/vip-button";
 import setting from "../../setting.json";
 import toaster from "../../common/toast";
@@ -70,7 +71,7 @@ class LoadFromServer extends Component {
     if (!this.isOnline) {
       return (
         <div>
-          这是联网专属功能
+          {intl.get('This is an exclusive feature for networking')}
           <VipButton />
         </div>
       );
@@ -81,8 +82,8 @@ class LoadFromServer extends Component {
     return (
       <div className="novel-list">
         <div>
-          <h3>热点小说</h3>
-          <Button onClick={this.changeSearch}>在线搜索</Button>
+          <h3>{intl.get('Hot')}</h3>
+          <Button onClick={this.changeSearch}>{intl.get('Online search')}</Button>
         </div>
         <BookList
           novelList={this.state.novelList}

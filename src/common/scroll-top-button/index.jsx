@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import { UncontrolledTooltip } from "reactstrap";
 import "./index.css";
 
@@ -20,7 +21,7 @@ class ScrollTopIcon extends Component {
           fade={false}
           delay={{ show: 0, hide: 0 }}
         >
-          回到顶部
+          {intl.get('Back to top')}
         </UncontrolledTooltip>
       </>
     );
