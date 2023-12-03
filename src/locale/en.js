@@ -75,6 +75,9 @@ const en = {
   'Share': 'Share',
   'Scan code to share': 'Scan code to share',
   'Download': 'Download',
+  'This is already the first page': 'This is already the first page',
+  'This is already the last page': 'This is already the last page',
+  'Paragraph not found, Paragraph mode not supported': 'Paragraph not found, Paragraph mode not supported',
   'Close': 'Close'
 };
 

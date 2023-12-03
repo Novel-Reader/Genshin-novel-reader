@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-// import intl from "react-intl-universal";
 import { PAGES, PARAGRAPHS } from "../../utils/constants";
 
 import "./index.css";
 
 class Outline extends Component {
   render() {
-    const { files, currentFileIndex, currentPageIndex } = this.props;
-    const file = files[currentFileIndex];
-    const { name, detail, type } = file;
+    const { currentPageIndex, currentFile } = this.props;
+    if (!currentFile) {
+      return null;
+    }
+    const { name, detail, type } = currentFile;
     if (type === PAGES || type === PARAGRAPHS) {
       const pageLen = detail.length;
       const arr = new Array(pageLen).fill(1);
@@ -34,10 +35,9 @@ class Outline extends Component {
 }
 
 Outline.propTypes = {
-  files: PropTypes.array.isRequired,
-  changePageIndex: PropTypes.func.isRequired,
-  currentFileIndex: PropTypes.number.isRequired,
-  currentPageIndex: PropTypes.number.isRequired,
+  currentFile: PropTypes.object,
+  changePageIndex: PropTypes.func,
+  currentPageIndex: PropTypes.number,
 };
 
 export default Outline;

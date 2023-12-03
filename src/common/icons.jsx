@@ -1,5 +1,4 @@
 import React from "react";
-import intl from "react-intl-universal";
 
 function StarIcon() {
   return <span className="icon icon-star-full"></span>;
