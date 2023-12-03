@@ -10,6 +10,7 @@ import "./index.css";
 export default class Navs extends Component {
   static propTypes = {
     files: PropTypes.array.isRequired,
+    currentFile: PropTypes.object,
     addFile: PropTypes.func.isRequired,
     deleteFile: PropTypes.func.isRequired,
     changeFileIndex: PropTypes.func.isRequired,
@@ -45,7 +46,7 @@ export default class Navs extends Component {
   };
 
   render() {
-    const { currentFileIndex, isShowLeftPanel } = this.props;
+    const { currentFileIndex, isShowLeftPanel, currentFile } = this.props;
     const { isSearch, currentNav, searchValue } = this.state;
     return (
       <div
@@ -77,8 +78,7 @@ export default class Navs extends Component {
           )}
           {currentNav === "outline" && (
             <Outline
-              files={this.props.files}
-              currentFileIndex={currentFileIndex}
+              currentFile={currentFile}
               currentPageIndex={this.props.currentPageIndex}
               changePageIndex={this.props.changePageIndex}
             />

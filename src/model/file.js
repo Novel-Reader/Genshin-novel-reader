@@ -1,6 +1,8 @@
+import { nanoid } from 'nanoid';
+
 export default class File {
   constructor(object) {
-    this.id = object.id || null;
+    this.id = object.id || nanoid();
     this.name = object.name || null;
     this.detail = object.detail || null;
     this.brief = object.brief || null;

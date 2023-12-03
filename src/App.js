@@ -6,27 +6,14 @@ import Navs from "./navs";
 import Settings from "./settings";
 import LocalAPI from "./api/local-api";
 import { isSameObject, loadExample } from "./utils";
-import {
-  getLocalValue,
-  setLocalValue,
-  NOVEL_READER_STYLE_SAVE_KEY,
-} from "./utils/store";
+import { getLocalValue, setLocalValue, NOVEL_READER_STYLE_SAVE_KEY } from "./utils/store";
 import { isUp, isDown } from "./utils/hotkey";
-import {
-  convertNovel2Pages,
-  convertNovel2Paragraph,
-  checkParaGraph,
-  parseNovel,
-} from "./utils/parse";
-import {
-  DEFAULT_STYLE,
-  PAGES,
-  PARAGRAPHS,
-  FULLSCREEN,
-} from "./utils/constants";
+import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from "./utils/parse";
+import { DEFAULT_STYLE, PAGES, PARAGRAPHS, FULLSCREEN } from "./utils/constants";
 import { AppContext } from "./context";
 import toaster from "./common/toast";
 import setting from "./setting.json";
+import File from './model/file';
 
 // init language
 import "./locale/index.js";
@@ -38,11 +25,12 @@ export default class App extends Component {
     super(props);
     this.examples = loadExample();
     const files = this.examples.map((file) => {
-      return Object.assign({ name: file.name }, parseNovel(file.detail));
+      return Object.assign(new File(file), parseNovel(file.detail));
     });
     this.state = {
       files,
       currentFileIndex: 0,
+      currentFile: files[0],
       style: DEFAULT_STYLE,
       isShowRightPanel: true,
       isShowLeftPanel: true,
@@ -98,7 +86,7 @@ export default class App extends Component {
     if (isUp(e)) {
       e.preventDefault();
       if (currentPageIndex === 0) {
-        toaster.warning("已经是第一页了");
+        toaster.warning(intl.get('This is already the first page'));
         return;
       }
       this.changePageIndex(currentPageIndex - 1);
@@ -107,7 +95,7 @@ export default class App extends Component {
       const file = files[currentFileIndex];
       const maxIndex = file.detail.length - 1;
       if (currentPageIndex === maxIndex) {
-        toaster.warning("已经是最后一页了");
+        toaster.warning(intl.get('This is already the last page'));
         return;
       }
       this.changePageIndex(currentPageIndex + 1);
@@ -115,53 +103,42 @@ export default class App extends Component {
   };
 
   changeMode = (mode) => {
-    const { currentFileIndex, files } = this.state;
-    const currentNovel = this.examples[this.state.currentFileIndex];
+    const { currentFile } = this.state;
     if (mode === PAGES) {
-      files[currentFileIndex] = Object.assign(
-        { name: currentNovel.name },
-        convertNovel2Pages(currentNovel.detail)
-      );
       this.setState({
-        files,
+        currentFile: Object.assign({}, currentFile, convertNovel2Pages(currentFile.detail)),
         isShowLeftPanel: true,
         isShowRightPanel: true,
       });
-    } else if (mode === PARAGRAPHS) {
-      if (checkParaGraph(currentNovel.detail)) {
-        files[currentFileIndex] = Object.assign(
-          { name: currentNovel.name },
-          convertNovel2Paragraph(currentNovel.detail)
-        );
+    }
+    else if (mode === PARAGRAPHS) {
+      if (checkParaGraph(currentFile.detail)) {
         this.setState({
-          files,
+          currentFile: Object.assign({}, currentFile, convertNovel2Paragraph(currentFile.detail)),
           isShowLeftPanel: true,
           isShowRightPanel: true,
         });
       } else {
-        toaster.warning("当前小说没有找到章节，不支持章节模式");
+        toaster.warning(intl.get('Paragraph not found, Paragraph mode not supported'));
       }
-    } else if (mode === FULLSCREEN) {
+    }
+    else if (mode === FULLSCREEN) {
       this.setState({
         isShowLeftPanel: false,
         isShowRightPanel: false,
       });
-      // TODO change files data structure
     }
   };
 
   addFile = (file) => {
-    // todo change new file data structure
     const files = this.state.files.slice(0);
     files.push(file);
-    this.setState({
-      files,
-      currentFileIndex: files.length - 1,
-    });
+    this.setState({ files });
   };
 
   changeFileIndex = (currentFileIndex) => {
     this.setState({
+      currentFile: this.state.files[currentFileIndex],
       currentFileIndex,
       currentPageIndex: 0,
     });
@@ -172,9 +149,14 @@ export default class App extends Component {
     files.splice(index, 1);
     this.setState({
       files,
-      currentFileIndex: files.length - 1,
-      currentPageIndex: 0,
+      currentFile: files[this.state.currentFileIndex],
     });
+    if (index === this.state.currentFileIndex) {
+      this.setState({
+        currentFileIndex: 0,
+        currentPageIndex: 0,
+      });
+    }
   };
 
   changeStyle = (newStyle) => {
@@ -192,8 +174,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { files, currentFileIndex, style } = this.state;
-    const currentFile = files[currentFileIndex];
+    const { files, currentFileIndex, style, currentFile } = this.state;
     return (
       <AppContext.Provider value={{ api: this.api }}>
         <div id="app">

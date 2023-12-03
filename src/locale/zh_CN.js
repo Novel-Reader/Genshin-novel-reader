@@ -76,6 +76,9 @@ const zh = {
   'Share': '分享',
   'Scan code to share': '扫码分享',
   'Download': '下载',
+  'This is already the first page': '已经是第一页',
+  'This is already the last page': '已经是最后一页',
+  'Paragraph not found, Paragraph mode not supported': '没有找到章节，不支持章节模式',
   'Close': '关闭'
 };
 
