@@ -8,6 +8,7 @@ import Outline from "./outline";
 import "./index.css";
 
 export default class Navs extends Component {
+
   static propTypes = {
     files: PropTypes.array.isRequired,
     currentFile: PropTypes.object,
@@ -45,8 +46,30 @@ export default class Navs extends Component {
     this.setState({ searchValue: e.target.value });
   };
 
+  renderFileTree = () => {
+    const { currentFileIndex, files } = this.props;
+    const { searchValue } = this.state;
+    return (
+      <div>
+        {files.map((file, index) => {
+          return (
+            <FileTree
+              file={file}
+              key={file.id}
+              index={index}
+              changeFileIndex={this.props.changeFileIndex}
+              deleteFile={this.props.deleteFile}
+              currentFileIndex={currentFileIndex}
+              searchValue={searchValue}
+            />
+          );
+        })}
+      </div>
+    );
+  };
+
   render() {
-    const { currentFileIndex, isShowLeftPanel, currentFile } = this.props;
+    const { isShowLeftPanel, currentFile } = this.props;
     const { isSearch, currentNav, searchValue } = this.state;
     return (
       <div
@@ -67,15 +90,7 @@ export default class Navs extends Component {
           closeSearch={this.closeSearch}
         />
         <div className="navs-body">
-          {currentNav === "filetree" && (
-            <FileTree
-              files={this.props.files}
-              changeFileIndex={this.props.changeFileIndex}
-              deleteFile={this.props.deleteFile}
-              currentFileIndex={currentFileIndex}
-              searchValue={searchValue}
-            />
-          )}
+          {currentNav === "filetree" && this.renderFileTree()}
           {currentNav === "outline" && (
             <Outline
               currentFile={currentFile}

@@ -23,7 +23,6 @@
   box-shadow: none;
 }
 .navs .navs-header .navs-header-icon {
-  color: #999999;
   height: 30px;
   line-height: 30px;
   font-size: 13px;
@@ -47,7 +46,6 @@
 }
 .navs .navs-body .navs-body-item .navs-body-item-delete {
   width: 20px;
-  color: #999999;
 }
 .navs .navs-footer {
   height: 40px;

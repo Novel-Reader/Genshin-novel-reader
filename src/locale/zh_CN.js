@@ -78,6 +78,7 @@ const zh = {
   'Download': '下载',
   'This is already the first page': '已经是第一页',
   'This is already the last page': '已经是最后一页',
+  'Information': '信息',
   'Paragraph not found, Paragraph mode not supported': '没有找到章节，不支持章节模式',
   'Close': '关闭'
 };

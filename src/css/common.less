@@ -1,25 +1,33 @@
+@import "../css/variables.less";
+
 .text-truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .error {
-  color: red;
+  color: @error-color;
 }
+
 .center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .d-flex {
   display: flex;
 }
+
 .d-block {
   display: block;
 }
+
 .icon {
-  color: #999999;
+  color: @icon-color;
 }
+
 .icon:hover {
-  color: #666666;
+  color: @icon-hover-color;
 }

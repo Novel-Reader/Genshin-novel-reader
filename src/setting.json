@@ -1,4 +1,4 @@
 {
   "server": "http://127.0.0.1:8081",
-  "mode": "online"
+  "mode": "offline"
 }
