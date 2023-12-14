@@ -9,7 +9,7 @@ function LoadingIcon() {
 }
 
 function SearchIcon() {
-  return <span className="icon icon-search" title="搜索"></span>;
+  return <span className="icon icon-search"></span>;
 }
 
 function ShareIcon() {
@@ -40,6 +40,10 @@ function DeleteIcon() {
   return <span className="icon icon-cancel-circle"></span>;
 }
 
+function MenuIcon() {
+  return <span className="icon icon-menu"></span>;
+}
+
 export {
   StarIcon,
   LoadingIcon,
@@ -51,4 +55,5 @@ export {
   TreeIcon,
   BackIcon,
   DeleteIcon,
+  MenuIcon,
 };

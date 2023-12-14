@@ -77,6 +77,7 @@ const en = {
   'Download': 'Download',
   'This is already the first page': 'This is already the first page',
   'This is already the last page': 'This is already the last page',
+  'Information': 'Information',
   'Paragraph not found, Paragraph mode not supported': 'Paragraph not found, Paragraph mode not supported',
   'Close': 'Close'
 };
