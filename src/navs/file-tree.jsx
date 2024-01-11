@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import intl from "react-intl-universal";
-import { nanoid } from 'nanoid';
 import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
 import { MenuIcon } from '../common/icons';
 import FileInfoDialog from './file-info-dialog';
@@ -34,8 +33,8 @@ function FileTree({ file, index, currentFileIndex, searchValue, changeFileIndex,
           <MenuIcon/>
         </DropdownToggle>
         <DropdownMenu className="dtable-dropdown-menu dropdown-menu mr-2">
-          <DropdownItem key={nanoid()} onClick={() => setDialogOpen(true)}>{intl.get('Information')}</DropdownItem>
-          <DropdownItem key={nanoid()} onClick={() => deleteFile(index)}>{intl.get('Delete')}</DropdownItem>
+          <DropdownItem key={1} onClick={() => setDialogOpen(true)}>{intl.get('Information')}</DropdownItem>
+          <DropdownItem key={2} onClick={() => deleteFile(index)}>{intl.get('Delete')}</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       {dialogOpen && <FileInfoDialog file={file} toggleDialog={() => setDialogOpen(false)}/>}

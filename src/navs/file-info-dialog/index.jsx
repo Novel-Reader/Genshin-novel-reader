@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import { nanoid } from 'nanoid';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { generatorBase64Code } from '../../utils/index';
 
 function FileInfoDialog({ file, toggleDialog }) {
 
@@ -17,7 +17,7 @@ function FileInfoDialog({ file, toggleDialog }) {
       <div>
         {fileArr.map(file => {
           return (
-            <div key={nanoid()}>
+            <div key={generatorBase64Code()}>
               <span>{file[0]}</span>
               <span>: </span>
               <span>{file[1]}</span>

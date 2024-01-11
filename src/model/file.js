@@ -1,8 +1,8 @@
-import { nanoid } from 'nanoid';
+import { generatorBase64Code } from '../utils/index';
 
 export default class File {
   constructor(object) {
-    this.id = object.id || nanoid();
+    this.id = object.id || generatorBase64Code(8);
     this.name = object.name || null;
     this.detail = object.detail || null;
     this.brief = object.brief || null;

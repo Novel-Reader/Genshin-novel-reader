@@ -10,7 +10,6 @@ exports[`render icons 1`] = `
   />
   <span
     className="icon icon-search"
-    title="搜索"
   />
   <span
     className="icon icon-share2"
