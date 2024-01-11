@@ -41,12 +41,10 @@ const isSameObject = (a, b) => {
 
 const MenuSelectStyle = {
   option: (provided, state) => {
-    // const { isSelected, isFocused } = state;
     const { isDisabled } = state;
     return {
       ...provided,
       cursor: isDisabled ? "default" : "pointer",
-      // backgroundColor: isSelected ? '#20a0ff' : (isFocused ? '#f5f5f5' : '#fff'),
     };
   },
   control: (provided) => ({
@@ -75,10 +73,22 @@ const getSuffix = (name) => {
   return name.substring(name.lastIndexOf(".") + 1);
 };
 
+const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz0123456789';
+
+// Generate a random string of specified length.
+const generatorBase64Code = (keyLength = 4) => {
+  let key = '';
+  for (let i = 0; i < keyLength; i++) {
+    key += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return key;
+};
+
 export {
   parseTxtToHTML,
   isSameObject,
   MenuSelectStyle,
   loadExample,
   getSuffix,
+  generatorBase64Code,
 };
