@@ -21,6 +21,8 @@ export default function Share() {
           <ModalBody style={{ display: "flex", justifyContent: "center" }}>
             <QRCodeSVG
               value={window.location.href}
+              // todo: react-dom.development.js:86 Warning: React does not recognize the `renderAs` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `renderas` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+              // check docs in QRCode
               renderAs="svg"
               size={120}
               bgColor="#FFFFFF"

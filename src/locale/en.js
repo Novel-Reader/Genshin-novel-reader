@@ -1,4 +1,5 @@
 const en = {
+  'Admin_Settings': "Admin Settings",
   'Welcome_to_use_offline_mode': "Welcome to use offline mode",
   'Select': "Select",
   'Full_screen_webpage': "Full screen webpage",

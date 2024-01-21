@@ -21,6 +21,7 @@ import "./locale/index.js";
 import "./css/App.css";
 
 export default class App extends Component {
+
   constructor(props) {
     super(props);
     this.examples = loadExample();
@@ -175,8 +176,10 @@ export default class App extends Component {
 
   render() {
     const { files, currentFileIndex, style, currentFile } = this.state;
+    const username = cookie.load("username");
+    const isAdmin = username && username === "admin";
     return (
-      <AppContext.Provider value={{ api: this.api }}>
+      <AppContext.Provider value={{ api: this.api, username, isAdmin }}>
         <div id="app">
           <Navs
             addFile={this.addFile}
