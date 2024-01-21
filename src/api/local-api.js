@@ -46,15 +46,6 @@ class LocalAPI {
   }
 
   /**
-   * get all users in database
-   * @returns {array} user list
-   */
-  getUsers() {
-    const url = `${this.server}/api/users/`;
-    return this.req.get(url);
-  }
-
-  /**
    * get user info by email
    * @param {string} email
    * @returns user object
@@ -260,6 +251,23 @@ class LocalAPI {
     const options = { name, author, price };
     return this.req.post(url, options);
   }
+
+  // admin API
+  adminGetUsers() {
+    const url = `${this.server}/api/admin/users`;
+    return this.req.get(url);
+  }
+
+  adminGetBooks() {
+    const url = `${this.server}/api/admin/books`;
+    return this.req.get(url);
+  }
+
+  adminGetComments() {
+    const url = `${this.server}/api/admin/comments`;
+    return this.req.get(url);
+  }
+
 }
 
 export default LocalAPI;

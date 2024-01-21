@@ -69,19 +69,11 @@ function CommentItem(props) {
         {author === comment.author && (
           <>
             {edit ? (
-              <span
-                onClick={() => {
-                  onFinish();
-                }}
-              >
+              <span onClick={() => { onFinish(); }}>
                 {intl.get('Save')}
               </span>
             ) : (
-              <span
-                onClick={() => {
-                  setEdit(true);
-                }}
-              >
+              <span onClick={() => { setEdit(true); }}>
                 {intl.get('Edit')}
               </span>
             )}

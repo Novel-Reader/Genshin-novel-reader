@@ -1,4 +1,5 @@
 const zh = {
+  'Admin_Settings': "管理员设置",
   'Welcome_to_use_offline_mode': "欢迎使用离线模式",
   'Select': "选择",
   'Full_screen_webpage': "网页全屏",

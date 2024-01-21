@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import FontSettings from "./font-settings";
 import ThemeSettings from "./theme-settings";
@@ -6,11 +6,18 @@ import ModeSettings from "./mode-settings";
 import LangSettings from "./lang-settings";
 import Share from "./share";
 import FullScreen from "./full-screen";
+import Admin from "../admin-settings/admin";
+import { AppContext } from "../../context";
 
 import "./index.css";
 
-class BasicSettings extends Component {
-  onSaveFont = (index) => {
+function BasicSettings(props) {
+
+  function changeStyle(style) {
+    props.changeStyle(style);
+  };
+
+  const onSaveFont = (index) => {
     const fontMap = {
       1: "24px",
       2: "16px",
@@ -19,12 +26,12 @@ class BasicSettings extends Component {
     const style = {
       fontSize: fontMap[index],
     };
-    if (this.props.style.fontSize !== fontMap[index]) {
-      this.changeStyle(style);
+    if (props.style.fontSize !== fontMap[index]) {
+      changeStyle(style);
     }
   };
 
-  onSaveTheme = (index) => {
+  const onSaveTheme = (index) => {
     const colorMap = {
       1: "#212529",
       2: "#212529",
@@ -40,34 +47,31 @@ class BasicSettings extends Component {
       backgroundColor: backgroundMap[index],
     };
     if (
-      this.props.style.color !== colorMap[index] ||
-      this.props.style.backgroundColor !== backgroundMap[index]
+      props.style.color !== colorMap[index] ||
+      props.style.backgroundColor !== backgroundMap[index]
     ) {
-      this.changeStyle(style);
+      changeStyle(style);
     }
   };
 
-  changeStyle = (style) => {
-    this.props.changeStyle(style);
-  };
+  // TODO：get current from parent component
+  const { isAdmin } = useContext(AppContext);
 
-  render() {
-    // TODO：get current from parent component
-    return (
-      <div className="basic-settings">
-        <Share />
-        <FullScreen />
-        <div className="setting-divide-line"></div>
-        <LangSettings />
-        <div className="setting-divide-line"></div>
-        <FontSettings onSave={this.onSaveFont} />
-        <div className="setting-divide-line"></div>
-        <ThemeSettings onSave={this.onSaveTheme} />
-        <div className="setting-divide-line"></div>
-        <ModeSettings changeMode={this.props.changeMode} />
-      </div>
-    );
-  }
+  return (
+    <div className="basic-settings">
+      {isAdmin && <Admin />}
+      <Share />
+      <FullScreen />
+      <div className="setting-divide-line"></div>
+      <LangSettings />
+      <div className="setting-divide-line"></div>
+      <FontSettings onSave={onSaveFont} />
+      <div className="setting-divide-line"></div>
+      <ThemeSettings onSave={onSaveTheme} />
+      <div className="setting-divide-line"></div>
+      <ModeSettings changeMode={props.changeMode} />
+    </div>
+  );
 }
 
 BasicSettings.propTypes = {
