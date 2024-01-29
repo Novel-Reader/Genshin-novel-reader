@@ -4,6 +4,7 @@ import NavFooter from "./nav-footer";
 import NavHeader from "./nav-header";
 import FileTree from "./file-tree";
 import Outline from "./outline";
+import { NAV_TYPE } from "./constants";
 
 import "./index.css";
 
@@ -26,7 +27,7 @@ export default class Navs extends Component {
     this.state = {
       isSearch: false,
       searchValue: "",
-      currentNav: "filetree", // filetree or outline
+      currentNav: NAV_TYPE.FILETREE,
     };
   }
 
@@ -90,8 +91,8 @@ export default class Navs extends Component {
           closeSearch={this.closeSearch}
         />
         <div className="navs-body">
-          {currentNav === "filetree" && this.renderFileTree()}
-          {currentNav === "outline" && (
+          {currentNav === NAV_TYPE.FILETREE && this.renderFileTree()}
+          {currentNav === NAV_TYPE.OUTLINE && (
             <Outline
               currentFile={currentFile}
               currentPageIndex={this.props.currentPageIndex}
