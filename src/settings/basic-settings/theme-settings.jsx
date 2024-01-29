@@ -12,9 +12,9 @@ function ThemeSettings(props) {
   }
 
   const THEMES = [
-    intl.get('Daytime'),
-    intl.get('Green_theme'),
-    intl.get('Nighttime'),
+    intl.get('Day'),
+    intl.get('Green'),
+    intl.get('Night'),
   ];
 
   return (

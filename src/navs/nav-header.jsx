@@ -4,72 +4,66 @@ import { Input } from "reactstrap";
 import intl from "react-intl-universal";
 import { SearchIcon, ListIcon, TreeIcon, BackIcon } from "../common/icons";
 import NavIcon from "./nav-icon";
+import { NAV_TYPE } from "./constants";
 
-export default class NavHeader extends React.Component {
-  static propTypes = {
-    changeCurrentNav: PropTypes.func.isRequired,
-    closeSearch: PropTypes.func.isRequired,
-    openSearch: PropTypes.func.isRequired,
-    onSearchChange: PropTypes.func.isRequired,
-    searchValue: PropTypes.string.isRequired,
-    isSearch: PropTypes.bool,
-    currentNav: PropTypes.string,
-  };
 
-  openOutline = () => {
-    this.props.changeCurrentNav("outline");
-  };
-
-  openFileTree = () => {
-    this.props.changeCurrentNav("filetree");
-  };
-
-  render() {
-    const { isSearch, currentNav } = this.props;
-    if (isSearch === true) {
-      return (
-        <div className="navs-header">
-          <div className="navs-header-search">
-            <NavIcon onClick={this.props.closeSearch}>
-              <BackIcon />
-            </NavIcon>
-            <Input
-              className="navs-header-search-input"
-              value={this.props.searchValue}
-              onChange={this.props.onSearchChange}
-              placeholder={intl.get('Search')}
-              autoFocus
-            ></Input>
-          </div>
+function NavHeader(props) {
+  const { isSearch, currentNav } = props;
+  if (isSearch === true) {
+    return (
+      <div className="navs-header">
+        <div className="navs-header-search">
+          <NavIcon onClick={props.closeSearch}>
+            <BackIcon />
+          </NavIcon>
+          <Input
+            className="navs-header-search-input"
+            value={props.searchValue}
+            onChange={props.onSearchChange}
+            placeholder={intl.get('Search')}
+            autoFocus
+          ></Input>
         </div>
-      );
-    }
-    if (currentNav === "filetree" && isSearch === false) {
-      return (
-        <div className="navs-header">
-          <NavIcon onClick={this.openOutline}>
-            <ListIcon />
-          </NavIcon>
-          <span>{intl.get('File')}</span>
-          <NavIcon onClick={this.props.openSearch}>
-            <SearchIcon />
-          </NavIcon>
-        </div>
-      );
-    }
-    if (currentNav === "outline" && isSearch === false) {
-      return (
-        <div className="navs-header">
-          <NavIcon onClick={this.openFileTree}>
-            <TreeIcon />
-          </NavIcon>
-          <span>{intl.get('Outline')}</span>
-          <NavIcon onClick={this.props.openSearch}>
-            <SearchIcon />
-          </NavIcon>
-        </div>
-      );
-    }
-    return null;
+      </div>
+    );
   }
+  if (currentNav === NAV_TYPE.FILETREE && isSearch === false) {
+    return (
+      <div className="navs-header">
+        <NavIcon onClick={() => props.changeCurrentNav(NAV_TYPE.OUTLINE)}>
+          <ListIcon />
+        </NavIcon>
+        <span>{intl.get('File')}</span>
+        <NavIcon onClick={props.openSearch}>
+          <SearchIcon />
+        </NavIcon>
+      </div>
+    );
+  }
+  if (currentNav === NAV_TYPE.OUTLINE && isSearch === false) {
+    return (
+      <div className="navs-header">
+        <NavIcon onClick={() => props.changeCurrentNav(NAV_TYPE.FILETREE)}>
+          <TreeIcon />
+        </NavIcon>
+        <span>{intl.get('Outline')}</span>
+        <NavIcon onClick={props.openSearch}>
+          <SearchIcon />
+        </NavIcon>
+      </div>
+    );
+  }
+  return null;
 }
+
+NavHeader.propTypes = {
+  changeCurrentNav: PropTypes.func.isRequired,
+  closeSearch: PropTypes.func.isRequired,
+  openSearch: PropTypes.func.isRequired,
+  onSearchChange: PropTypes.func.isRequired,
+  searchValue: PropTypes.string.isRequired,
+  isSearch: PropTypes.bool,
+  currentNav: PropTypes.string,
+};
+
+export default NavHeader;
