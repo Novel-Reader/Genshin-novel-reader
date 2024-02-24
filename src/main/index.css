@@ -23,7 +23,7 @@
 #main .long-page {
   overflow: auto;
   height: 100%;
-  padding: 100px;
+  padding: 80px 60px;
   background-size: cover;
 }
 #main .long-page .long-page-container {

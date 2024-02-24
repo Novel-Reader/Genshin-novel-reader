@@ -1,40 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import { Button, ButtonGroup, Label } from "reactstrap";
+import { Label } from "reactstrap";
+import Select from "react-select";
+import { MenuSelectStyle } from "../../utils";
 
 function ThemeSettings(props) {
-  const [theme, setTheme] = React.useState(props.theme || 2);
 
-  function onClick(theme) {
-    props.onSave(theme);
-    setTheme(theme);
-  }
-
-  const THEMES = [
-    intl.get('Day'),
-    intl.get('Green'),
-    intl.get('Night'),
+  const options = [
+    { value: 1, label: intl.get('Day'), },
+    { value: 2, label: intl.get('Green') },
+    { value: 3, label: intl.get('Night') },
   ];
+
+  const [theme, setTheme] = useState(props.theme || 2);
+
+  const onChange = (selectedOption) => {
+    props.onSave(selectedOption.value);
+    setTheme(selectedOption.value);
+  };
 
   return (
     <div className="basic-settings-item">
       <Label>{intl.get('Page_Theme')}</Label>
-      <ButtonGroup>
-        {THEMES.map((item, index) => {
-          return (
-            <Button
-              key={index}
-              color="primary"
-              outline
-              onClick={() => onClick(index)}
-              active={theme === index}
-            >
-              {item}
-            </Button>
-          );
-        })}
-      </ButtonGroup>
+      <Select
+        value={options.find((option) => option.value === theme) || options[1]}
+        options={options}
+        onChange={onChange}
+        captureMenuScroll={false}
+        styles={MenuSelectStyle}
+      />
     </div>
   );
 }

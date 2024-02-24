@@ -1,48 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import { Button, ButtonGroup, Label } from "reactstrap";
+import { Label } from "reactstrap";
 import { PAGES, PARAGRAPHS, FULLSCREEN } from "../../utils/constants";
-
-const MODES = [
-  { type: PAGES, name: "分页" },
-  { type: PARAGRAPHS, name: "章节" },
-  { type: FULLSCREEN, name: "全屏" },
-];
+import Select from "react-select";
+import { MenuSelectStyle } from "../../utils";
 
 function ModeSettings(props) {
 
-  const { changeMode } = props;
+  const [mode, setTheme] = useState(2);
 
-  const getName = (name) => {
-    if (name === "分页") {
-      return intl.get('Seperate');
-    }
-    if (name === "章节") {
-      return intl.get('Paragraph');
-    }
-    if (name === "全屏") {
-      return intl.get('Fullscreen');
-    } 
+  const options = [
+    { value: PAGES, label: intl.get('Seperate'), },
+    { value: PARAGRAPHS, label: intl.get('Paragraph') },
+    { value: FULLSCREEN, label: intl.get('Fullscreen') },
+  ];
+
+  const onChange = (selectedOption) => {
+    props.changeMode(selectedOption.value);
+    setTheme(selectedOption.value);
   };
 
   return (
     <div className="basic-settings-item">
       <Label>阅读模式</Label>
-      <ButtonGroup>
-        {MODES.map((mode, index) => {
-          return (
-            <Button
-              key={index}
-              color="primary"
-              outline
-              onClick={() => changeMode(mode.type)}
-            >
-              {getName(mode.name)}
-            </Button>
-          );
-        })}
-      </ButtonGroup>
+      <Select
+        value={options.find((option) => option.value === mode) || options[1]}
+        options={options}
+        onChange={onChange}
+        captureMenuScroll={false}
+        styles={MenuSelectStyle}
+      />
     </div>
   );
 }

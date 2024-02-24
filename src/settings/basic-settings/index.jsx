@@ -55,11 +55,11 @@ function BasicSettings(props) {
   };
 
   // TODO：get current from parent component
-  const { isAdmin } = useContext(AppContext);
+  const { isAdmin, api } = useContext(AppContext);
 
   return (
     <div className="basic-settings">
-      {isAdmin && <Admin />}
+      {isAdmin && api && <Admin />}
       <Share />
       <FullScreen />
       <div className="setting-divide-line"></div>

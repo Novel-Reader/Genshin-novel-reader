@@ -77,7 +77,7 @@ export default class Navs extends Component {
         id="navs"
         className="navs"
         style={{
-          width: isShowLeftPanel ? 200 : 0,
+          width: isShowLeftPanel ? 250 : 0,
           display: isShowLeftPanel ? "block" : "none",
         }}
       >
