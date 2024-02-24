@@ -1,53 +1,50 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import { Button, ButtonGroup, Label } from "reactstrap";
+import { Label } from "reactstrap";
+import Select from "react-select";
+import { MenuSelectStyle } from "../../utils";
 
 class FontSettings extends Component {
+
   constructor(props) {
     super(props);
+    this.options = [
+      {
+        value: 1,
+        label: <>{intl.get('Large')}</>
+      },
+      {
+        value: 2,
+        label: <>{intl.get('Middle')}</>
+      },
+      {
+        value: 3,
+        label: <>{intl.get('Small')}</>
+      },
+    ];
     this.state = {
-      fontSize: props.fontSize || 2,
+      activeOption: this.options[1],
     };
   }
 
-  setFontSize = (fontSize) => {
-    this.setState({ fontSize });
-    this.props.onSave(fontSize);
+  onChange = (option) => {
+    this.setState({ activeOption: option });
+    this.props.onSave(option.value);
   };
 
   render() {
-    const { fontSize } = this.state;
-    const { setFontSize } = this;
     return (
       <div className="basic-settings-item">
         <Label>{intl.get('Font_Size')}</Label>
-        <ButtonGroup>
-          <Button
-            color="primary"
-            outline
-            onClick={() => setFontSize(1)}
-            active={fontSize === 1}
-          >
-            {intl.get('Large')}
-          </Button>
-          <Button
-            color="primary"
-            outline
-            onClick={() => setFontSize(2)}
-            active={fontSize === 2}
-          >
-            {intl.get('Middle')}
-          </Button>
-          <Button
-            color="primary"
-            outline
-            onClick={() => setFontSize(3)}
-            active={fontSize === 3}
-          >
-            {intl.get('Small')}
-          </Button>
-        </ButtonGroup>
+          <Select
+            value={this.state.activeOption}
+            options={this.options}
+            onChange={this.onChange}
+            captureMenuScroll={false}
+            classNamePrefix
+            styles={MenuSelectStyle}
+          />
       </div>
     );
   }

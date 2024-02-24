@@ -28,7 +28,7 @@ class Settings extends Component {
       <div
         id="settings"
         className="settings"
-        style={{ width: isShowRightPanel ? 200 : 0 }}
+        style={{ width: isShowRightPanel ? 250 : 0 }}
       >
         <div className="settings-header">
           <Nav fill justified pills tabs>

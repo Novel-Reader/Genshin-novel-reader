@@ -9,7 +9,7 @@ export default class EventBus {
   }
 
   dispatch(key, ...params) {
-    let fns = this.eventMap[key];
+    const fns = this.eventMap[key];
     if (fns) {
       fns.forEach((fn) => {
         fn(...params);
