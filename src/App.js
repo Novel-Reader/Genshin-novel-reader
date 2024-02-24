@@ -85,6 +85,7 @@ export default class App extends Component {
   onKeydown = (e) => {
     const { files, currentFileIndex, currentPageIndex } = this.state;
     if (isUp(e)) {
+      if (document.activeElement.nodeName.toLowerCase() !== 'body') return;
       e.preventDefault();
       if (currentPageIndex === 0) {
         toaster.warning(intl.get('This is already the first page'));
@@ -92,6 +93,7 @@ export default class App extends Component {
       }
       this.changePageIndex(currentPageIndex - 1);
     } else if (isDown(e)) {
+      if (document.activeElement.nodeName.toLowerCase() !== 'body') return;
       e.preventDefault();
       const file = files[currentFileIndex];
       const maxIndex = file.detail.length - 1;

@@ -29,7 +29,7 @@ function AddComment(props) {
       .addComment(props.novel.id, detail, author)
       .then((res) => {
         toaster.success(intl.get('Comment successful'));
-        // 应该执行一个回调函数，然后显示当前的评论
+        commentElement.current.value = '';
       })
       .catch((err) => {
         toaster.danger(intl.get('Error, please try again'));
@@ -41,13 +41,14 @@ function AddComment(props) {
   return (
     <div className="add-comment w-100">
       <textarea ref={commentElement} className="w-100"></textarea>
-      <Button onClick={submitComment}>{intl.get('Save')}</Button>
+      <Button onClick={submitComment} color="primary">{intl.get('Submit')}</Button>
     </div>
   );
 }
 
 AddComment.propTypes = {
   novel: PropTypes.object.isRequired,
+  loadMoreComment: PropTypes.func.isRequired,
 };
 
 export default AddComment;
