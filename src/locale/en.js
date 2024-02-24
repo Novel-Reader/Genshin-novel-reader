@@ -55,7 +55,7 @@ const en = {
   'Searching, please wait': 'Searching, please wait',
   'Comment should have at least 8 characters in length': 'Comment should have at least 8 characters in length',
   'The comment word count cannot exceed 1000 characters': 'The comment word count cannot exceed 1000 characters',
-  'Comment successful': 'Comment successful',
+  'Comment successful': 'Comment successful, displayed after review and approval',
   'Error, please try again': 'Error, please try again',
   'Save': 'Save',
   'Successfully saved': 'Successfully saved',
@@ -80,7 +80,8 @@ const en = {
   'This is already the last page': 'This is already the last page',
   'Information': 'Information',
   'Paragraph not found, Paragraph mode not supported': 'Paragraph not found, Paragraph mode not supported',
-  'Close': 'Close'
+  'Close': 'Close',
+  'Submit': 'Submit',
 };
 
 export default en;

@@ -88,11 +88,11 @@ function BookDetailDialog(props) {
         )}
         {/* 当加载评论时，在评论列表后面，显示加载图标 */}
         {loading && <LoadingIcon />}
-        {loadAll && <span>{intl.get('No more comment')}</span>}
+        {loadAll && <div style={{ margin: '2rem 0' }}>{intl.get('No more comment')}</div>}
         {/* TODO：动态聊天室 */}
       </ModalBody>
       <ModalFooter>
-        <AddComment novel={props.novel} />
+        <AddComment novel={props.novel} loadMoreComment={loadMoreComment}/>
       </ModalFooter>
     </Modal>
   );

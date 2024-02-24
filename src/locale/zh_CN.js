@@ -54,7 +54,7 @@ const zh = {
   'Searching, please wait': '搜索中，请等候',
   'Comment should have at least 8 characters in length': '评论应当不少于8个字',
   'The comment word count cannot exceed 1000 characters': '评论不能超过1000个字',
-  'Comment successful': '评论成功',
+  'Comment successful': '评论成功，经审核通过后显示',
   'Error, please try again': '错误，请重试',
   'Save': '保存',
   'Successfully saved': '保存成功',
@@ -81,7 +81,8 @@ const zh = {
   'This is already the last page': '已经是最后一页',
   'Information': '信息',
   'Paragraph not found, Paragraph mode not supported': '没有找到章节，不支持章节模式',
-  'Close': '关闭'
+  'Close': '关闭',
+  'Submit': '提交',
 };
 
 export default zh;

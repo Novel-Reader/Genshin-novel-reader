@@ -89,13 +89,13 @@ class LoadFromLocal extends Component {
     toaster.warning("正在上传中...");
     window.app.api
       .addNovel(name, cover_photo, author, detail, price, brief, size, tag)
-      .then((res) => {
+      .then(() => {
         toaster.success("上传成功");
-        toaster.success(res);
       })
       .catch((err) => {
         toaster.danger("上传失败");
-        toaster.danger(err);
+        // eslint-disable-next-line no-console
+        console.log(err);
       });
   };
 
