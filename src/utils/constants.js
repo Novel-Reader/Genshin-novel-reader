@@ -53,7 +53,6 @@ const DEFAULT_STYLE = {
 
 const PAGES = "pages";
 const PARAGRAPHS = "paragraphs";
-const FULLSCREEN = "fullscreen";
 
 const DEFAULT_IMAGE = "https://julia-1994.github.io/images/KamisatoAyaka/02.jpg";
 
@@ -73,6 +72,5 @@ export {
   DEFAULT_STYLE,
   PAGES,
   PARAGRAPHS,
-  FULLSCREEN,
   DEFAULT_IMAGE,
 };

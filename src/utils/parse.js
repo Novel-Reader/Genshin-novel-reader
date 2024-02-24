@@ -30,7 +30,9 @@ const convertNovel2Pages = (txt, isMobile = false) => {
  */
 const convertNovel2Paragraph = (txt) => {
   let paragraphs = txt.split(/第\s*\d+\s*章/g);
-  paragraphs = paragraphs.filter((item) => item.length);
+  paragraphs = paragraphs.filter((item) => item.length).map((paragraph, index) => {
+    return `第${index + 1}章 \n\n ${paragraph}`;
+  });
   return {
     detail: paragraphs,
     type: PARAGRAPHS,

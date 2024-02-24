@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
 import { Label } from "reactstrap";
-import { PAGES, PARAGRAPHS, FULLSCREEN } from "../../utils/constants";
+import { PAGES, PARAGRAPHS } from "../../utils/constants";
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
 
@@ -13,7 +13,6 @@ function ModeSettings(props) {
   const options = [
     { value: PAGES, label: intl.get('Seperate'), },
     { value: PARAGRAPHS, label: intl.get('Paragraph') },
-    { value: FULLSCREEN, label: intl.get('Fullscreen') },
   ];
 
   const onChange = (selectedOption) => {
@@ -25,7 +24,7 @@ function ModeSettings(props) {
     <div className="basic-settings-item">
       <Label>阅读模式</Label>
       <Select
-        value={options.find((option) => option.value === mode) || options[1]}
+        value={options.find((option) => option.value === mode) || options[0]}
         options={options}
         onChange={onChange}
         captureMenuScroll={false}

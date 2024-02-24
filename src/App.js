@@ -9,7 +9,7 @@ import { isSameObject, loadExample } from "./utils";
 import { getLocalValue, setLocalValue, NOVEL_READER_STYLE_SAVE_KEY } from "./utils/store";
 import { isUp, isDown } from "./utils/hotkey";
 import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from "./utils/parse";
-import { DEFAULT_STYLE, PAGES, PARAGRAPHS, FULLSCREEN } from "./utils/constants";
+import { DEFAULT_STYLE, PAGES, PARAGRAPHS } from "./utils/constants";
 import { AppContext } from "./context";
 import toaster from "./common/toast";
 import setting from "./setting.json";
@@ -105,29 +105,30 @@ export default class App extends Component {
 
   changeMode = (mode) => {
     const { currentFile } = this.state;
+    // If this is array (if it has already been paginated or divided into chapters, it will first become the original string);
+    // If it is another type of file, directly process it as an empty string
+    let detail = currentFile.detail;
+    if (Array.isArray(detail)) {
+      detail = detail.join(' ');
+    } else if (typeof detail !== 'string') {
+      detail = 'Article data structure is not correct, please reupload or redownload this article.';
+    }
+    // change mode
     if (mode === PAGES) {
       this.setState({
-        currentFile: Object.assign({}, currentFile, convertNovel2Pages(currentFile.detail)),
-        isShowLeftPanel: true,
+        currentFile: Object.assign({}, currentFile, convertNovel2Pages(detail)),
         isShowRightPanel: true,
       });
     }
     else if (mode === PARAGRAPHS) {
-      if (checkParaGraph(currentFile.detail)) {
+      if (checkParaGraph(detail)) {
         this.setState({
-          currentFile: Object.assign({}, currentFile, convertNovel2Paragraph(currentFile.detail)),
-          isShowLeftPanel: true,
+          currentFile: Object.assign({}, currentFile, convertNovel2Paragraph(detail)),
           isShowRightPanel: true,
         });
       } else {
         toaster.warning(intl.get('Paragraph not found, Paragraph mode not supported'));
       }
-    }
-    else if (mode === FULLSCREEN) {
-      this.setState({
-        isShowLeftPanel: false,
-        isShowRightPanel: false,
-      });
     }
   };
 
@@ -177,7 +178,7 @@ export default class App extends Component {
   render() {
     const { files, currentFileIndex, style, currentFile } = this.state;
     const username = cookie.load("username");
-    const isAdmin = username && username === "admin";
+    const isAdmin = username === "admin";
     return (
       <AppContext.Provider value={{ api: this.api, username, isAdmin }}>
         <div id="app">
