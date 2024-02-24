@@ -15,7 +15,7 @@
 }
 .settings .settings-body {
   padding: 16px;
-  max-height: calc(100% - 40px);
+  height: calc(100% - 40px);
   overflow-y: auto;
 }
 .settings .settings-body .setting-divide-line {

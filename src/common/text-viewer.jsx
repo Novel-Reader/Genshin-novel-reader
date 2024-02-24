@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import { parseTxtToHTML } from "../utils";
 
 function TextViewer(props) {
-  const list = parseTxtToHTML(props.detail);
+  const { detail } = props; 
+  if (typeof detail !== 'string') {
+    return <div>{'Article data structure is not correct, please reupload or redownload this article.'}</div>;
+  }
+  const list = parseTxtToHTML(detail);
   return (
     <div>
       {list.map((item, index) => {
