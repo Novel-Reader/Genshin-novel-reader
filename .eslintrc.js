@@ -10,7 +10,8 @@ module.exports = {
     "build/*",
     "dist/*",
     "node_modules/*",
-    "src/locale/*"
+    "src/tests/*",
+    "src/locale/*",
   ],
   overrides: [],
   parserOptions: {
