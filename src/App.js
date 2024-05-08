@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import cookie from "react-cookies";
 import intl from "react-intl-universal";
+import PropTypes from "prop-types";
+import { connect } from 'react-redux';
 import Main from "./main";
 import Navs from "./navs";
 import Settings from "./settings";
@@ -14,15 +16,15 @@ import { AppContext } from "./context";
 import toaster from "./common/toast";
 import setting from "./setting.json";
 import File from './model/file';
+import { NUM_ADD, NUM_REDUCE, NUM_CHANGE } from './reducers/reducer-types';
 
 // init language
 import "./locale/index.js";
-
 import "./css/App.css";
 
-export default class App extends Component {
+class App extends Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.examples = loadExample();
     const files = this.examples.map((file) => {
@@ -49,6 +51,13 @@ export default class App extends Component {
     this.initDataFromLocalStore();
     document.addEventListener("keydown", this.onKeydown);
     window.app = this;
+
+    // test
+    // setInterval(() => {
+    //   this.props.addFileIndex(1);
+    // }, 1000);
+
+    // after render, console.log(this.props.fileIndex);
   }
 
   componentWillUnmount() {
@@ -178,9 +187,10 @@ export default class App extends Component {
   };
 
   render() {
-    const { files, currentFileIndex, style, currentFile } = this.state;
+    const { files, currentFileIndex, style } = this.state;
     const username = cookie.load("username");
     const isAdmin = username === "admin";
+    const currentFile = files[currentFileIndex];
     return (
       <AppContext.Provider value={{ api: this.api, username, isAdmin }}>
         <div id="app">
@@ -213,3 +223,22 @@ export default class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  fileIndex: PropTypes.object.isRequired,
+  addFileIndex: PropTypes.func.isRequired,
+  deleteFileIndex: PropTypes.func.isRequired,
+  changeFileIndex: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state, props) => ({ ...state, ...props });
+
+const mapDispatchToProps = (dispatch) => (
+  {
+    addFileIndex: (payload) => dispatch({ type: NUM_ADD, payload }),
+    deleteFileIndex: (payload) => dispatch({ type: NUM_REDUCE, payload }),
+    changeFileIndex: (payload) => dispatch({ type: NUM_CHANGE, payload }),
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
