@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
+import { TbCircleDotted } from "react-icons/tb";
 import { Button, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { AppContext } from "../../context";
 import toaster from "../../common/toast";
-import { LoadingIcon } from "../../common/icons";
 import AdminUsers from "./admin-users";
 import AdminBooks from "./admin-books";
 import AdminComments from "./admin-comments";
@@ -72,7 +72,7 @@ function AdminStatisticsDialog({ toggleModal }) {
     <Modal isOpen={true} toggle={toggleModal} size="lg">
       <ModalHeader toggle={toggleModal}>Admin Statistics</ModalHeader>
       <ModalBody>
-        {loading && <LoadingIcon />}
+        {loading && <TbCircleDotted />}
         {!loading && (
           <div className="admin-statistics">
             <AdminUsers users={users}/>

@@ -1,4 +1,9 @@
 module.exports = {
+  settings: {
+    react: {
+      version: "detect" // 或者明确指定版本号，例如 "17.0"
+    }
+  },
   env: {
     es6: true,
     node: true,

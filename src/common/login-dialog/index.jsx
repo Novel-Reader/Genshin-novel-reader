@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import intl from "react-intl-universal";
 import axios from "axios";
 import cookie from "react-cookies";
+import { TbCircleDotted } from "react-icons/tb";
 import {
   Modal,
   ModalHeader,
@@ -15,7 +16,6 @@ import {
 } from "reactstrap";
 import setting from "../../setting.json";
 import toaster from "../toast";
-import { LoadingIcon } from "../icons";
 
 class LoginDialog extends Component {
   constructor(props) {
@@ -80,7 +80,7 @@ class LoginDialog extends Component {
           </Form>
           {this.state.isLoading ? (
             <Button color="success" disabled>
-              <LoadingIcon />
+              <TbCircleDotted />
             </Button>
           ) : (
             <Button color="success" onClick={this.onLogin}>
