@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import intl from "react-intl-universal";
+import { BsListTask } from "react-icons/bs";
 import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
-import { MenuIcon } from '../common/icons';
 import FileInfoDialog from './file-info-dialog';
 
 function FileTree({ file, index, currentFileIndex, searchValue, changeFileIndex, deleteFile }) {
@@ -30,7 +30,7 @@ function FileTree({ file, index, currentFileIndex, searchValue, changeFileIndex,
           data-toggle="dropdown" 
           aria-expanded={dropdownOpen}
         >
-          <MenuIcon/>
+          <BsListTask />
         </DropdownToggle>
         <DropdownMenu className="dtable-dropdown-menu dropdown-menu mr-2">
           <DropdownItem key={1} onClick={() => setDialogOpen(true)}>{intl.get('Information')}</DropdownItem>

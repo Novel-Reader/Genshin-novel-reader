@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Input } from "reactstrap";
 import intl from "react-intl-universal";
-import { SearchIcon, ListIcon, TreeIcon, BackIcon } from "../common/icons";
+import { BsSearch, BsArrowLeft, BsListUl, BsList } from "react-icons/bs";
 import NavIcon from "./nav-icon";
 import { NAV_TYPE } from "./constants";
 
@@ -14,7 +14,7 @@ function NavHeader(props) {
       <div className="navs-header">
         <div className="navs-header-search">
           <NavIcon onClick={props.closeSearch}>
-            <BackIcon />
+            <BsArrowLeft />
           </NavIcon>
           <Input
             className="navs-header-search-input"
@@ -31,11 +31,11 @@ function NavHeader(props) {
     return (
       <div className="navs-header">
         <NavIcon onClick={() => props.changeCurrentNav(NAV_TYPE.OUTLINE)}>
-          <ListIcon />
+          <BsList />
         </NavIcon>
         <span>{intl.get('File')}</span>
         <NavIcon onClick={props.openSearch}>
-          <SearchIcon />
+          <BsSearch />
         </NavIcon>
       </div>
     );
@@ -44,11 +44,11 @@ function NavHeader(props) {
     return (
       <div className="navs-header">
         <NavIcon onClick={() => props.changeCurrentNav(NAV_TYPE.FILETREE)}>
-          <TreeIcon />
+          <BsListUl />
         </NavIcon>
         <span>{intl.get('Outline')}</span>
         <NavIcon onClick={props.openSearch}>
-          <SearchIcon />
+          <BsSearch />
         </NavIcon>
       </div>
     );

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import throttle from "lodash.throttle";
 import intl from "react-intl-universal";
+import { TbCircleDotted } from "react-icons/tb";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import toaster from "../../common/toast";
-import { LoadingIcon } from "../../common/icons";
 import CommentList from "./comment-list";
 import AddComment from "./add-comment";
 
@@ -87,7 +87,7 @@ function BookDetailDialog(props) {
           />
         )}
         {/* 当加载评论时，在评论列表后面，显示加载图标 */}
-        {loading && <LoadingIcon />}
+        {loading && <TbCircleDotted />}
         {loadAll && <div style={{ margin: '2rem 0' }}>{intl.get('No more comment')}</div>}
         {/* TODO：动态聊天室 */}
       </ModalBody>
