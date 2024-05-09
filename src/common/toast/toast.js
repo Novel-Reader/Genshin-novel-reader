@@ -1,78 +1,35 @@
-import React from "react";
-import { css } from "glamor";
-import PropTypes from "prop-types";
-import Transition from "react-transition-group/Transition";
-import Alert from "./alert";
-
-const animationEasing = {
-  deceleration: "cubic-bezier(0.0, 0.0, 0.2, 1)",
-  acceleration: "cubic-bezier(0.4, 0.0, 1, 1)",
-  spring: "cubic-bezier(0.175, 0.885, 0.320, 1.175)",
-};
+import React from 'react';
+import PropTypes from 'prop-types';
+import Transition from 'react-transition-group/Transition';
+import Alert from './alert';
 
 const ANIMATION_DURATION = 240;
-
-const openAnimation = css.keyframes("openAnimation", {
-  from: {
-    opacity: 0,
-    transform: "translateY(-120%)",
-  },
-  to: {
-    transform: "translateY(0)",
-  },
-});
-
-const closeAnimation = css.keyframes("closeAnimation", {
-  from: {
-    transform: "scale(1)",
-    opacity: 1,
-  },
-  to: {
-    transform: "scale(0.9)",
-    opacity: 0,
-  },
-});
-
-const animationStyles = css({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  height: 0,
-  transition: `all ${ANIMATION_DURATION}ms ${animationEasing.deceleration}`,
-  '&[data-state="entering"], &[data-state="entered"]': {
-    animation: `${openAnimation} ${ANIMATION_DURATION}ms ${animationEasing.spring} both`,
-  },
-  '&[data-state="exiting"]': {
-    animation: `${closeAnimation} 120ms ${animationEasing.acceleration} both`,
-  },
-});
 
 export default class Toast extends React.PureComponent {
   static propTypes = {
     zIndex: PropTypes.number,
     duration: PropTypes.number,
     onRemove: PropTypes.func,
-    intent: PropTypes.oneOf(["success", "warning", "danger"]).isRequired,
+    intent: PropTypes.oneOf(['none', 'success', 'warning', 'danger']).isRequired,
     title: PropTypes.node,
     children: PropTypes.node,
     hasCloseButton: PropTypes.bool,
-    isShown: PropTypes.bool,
+    isShown: PropTypes.bool
   };
 
   static defaultProps = {
-    intent: "none",
+    intent: 'none',
   };
 
   state = {
     isShown: true,
-    height: 0,
+    height: 0
   };
 
   componentDidUpdate(prevProps) {
     if (prevProps.isShown !== this.props.isShown) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        isShown: this.props.isShown,
+        isShown: this.props.isShown
       });
     }
   }
@@ -92,7 +49,7 @@ export default class Toast extends React.PureComponent {
     }
     this.clearCloseTimer();
     this.setState({
-      isShown: false,
+      isShown: false
     });
   };
 
@@ -119,10 +76,12 @@ export default class Toast extends React.PureComponent {
     this.startCloseTimer();
   };
 
-  onRef = (ref) => {
+  onRef = ref => {
     if (ref === null) return;
     const { height } = ref.getBoundingClientRect();
-    this.setState({ height });
+    this.setState({
+      height
+    });
   };
 
   render() {
@@ -134,20 +93,26 @@ export default class Toast extends React.PureComponent {
         in={this.state.isShown}
         onExited={this.props.onRemove}
       >
-        {(state) => (
+        {state => (
           <div
             data-state={state}
-            className={animationStyles}
+            className={`toast-container ${state}`}
             onMouseEnter={this.handleMouseEnter}
             onMouseLeave={this.handleMouseLeave}
             style={{
               height: this.state.height,
               zIndex: this.props.zIndex,
-              marginBottom: this.state.isShown ? 0 : -this.state.height,
+              marginBottom: this.state.isShown ? 0 : -this.state.height
             }}
           >
             <div ref={this.onRef} style={{ padding: 8 }}>
-              <Alert {...this.props} onRemove={(event) => this.close(event)} />
+              <Alert
+                intent={this.props.intent}
+                title={this.props.title}
+                children={this.props.children || ''}
+                isRemovable={this.props.hasCloseButton}
+                onRemove={(event) => this.close(event)}
+              />
             </div>
           </div>
         )}

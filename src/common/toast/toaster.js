@@ -1,16 +1,22 @@
-import React from "react";
+import React from 'react';
 import { createRoot } from "react-dom/client";
-import ToastManager from "./toastManager";
+import ToastManager from './toastManager';
 
-const isBrowser =
-  typeof window !== "undefined" && typeof window.document !== "undefined";
+import './index.css';
 
-// The Toaster manages the interactionsb between the ToasterManger and the toast API.
+// 存在的问题：当前弹出的位置不是中心，需要调整一下
+
+const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+
+/**
+ * The Toaster manages the interactionsb between
+ * the ToasterManger and the toast API.
+ */
 export default class Toaster {
   constructor() {
     if (!isBrowser) return;
-    const container = document.createElement("div");
-    container.setAttribute("data-evergreen-toaster-container", "");
+    const container = document.createElement('div');
+    container.setAttribute('data-evergreen-toaster-container', '');
     document.body.appendChild(container);
     const root = createRoot(container);
     root.render(
@@ -22,15 +28,15 @@ export default class Toaster {
     );
   }
 
-  _bindNotify = (handler) => {
+  _bindNotify = handler => {
     this.notifyHandler = handler;
   };
 
-  _bindGetToasts = (handler) => {
+  _bindGetToasts = handler => {
     this.getToastsHandler = handler;
   };
 
-  _bindCloseAll = (handler) => {
+  _bindCloseAll = handler => {
     this.closeAllHandler = handler;
   };
 
@@ -42,15 +48,19 @@ export default class Toaster {
     return this.closeAllHandler();
   };
 
+  notify = (title, settings = {}) => {
+    return this.notifyHandler(title, { ...settings, intent: 'none' });
+  };
+
   success = (title, settings = {}) => {
-    return this.notifyHandler(title, { ...settings, intent: "success" });
+    return this.notifyHandler(title, { ...settings, intent: 'success' });
   };
 
   warning = (title, settings = {}) => {
-    return this.notifyHandler(title, { ...settings, intent: "warning" });
+    return this.notifyHandler(title, { ...settings, intent: 'warning' });
   };
 
   danger = (title, settings = {}) => {
-    return this.notifyHandler(title, { ...settings, intent: "danger" });
+    return this.notifyHandler(title, { ...settings, intent: 'danger' });
   };
 }

@@ -25,6 +25,7 @@ module.exports = {
   },
   plugins: ["react-hooks"],
   rules: {
+    "prefer-const": "off",
     quotes: "off",
     camelcase: "off",
     semi: [2, "always"],

@@ -32,7 +32,7 @@ function FileTree({ file, index, currentFileIndex, searchValue, changeFileIndex,
         >
           <BsListTask />
         </DropdownToggle>
-        <DropdownMenu className="dtable-dropdown-menu dropdown-menu mr-2">
+        <DropdownMenu className="dropdown-menu mr-2">
           <DropdownItem key={1} onClick={() => setDialogOpen(true)}>{intl.get('Information')}</DropdownItem>
           <DropdownItem key={2} onClick={() => deleteFile(index)}>{intl.get('Delete')}</DropdownItem>
         </DropdownMenu>
