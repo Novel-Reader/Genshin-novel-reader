@@ -1,6 +1,7 @@
-var fs = require('fs');
+/* eslint-disable no-console */
+let fs = require('fs');
 
-// Problem: many existing files are copied from dtable or other places, without Chinese translation
+// Problem: many existing files are copied from other places, without Chinese translation
 // So use this script to traverse all files, find out all the codes of intl.get('xxx'), and print them out
 
 /**
@@ -9,7 +10,7 @@ var fs = require('fs');
  * @param {string} father_path 
  * @returns null
  */
-var getJSFiles = function(files, father_path) {
+let getJSFiles = function(files, father_path) {
   if (!Array.isArray(files)) {
     return;
   }
@@ -29,9 +30,9 @@ var getJSFiles = function(files, father_path) {
   }
 }
 
-var path = './src';
-var files = fs.readdirSync(path);
-var res = [];
+let path = './src';
+let files = fs.readdirSync(path);
+let res = [];
 getJSFiles(files, path);
 
 // 2. Find all the translations contained in intl.get(', process this part of the translation
@@ -82,4 +83,3 @@ if (no_translation_arr.length > 0) {
 } else {
   console.log('All translation strings are extracted');
 }
-
