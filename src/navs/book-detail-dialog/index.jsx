@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import throttle from "lodash.throttle";
 import intl from "react-intl-universal";
 import { TbCircleDotted } from "react-icons/tb";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import toaster from "../../common/toast";
 import CommentList from "./comment-list";
 import AddComment from "./add-comment";
+import throttle from "../../utils/throttle";
 
 const LIMIT = 5;
 
