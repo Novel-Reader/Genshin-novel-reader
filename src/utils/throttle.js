@@ -1,55 +1,39 @@
 /* eslint-disable no-new-func */
 // copy from lodash.throttle, lodash (Custom Build) <https://lodash.com/>
 
-/** Used as the `TypeError` message for "Functions" methods. */
 let FUNC_ERROR_TEXT = 'Expected a function';
 
-/** Used as references for various `Number` constants. */
 let NAN = 0 / 0;
 
-/** `Object#toString` result references. */
 let symbolTag = '[object Symbol]';
 
-/** Used to match leading and trailing whitespace. */
 let reTrim = /^\s+|\s+$/g;
 
-/** Used to detect bad signed hexadecimal string values. */
 let reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
 
-/** Used to detect binary string values. */
 let reIsBinary = /^0b[01]+$/i;
 
-/** Used to detect octal string values. */
 let reIsOctal = /^0o[0-7]+$/i;
 
-/** Built-in method references without a dependency on `root`. */
 let freeParseInt = parseInt;
 
-/** Detect free variable `global` from Node.js. */
 let freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
 
-/** Detect free variable `self`. */
 let freeSelf = typeof self == 'object' && self && self.Object === Object && self;
 
-/** Used as a reference to the global object. */
 let root = freeGlobal || freeSelf || Function('return this')();
 
-/** Used for built-in method references. */
 let objectProto = Object.prototype;
 
-// Used to resolve the toStringTag of values.
 let objectToString = objectProto.toString;
 
-/* Built-in method references for those with the same name as other `lodash` methods. */
 let nativeMax = Math.max;
 let nativeMin = Math.min;
 
-// Gets the timestamp of the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
 let now = function() {
   return root.Date.now();
 };
 
-// Creates a debounced function that delays invoking `func` until after `wait` milliseconds have elapsed since the last time the debounced function was invoked.
 function debounce(func, wait, options) {
   let lastArgs;
   let lastThis;
@@ -103,10 +87,6 @@ function debounce(func, wait, options) {
   function shouldInvoke(time) {
     let timeSinceLastCall = time - lastCallTime;
     let timeSinceLastInvoke = time - lastInvokeTime;
-
-    // Either this is the first call, activity has stopped and we're at the
-    // trailing edge, the system time has gone backwards and we're treating
-    // it as the trailing edge, or we've hit the `maxWait` limit.
     return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
       (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
   }
@@ -122,9 +102,6 @@ function debounce(func, wait, options) {
 
   function trailingEdge(time) {
     timerId = undefined;
-
-    // Only invoke if we have `lastArgs` which means `func` has been
-    // debounced at least once.
     if (trailing && lastArgs) {
       return invokeFunc(time);
     }
@@ -172,50 +149,6 @@ function debounce(func, wait, options) {
   return debounced;
 }
 
-/**
- * Creates a throttled function that only invokes `func` at most once per
- * every `wait` milliseconds. The throttled function comes with a `cancel`
- * method to cancel delayed `func` invocations and a `flush` method to
- * immediately invoke them. Provide `options` to indicate whether `func`
- * should be invoked on the leading and/or trailing edge of the `wait`
- * timeout. The `func` is invoked with the last arguments provided to the
- * throttled function. Subsequent calls to the throttled function return the
- * result of the last `func` invocation.
- *
- * **Note:** If `leading` and `trailing` options are `true`, `func` is
- * invoked on the trailing edge of the timeout only if the throttled function
- * is invoked more than once during the `wait` timeout.
- *
- * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
- * until to the next tick, similar to `setTimeout` with a timeout of `0`.
- *
- * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
- * for details over the differences between `_.throttle` and `_.debounce`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Function
- * @param {Function} func The function to throttle.
- * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
- * @param {Object} [options={}] The options object.
- * @param {boolean} [options.leading=true]
- *  Specify invoking on the leading edge of the timeout.
- * @param {boolean} [options.trailing=true]
- *  Specify invoking on the trailing edge of the timeout.
- * @returns {Function} Returns the new throttled function.
- * @example
- *
- * // Avoid excessively updating the position while scrolling.
- * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
- *
- * // Invoke `renewToken` when the click event is fired, but not more than once every 5 minutes.
- * var throttled = _.throttle(renewToken, 300000, { 'trailing': false });
- * jQuery(element).on('click', throttled);
- *
- * // Cancel the trailing throttled invocation.
- * jQuery(window).on('popstate', throttled.cancel);
- */
 function throttle(func, wait, options) {
   let leading = true;
   let trailing = true;
@@ -234,23 +167,19 @@ function throttle(func, wait, options) {
   });
 }
 
-// Checks if `value` is the of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
 function isObject(value) {
   let type = typeof value;
   return !!value && (type == 'object' || type == 'function');
 }
 
-// Checks if `value` is object-like. A value is object-like if it's not `null` and has a `typeof` result of "object".
 function isObjectLike(value) {
   return !!value && typeof value == 'object';
 }
 
-// Checks if `value` is classified as a `Symbol` primitive or object.
 function isSymbol(value) {
   return typeof value == 'symbol' || (isObjectLike(value) && objectToString.call(value) == symbolTag);
 }
 
-// Converts `value` to a number.
 function toNumber(value) {
   if (typeof value == 'number') {
     return value;
