@@ -1,0 +1,15 @@
+.admin-statistics .admin-comments,
+.admin-statistics .admin-books,
+.admin-statistics .admin-users,
+.admin-statistics .admin-comments-chart {
+  margin-bottom: 50px;
+}
+.admin-statistics .admin-comments-chart {
+  display: flex;
+}
+.admin-statistics .admin-comments-chart .admin-comments-chart-type {
+  flex: 3;
+}
+.admin-statistics .admin-comments-chart .admin-comments-chart-setting {
+  flex: 1;
+}

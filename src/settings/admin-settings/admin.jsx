@@ -9,6 +9,7 @@ import AdminUsers from "./admin-users";
 import AdminBooks from "./admin-books";
 import AdminComments from "./admin-comments";
 import AdminCommentsChart from "./admin-comments-chart";
+import './admin.css';
 
 function Admin() {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,15 +72,14 @@ function AdminStatisticsDialog({ toggleModal }) {
   return (      
     <Modal isOpen={true} toggle={toggleModal} size="lg">
       <ModalHeader toggle={toggleModal}>Admin Statistics</ModalHeader>
-      <ModalBody>
+      <ModalBody style={{ maxHeight: 600 }}>
         {loading && <TbCircleDotted />}
         {!loading && (
           <div className="admin-statistics">
+            {comments.length > 0 && <AdminCommentsChart comments={comments} />}
             <AdminUsers users={users}/>
             <AdminBooks books={books}/>
             <AdminComments comments={comments}/>
-            {/* statisctis charts */}
-            <AdminCommentsChart comments={comments} />
           </div>
         )}
       </ModalBody>
