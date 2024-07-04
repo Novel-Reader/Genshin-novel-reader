@@ -101,7 +101,7 @@ export default class Main extends Component {
       }
       // 代码片段阅读器
       if (UPLOAD_FILE_TYPES.includes(suffix)) {
-        return <CodeViewer detail={detail} lan={suffix} />;
+        return <CodeViewer detail={detail} lan={suffix} currentFile={currentFile} />;
       }
     }
     // 其他都使用 txt 格式

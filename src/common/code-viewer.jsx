@@ -1,23 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco, github, sunburst, ascetic, monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { getSuffix } from '../utils';
 
-function CodeViewer(props) {
-  let lan = props.lan;
-  // TODO js 特殊处理，其他的后缀暂时不需要处理
-  if (lan === "js") {
-    lan = "javascript";
+// TODO: user can change theme color
+function getStyle(key) {
+  let dict = {
+    docco,
+    github,
+    sunburst,
+    ascetic,
+    monokai,
+  };
+  return dict[key] || docco;
+}
+
+function getLan(suffix) {
+  if (suffix === 'js') {
+    return 'javascript';
   }
+  return suffix;
+}
+
+function CodeViewer (props) {
+  const suffix = getSuffix(props.currentFile.name);
   return (
-    <div>
+    <div className="code-viewer">
       <SyntaxHighlighter
-        language={lan}
-        // todo user can change theme color
-        style={lan === "javascript" ? dark : docco}
+        language={getLan(suffix)}
+        style={getStyle()}
         showLineNumbers={true}
-        showInlineLineNumbers={true}
         wrapLongLines={true}
       >
         {props.detail}
@@ -29,6 +42,7 @@ function CodeViewer(props) {
 CodeViewer.propTypes = {
   detail: PropTypes.string.isRequired,
   lan: PropTypes.string.isRequired,
+  currentFile: PropTypes.object.isRequired,
 };
 
 export default CodeViewer;
