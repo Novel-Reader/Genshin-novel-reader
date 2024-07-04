@@ -8,6 +8,9 @@ import Login from "./pages/login";
 import setting from "./setting.json";
 // import ErrorPage from "./pages/error-page";
 
+import { Provider } from 'react-redux';
+import store from './store';
+
 let router = {};
 
 // TODO Login Admin 等页面，迁移到后端项目实现，这个项目只实现阅读器代码，不涉及用户登录，后台管理等业务逻辑
@@ -51,7 +54,9 @@ if (setting.mode === "offline") {
       element: (
         <>
           <MediaQuery query="(min-device-width: 767.8px)">
-            <App />
+            <Provider store={store}>
+              <App />
+            </Provider>
           </MediaQuery>
           <MediaQuery query="(max-device-width: 767.8px)">
             <AppMobile />
@@ -63,6 +68,10 @@ if (setting.mode === "offline") {
   ]);
 }
 
-const Router = <RouterProvider router={router} />;
+const Router = (
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+);
 
 export default Router;
