@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { NUM_ADD, NUM_REDUCE, NUM_CHANGE } from './reducer-types';
 
-// for class component
+// class component reducer
 function numReducer(state = 0, action) {
   switch (action.type) {
     case NUM_ADD: {
