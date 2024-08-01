@@ -1,6 +1,6 @@
 {
   "name": "novel-reader",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "homepage": "/novel-demo/",
   "dependencies": {
     "@antv/g2": "4.2.10",
