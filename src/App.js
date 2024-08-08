@@ -36,6 +36,7 @@ export default class App extends Component {
       isShowRightPanel: true,
       isShowLeftPanel: true,
       currentPageIndex: 0,
+      api: null,
     };
     this.api = null;
   }
@@ -75,11 +76,13 @@ export default class App extends Component {
   };
 
   initFromServer = () => {
-    this.api = new LocalAPI();
-    this.api.init({
+    const api = new LocalAPI();
+    api.init({
       server: setting.server,
       token: cookie.load("novelToken"),
     });
+    this.setState({ api }); // for { api } = useContext(AppContext)
+    this.api = api; // for window.app.api
   };
 
   onKeydown = (e) => {
@@ -182,7 +185,7 @@ export default class App extends Component {
     const username = cookie.load("username");
     const isAdmin = username === "admin";
     return (
-      <AppContext.Provider value={{ api: this.api, username, isAdmin }}>
+      <AppContext.Provider value={{ api: this.state.api, username, isAdmin }}>
         <div id="app">
           <Navs
             addFile={this.addFile}
