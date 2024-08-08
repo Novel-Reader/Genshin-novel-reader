@@ -64,7 +64,7 @@
     "remark-gfm": "^3.0.1",
     "remark-math": "^5.1.1",
     "resolve": "^1.20.0",
-    "resolve-url-loader": "^4.0.0",
+    "resolve-url-loader": "^5.0.0",
     "semver": "^7.3.5",
     "source-map-explorer": "^2.5.3",
     "source-map-loader": "^3.0.0",
