@@ -14,7 +14,7 @@ import {
   Form,
   FormGroup,
 } from "reactstrap";
-import setting from "../../setting.json";
+import setting from "../../setting.js";
 import toaster from "../toast";
 
 class LoginDialog extends Component {

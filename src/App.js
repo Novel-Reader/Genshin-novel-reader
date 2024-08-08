@@ -12,7 +12,7 @@ import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel 
 import { DEFAULT_STYLE, PAGES, PARAGRAPHS } from "./utils/constants";
 import { AppContext } from "./context";
 import toaster from "./common/toast";
-import setting from "./setting.json";
+import setting from "./setting.js";
 import File from './model/file';
 
 // init language

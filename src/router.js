@@ -5,7 +5,7 @@ import App from "./App";
 import AppMobile from "./App-mobile";
 import Admin from "./pages/admin";
 import Login from "./pages/login";
-import setting from "./setting.json";
+import setting from "./setting.js";
 // import ErrorPage from "./pages/error-page";
 
 let router = {};
