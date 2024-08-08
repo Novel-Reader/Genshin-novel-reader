@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
 import VipButton from "../../common/vip-button";
-import setting from "../../setting.json";
+import setting from "../../setting.js";
 import toaster from "../../common/toast";
 import { Button } from "reactstrap";
 import BookList from "./book-list";

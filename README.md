@@ -28,7 +28,7 @@ Realize the local novel reading, local novel upload, online novel reading, novel
 
 ## 配置 Setting
 
-配置文件`setting.json`
+默认配置文件 `/src/setting.json` 参数说明
 
 ```json
 {
@@ -36,6 +36,8 @@ Realize the local novel reading, local novel upload, online novel reading, novel
   "mode": "阅读器模式，online 或者 offline"
 }
 ```
+
+在这个目录中，新建一个 `/src/setting.local.json` 配置文件，可以覆盖默认配置项。
 
 ## 开发 Development
 

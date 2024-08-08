@@ -4,7 +4,7 @@ import { Button, FormGroup, Form, Label, Input, ModalFooter } from "reactstrap";
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
 import { INPUT_ACCEPT_FILE_TYPE } from "../../utils/constants";
-import setting from "../../setting.json";
+import setting from "../../setting.js";
 import toaster from "../../common/toast";
 import File from '../../model/file';
 
