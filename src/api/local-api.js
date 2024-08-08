@@ -167,7 +167,7 @@ class LocalAPI {
    * @param {string} book_id
    * @param {number} start
    * @param {number} limit
-   * @returns array
+   * @returns response
    */
   getCommentList(book_id, start, limit) {
     const url = `${this.server}/api/comment?book_id=${book_id}&start=${start}&limit=${limit}`;
@@ -178,7 +178,7 @@ class LocalAPI {
    * The author of comment can edit this comment
    * @param {string} comment_id
    * @param {string} detail new comment content
-   * @returns
+   * @returns response
    */
   editComment(comment_id, detail) {
     const url = `${this.server}/api/comment`;
@@ -189,7 +189,7 @@ class LocalAPI {
   /**
    * delete a comment by id
    * @param {string} comment_id
-   * @returns
+   * @returns response
    */
   deleteComment(comment_id) {
     const url = `${this.server}/api/comment?id=${comment_id}`;
