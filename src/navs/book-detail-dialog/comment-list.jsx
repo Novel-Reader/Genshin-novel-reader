@@ -15,8 +15,8 @@ function CommentItem(props) {
 
   function onFinish() {
     const detail = commentElement.current.value;
-    if (detail.length < 8) {
-      toaster.warning(intl.get('Comment should have at least 8 characters in length'));
+    if (detail.length < 3) {
+      toaster.warning(intl.get('Comment should have at least 3 characters in length'));
       return;
     }
     if (detail.length > 1000) {
@@ -28,8 +28,7 @@ function CommentItem(props) {
       .then((res) => {
         toaster.success(intl.get('Successfully saved'));
         setEdit(false);
-        // 应该执行一个回调函数，然后显示当前的评论
-        // 这个直接更改父组件中的某个评论记录即可
+        props.loadComments();
       })
       .catch((err) => {
         toaster.danger(intl.get('Error, please try again'));
@@ -43,8 +42,7 @@ function CommentItem(props) {
       .deleteComment(comment.id)
       .then((res) => {
         toaster.danger(intl.get('The comment has been deleted'));
-        // 应该执行一个回调函数，然后显示当前的评论
-        // 这个直接更改父组件中的某个评论记录即可
+        props.loadComments();
       })
       .catch((err) => {
         toaster.danger(intl.get('Error, please try again'));
@@ -54,39 +52,25 @@ function CommentItem(props) {
 
   return (
     <div className="comment-item" key={comment.id}>
-      <p>
-        <b>{comment.author}</b> {intl.get('Say')}:
-      </p>
+      <p><b>{comment.author}</b> {intl.get('Say')}:</p>
       {edit ? (
         <textarea ref={commentElement} defaultValue={comment.detail}></textarea>
       ) : (
         <p>{comment.detail}</p>
       )}
       <div className="comment-btns">
-        <span className="comment-btns-time">
-          {moment(comment.created_at).format("YYYY-MM-DD HH:mm:ss")}
-        </span>
+        <span className="comment-btns-time">{moment(comment.created_at).format("YYYY-MM-DD HH:mm:ss")}</span>
         {author === comment.author && (
           <>
             {edit ? (
-              <span onClick={() => { onFinish(); }}>
-                {intl.get('Save')}
-              </span>
+              <span onClick={() => { onFinish(); }}>{intl.get('Save')}</span>
             ) : (
-              <span onClick={() => { setEdit(true); }}>
-                {intl.get('Edit')}
-              </span>
+              <span onClick={() => { setEdit(true); }}>{intl.get('Edit')}</span>
             )}
           </>
         )}
         {author === comment.author && (
-          <span
-            onClick={() => {
-              onDelete();
-            }}
-          >
-            {intl.get('Delete')}
-          </span>
+          <span onClick={() => { onDelete(); }}>{intl.get('Delete')}</span>
         )}
       </div>
     </div>
@@ -96,20 +80,21 @@ function CommentItem(props) {
 CommentItem.propTypes = {
   comment: PropTypes.object.isRequired,
   novel: PropTypes.object.isRequired,
+  loadComments: PropTypes.func.isRequired,
 };
 
-function CommentList(props) {
-  const { comments } = props;
+function CommentList({ comments, loadComments, onRef, novel }) {
   return (
-    <div className="comment-list" ref={(node) => props.onRef(node)}>
+    <div className="comment-list" ref={(node) => onRef(node)}>
       {comments.length === 0 && <span>还没有评论哦，请点击下方添加评论</span>}
       {comments.length > 0 &&
         comments.map((comment) => {
           return (
             <CommentItem
               comment={comment}
-              novel={props.novel}
+              novel={novel}
               key={comment.id}
+              loadComments={loadComments}
             />
           );
         })}
@@ -121,6 +106,7 @@ CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
   novel: PropTypes.object.isRequired,
   onRef: PropTypes.func.isRequired,
+  loadComments: PropTypes.func.isRequired,
 };
 
 export default CommentList;

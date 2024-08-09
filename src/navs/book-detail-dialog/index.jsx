@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
 import { TbCircleDotted } from "react-icons/tb";
@@ -8,7 +8,7 @@ import CommentList from "./comment-list";
 import AddComment from "./add-comment";
 import throttle from "../../utils/throttle";
 
-const LIMIT = 5;
+const LIMIT = 20;
 
 function BookDetailDialog(props) {
   const [loading, setLoading] = useState(true);
@@ -17,12 +17,19 @@ function BookDetailDialog(props) {
   const [start, setStart] = useState(1);
   let commentRef = null;
 
-  useEffect(() => {
+  const checkLoadAll = useCallback((comments) => {
+    if (comments.length < LIMIT) {
+      setLoadAll(true);
+    } else {
+      setStart(start + 1);
+    }
+  }, [start]);
+
+  const loadComments = useCallback(() => {
     window.app.api
       .getCommentList(props.novel.id, start, LIMIT)
       .then((res) => {
         setComments(res.data);
-        setStart(start + 1);
         setLoading(false);
         checkLoadAll(res.data);
       })
@@ -30,7 +37,10 @@ function BookDetailDialog(props) {
         toaster.danger(intl.get('Getting comments failed, please close the dialog box and try again'));
         toaster.danger(String(err));
       });
-    // 这个只有在首次加载执行上面的逻辑（获取评论列表），所以只传递空数组即可，不需要在组件更新时（start变化，或者 novel 变化）再次获取评论
+  }, [props.novel.id, start, checkLoadAll]);
+
+  useEffect(() => {
+    loadComments();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -50,13 +60,6 @@ function BookDetailDialog(props) {
       });
   };
 
-  const checkLoadAll = (comments) => {
-    if (comments.length < LIMIT) {
-      setLoadAll(true);
-    }
-  };
-
-  // https://lodash.com/docs/4.17.15#throttle
   const onScroll = throttle((e) => {
     const clientHeight = commentRef.clientHeight;
     if (e.target.scrollTop + e.target.clientHeight > clientHeight) {
@@ -77,22 +80,19 @@ function BookDetailDialog(props) {
     >
       <ModalHeader toggle={props.toggleDialog}>{intl.get('Comment')}</ModalHeader>
       <ModalBody onScroll={onScroll}>
-        {/* 小说详情界面 */}
-        {/* 当有评论时，显示评论列表 */}
         {comments.length > 0 && (
           <CommentList
             comments={comments}
             novel={props.novel}
             onRef={onCommentListRef}
+            loadComments={loadComments}
           />
         )}
-        {/* 当加载评论时，在评论列表后面，显示加载图标 */}
         {loading && <TbCircleDotted />}
         {loadAll && <div style={{ margin: '2rem 0' }}>{intl.get('No more comment')}</div>}
-        {/* TODO：动态聊天室 */}
       </ModalBody>
       <ModalFooter>
-        <AddComment novel={props.novel} loadMoreComment={loadMoreComment}/>
+        <AddComment novel={props.novel} loadComments={loadComments}/>
       </ModalFooter>
     </Modal>
   );

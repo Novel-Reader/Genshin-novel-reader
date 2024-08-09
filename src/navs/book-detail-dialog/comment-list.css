@@ -7,6 +7,10 @@
   border-bottom: 1px dashed #ccc;
   margin-top: 10px;
 }
+.modal-body .comment-list .comment-item textarea {
+  width: 100%;
+  min-height: 80px;
+}
 .modal-body .comment-list .comment-item .comment-btns {
   padding: 10px 0px;
   display: flex;
