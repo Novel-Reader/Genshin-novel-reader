@@ -14,8 +14,8 @@ function AddComment(props) {
 
   function submitComment() {
     const detail = commentElement.current.value;
-    if (detail.length < 8) {
-      toaster.warning(intl.get('Comment should have at least 8 characters in length'));
+    if (detail.length < 3) {
+      toaster.warning(intl.get('Comment should have at least 3 characters in length'));
       return;
     }
     if (detail.length > 1000) {
@@ -30,6 +30,7 @@ function AddComment(props) {
       .then((res) => {
         toaster.success(intl.get('Comment successful'));
         commentElement.current.value = '';
+        props.loadComments();
       })
       .catch((err) => {
         toaster.danger(intl.get('Error, please try again'));
@@ -48,7 +49,7 @@ function AddComment(props) {
 
 AddComment.propTypes = {
   novel: PropTypes.object.isRequired,
-  loadMoreComment: PropTypes.func.isRequired,
+  loadComments: PropTypes.func.isRequired,
 };
 
 export default AddComment;
