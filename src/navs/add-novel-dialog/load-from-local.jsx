@@ -89,8 +89,13 @@ class LoadFromLocal extends Component {
     toaster.warning("正在上传中...");
     window.app.api
       .addNovel(name, cover_photo, author, detail, price, brief, size, tag)
-      .then(() => {
+      .then((res) => {
         toaster.success("上传成功");
+        const userId = window.app.state.user.id;
+        const book_id = res.data[0].id;
+        window.app.api.updateUserBook(userId, book_id).then((res) => {
+          // res.data === 'success'
+        });
       })
       .catch((err) => {
         toaster.danger("上传失败");

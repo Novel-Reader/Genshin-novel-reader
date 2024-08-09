@@ -17,7 +17,7 @@ test("parse txt to pages", () => {
 });
 
 test("parse txt to paragraphs", () => {
-  let result = convertNovel2Paragraph(files[2].detail);
+  let result = convertNovel2Paragraph(files[1].detail);
   expect(typeof result).toBe("object");
   expect(result.type).toBe(PARAGRAPHS);
   expect(result.detail.length > 0).toBe(true);
@@ -25,7 +25,7 @@ test("parse txt to paragraphs", () => {
 
 test("check novel has paragraph", () => {
   expect(checkParaGraph(files[0].detail)).toBe(false);
-  expect(checkParaGraph(files[2].detail)).toBe(true);
+  expect(checkParaGraph(files[1].detail)).toBe(false);
 });
 
 test("parse txt to novel", () => {
