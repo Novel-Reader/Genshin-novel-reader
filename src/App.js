@@ -24,19 +24,16 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
-    this.examples = loadExample();
-    const files = this.examples.map((file) => {
-      return Object.assign(new File(file), parseNovel(file.detail));
-    });
     this.state = {
-      files,
+      files: [],
       currentFileIndex: 0,
-      currentFile: files[0],
+      currentFile: null,
       style: DEFAULT_STYLE,
       isShowRightPanel: true,
       isShowLeftPanel: true,
       currentPageIndex: 0,
       api: null,
+      user: null,
     };
     this.api = null;
   }
@@ -83,6 +80,28 @@ export default class App extends Component {
     });
     this.setState({ api }); // for { api } = useContext(AppContext)
     this.api = api; // for window.app.api
+
+    const username = cookie.load("username");
+    this.api.getUserInfo(username).then(res => {
+      const user = res.data[0];
+      this.api.getUserBookList(user.id).then(res => {
+        let files = res.data;
+        if (files.length === 0) {
+          const examples = loadExample();
+          files = examples.map((file) => {
+            return Object.assign(new File(file), parseNovel(file.detail));
+          });
+        } else {
+          files = files.map(file => new File(file));
+        }
+        this.setState({
+          user,
+          files,
+          currentFileIndex: 0,
+          currentFile: files[0],
+        });
+      });
+    });
   };
 
   onKeydown = (e) => {
@@ -153,6 +172,7 @@ export default class App extends Component {
 
   deleteFile = (index) => {
     const files = this.state.files.slice(0);
+    const book_id = files[index].id;
     files.splice(index, 1);
     this.setState({
       files,
@@ -164,6 +184,8 @@ export default class App extends Component {
         currentPageIndex: 0,
       });
     }
+    this.api.deleteUserBook(this.state.user.id, book_id).then(res => {
+    });
   };
 
   changeStyle = (newStyle) => {

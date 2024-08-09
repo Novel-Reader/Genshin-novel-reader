@@ -268,6 +268,23 @@ class LocalAPI {
     return this.req.get(url);
   }
 
+  // user-book API
+  getUserBookList(user_id) {
+    const url = `${this.server}/api/user-book?user_id=${user_id}`;
+    return this.req.get(url);
+  }
+
+  updateUserBook(user_id, book_id) {
+    const url = `${this.server}/api/user-book`;
+    const options = { user_id, book_id };
+    return this.req.post(url, options);
+  }
+
+  deleteUserBook(user_id, book_id) {
+    const url = `${this.server}/api/user-book?user_id=${user_id}&book_id=${book_id}`;
+    return this.req.delete(url);
+  }
+
 }
 
 export default LocalAPI;

@@ -43,15 +43,16 @@ class LoadFromServer extends Component {
       });
   };
 
-  downLoadNovel = (id) => {
-    window.app.api
-      .getNovelDetail(id)
-      .then((res) => {
-        this.props.addFile(new File(res.data[0]));
-      })
-      .catch((err) => {
-        toaster.danger(err);
+  downLoadNovel = (book_id) => {
+    window.app.api.getNovelDetail(book_id).then((res) => {
+      this.props.addFile(new File(res.data[0]));
+      const userId = window.app.state.user.id;
+      window.app.api.updateUserBook(userId, book_id).then((res) => {
+        // console.log(res.data === 'success');
       });
+    }).catch((err) => {
+      toaster.danger(err);
+    });
   };
 
   changeSearch = () => {
