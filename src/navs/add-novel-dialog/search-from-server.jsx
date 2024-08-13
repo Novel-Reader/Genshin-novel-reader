@@ -68,14 +68,14 @@ class SearchFromServer extends Component {
             {intl.get('Search')}
           </Button>
         </div>
-        {this.state.isLoading ? (
+        {this.state.isLoading ?
           <div>{intl.get('Searching, please wait')}</div>
-        ) : (
+          :
           <BookList
             novelList={this.state.novelList}
             downLoadNovel={this.props.downLoadNovel}
           />
-        )}
+        }
       </div>
     );
   }
