@@ -69,10 +69,6 @@ const loadExample = () => {
   return files;
 };
 
-const getSuffix = (name) => {
-  return name.substring(name.lastIndexOf(".") + 1);
-};
-
 const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz0123456789';
 
 // Generate a random string of specified length.
@@ -89,6 +85,5 @@ export {
   isSameObject,
   MenuSelectStyle,
   loadExample,
-  getSuffix,
   generatorBase64Code,
 };

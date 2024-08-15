@@ -2,17 +2,13 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import intl from "react-intl-universal";
 import ScrollTopIcon from "../common/scroll-top-button";
-import MarkdownViewer from "../common/markdown-viewer";
 import TextViewer from "../common/text-viewer";
-import CodeViewer from "../common/code-viewer";
 import FoldedIcon from "./folded-icon";
 import {
   PAGES,
   PARAGRAPHS,
   DEFAULT_IMAGE,
-  UPLOAD_FILE_TYPES,
 } from "../utils/constants";
-import { getSuffix } from "../utils";
 
 import "./index.css";
 
@@ -82,7 +78,6 @@ export default class Main extends Component {
 
   renderDetail = () => {
     const { currentFile, currentPageIndex } = this.props;
-
     // 这里数据类型处理的不好，未来重新处理
     let detail = "";
     if (currentFile.type === PAGES || currentFile.type === PARAGRAPHS) {
@@ -90,21 +85,6 @@ export default class Main extends Component {
     } else {
       detail = currentFile.detail;
     }
-
-    const fileName = currentFile.name.toLowerCase();
-    const suffix = getSuffix(fileName);
-
-    if (currentFile) {
-      // markdown阅读器
-      if (suffix === "md") {
-        return <MarkdownViewer detail={detail} />;
-      }
-      // 代码片段阅读器
-      if (UPLOAD_FILE_TYPES.includes(suffix)) {
-        return <CodeViewer detail={detail} lan={suffix} currentFile={currentFile} />;
-      }
-    }
-    // 其他都使用 txt 格式
     return <TextViewer detail={detail} />;
   };
 
