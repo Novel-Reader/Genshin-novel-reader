@@ -1,6 +1,8 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MediaQuery from "react-responsive";
+import { Provider } from 'react-redux';
+import store from './store';
 import App from "./App";
 import AppMobile from "./App-mobile";
 import Admin from "./pages/admin";
@@ -51,7 +53,9 @@ if (setting.mode === "offline") {
       element: (
         <>
           <MediaQuery query="(min-device-width: 767.8px)">
-            <App />
+            <Provider store={store}>
+              <App />
+            </Provider>
           </MediaQuery>
           <MediaQuery query="(max-device-width: 767.8px)">
             <AppMobile />
@@ -63,6 +67,10 @@ if (setting.mode === "offline") {
   ]);
 }
 
-const Router = <RouterProvider router={router} />;
+const Router = (
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+);
 
 export default Router;
