@@ -87,6 +87,7 @@ class App extends Component {
     const username = cookie.load("username");
     this.api.getUserInfo(username).then(res => {
       const user = res.data[0];
+      this.api.setUserInfo({ user_id: user.id, username: username });
       this.api.getUserBookList(user.id).then(res => {
         let files = res.data;
         if (files.length === 0) {

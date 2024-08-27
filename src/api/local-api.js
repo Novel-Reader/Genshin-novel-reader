@@ -18,7 +18,12 @@ class LocalAPI {
         headers: { Authorization: "Bearer " + this.token },
       });
     }
+    this.info = {};
     return this;
+  }
+
+  setUserInfo(info) {
+    this.info = Object.assign({}, this.info, info);
   }
 
   /**
@@ -201,8 +206,8 @@ class LocalAPI {
    * @param {string} id
    * @returns novel
    */
-  getNovelDetail(id) {
-    const url = `${this.server}/api/search-novel?id=${id}`;
+  getNovelDetail(book_id) {
+    const url = `${this.server}/api/search-novel?book_id=${book_id}&user_id=${this.info.user_id}`;
     return this.req.get(url);
   }
 
