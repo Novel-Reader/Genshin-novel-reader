@@ -7,7 +7,7 @@ import BookDetailDialog from "../book-detail-dialog";
 function Book(props) {
   const [showDetail, setShowDetail] = useState(false);
   const { novel } = props;
-  const { id, author, brief, cover_photo, name, price, size } = novel;
+  const { id, author, brief, cover_photo, name, price, size, download_count } = novel;
   return (
     <div className="book">
       <div className="book-left">
@@ -24,6 +24,7 @@ function Book(props) {
         <div className="book-right-price">
           <span>价格{price}</span>
           <span>字数{size}</span>
+          <span>下载{download_count}</span>
           <span className="icon" onClick={() => setShowDetail(true)}><FaRegCommentDots /></span>
           <span className="icon" onClick={() => { props.downLoadNovel(id); }}><BsDownload /></span>
         </div>
