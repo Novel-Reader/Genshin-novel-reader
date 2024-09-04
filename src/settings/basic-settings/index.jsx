@@ -62,13 +62,9 @@ function BasicSettings(props) {
       {isAdmin && api && <Admin />}
       <Share />
       <FullScreen />
-      <div className="setting-divide-line"></div>
       <LangSettings />
-      <div className="setting-divide-line"></div>
       <FontSettings onSave={onSaveFont} />
-      <div className="setting-divide-line"></div>
       <ThemeSettings onSave={onSaveTheme} />
-      <div className="setting-divide-line"></div>
       <ModeSettings changeMode={props.changeMode} />
     </div>
   );

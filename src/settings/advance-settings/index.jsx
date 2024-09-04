@@ -23,9 +23,7 @@ function AdvanceSettings(props) {
   return (
     <div className="advance-settings">
       <WatermarkSettings />
-      <div className="setting-divide-line"></div>
       <AdvanceThemeSettings changeStyle={changeStyle} />
-      <div className="setting-divide-line"></div>
       <FontSettings
         options={FONT_SIZES}
         title={intl.get('Font size')}
@@ -54,7 +52,6 @@ function AdvanceSettings(props) {
           changeStyle({ lineHeight: option.value });
         }}
       />
-      <div className="setting-divide-line"></div>
       <ColorSettings
         changeStyle={changeStyle}
         title={intl.get('Font color')}

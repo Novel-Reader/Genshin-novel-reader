@@ -48,7 +48,7 @@ class ColorSettings extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="advance-font-settings">
         <Label>{this.props.title}</Label>
         <div
           style={{ backgroundColor: this.state.color }}

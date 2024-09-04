@@ -188,8 +188,7 @@ class App extends Component {
         currentPageIndex: 0,
       });
     }
-    this.api.deleteUserBook(this.state.user.id, book_id).then(res => {
-    });
+    this.api && this.api.deleteUserBook(this.state.user.id, book_id);
   };
 
   changeStyle = (newStyle) => {

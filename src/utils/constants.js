@@ -56,7 +56,7 @@ const PARAGRAPHS = "paragraphs";
 
 const DEFAULT_IMAGE = "https://julia-1994.github.io/images/KamisatoAyaka/02.jpg";
 
-const UPLOAD_FILE_TYPES = ["txt", "md", "c", "css", "js", "py"];
+const UPLOAD_FILE_TYPES = ["txt", "md", "js", "py"];
 
 // handle input accept file types
 const INPUT_ACCEPT_FILE_TYPE = UPLOAD_FILE_TYPES.map((item) => "." + item).join(",");

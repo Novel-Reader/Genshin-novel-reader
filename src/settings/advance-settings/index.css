@@ -2,8 +2,9 @@
   padding: 0;
 }
 .advance-settings .advance-theme-settings-select,
-.advance-settings advance-font-settings {
+.advance-settings .advance-font-settings {
   cursor: pointer;
+  margin-bottom: 0.5rem;
 }
 .advance-settings #font-color-settings-current {
   width: 20px;

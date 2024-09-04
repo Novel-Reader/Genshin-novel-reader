@@ -19,6 +19,9 @@
   line-height: 30px;
   padding-left: 7px;
   color: #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #main .long-page {
   overflow: auto;

@@ -18,7 +18,3 @@
   height: calc(100% - 40px);
   overflow-y: auto;
 }
-.settings .settings-body .setting-divide-line {
-  margin: 14px 16px;
-  border-bottom: 1px solid #cccccc;
-}
