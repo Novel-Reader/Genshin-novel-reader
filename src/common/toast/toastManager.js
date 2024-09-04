@@ -58,7 +58,7 @@ export default class ToastManager extends React.PureComponent {
     const id = hasCustomId(settings) ? `${settings.id}-${uniqueId}` : uniqueId;
 
     let hasCloseButton = settings.hasCloseButton || true;
-    let duration = settings.duration || 2;
+    let duration = settings.duration || 3;
     if (settings.hasCloseButton !== undefined) {
       hasCloseButton = settings.hasCloseButton;
     }

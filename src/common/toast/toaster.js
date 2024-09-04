@@ -4,8 +4,6 @@ import ToastManager from './toastManager';
 
 import './index.css';
 
-// 存在的问题：当前弹出的位置不是中心，需要调整一下
-
 const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
 
 /**

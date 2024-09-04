@@ -44,6 +44,10 @@ class LoadFromServer extends Component {
   };
 
   downLoadNovel = (book_id) => {
+    if (this.props.checkFileExist(book_id)) {
+      toaster.danger('已经下载到本地，不需要再次下载');
+      return;
+    }
     window.app.api.getNovelDetail(book_id).then((res) => {
       this.props.addFile(new File(res.data[0]));
       const userId = window.app.state.user.id;
@@ -88,6 +92,7 @@ class LoadFromServer extends Component {
 
 LoadFromServer.propTypes = {
   addFile: PropTypes.func.isRequired,
+  checkFileExist: PropTypes.func.isRequired,
 };
 
 export default LoadFromServer;

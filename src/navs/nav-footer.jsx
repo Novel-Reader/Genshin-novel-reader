@@ -28,6 +28,7 @@ class NavFooter extends Component {
           <AddNovelDialog
             toggleDialog={this.toggleDialog}
             addFile={this.props.addFile}
+            checkFileExist={this.props.checkFileExist}
           />
         )}
       </>
@@ -37,6 +38,7 @@ class NavFooter extends Component {
 
 NavFooter.propTypes = {
   addFile: PropTypes.func.isRequired,
+  checkFileExist: PropTypes.func.isRequired,
 };
 
 export default NavFooter;

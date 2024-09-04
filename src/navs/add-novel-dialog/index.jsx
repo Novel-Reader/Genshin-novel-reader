@@ -68,6 +68,7 @@ class AddNovelDialog extends Component {
               <LoadFromServer
                 addFile={this.props.addFile}
                 toggleDialog={this.props.toggleDialog}
+                checkFileExist={this.props.checkFileExist}
               />
             )}
           </div>
@@ -80,6 +81,7 @@ class AddNovelDialog extends Component {
 AddNovelDialog.propTypes = {
   toggleDialog: PropTypes.func.isRequired,
   addFile: PropTypes.func.isRequired,
+  checkFileExist: PropTypes.func.isRequired,
 };
 
 export default AddNovelDialog;

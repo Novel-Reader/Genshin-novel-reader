@@ -47,6 +47,11 @@ export default class Navs extends Component {
     this.setState({ searchValue: e.target.value });
   };
 
+  checkFileExist = (book_id) => {
+    const { files } = this.props;
+    return files.find(file => file.id === book_id);
+  };
+
   renderFileTree = () => {
     const { currentFileIndex, files } = this.props;
     const { searchValue } = this.state;
@@ -100,7 +105,7 @@ export default class Navs extends Component {
             />
           )}
         </div>
-        <NavFooter addFile={this.props.addFile} />
+        <NavFooter addFile={this.props.addFile} checkFileExist={this.checkFileExist} />
       </div>
     );
   }
