@@ -1,6 +1,6 @@
 import setting from "./setting.json";
-import localsetting from "./setting.local.json";
+import localSetting from "./setting.local.json";
 
-const newSetting = Object.assign({}, setting, localsetting);
+const newSetting = Object.assign({}, setting, localSetting);
 
 export default newSetting;

@@ -11,7 +11,7 @@ function ModeSettings(props) {
   const [mode, setTheme] = useState(2);
 
   const options = [
-    { value: PAGES, label: intl.get('Seperate'), },
+    { value: PAGES, label: intl.get('Separate'), },
     { value: PARAGRAPHS, label: intl.get('Paragraph') },
   ];
 

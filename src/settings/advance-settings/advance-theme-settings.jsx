@@ -75,7 +75,7 @@ class AdvanceThemeSettings extends Component {
           backgroundColor: "rgb(253, 243, 239)",
           backgroundImage: `${preLink}/Noelle/01.webp`,
         },
-        label: intl.get('Noello'),
+        label: intl.get('Noelle'),
       },
     ];
   }

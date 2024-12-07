@@ -247,7 +247,7 @@ class LocalAPI {
   /**
    * search novel
    * @param {string} novel name
-   * @param {stribg} author name
+   * @param {string} author name
    * @param {number} novel price
    * @returns {object} novel
    */

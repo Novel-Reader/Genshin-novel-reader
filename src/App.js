@@ -139,7 +139,7 @@ class App extends Component {
     if (Array.isArray(detail)) {
       detail = detail.join(' ');
     } else if (typeof detail !== 'string') {
-      detail = 'Article data structure is not correct, please reupload or redownload this article.';
+      detail = 'Article data structure is not correct, please reupload or re-download this article.';
     }
     // change mode
     if (mode === PAGES) {

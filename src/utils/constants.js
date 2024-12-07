@@ -5,7 +5,7 @@ const FONT_SIZES = [
   { value: "24px", label: "24px" },
 ];
 
-const FONT_FAMILYS = [
+const FONT_FAMILY = [
   { value: "Segoe UI", label: "Segoe UI" },
   { value: "Roboto", label: "Roboto" },
   { value: "Helvetica Neue", label: "Helvetica Neue" },
@@ -64,7 +64,7 @@ const INPUT_ACCEPT_FILE_TYPE = UPLOAD_FILE_TYPES.map((item) => "." + item).join(
 export {
   INPUT_ACCEPT_FILE_TYPE,
   FONT_SIZES,
-  FONT_FAMILYS,
+  FONT_FAMILY,
   FONT_WEIGHTS,
   LINE_HEIGHTS,
   OPACITIES,

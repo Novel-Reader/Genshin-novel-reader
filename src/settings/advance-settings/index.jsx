@@ -7,7 +7,7 @@ import FontSettings from "./font-settings";
 import WatermarkSettings from "./watermark-settings";
 import {
   FONT_SIZES,
-  FONT_FAMILYS,
+  FONT_FAMILY,
   FONT_WEIGHTS,
   LINE_HEIGHTS,
   OPACITIES,
@@ -32,7 +32,7 @@ function AdvanceSettings(props) {
         }}
       />
       <FontSettings
-        options={FONT_FAMILYS}
+        options={FONT_FAMILY}
         title={intl.get('Font typeface')}
         save={(option) => {
           changeStyle({ fontFamily: option.value });

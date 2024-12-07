@@ -75,7 +75,7 @@ function BookDetailDialog(props) {
     <Modal
       isOpen={true}
       toggle={props.toggleDialog}
-      className="book-datial-dialog"
+      className="book-detail-dialog"
       size="lg"
     >
       <ModalHeader toggle={props.toggleDialog}>{intl.get('Comment')}</ModalHeader>

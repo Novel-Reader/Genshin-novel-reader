@@ -27,7 +27,7 @@ export default class Navs extends Component {
     this.state = {
       isSearch: false,
       searchValue: "",
-      currentNav: NAV_TYPE.FILETREE,
+      currentNav: NAV_TYPE.FILE_TREE,
     };
   }
 
@@ -96,7 +96,7 @@ export default class Navs extends Component {
           closeSearch={this.closeSearch}
         />
         <div className="navs-body">
-          {currentNav === NAV_TYPE.FILETREE && this.renderFileTree()}
+          {currentNav === NAV_TYPE.FILE_TREE && this.renderFileTree()}
           {currentNav === NAV_TYPE.OUTLINE && (
             <Outline
               currentFile={currentFile}

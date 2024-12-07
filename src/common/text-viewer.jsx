@@ -5,7 +5,7 @@ import { parseTxtToHTML } from "../utils";
 function TextViewer(props) {
   const { detail } = props; 
   if (typeof detail !== 'string') {
-    return <div>{'Article data structure is not correct, please reupload or redownload this article.'}</div>;
+    return <div>{'Article data structure is not correct, please reupload or re-download this article.'}</div>;
   }
   const list = parseTxtToHTML(detail);
   return (
