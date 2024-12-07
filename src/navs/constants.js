@@ -1,5 +1,5 @@
 const NAV_TYPE = {
-  FILETREE: "filetree",
+  FILE_TREE: "file_tree",
   OUTLINE: "outline",
 };
 

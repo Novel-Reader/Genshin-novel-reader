@@ -152,7 +152,7 @@ class LoadFromLocal extends Component {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="filetag">分类</Label>
+            <Label for="file-tag">分类</Label>
             <Select
               value={this.state.currentSelected}
               options={this.options}

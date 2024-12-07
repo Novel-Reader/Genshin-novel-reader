@@ -32,7 +32,7 @@ function FileInfoDialog({ file, toggleDialog }) {
     <Modal
       isOpen={true}
       toggle={toggleDialog}
-      className="book-datial-dialog"
+      className="book-detail-dialog"
     >
       <ModalHeader toggle={toggleDialog}>{intl.get('Information')}</ModalHeader>
       <ModalBody>

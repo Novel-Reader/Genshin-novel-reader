@@ -27,7 +27,7 @@ function NavHeader(props) {
       </div>
     );
   }
-  if (currentNav === NAV_TYPE.FILETREE && isSearch === false) {
+  if (currentNav === NAV_TYPE.FILE_TREE && isSearch === false) {
     return (
       <div className="navs-header">
         <NavIcon onClick={() => props.changeCurrentNav(NAV_TYPE.OUTLINE)}>
@@ -43,7 +43,7 @@ function NavHeader(props) {
   if (currentNav === NAV_TYPE.OUTLINE && isSearch === false) {
     return (
       <div className="navs-header">
-        <NavIcon onClick={() => props.changeCurrentNav(NAV_TYPE.FILETREE)}>
+        <NavIcon onClick={() => props.changeCurrentNav(NAV_TYPE.FILE_TREE)}>
           <BsListUl />
         </NavIcon>
         <span>{intl.get('Outline')}</span>
