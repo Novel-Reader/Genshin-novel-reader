@@ -43,6 +43,7 @@ const en = {
   'No corresponding novel found, please try using a different keyword': 'No corresponding novel found, please try using a different keyword',
   'Local import': 'Local import',
   'Online import': 'Online import',
+  'Local import batch': 'Local import batch',
   'This is an exclusive feature for networking': 'This is an exclusive feature for networking',
   'Hot': 'Hot',
   'Online search': 'Online search',

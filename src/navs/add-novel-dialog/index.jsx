@@ -11,6 +11,8 @@ import {
 } from "reactstrap";
 import LoadFromLocal from "./load-from-local";
 import LoadFromServer from "./load-from-server";
+import LoadFromLocalBatch from "./load-from-local-batch";
+import setting from "../../setting.js";
 
 import "./index.css";
 
@@ -20,6 +22,7 @@ class AddNovelDialog extends Component {
     this.state = {
       activeTab: "local",
     };
+    this.isOnline = setting.mode === "online";
   }
 
   toggle = (activeTab) => {
@@ -55,6 +58,16 @@ class AddNovelDialog extends Component {
                   {intl.get('Online import')}
                 </NavLink>
               </NavItem>
+              {this.isOnline &&
+              <NavItem>
+                <NavLink
+                  className={activeTab === "batch" ? "active" : ""}
+                  onClick={this.toggle.bind(this, "batch")}
+                >
+                  {intl.get('Local import batch')}
+                </NavLink>
+              </NavItem>
+              }
             </Nav>
           </div>
           <div className="add-novel-dialog-main">
@@ -69,6 +82,11 @@ class AddNovelDialog extends Component {
                 addFile={this.props.addFile}
                 toggleDialog={this.props.toggleDialog}
                 checkFileExist={this.props.checkFileExist}
+              />
+            )}
+            {activeTab === "batch" && (
+              <LoadFromLocalBatch
+                toggleDialog={this.props.toggleDialog}
               />
             )}
           </div>

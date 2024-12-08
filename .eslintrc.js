@@ -25,6 +25,8 @@ module.exports = {
   },
   plugins: ["react-hooks"],
   rules: {
+    indent: "off",
+    "n/handle-callback-err": "off",
     eqeqeq: "off",
     "prefer-const": "off",
     quotes: "off",
