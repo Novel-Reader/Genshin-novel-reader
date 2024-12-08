@@ -42,6 +42,7 @@ const zh = {
   'No corresponding novel found, please try using a different keyword': '',
   'Local import': '本地导入',
   'Online import': '在线导入',
+  'Local import batch': '本地批量导入',
   'This is an exclusive feature for networking': '这是联网专用功能',
   'Hot': '热点',
   'Online search': '在线搜索',
