@@ -8,17 +8,11 @@ export default class Login extends Component {
     super(props);
     this.state = {
       isShowLogin: false,
-      isShowRegister: false,
     };
   }
 
   toggleLoginDialog = () => {
     this.setState({ isShowLogin: !this.state.isShowLogin });
-  };
-
-  toggleRegisterDialog = () => {
-    alert("暂不支持新用户注册哦，请联系管理员");
-    this.setState({ isShowRegister: !this.state.isShowRegister });
   };
 
   render() {
@@ -37,17 +31,11 @@ export default class Login extends Component {
             <Button color="warning" onClick={this.toggleLoginDialog}>
               登录
             </Button>
-            <Button color="warning" onClick={this.toggleRegisterDialog}>
-              注册
-            </Button>
           </header>
         </div>
         {this.state.isShowLogin && (
           <LoginDialog toggle={this.toggleLoginDialog} />
         )}
-        {/* {this.state.isShowRegister &&
-          <RegisterDialog toggle={this.toggleLoginDialog} />
-        } */}
       </>
     );
   }
