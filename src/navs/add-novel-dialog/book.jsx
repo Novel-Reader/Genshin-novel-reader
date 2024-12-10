@@ -7,7 +7,7 @@ import BookDetailDialog from "../book-detail-dialog";
 function Book(props) {
   const [showDetail, setShowDetail] = useState(false);
   const { novel } = props;
-  const { id, author, brief, cover_photo, name, price, size, download_count } = novel;
+  const { id, author, brief, cover_photo, name, size, download_count } = novel;
   return (
     <div className="book">
       <div className="book-left">
@@ -19,14 +19,17 @@ function Book(props) {
         </div>
         <div className="book-right-author">{author}</div>
         <p className="book-right-detail">
-          {brief.replace(/\s+/gi, "").slice(0, 40)}
+          {brief.replace(/\s+/gi, "").slice(0, 80)}
         </p>
         <div className="book-right-price">
-          <span>价格{price}</span>
           <span>字数{size}</span>
           <span>下载{download_count}</span>
-          <span className="icon" onClick={() => setShowDetail(true)}><FaRegCommentDots /></span>
-          <span className="icon" onClick={() => { props.downLoadNovel(id); }}><BsDownload /></span>
+          <span className="icon" onClick={() => setShowDetail(true)}>
+            <FaRegCommentDots />
+          </span>
+          <span className="icon" onClick={() => { props.downLoadNovel(id); }}>
+            <BsDownload />
+          </span>
         </div>
       </div>
       {showDetail &&
