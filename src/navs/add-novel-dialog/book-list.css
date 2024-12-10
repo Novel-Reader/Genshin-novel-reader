@@ -5,20 +5,23 @@
   overflow-y: auto;
 }
 .book-list .book {
-  width: 50%;
+  width: 30%;
   display: flex;
   padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
 }
 .book-list .book .book-left {
-  width: 50%;
+  width: 40%;
   padding-right: 10px;
 }
 .book-list .book .book-left img {
   max-width: 100%;
   width: 120px;
+  margin: 50% 0;
 }
 .book-list .book .book-right {
-  width: 50%;
+  width: 60%;
   overflow: hidden;
 }
 .book-list .book .book-right .book-right-name {

@@ -1,5 +1,8 @@
+.add-novel-dialog {
+  max-width: calc(100% - 200px) !important;
+}
 .add-novel-dialog .modal-content {
-  min-height: 300px;
+  min-height: 500px;
   max-height: 100%;
 }
 .add-novel-dialog .modal-body {

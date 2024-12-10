@@ -1,30 +1,30 @@
-.modal-body {
+.book-detail-dialog .modal-body {
   overflow-y: auto;
   max-height: 300px;
   padding: 10px 30px;
 }
-.modal-body .comment-list .comment-item {
+.book-detail-dialog .modal-body .comment-list .comment-item {
   border-bottom: 1px dashed #ccc;
   margin-top: 10px;
 }
-.modal-body .comment-list .comment-item textarea {
+.book-detail-dialog .modal-body .comment-list .comment-item textarea {
   width: 100%;
   min-height: 80px;
 }
-.modal-body .comment-list .comment-item .comment-btns {
+.book-detail-dialog .modal-body .comment-list .comment-item .comment-btns {
   padding: 10px 0px;
   display: flex;
   justify-content: flex-end;
   font-size: 13px;
 }
-.modal-body .comment-list .comment-item .comment-btns span {
+.book-detail-dialog .modal-body .comment-list .comment-item .comment-btns span {
   padding: 0 10px;
   border-right: 1px dashed #ccc;
   cursor: pointer;
 }
-.modal-body .comment-list .comment-item .comment-btns span:last-child {
+.book-detail-dialog .modal-body .comment-list .comment-item .comment-btns span:last-child {
   border-right: none;
 }
-.modal-body .comment-list .comment-item .comment-btns .comment-btns-time {
+.book-detail-dialog .modal-body .comment-list .comment-item .comment-btns .comment-btns-time {
   cursor: default;
 }
