@@ -26,7 +26,6 @@ class LoadFromLocal extends Component {
       { value: "其他", label: "其他" },
     ];
     this.isOnline = setting.mode === "online";
-    this.checkboxRef = React.createRef();
   }
 
   onClick = () => {
@@ -75,7 +74,7 @@ class LoadFromLocal extends Component {
       tag,
     });
     this.props.addFile(fileObj);
-    if (this.isOnline && this.checkboxRef.current.checked) {
+    if (this.isOnline) {
       this.uploadToServer(fileObj);
     }
     this.props.toggleDialog();
@@ -83,25 +82,24 @@ class LoadFromLocal extends Component {
 
   uploadToServer = (fileObj) => {
     const { name, author, detail, brief, tag, size } = fileObj;
-    // TODO edit cover_photo and price
     const cover_photo = "";
-    const price = 100;
+    const price = 0;
     toaster.warning("正在上传中...");
-    window.app.api
-      .addNovel(name, cover_photo, author, detail, price, brief, size, tag)
-      .then((res) => {
-        toaster.success("上传成功");
-        const userId = window.app.state.user.id;
-        const book_id = res.data[0].id;
-        window.app.api.updateUserBook(userId, book_id).then((res) => {
-          // res.data === 'success'
-        });
-      })
-      .catch((err) => {
-        toaster.danger("上传失败");
-        // eslint-disable-next-line no-console
-        console.log(err);
+    window.app.api.addNovel(name, cover_photo, author, detail, price, brief, size, tag)
+    .then((res) => {
+      const userId = window.app.state.user.id;
+      const book_id = res.data[0].id;
+      window.app.api.updateUserBook(userId, book_id).then((res) => {
+        if (res.data === 'success') {
+          toaster.success("上传成功");
+        }
       });
+    })
+    .catch((err) => {
+      toaster.danger("上传失败");
+      // eslint-disable-next-line no-console
+      console.log(err);
+    });
   };
 
   render() {
@@ -178,12 +176,6 @@ class LoadFromLocal extends Component {
               }}
             />
           </FormGroup>
-          {this.isOnline && (
-            <FormGroup check>
-              <Input type="checkbox" innerRef={this.checkboxRef} />{" "}
-              <Label check>是否同步到线上</Label>
-            </FormGroup>
-          )}
           <ModalFooter>
             <Button onClick={this.onUpload} color="primary">
               上传
