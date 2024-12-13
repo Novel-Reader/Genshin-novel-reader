@@ -114,6 +114,7 @@ class App extends Component {
       if (document.activeElement.nodeName.toLowerCase() !== 'body') return;
       e.preventDefault();
       if (currentPageIndex === 0) {
+        toaster.closeAll();
         toaster.warning(intl.get('This is already the first page'));
         return;
       }
@@ -124,6 +125,7 @@ class App extends Component {
       const file = files[currentFileIndex];
       const maxIndex = file.detail.length - 1;
       if (currentPageIndex === maxIndex) {
+        toaster.closeAll();
         toaster.warning(intl.get('This is already the last page'));
         return;
       }
