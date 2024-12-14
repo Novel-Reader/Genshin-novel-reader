@@ -53,7 +53,7 @@ class LoadFromLocal extends Component {
     this.setState({
       filename: this.state.file.name,
       author: "",
-      brief: this.tmpFile.slice(0, 100).trim(),
+      brief: this.tmpFile.slice(0, 300).replace(/\s+/gi, "").slice(0, 100),
     });
   };
 

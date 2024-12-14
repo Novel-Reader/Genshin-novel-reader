@@ -14,36 +14,28 @@ class SearchFromServer extends Component {
     };
     this.nameRef = React.createRef();
     this.authorRef = React.createRef();
-    this.priceRef = React.createRef();
   }
 
   searchNovels = () => {
     const name = this.nameRef.current.value.trim();
-    const price = this.priceRef.current.value;
     const author = this.authorRef.current.value.trim();
-    if (price < 0) {
-      toaster.danger(intl.get('The book price should be greater than 0'));
-      return;
-    }
+    const price = 0;
     if (!name && !price && !author && price !== 0) {
       toaster.danger(intl.get('Missing some required fields'));
       return;
     }
     this.setState({ isSearch: true });
-    window.app.api
-      .searchNovel(name, author, price)
-      .then((res) => {
-        this.setState({
-          isLoading: false,
-          novelList: res.data,
-        });
-      })
-      .catch((err) => {
-        toaster.danger(err);
-        this.setState({
-          isLoading: false,
-        });
+    window.app.api.searchNovel(name, author, price).then((res) => {
+      this.setState({
+        isLoading: false,
+        novelList: res.data,
       });
+    }).catch((err) => {
+      toaster.danger(err);
+      this.setState({
+        isLoading: false,
+      });
+    });
   };
 
   render() {
@@ -59,17 +51,13 @@ class SearchFromServer extends Component {
               <Label>{intl.get('Author')}</Label>
               <Input type="text" innerRef={this.authorRef} />
             </FormGroup>
-            <FormGroup>
-              <Label>{intl.get('Price')}</Label>
-              <Input type="number" innerRef={this.priceRef} />
-            </FormGroup>
           </Form>
           <Button color="success" onClick={this.searchNovels}>
             {intl.get('Search')}
           </Button>
         </div>
         {this.state.isLoading ?
-          <div>{intl.get('Searching, please wait')}</div>
+          <div>{intl.get('Searching...')}</div>
           :
           <BookList
             novelList={this.state.novelList}
