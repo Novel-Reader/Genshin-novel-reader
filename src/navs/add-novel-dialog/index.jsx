@@ -50,24 +50,24 @@ class AddNovelDialog extends Component {
                   {intl.get('Local import')}
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink
-                  className={activeTab === "network" ? "active" : ""}
-                  onClick={this.toggle.bind(this, "network")}
-                >
-                  {intl.get('Online import')}
-                </NavLink>
-              </NavItem>
               {this.isOnline &&
               <NavItem>
                 <NavLink
                   className={activeTab === "batch" ? "active" : ""}
                   onClick={this.toggle.bind(this, "batch")}
                 >
-                  {intl.get('Local import batch')}
+                  {intl.get('Batch import')}
                 </NavLink>
               </NavItem>
               }
+              <NavItem>
+                <NavLink
+                  className={activeTab === "network" ? "active" : ""}
+                  onClick={this.toggle.bind(this, "network")}
+                >
+                  {intl.get('Online search')}
+                </NavLink>
+              </NavItem>
             </Nav>
           </div>
           <div className="add-novel-dialog-main">

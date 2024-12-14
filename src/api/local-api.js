@@ -207,54 +207,13 @@ class LocalAPI {
    * @returns novel
    */
   getNovelDetail(book_id) {
-    const url = `${this.server}/api/search-novel?book_id=${book_id}&user_id=${this.info.user_id}`;
+    const url = `${this.server}/api/novel-detail?book_id=${book_id}&user_id=${this.info.user_id}`;
     return this.req.get(url);
   }
 
-  /**
-   * search novel by novel name
-   * @param {string} novel name
-   * @returns {object} novel
-   */
-  searchNovelByName(name) {
+  searchNovel(keyword) {
     const url = `${this.server}/api/search-novel`;
-    const options = { name };
-    return this.req.post(url, options);
-  }
-
-  /**
-   * search novel by author name
-   * @param {string} author name
-   * @returns {object} novel
-   */
-  searchNovelByAuthor(author) {
-    const url = `${this.server}/api/search-novel`;
-    const options = { author };
-    return this.req.post(url, options);
-  }
-
-  /**
-   * search novel by price
-   * @param {number} price of searched novel
-   * @returns {object} novel
-   */
-  searchNovelByPrice(price) {
-    const url = `${this.server}/api/search-novel`;
-    const options = { price };
-    return this.req.post(url, options);
-  }
-
-  /**
-   * search novel
-   * @param {string} novel name
-   * @param {string} author name
-   * @param {number} novel price
-   * @returns {object} novel
-   */
-  searchNovel(name, author, price) {
-    const url = `${this.server}/api/search-novel`;
-    const options = { name, author, price };
-    return this.req.post(url, options);
+    return this.req.post(url, { keyword });
   }
 
   // admin API

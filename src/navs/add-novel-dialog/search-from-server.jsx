@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import toaster from "../../common/toast";
 import intl from "react-intl-universal";
-import { Button, Input, Label, Form, FormGroup } from "reactstrap";
+import { Button, Input } from "reactstrap";
 import BookList from "./book-list";
 
 class SearchFromServer extends Component {
@@ -12,20 +12,17 @@ class SearchFromServer extends Component {
       isLoading: false,
       novelList: [],
     };
-    this.nameRef = React.createRef();
-    this.authorRef = React.createRef();
+    this.searchInputRef = React.createRef();
   }
 
   searchNovels = () => {
-    const name = this.nameRef.current.value.trim();
-    const author = this.authorRef.current.value.trim();
-    const price = 0;
-    if (!name && !price && !author && price !== 0) {
+    const keyword = this.searchInputRef.current.value.trim();
+    if (!keyword) {
       toaster.danger(intl.get('Missing some required fields'));
       return;
     }
     this.setState({ isSearch: true });
-    window.app.api.searchNovel(name, author, price).then((res) => {
+    window.app.api.searchNovel(keyword).then((res) => {
       this.setState({
         isLoading: false,
         novelList: res.data,
@@ -42,19 +39,8 @@ class SearchFromServer extends Component {
     return (
       <div className="novel-list">
         <div>
-          <Form>
-            <FormGroup>
-              <Label>{intl.get('Name')}</Label>
-              <Input type="text" innerRef={this.nameRef} autoFocus />
-            </FormGroup>
-            <FormGroup>
-              <Label>{intl.get('Author')}</Label>
-              <Input type="text" innerRef={this.authorRef} />
-            </FormGroup>
-          </Form>
-          <Button color="success" onClick={this.searchNovels}>
-            {intl.get('Search')}
-          </Button>
+          <Input type="text" innerRef={this.searchInputRef} autoFocus />
+          <Button color="success" onClick={this.searchNovels}>{intl.get('Search')}</Button>
         </div>
         {this.state.isLoading ?
           <div>{intl.get('Searching...')}</div>

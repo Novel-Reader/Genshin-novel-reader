@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import intl from "react-intl-universal";
+import { TbCircleDotted } from "react-icons/tb";
 import ScrollTopIcon from "../common/scroll-top-button";
 import TextViewer from "../common/text-viewer";
 import FoldedIcon from "./folded-icon";
@@ -93,8 +93,8 @@ export default class Main extends Component {
 
     if (!currentFile) {
       return (
-        <div id="main" className="main error center">
-          {intl.get('There is currently no text available, please upload and select the text')}
+        <div id="main" className="main center">
+          <TbCircleDotted />
         </div>
       );
     }
