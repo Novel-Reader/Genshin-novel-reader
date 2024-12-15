@@ -2,7 +2,7 @@ import React, { useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import cookie from "react-cookies";
 import intl from "react-intl-universal";
-import { Button } from "reactstrap";
+import { Button } from "antd";
 import toaster from "../../common/toast";
 import { AppContext } from "../../context";
 
@@ -42,7 +42,7 @@ function AddComment(props) {
   return (
     <div className="add-comment w-100">
       <textarea ref={commentElement} className="w-100"></textarea>
-      <Button onClick={submitComment} color="primary">{intl.get('Submit')}</Button>
+      <Button onClick={submitComment} type="primary">{intl.get('Submit')}</Button>
     </div>
   );
 }

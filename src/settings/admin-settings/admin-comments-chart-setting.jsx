@@ -1,55 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Select from "react-select";
-import { Label, FormGroup } from "reactstrap";
+import { Select, Form } from "antd";
 import { MenuSelectStyle } from "../../utils";
 
-function AdminCommentsChartSetting({
+const AdminCommentsChartSetting = ({
   selectedDataSource,
   selectedChartType,
-  onChangeDataSource,
-  onChangeChartType,
+  setSelectedDataSource,
+  setSelectedChartType,
   dataSourceOptions,
   chartTypeOptions,
-}) {
-  const preCls = "admin-comments-chart-setting";
+}) => {
+  const [dataSource, setDataSource] = useState(selectedDataSource || dataSourceOptions[0]);
+  const [chartType, setChartType] = useState(selectedChartType || chartTypeOptions[0]);
+
+  const handleDataSourceChange = (value) => {
+    setDataSource(value);
+    setSelectedDataSource(dataSourceOptions.find(option => option.value === value));
+  };
+
+  const handleChartTypeChange = (value) => {
+    setChartType(value);
+    setSelectedChartType(chartTypeOptions.find(option => option.value === value));
+  };
+
   return (
-    <div className={preCls}>
-      <FormGroup>
-        <Label>{'选择数据来源'}</Label>
+    <Form>
+      <Form.Item label={'选择数据来源'}>
         <Select
-          value={selectedDataSource || dataSourceOptions[0]}
+          value={dataSource}
           options={dataSourceOptions}
-          onChange={onChangeDataSource}
-          captureMenuScroll={false}
-          className={`${preCls}-select`}
-          classNamePrefix
-          styles={MenuSelectStyle}
+          onChange={handleDataSourceChange}
+          style={MenuSelectStyle}
         />
-      </FormGroup>
-      <FormGroup>
-        <Label>{'选择图表类型'}</Label>
+      </Form.Item>
+      <Form.Item label={'选择图表类型'}>
         <Select
-          value={selectedChartType || chartTypeOptions[0]}
+          value={chartType}
           options={chartTypeOptions}
-          onChange={onChangeChartType}
-          captureMenuScroll={false}
-          className={`${preCls}-select`}
-          classNamePrefix
-          styles={MenuSelectStyle}
+          onChange={handleChartTypeChange}
+          style={MenuSelectStyle}
         />
-      </FormGroup>
-    </div>
+      </Form.Item>
+    </Form>
   );
-}
+};
 
 AdminCommentsChartSetting.propTypes = {
   selectedDataSource: PropTypes.object,
   selectedChartType: PropTypes.object,
   dataSourceOptions: PropTypes.array.isRequired,
   chartTypeOptions: PropTypes.array.isRequired,
-  onChangeDataSource: PropTypes.func.isRequired,
-  onChangeChartType: PropTypes.func.isRequired,
+  setSelectedDataSource: PropTypes.func.isRequired,
+  setSelectedChartType: PropTypes.func.isRequired,
 };
 
 export default AdminCommentsChartSetting;

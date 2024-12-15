@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { Modal, Button } from "antd";
 import { generatorBase64Code } from '../../utils/index';
 
 function FileInfoDialog({ file, toggleDialog }) {
@@ -30,17 +30,14 @@ function FileInfoDialog({ file, toggleDialog }) {
 
   return (
     <Modal
-      isOpen={true}
-      toggle={toggleDialog}
-      className="book-detail-dialog"
+      open={true}
+      onCancel={toggleDialog}
+      title={intl.get('Information')}
+      footer={[
+        <Button key="close" onClick={toggleDialog}>{intl.get('Close')}</Button>,
+      ]}
     >
-      <ModalHeader toggle={toggleDialog}>{intl.get('Information')}</ModalHeader>
-      <ModalBody>
-        {renderInfo(file)}
-      </ModalBody>
-      <ModalFooter>
-        <Button onClick={toggleDialog}>{intl.get('Close')}</Button>
-      </ModalFooter>
+      {renderInfo(file)}
     </Modal>
   );
 }

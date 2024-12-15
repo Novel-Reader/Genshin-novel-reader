@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from 'axios';
-import { Button } from "reactstrap";
+import { Button } from "antd";
 import { INPUT_ACCEPT_FILE_TYPE } from "../../utils/constants.js";
 import setting from "../../setting.js";
 import toaster from "../../common/toast/index.js";
@@ -39,7 +39,7 @@ class LoadFromLocalBatch extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.onClick} color="primary">选择多个本地文件</Button>
+        <Button type="primary" onClick={this.onClick}>选择多个本地文件</Button>
         <p>支持上传 {INPUT_ACCEPT_FILE_TYPE} 等文本文件，不超过10个文件</p>
         <input
           className="local-file-input"

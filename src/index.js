@@ -1,6 +1,5 @@
 import { createRoot } from "react-dom/client";
 import Router from "./router";
-import "./css/bootstrap.min.css";
 import "./css/common.css";
 
 // ReactDOM.render is no longer supported in React 18.

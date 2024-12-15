@@ -1,4 +1,5 @@
 .add-novel-dialog {
+  width: calc(100% - 200px) !important;
   max-width: calc(100% - 200px) !important;
 }
 .add-novel-dialog .modal-content {

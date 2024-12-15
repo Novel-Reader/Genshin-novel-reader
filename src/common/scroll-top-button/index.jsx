@@ -1,32 +1,26 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import { UncontrolledTooltip } from "reactstrap";
+import { Tooltip } from 'antd';
 import "./index.css";
 
-class ScrollTopIcon extends Component {
-  render() {
-    const id = "novel-scroll-top-icon";
-    return (
-      <>
-        <div
-          className="scroll-top-icon"
-          onClick={this.props.onClick}
-          style={this.props.style}
-          id={id}
-        ></div>
-        <UncontrolledTooltip
-          placement="right"
-          target={id}
-          fade={false}
-          delay={{ show: 0, hide: 0 }}
-        >
-          {intl.get('Back to top')}
-        </UncontrolledTooltip>
-      </>
-    );
-  }
-}
+const ScrollTopIcon = ({ onClick, style }) => {
+  const id = "novel-scroll-top-icon";
+  return (
+    <Tooltip
+      placement="right"
+      title={intl.get('Back to top')}
+      getPopupContainer={() => document.getElementById(id)}
+    >
+      <div
+        className="scroll-top-icon"
+        onClick={onClick}
+        style={style}
+        id={id}
+      ></div>
+    </Tooltip>
+  );
+};
 
 ScrollTopIcon.propTypes = {
   onClick: PropTypes.func.isRequired,

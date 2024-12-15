@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import { Label } from "reactstrap";
+import { Typography } from 'antd';
 import { PAGES, PARAGRAPHS } from "../../utils/constants";
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
@@ -22,7 +22,7 @@ function ModeSettings(props) {
 
   return (
     <div className="basic-settings-item">
-      <Label>阅读模式</Label>
+      <Typography.Title level={5}>阅读模式</Typography.Title>
       <Select
         value={options.find((option) => option.value === mode) || options[0]}
         options={options}

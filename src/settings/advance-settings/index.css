@@ -6,7 +6,7 @@
   cursor: pointer;
   margin-bottom: 0.5rem;
 }
-.advance-settings #font-color-settings-current {
+.advance-settings .font-color-settings-current {
   width: 20px;
   height: 20px;
   margin: 10px;

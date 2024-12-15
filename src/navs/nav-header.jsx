@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Input } from "reactstrap";
+import { Input } from "antd";
 import intl from "react-intl-universal";
 import { BsSearch, BsArrowLeft, BsListUl, BsList } from "react-icons/bs";
 import NavIcon from "./nav-icon";
@@ -22,6 +22,7 @@ function NavHeader(props) {
             onChange={props.onSearchChange}
             placeholder={intl.get('Search')}
             autoFocus
+            style={{ border: "none", outline: "none" }}
           ></Input>
         </div>
       </div>

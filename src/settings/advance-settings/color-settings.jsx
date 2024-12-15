@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Label, Popover } from "reactstrap";
+import { Typography, Popover } from 'antd';
 import { SketchPicker } from "react-color";
 
-class ColorSettings extends React.Component {
+class ColorSettings extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,30 +46,33 @@ class ColorSettings extends React.Component {
     this.setState({ isShowPicker: !this.state.isShowPicker });
   };
 
+  handleVisibleChange = (visible) => {
+    this.setState({ isShowPicker: visible });
+  };
+
   render() {
     return (
       <div className="advance-font-settings">
-        <Label>{this.props.title}</Label>
+        <Typography.Title level={5}>{this.props.title}</Typography.Title>
         <div
           style={{ backgroundColor: this.state.color }}
           onClick={this.toggle}
-          id="font-color-settings-current"
+          className="font-color-settings-current"
         ></div>
-        {this.state.isShowPicker && (
-          <Popover
-            placement="left"
-            isOpen={this.state.isShowPicker}
-            target="font-color-settings-current"
-            fade={false}
-            hideArrow
-          >
+        <Popover
+          content={
             <SketchPicker
               className="font-color-settings-picker"
               color={this.state.color}
               onChangeComplete={this.handleChangeComplete}
             />
-          </Popover>
-        )}
+          }
+          trigger="click"
+          open={this.state.isShowPicker}
+          onOpenChange={this.handleVisibleChange}
+        >
+          <div></div>
+        </Popover>
       </div>
     );
   }

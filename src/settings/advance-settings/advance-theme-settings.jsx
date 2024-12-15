@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Select from "react-select";
-import { Label } from "reactstrap";
+import { Typography } from 'antd';
 import intl from "react-intl-universal";
 import { MenuSelectStyle } from "../../utils";
 
@@ -94,7 +94,7 @@ class AdvanceThemeSettings extends Component {
     const preCls = "advance-theme-settings";
     return (
       <div className={preCls}>
-        <Label>{intl.get('Genshin Theme')}</Label>
+        <Typography.Title level={5}>{intl.get('Genshin Theme')}</Typography.Title>
         <Select
           value={this.state.currentSelected}
           options={this.options}

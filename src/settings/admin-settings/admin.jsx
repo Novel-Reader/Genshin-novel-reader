@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
 import { TbCircleDotted } from "react-icons/tb";
-import { Button, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+import { Button, Modal } from "antd";
 import { AppContext } from "../../context";
 import toaster from "../../common/toast";
 import AdminUsers from "./admin-users";
@@ -70,24 +70,28 @@ function AdminStatisticsDialog({ toggleModal }) {
   }, [comments, users, books]);
 
   return (      
-    <Modal isOpen={true} toggle={toggleModal} size="lg">
-      <ModalHeader toggle={toggleModal}>Admin Statistics</ModalHeader>
-      <ModalBody style={{ maxHeight: 600 }}>
-        {loading && <TbCircleDotted />}
-        {!loading && (
-          <div className="admin-statistics">
-            {comments.length > 0 && <AdminCommentsChart comments={comments} />}
-            <AdminUsers users={users}/>
-            <AdminBooks books={books}/>
-            <AdminComments comments={comments}/>
-          </div>
-        )}
-      </ModalBody>
-      <ModalFooter>
-        <Button color="secondary" onClick={toggleModal}>
+    <Modal
+      width={900}
+      className="admin-statistics-dialog"
+      title="Admin Statistics"
+      open={true}
+      onCancel={toggleModal}
+      footer={[
+        <Button key="close" onClick={toggleModal}>
           Close
-        </Button>
-      </ModalFooter>
+        </Button>,
+      ]}
+    >
+      {loading ? (
+        <TbCircleDotted />
+      ) : (
+        <div className="admin-statistics">
+          <AdminCommentsChart comments={comments} />
+          <AdminUsers users={users} />
+          <AdminBooks books={books} />
+          <AdminComments comments={comments} />
+        </div>
+      )}
     </Modal>
   );
 }

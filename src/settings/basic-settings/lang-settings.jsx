@@ -2,7 +2,7 @@ import React from "react";
 import intl from "react-intl-universal";
 import cookie from "react-cookies";
 import Select from "react-select";
-import { Label } from "reactstrap";
+import { Typography } from 'antd';
 import { MenuSelectStyle } from "../../utils";
 
 function LangSettings() {
@@ -22,7 +22,7 @@ function LangSettings() {
 
   return (
     <div className="basic-settings-item">
-      <Label>{intl.get("Select")}</Label>
+      <Typography.Title level={5}>{intl.get("Select")}</Typography.Title>
       <Select
         value={options.find((option) => option.value === lang) || options[1]}
         options={options}

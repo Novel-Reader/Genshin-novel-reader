@@ -39,8 +39,8 @@ function AdminCommentsChart({ comments }) {
         selectedChartType={selectedChartType}
         dataSourceOptions={dataSourceOptions}
         chartTypeOptions={chartTypeOptions}
-        onChangeDataSource={setSelectedDataSource}
-        onChangeChartType={setSelectedChartType}
+        setSelectedDataSource={setSelectedDataSource}
+        setSelectedChartType={setSelectedChartType}
       />
     </div>
   );

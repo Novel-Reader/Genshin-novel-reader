@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
+import { Button } from "antd";
 import VipButton from "../../common/vip-button";
 import setting from "../../setting.js";
 import toaster from "../../common/toast";
-import { Button } from "reactstrap";
 import BookList from "./book-list";
 import SearchFromServer from "./search-from-server";
 import File from '../../model/file';
@@ -79,7 +79,7 @@ class LoadFromServer extends Component {
       <div className="novel-list">
         <div>
           <h3>{intl.get('Hot')}</h3>
-          <Button onClick={this.changeSearch}>{intl.get('Online search')}</Button>
+          <Button type="primary" onClick={this.changeSearch}>{intl.get('Online search')}</Button>
         </div>
         <BookList
           novelList={this.state.novelList}

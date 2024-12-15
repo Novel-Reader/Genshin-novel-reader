@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, FormGroup, Form, Label, Input, ModalFooter } from "reactstrap";
+import { Button, Form, Input, Upload } from "antd";
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
 import { INPUT_ACCEPT_FILE_TYPE } from "../../utils/constants";
@@ -28,16 +28,12 @@ class LoadFromLocal extends Component {
     this.isOnline = setting.mode === "online";
   }
 
-  onClick = () => {
-    this.uploadRef.click();
-  };
-
   onChange = (option) => {
     this.setState({ currentSelected: option });
   };
 
-  onFileChange = () => {
-    const file = this.uploadRef.files[0];
+  onFileChange = (info) => {
+    const file = info.file;
     const reader = new FileReader();
     reader.readAsText(file, "utf-8");
     const that = this;
@@ -106,52 +102,38 @@ class LoadFromLocal extends Component {
     if (!this.state.file) {
       return (
         <div>
-          <Button onClick={this.onClick} color="primary">选择本地文件</Button>
-          <p>支持上传 {INPUT_ACCEPT_FILE_TYPE} 等文本文件</p>
-          <input
-            className="local-file-input"
-            type="file"
+          <Upload
             accept={INPUT_ACCEPT_FILE_TYPE}
             onChange={this.onFileChange}
-            ref={(node) => {
-              this.uploadRef = node;
-            }}
-          ></input>
-        </div>
+            beforeUpload={() => false}
+          >
+            <Button type="primary">选择本地文件</Button>
+          </Upload>
+          <p>支持上传 {INPUT_ACCEPT_FILE_TYPE} 等文本文件</p>
+        </div>  
       );
     }
     return (
       <div className="local-file-info">
         <Form>
-          <FormGroup>
-            <Label for="filename">名称</Label>
+          <Form.Item label="名称">
             <Input
-              id="filename"
-              name="text"
-              placeholder="请输入上传作品的名称"
-              type="text"
               value={this.state.filename}
               onChange={(e) => {
                 this.setState({ filename: e.target.value });
               }}
             />
-          </FormGroup>
-          <FormGroup>
-            <Label for="author">作者</Label>
+          </Form.Item>
+          <Form.Item label="作者">
             <Input
-              id="author"
-              name="text"
-              placeholder="请输入作者名称"
-              type="text"
               value={this.state.author}
               onChange={(e) => {
                 this.setState({ author: e.target.value });
               }}
             />
-          </FormGroup>
-          <FormGroup>
-            <Label for="file-tag">分类</Label>
-            <Select
+          </Form.Item>
+          <Form.Item label="分类">
+          <Select
               value={this.state.currentSelected}
               options={this.options}
               onChange={this.onChange}
@@ -162,28 +144,17 @@ class LoadFromLocal extends Component {
               placeholder="选择分类"
               styles={MenuSelectStyle}
             />
-          </FormGroup>
-          <FormGroup>
-            <Label for="brief">摘要（默认选择原文前 100 字）</Label>
-            <Input
-              className="load-from-local-brief"
-              id="brief"
-              name="text"
-              type="textarea"
+          </Form.Item>
+          <Form.Item label="摘要">
+            <Input.TextArea
               value={this.state.brief}
               onChange={(e) => {
                 this.setState({ brief: e.target.value });
               }}
             />
-          </FormGroup>
-          <ModalFooter>
-            <Button onClick={this.onUpload} color="primary">
-              上传
-            </Button>
-            <Button onClick={this.onClear} color="secondary">
-              取消
-            </Button>
-          </ModalFooter>
+          </Form.Item>
+          <Button onClick={this.onUpload} type="primary">上传</Button>
+          <Button onClick={this.onClear}>取消</Button>
         </Form>
       </div>
     );
