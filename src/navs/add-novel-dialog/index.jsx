@@ -1,14 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import {
-  Nav,
-  NavItem,
-  NavLink,
-  Modal,
-  ModalHeader,
-  ModalBody,
-} from "reactstrap";
+import { Modal, Tabs, Button } from "antd";
 import LoadFromLocal from "./load-from-local";
 import LoadFromServer from "./load-from-server";
 import LoadFromLocalBatch from "./load-from-local-batch";
@@ -25,7 +18,7 @@ class AddNovelDialog extends Component {
     this.isOnline = setting.mode === "online";
   }
 
-  toggle = (activeTab) => {
+  handleTabChange = (activeTab) => {
     this.setState({ activeTab });
   };
 
@@ -33,64 +26,37 @@ class AddNovelDialog extends Component {
     const { activeTab } = this.state;
     return (
       <Modal
-        isOpen={true}
-        toggle={this.props.toggleDialog}
+        title="导入"
+        open={true}
+        footer={[
+          <Button key="back" onClick={this.props.toggleDialog}>取消</Button>
+        ]}
+        onCancel={this.props.toggleDialog}
         className="add-novel-dialog"
-        size="lg"
+        width={800}
       >
-        <ModalHeader toggle={this.props.toggleDialog}>导入</ModalHeader>
-        <ModalBody>
-          <div className="add-novel-dialog-side">
-            <Nav pills vertical>
-              <NavItem>
-                <NavLink
-                  className={activeTab === "local" ? "active" : ""}
-                  onClick={this.toggle.bind(this, "local")}
-                >
-                  {intl.get('Local import')}
-                </NavLink>
-              </NavItem>
-              {this.isOnline &&
-              <NavItem>
-                <NavLink
-                  className={activeTab === "batch" ? "active" : ""}
-                  onClick={this.toggle.bind(this, "batch")}
-                >
-                  {intl.get('Batch import')}
-                </NavLink>
-              </NavItem>
-              }
-              <NavItem>
-                <NavLink
-                  className={activeTab === "network" ? "active" : ""}
-                  onClick={this.toggle.bind(this, "network")}
-                >
-                  {intl.get('Online search')}
-                </NavLink>
-              </NavItem>
-            </Nav>
-          </div>
-          <div className="add-novel-dialog-main">
-            {activeTab === "local" && (
-              <LoadFromLocal
-                addFile={this.props.addFile}
-                toggleDialog={this.props.toggleDialog}
-              />
-            )}
-            {activeTab === "network" && (
-              <LoadFromServer
-                addFile={this.props.addFile}
-                toggleDialog={this.props.toggleDialog}
-                checkFileExist={this.props.checkFileExist}
-              />
-            )}
-            {activeTab === "batch" && (
+        <Tabs activeKey={activeTab} onChange={this.handleTabChange}>
+          <Tabs.TabPane tab={intl.get('Local import')} key="local">
+            <LoadFromLocal
+              addFile={this.props.addFile}
+              toggleDialog={this.props.toggleDialog}
+            />
+          </Tabs.TabPane>
+          {this.isOnline && (
+            <Tabs.TabPane tab={intl.get('Batch import')} key="batch">
               <LoadFromLocalBatch
                 toggleDialog={this.props.toggleDialog}
               />
-            )}
-          </div>
-        </ModalBody>
+            </Tabs.TabPane>
+          )}
+          <Tabs.TabPane tab={intl.get('Online search')} key="network">
+            <LoadFromServer
+              addFile={this.props.addFile}
+              toggleDialog={this.props.toggleDialog}
+              checkFileExist={this.props.checkFileExist}
+            />
+          </Tabs.TabPane>
+        </Tabs>
       </Modal>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import { Label } from "reactstrap";
+import { Typography } from 'antd';
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
 
@@ -36,15 +36,15 @@ class FontSettings extends Component {
   render() {
     return (
       <div className="basic-settings-item">
-        <Label>{intl.get('Font_Size')}</Label>
-          <Select
-            value={this.state.activeOption}
-            options={this.options}
-            onChange={this.onChange}
-            captureMenuScroll={false}
-            classNamePrefix
-            styles={MenuSelectStyle}
-          />
+        <Typography.Title level={5}>{intl.get('Font_Size')}</Typography.Title>
+        <Select
+          value={this.state.activeOption}
+          options={this.options}
+          onChange={this.onChange}
+          captureMenuScroll={false}
+          classNamePrefix
+          styles={MenuSelectStyle}
+        />
       </div>
     );
   }

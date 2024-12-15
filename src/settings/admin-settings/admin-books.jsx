@@ -1,33 +1,47 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Table } from "reactstrap";
+import { Table } from "antd";
 
 function AdminBooks({ books }) {
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+    },
+    {
+      title: "Author",
+      dataIndex: "author",
+      key: "author",
+    },
+    {
+      title: "",
+      key: "operation",
+      render: () => {
+        return; // operation: delete
+      },
+    },
+  ];
+
   return (
-    <Table striped className="admin-books">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>ID</th>
-          <th>Price</th>
-          <th>Author</th>
-          <th>{/* operation */}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {books.map(item => {
-          return (
-            <tr key={item.id}>
-              <th scope="row" title={item.name}>{item.name}</th>
-              <td>{item.id}</td>
-              <td>{item.price}</td>
-              <td>{item.author}</td>
-              <td>{/* operation: delete */}</td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </Table>
+    <Table
+      columns={columns}
+      dataSource={books}
+      className="admin-books"
+      rowKey="id"
+      title={() => '书籍列表'}
+      footer={() => '备注'}
+    />
   );
 }
 

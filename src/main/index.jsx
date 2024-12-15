@@ -4,11 +4,7 @@ import { TbCircleDotted } from "react-icons/tb";
 import ScrollTopIcon from "../common/scroll-top-button";
 import TextViewer from "../common/text-viewer";
 import FoldedIcon from "./folded-icon";
-import {
-  PAGES,
-  PARAGRAPHS,
-  DEFAULT_IMAGE,
-} from "../utils/constants";
+import { PAGES, PARAGRAPHS, DEFAULT_IMAGE } from "../utils/constants";
 
 import "./index.css";
 

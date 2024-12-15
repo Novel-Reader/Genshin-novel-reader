@@ -30,6 +30,7 @@ module.exports = {
     eqeqeq: "off",
     "prefer-const": "off",
     quotes: "off",
+    "react/prop-types": "off",
     camelcase: "off",
     semi: [2, "always"],
     "no-console": "warn",

@@ -1,6 +1,6 @@
 import React from "react";
 import intl from "react-intl-universal";
-import { Button } from "reactstrap";
+import { Button } from "antd";
 
 export default function FullScreen() {
   function toggleFullScreen() {
@@ -31,13 +31,13 @@ export default function FullScreen() {
   return (
     <>
       <div className="basic-settings-item">
-        <Button onClick={toggleFullScreen} size="sm" color="primary">
+        <Button type="primary" size="small" onClick={toggleFullScreen}>
           {intl.get('Full_screen_webpage')}
         </Button>
       </div>
       <div className="basic-settings-item">
-        <Button onClick={openFullscreen} size="sm" color="primary">
-        {intl.get('Full_screen_article')}
+        <Button type="primary" size="small" onClick={openFullscreen}>
+          {intl.get('Full_screen_article')}
         </Button>
       </div>
     </>

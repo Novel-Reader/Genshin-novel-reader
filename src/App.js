@@ -87,6 +87,10 @@ class App extends Component {
     const username = cookie.load("username");
     this.api.getUserInfo(username).then(res => {
       const user = res.data[0];
+      if (!user) {
+        toaster.warning('请登录');
+        return;
+      }
       this.api.setUserInfo({ user_id: user.id, username: username });
       this.api.getUserBookList(user.id).then(res => {
         let files = res.data;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Select from "react-select";
-import { Label } from "reactstrap";
+import { Typography } from 'antd';
 import { MenuSelectStyle } from "../../utils";
 
 class FontSettings extends Component {
@@ -21,7 +21,7 @@ class FontSettings extends Component {
     const preCls = "advance-font-settings";
     return (
       <div className={preCls}>
-        <Label>{this.props.title}</Label>
+        <Typography.Title level={5}>{this.props.title}</Typography.Title>
         <Select
           value={this.state.selected}
           options={this.props.options}

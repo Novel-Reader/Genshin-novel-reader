@@ -6,6 +6,7 @@
 .navs .navs-header {
   height: 40px;
   padding: 5px 10px;
+  padding-bottom: 0;
   display: flex;
   justify-content: space-between;
 }
@@ -47,9 +48,6 @@
 .navs .navs-body .navs-body-item .navs-body-item-delete {
   width: 20px;
 }
-.navs .navs-footer {
-  height: 40px;
-}
-.navs .navs-footer .btn {
+.navs .navs-footer .novel-reader-ant-btn {
   width: 100%;
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Label, Input, FormGroup } from "reactstrap";
+import { Form, Input, Typography } from 'antd';
 import watermark from "watermark-dom";
 import intl from "react-intl-universal";
 import { getLocalValue, setLocalValue } from "../../utils/store";
@@ -55,14 +55,14 @@ class WatermarkSettings extends Component {
 
   render() {
     return (
-      <FormGroup>
-        <Label>{intl.get('Watermark')}</Label>
+      <Form.Item>
+        <Typography.Title level={5}>{intl.get('Watermark')}</Typography.Title>
         <Input
           value={this.state.text}
           onChange={this.onChange}
           onBlur={this.onBlur}
         />
-      </FormGroup>
+      </Form.Item>
     );
   }
 }

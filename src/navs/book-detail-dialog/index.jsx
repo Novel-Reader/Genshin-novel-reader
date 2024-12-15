@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
 import { TbCircleDotted } from "react-icons/tb";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Modal } from "antd";
 import toaster from "../../common/toast";
 import CommentList from "./comment-list";
 import AddComment from "./add-comment";
@@ -73,13 +73,16 @@ function BookDetailDialog(props) {
 
   return (
     <Modal
-      isOpen={true}
-      toggle={props.toggleDialog}
+      open={true}
+      onCancel={props.toggleDialog}
       className="book-detail-dialog"
-      size="lg"
+      width={800}
+      title={intl.get('Comment')}
+      footer={[
+        <AddComment novel={props.novel} loadComments={loadComments} key="add-comment" />,
+      ]}
     >
-      <ModalHeader toggle={props.toggleDialog}>{intl.get('Comment')}</ModalHeader>
-      <ModalBody onScroll={onScroll}>
+      <div onScroll={onScroll}>
         {comments.length > 0 && (
           <CommentList
             comments={comments}
@@ -90,10 +93,7 @@ function BookDetailDialog(props) {
         )}
         {loading && <TbCircleDotted />}
         {loadAll && <div style={{ margin: '2rem 0' }}>{intl.get('No more comment')}</div>}
-      </ModalBody>
-      <ModalFooter>
-        <AddComment novel={props.novel} loadComments={loadComments}/>
-      </ModalFooter>
+      </div>
     </Modal>
   );
 }

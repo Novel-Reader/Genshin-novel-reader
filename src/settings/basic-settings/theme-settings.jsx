@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import { Label } from "reactstrap";
+import { Typography } from 'antd';
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
 
@@ -22,7 +22,7 @@ function ThemeSettings(props) {
 
   return (
     <div className="basic-settings-item">
-      <Label>{intl.get('Page_Theme')}</Label>
+      <Typography.Title level={5}>{intl.get('Page_Theme')}</Typography.Title>
       <Select
         value={options.find((option) => option.value === theme) || options[1]}
         options={options}

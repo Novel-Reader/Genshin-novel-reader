@@ -1,74 +1,55 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import { Nav, NavItem, NavLink } from "reactstrap";
+import { Tabs } from "antd";
 import BasicSettings from "./basic-settings";
 import AdvanceSettings from "./advance-settings";
 
 import "./index.css";
 
-class Settings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeTab: "basic",
-    };
-  }
+const Settings = (props) => {
+  const [activeTab, setActiveTab] = useState("basic");
 
-  toggle = (tab) => {
-    if (this.state.activeTab !== tab) {
-      this.setState({ activeTab: tab });
-    }
+  const onChange = (key) => {
+    setActiveTab(key);
   };
 
-  render() {
-    const { isShowRightPanel } = this.props;
-    const { activeTab } = this.state;
-    return (
-      <div
-        id="settings"
-        className="settings"
-        style={{ width: isShowRightPanel ? 250 : 0 }}
-      >
-        <div className="settings-header">
-          <Nav fill justified pills tabs>
-            <NavItem>
-              <NavLink
-                className={activeTab === "basic" ? "active" : ""}
-                onClick={this.toggle.bind(this, "basic")}
-              >
-                {intl.get('Basic_settings')}
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                className={activeTab === "advance" ? "active" : ""}
-                onClick={this.toggle.bind(this, "advance")}
-              >
-                {intl.get('Advanced_settings')}
-              </NavLink>
-            </NavItem>
-          </Nav>
-        </div>
-        <div className="settings-body">
-          {activeTab === "basic" && (
-            <BasicSettings
-              changeStyle={this.props.changeStyle}
-              style={this.props.style}
-              changeMode={this.props.changeMode}
-            />
-          )}
-          {activeTab === "advance" && (
-            <AdvanceSettings
-              changeStyle={this.props.changeStyle}
-              style={this.props.style}
-            />
-          )}
-        </div>
-      </div>
-    );
-  }
-}
+  return (
+    <div
+      id="settings"
+      className="settings"
+      style={{ width: props.isShowRightPanel ? 250 : 0 }}
+    >
+      <Tabs
+        activeKey={activeTab}
+        onChange={onChange}
+        items={[
+          {
+            label: intl.get('Basic_settings'),
+            key: "basic",
+            children: (
+              <BasicSettings
+                changeStyle={props.changeStyle}
+                style={props.style}
+                changeMode={props.changeMode}
+              />
+            ),
+          },
+          {
+            label: intl.get('Advanced_settings'),
+            key: "advance",
+            children: (
+              <AdvanceSettings
+                changeStyle={props.changeStyle}
+                style={props.style}
+              />
+            ),
+          },
+        ]}
+      />
+    </div>
+  );
+};
 
 Settings.propTypes = {
   isShowRightPanel: PropTypes.bool.isRequired,

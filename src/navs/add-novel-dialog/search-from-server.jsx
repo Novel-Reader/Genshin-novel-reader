@@ -1,59 +1,48 @@
-import React, { Component } from "react";
+import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import toaster from "../../common/toast";
 import intl from "react-intl-universal";
-import { Button, Input } from "reactstrap";
+import { Button, Input } from "antd";
 import BookList from "./book-list";
 
-class SearchFromServer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: false,
-      novelList: [],
-    };
-    this.searchInputRef = React.createRef();
-  }
+const SearchFromServer = ({ downLoadNovel }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [novelList, setNovelList] = useState([]);
+  const searchInputRef = useRef();
 
-  searchNovels = () => {
-    const keyword = this.searchInputRef.current.value.trim();
+  const searchNovels = () => {
+    const keyword = searchInputRef.current.value.trim();
     if (!keyword) {
       toaster.danger(intl.get('Missing some required fields'));
       return;
     }
-    this.setState({ isSearch: true });
+    setIsLoading(true);
     window.app.api.searchNovel(keyword).then((res) => {
-      this.setState({
-        isLoading: false,
-        novelList: res.data,
-      });
+      setIsLoading(false);
+      setNovelList(res.data);
     }).catch((err) => {
       toaster.danger(err);
-      this.setState({
-        isLoading: false,
-      });
+      setIsLoading(false);
     });
   };
 
-  render() {
-    return (
-      <div className="novel-list">
-        <div>
-          <Input type="text" innerRef={this.searchInputRef} autoFocus />
-          <Button color="success" onClick={this.searchNovels}>{intl.get('Search')}</Button>
-        </div>
-        {this.state.isLoading ?
-          <div>{intl.get('Searching...')}</div>
-          :
-          <BookList
-            novelList={this.state.novelList}
-            downLoadNovel={this.props.downLoadNovel}
-          />
-        }
+  return (
+    <div className="novel-list">
+      <div>
+        <Input ref={searchInputRef} autoFocus placeholder={intl.get('Search by book name or author')} />
+        <Button type="primary" onClick={searchNovels}>{intl.get('Search')}</Button>
       </div>
-    );
-  }
-}
+      {isLoading ?
+        <div>{intl.get('Searching...')}</div>
+        :
+        <BookList
+          novelList={novelList}
+          downLoadNovel={downLoadNovel}
+        />
+      }
+    </div>
+  );
+};
 
 SearchFromServer.propTypes = {
   downLoadNovel: PropTypes.func.isRequired,
