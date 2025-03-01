@@ -23,7 +23,7 @@ function AdminUsers({ users }) {
       title: "",
       key: "operation",
       render: () => {
-        return; // operation
+        return;
       },
     },
   ];

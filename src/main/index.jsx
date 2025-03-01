@@ -74,7 +74,6 @@ export default class Main extends Component {
 
   renderDetail = () => {
     const { currentFile, currentPageIndex } = this.props;
-    // 这里数据类型处理的不好，未来重新处理
     let detail = "";
     if (currentFile.type === PAGES || currentFile.type === PARAGRAPHS) {
       detail = currentFile.detail[currentPageIndex];

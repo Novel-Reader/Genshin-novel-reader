@@ -22,8 +22,6 @@ function AddComment(props) {
       toaster.warning(intl.get('The comment word count cannot exceed 1000 characters'));
       return;
     }
-    // TODO get user nickname(database add a nickName?) Now we use email
-    // TODO username 不是 author
     const author = cookie.load("username");
     api
       .addComment(props.novel.id, detail, author)

@@ -32,10 +32,8 @@ export default class ToastManager extends React.PureComponent {
   };
 
   notify = (title, settings) => {
-    // If there's a custom toast ID passed, close existing toasts with the same custom ID
     if (hasCustomId(settings)) {
       for (const toast of this.state.toasts) {
-        // Since unique ID is still appended to a custom ID, skip the unique ID and check only prefix
         if (String(toast.id).startsWith(settings.id)) {
           this.closeToast(toast.id);
         }

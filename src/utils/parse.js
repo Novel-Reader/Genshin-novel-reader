@@ -8,11 +8,9 @@ import { PAGES, PARAGRAPHS } from "./constants";
 const convertNovel2Pages = (txt, isMobile = false) => {
   const txtLen = txt.length;
   const pages = [];
-  // The mobile displays 50 per page, and PC displays 500 per page
   const textNumber = isMobile ? 50 : 500;
   const pageLen = Math.ceil(txtLen / textNumber);
   for (let i = 0; i < pageLen; i++) {
-    // TODO handle \n and others
     const current = txt.slice(i * textNumber, i * textNumber + textNumber);
     pages.push(current);
   }

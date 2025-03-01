@@ -216,7 +216,6 @@ class LocalAPI {
     return this.req.post(url, { keyword });
   }
 
-  // admin API
   adminGetUsers() {
     const url = `${this.server}/api/admin/users`;
     return this.req.get(url);
@@ -232,7 +231,6 @@ class LocalAPI {
     return this.req.get(url);
   }
 
-  // user-book API
   getUserBookList(user_id) {
     const url = `${this.server}/api/user-book?user_id=${user_id}`;
     return this.req.get(url);

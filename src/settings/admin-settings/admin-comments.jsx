@@ -35,7 +35,7 @@ function AdminComments({ comments }) {
       title: "",
       key: "operation",
       render: () => {
-        return; // operation: delete
+        return;
       },
     },
   ];

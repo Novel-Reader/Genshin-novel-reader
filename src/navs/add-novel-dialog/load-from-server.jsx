@@ -52,7 +52,6 @@ class LoadFromServer extends Component {
       this.props.addFile(new File(res.data[0]));
       const userId = window.app.state.user.id;
       window.app.api.updateUserBook(userId, book_id).then((res) => {
-        // console.log(res.data === 'success');
       });
     }).catch((err) => {
       toaster.danger(err);

@@ -27,7 +27,6 @@ export default function FullScreen() {
     }
   };
 
-  // todo: change button to icons in toolbar
   return (
     <>
       <div className="basic-settings-item">

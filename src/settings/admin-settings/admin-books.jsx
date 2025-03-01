@@ -28,7 +28,7 @@ function AdminBooks({ books }) {
       title: "",
       key: "operation",
       render: () => {
-        return; // operation: delete
+        return;
       },
     },
   ];

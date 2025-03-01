@@ -46,7 +46,7 @@ const LoginDialog = (props) => {
   const saveToken = (token) => {
     cookie.save("novelToken", token, { path: "/" });
     setTimeout(() => {
-      window.location.href = window.location.href + "reader"; // redirect to novel main page
+      window.location.href = window.location.href + "reader";
     }, 1000);
   };
 

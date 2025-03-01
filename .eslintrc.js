@@ -1,7 +1,7 @@
 module.exports = {
   settings: {
     react: {
-      version: "detect" // 或者明确指定版本号，例如 "17.0"
+      version: "detect"
     }
   },
   env: {
@@ -48,7 +48,7 @@ module.exports = {
     "operator-linebreak": "off",
     "object-shorthand": "off",
     "brace-style": "off",
-    "react-hooks/rules-of-hooks": "error", // 检查 Hook 的规则
-    "react-hooks/exhaustive-deps": "warn", // 检查 effect 的依赖
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
   },
 };

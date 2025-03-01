@@ -6,7 +6,7 @@ try {
   localSetting = require("./setting.local.json");
 } catch (error) {
   // eslint-disable-next-line
-  console.error("Could not load local settings:", error);
+  console.log("No local setting file found, use default setting.");
 }
 
 const newSetting = Object.assign({}, setting, localSetting);

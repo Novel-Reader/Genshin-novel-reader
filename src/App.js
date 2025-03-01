@@ -18,7 +18,6 @@ import setting from "./setting.js";
 import File from './model/file';
 import { NUM_ADD, NUM_REDUCE, NUM_CHANGE } from './reducers/reducer-types';
 
-// init language
 import "./locale/index.js";
 
 import "./css/App.css";
@@ -81,8 +80,8 @@ class App extends Component {
       server: setting.server,
       token: cookie.load("novelToken"),
     });
-    this.setState({ api }); // for { api } = useContext(AppContext)
-    this.api = api; // for window.app.api
+    this.setState({ api });
+    this.api = api;
 
     const username = cookie.load("username");
     this.api.getUserInfo(username).then(res => {
@@ -139,15 +138,12 @@ class App extends Component {
 
   changeMode = (mode) => {
     const { currentFile } = this.state;
-    // If this is array (if it has already been paginated or divided into chapters, it will first become the original string);
-    // If it is another type of file, directly process it as an empty string
     let detail = currentFile.detail;
     if (Array.isArray(detail)) {
       detail = detail.join(' ');
     } else if (typeof detail !== 'string') {
       detail = 'Article data structure is not correct, please reupload or re-download this article.';
     }
-    // change mode
     if (mode === PAGES) {
       this.setState({
         currentFile: Object.assign({}, currentFile, convertNovel2Pages(detail)),

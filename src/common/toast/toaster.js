@@ -6,7 +6,6 @@ import './index.css';
 
 const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
 
-// The Toaster manages the interaction between the ToasterManger and the toast API.
 export default class Toaster {
   constructor() {
     if (!isBrowser) return;

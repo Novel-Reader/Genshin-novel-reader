@@ -18,7 +18,6 @@ class LoadFromLocal extends Component {
       brief: "",
       currentSelected: null,
     };
-    // TODO 关键词或者分类，自定义上传，便于搜索
     this.options = [
       { value: "古典", label: "古典" },
       { value: "同人", label: "同人" },

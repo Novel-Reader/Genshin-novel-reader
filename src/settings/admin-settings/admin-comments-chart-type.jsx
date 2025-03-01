@@ -42,7 +42,6 @@ function AdminCommentsChartType({ comments, dataSource, chartType }) {
     if (chart && chart.current && chart.current.destroy) {
       chart.current.destroy();
     }
-    // get data source
     let chartData = null;
     if (dataSource === 'author*count') {
       chartData = author2comment.current;
@@ -57,8 +56,6 @@ function AdminCommentsChartType({ comments, dataSource, chartType }) {
     });
     chart.current.data(chartData);
     chart.current.scale('sales', { nice: true });
-    // render charts: https://g2-v4.antv.vision/zh
-    // TODO: 饼图，面积图
     if (chartType === 'histogram') {
       chart.current.interval().position(dataSource);
     } else if (chartType === 'line') {

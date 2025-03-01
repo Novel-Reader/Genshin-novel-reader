@@ -40,8 +40,6 @@ function AdminStatisticsDialog({ toggleModal }) {
     toaster.danger(String(err));
   }
 
-  // TODO：首先获取综述 count ，然后点击详情展示，后期优化
-
   useEffect(() => {
     api.adminGetUsers().then((res) => {
       setUsers(res.data);

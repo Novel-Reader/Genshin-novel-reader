@@ -54,7 +54,6 @@ function BasicSettings(props) {
     }
   };
 
-  // TODO：get current from parent component
   const { isAdmin, api } = useContext(AppContext);
 
   return (

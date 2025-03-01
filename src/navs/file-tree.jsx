@@ -32,7 +32,7 @@ function FileTree({ file, index, currentFileIndex, searchValue, changeFileIndex,
         {file.name}
       </span>
       <Dropdown
-        overlay={menu} // 目前提示 overlay 已经弃用，需要改成 menu，但是修改后代码出错，所以暂时不同新版，后续再说
+        overlay={menu}
         trigger={['click']}
         open={dropdownOpen}
         onOpenChange={(visible) => setDropdownOpen(visible)}

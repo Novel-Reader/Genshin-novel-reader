@@ -18,7 +18,6 @@ const INIT_FONT_COLOR = "#666";
 const INIT_BACKGROUND_COLOR = "#aaa";
 
 function AdvanceSettings(props) {
-  // isPro ? <>welcome to user advance setting</> : <>please upgrade to VIP version</>
   const changeStyle = props.changeStyle;
   return (
     <div className="advance-settings">
