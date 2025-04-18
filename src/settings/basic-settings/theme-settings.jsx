@@ -39,6 +39,4 @@ ThemeSettings.propTypes = {
   theme: PropTypes.number,
 };
 
-ThemeSettings.defaultProps = {};
-
 export default ThemeSettings;

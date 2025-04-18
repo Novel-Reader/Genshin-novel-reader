@@ -5,7 +5,8 @@ import Alert from './alert';
 
 const ANIMATION_DURATION = 240;
 
-export default class Toast extends React.PureComponent {
+class Toast extends React.PureComponent {
+
   static propTypes = {
     zIndex: PropTypes.number,
     duration: PropTypes.number,
@@ -15,10 +16,6 @@ export default class Toast extends React.PureComponent {
     children: PropTypes.node,
     hasCloseButton: PropTypes.bool,
     isShown: PropTypes.bool
-  };
-
-  static defaultProps = {
-    intent: 'none',
   };
 
   state = {
@@ -107,7 +104,7 @@ export default class Toast extends React.PureComponent {
           >
             <div ref={this.onRef} style={{ padding: 8 }}>
               <Alert
-                intent={this.props.intent}
+                intent={this.props.intent || 'none'}
                 title={this.props.title}
                 children={this.props.children || ''}
                 isRemovable={this.props.hasCloseButton}
@@ -120,3 +117,5 @@ export default class Toast extends React.PureComponent {
     );
   }
 }
+
+export default Toast;
