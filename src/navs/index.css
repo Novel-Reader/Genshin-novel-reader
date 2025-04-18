@@ -12,6 +12,8 @@
 }
 .navs .navs-header .navs-header-search {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .navs .navs-header .navs-header-search .navs-header-search-input {
   margin: 0 5px;
@@ -35,6 +37,8 @@
 }
 .navs .navs-body .navs-body-item {
   padding: 4px 10px;
+  justify-content: center;
+  align-items: center;
 }
 .navs .navs-body .navs-body-item:hover {
   cursor: pointer;

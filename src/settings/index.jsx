@@ -18,7 +18,7 @@ const Settings = (props) => {
     <div
       id="settings"
       className="settings"
-      style={{ width: props.isShowRightPanel ? 250 : 0 }}
+      style={{ width: props.isShowRightPanel ? 250 : 0, padding: props.isShowRightPanel ? '0 10px' : 0 }}
     >
       <Tabs
         activeKey={activeTab}

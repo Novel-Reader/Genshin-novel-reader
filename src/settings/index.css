@@ -23,3 +23,12 @@
 .settings .novel-reader-ant-typography {
   margin: 8px 0;
 }
+.settings .novel-reader-ant-tabs-nav-list {
+  width: 100%;
+}
+.settings .novel-reader-ant-tabs-tab {
+  margin: 0 !important;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
