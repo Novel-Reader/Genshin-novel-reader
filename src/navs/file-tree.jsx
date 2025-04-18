@@ -16,13 +16,6 @@ function FileTree({ file, index, currentFileIndex, searchValue, changeFileIndex,
     return null;
   }
 
-  const menu = (
-    <Menu>
-      <Menu.Item key="1" onClick={() => setDialogOpen(true)}>{intl.get('Information')}</Menu.Item>
-      <Menu.Item key="2" onClick={() => deleteFile(index)}>{intl.get('Delete')}</Menu.Item>
-    </Menu>
-  );
-
   return (
     <div key={index} className={classnames("navs-body-item d-flex", { active: isActive })}>
       <span
@@ -32,7 +25,12 @@ function FileTree({ file, index, currentFileIndex, searchValue, changeFileIndex,
         {file.name}
       </span>
       <Dropdown
-        overlay={menu}
+        menu={
+          <Menu>
+            <Menu.Item key="1" onClick={() => setDialogOpen(true)}>{intl.get('Information')}</Menu.Item>
+            <Menu.Item key="2" onClick={() => deleteFile(index)}>{intl.get('Delete')}</Menu.Item>
+          </Menu>
+        }
         trigger={['click']}
         open={dropdownOpen}
         onOpenChange={(visible) => setDropdownOpen(visible)}
