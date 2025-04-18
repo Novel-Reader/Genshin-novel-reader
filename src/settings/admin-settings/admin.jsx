@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import intl from "react-intl-universal";
 import { TbCircleDotted } from "react-icons/tb";
 import { Button, Modal } from "antd";
@@ -9,13 +10,13 @@ import AdminUsers from "./admin-users";
 import AdminBooks from "./admin-books";
 import AdminComments from "./admin-comments";
 import AdminCommentsChart from "./admin-comments-chart";
+
 import './admin.css';
 
 function Admin() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="basic-settings-item">
-      {/* todo: change button to icons in toolbar */}
       <Button onClick={() => setIsOpen(true)} size="sm" color="primary">
         {intl.get('Admin_Settings')}
       </Button>
@@ -35,37 +36,23 @@ function AdminStatisticsDialog({ toggleModal }) {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  function onError(err) {
-    toaster.danger(intl.get('Error, please try again'));
-    toaster.danger(String(err));
-  }
-
   useEffect(() => {
-    api.adminGetUsers().then((res) => {
-      setUsers(res.data);
-    }).catch((err) => {
-      onError(err);
-    });
-
-    api.adminGetBooks().then((res) => {
-      setBooks(res.data);
-    }).catch((err) => {
-      onError(err);
-    });
-    
-    api.adminGetComments().then((res) => {
-      setComments(res.data);
-    }).catch((err) => {
-      onError(err);
+    axios.all([
+      api.adminGetUsers(),
+      api.adminGetBooks(),
+      api.adminGetComments()
+    ]).then(axios.spread((usersRes, booksRes, commentsRes) => {
+      setUsers(usersRes.data);
+      setBooks(booksRes.data);
+      setComments(commentsRes.data);
+      setLoading(false);
+    })).catch((err) => {
+      toaster.danger(intl.get('Error, please try again'));
+      toaster.danger(String(err));
+      setLoading(false);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (comments.length > 0 && users.length > 0 && books.length > 0) {
-      setLoading(false);
-    }
-  }, [comments, users, books]);
 
   return (      
     <Modal
@@ -84,10 +71,10 @@ function AdminStatisticsDialog({ toggleModal }) {
         <TbCircleDotted />
       ) : (
         <div className="admin-statistics">
-          <AdminCommentsChart comments={comments} />
-          <AdminUsers users={users} />
-          <AdminBooks books={books} />
-          <AdminComments comments={comments} />
+          {users.length > 0 ? <AdminUsers users={users} /> : <p>No Users</p>}
+          {books.length > 0 ? <AdminBooks books={books} /> : <p>No Books</p>}
+          {comments.length > 0 ? <AdminCommentsChart comments={comments} /> : <p>No Comments</p>}
+          {comments.length > 0 ? <AdminComments comments={comments} /> : null}
         </div>
       )}
     </Modal>
