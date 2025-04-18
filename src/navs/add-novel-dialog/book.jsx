@@ -15,7 +15,7 @@ function Book(props) {
       </div>
       <div className="book-right">
         <div className="book-right-name">
-          {name.slice(0, name.indexOf("."))}
+          {name.lastIndexOf(".") > 0 ? name.slice(0, name.lastIndexOf(".")) : name}
         </div>
         <div className="book-right-author">{author}</div>
         <p className="book-right-detail">
