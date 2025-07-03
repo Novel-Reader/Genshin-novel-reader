@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import cookie from "react-cookies";
-import moment from "moment";
+import dayjs from 'dayjs';
 import intl from "react-intl-universal";
 import toaster from "../../common/toast";
 
@@ -59,7 +59,7 @@ function CommentItem(props) {
         <p>{comment.detail}</p>
       )}
       <div className="comment-btns">
-        <span className="comment-btns-time">{moment(comment.created_at).format("YYYY-MM-DD HH:mm:ss")}</span>
+        <span className="comment-btns-time">{dayjs(comment.created_at).format("YYYY-MM-DD HH:mm:ss")}</span>
         {author === comment.author && (
           <>
             {edit ? (

@@ -20,6 +20,8 @@ const modules = require('./modules');
 const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
 
@@ -220,6 +222,8 @@ module.exports = function (webpackEnv) {
       level: 'none',
     },
     optimization: {
+      usedExports: true, // 标记未使用的导出
+      sideEffects: true, // 识别副作用
       minimize: isEnvProduction,
       minimizer: [
         // This is only used in production mode
@@ -583,14 +587,10 @@ module.exports = function (webpackEnv) {
           };
         },
       }),
-      // Moment.js is an extremely popular library that bundles large locale files
-      // by default due to how webpack interprets its code. This is a practical
-      // solution that requires the user to opt into importing specific locales.
-      // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
-      // You can remove this if you don't use Moment.js:
+      // remove g2 useless langs
       new webpack.IgnorePlugin({
         resourceRegExp: /^\.\/locale$/,
-        contextRegExp: /moment$/,
+        contextRegExp: /@antv\/g2/,
       }),
       // Generate a service worker script that will precache, and keep up to date,
       // the HTML & assets that are part of the webpack build.
@@ -630,6 +630,7 @@ module.exports = function (webpackEnv) {
             },
           },
         }),
+      ...(process.env.ANALYZE ? [new BundleAnalyzerPlugin()] : []),
     ].filter(Boolean),
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter

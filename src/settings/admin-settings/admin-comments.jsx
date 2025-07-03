@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import moment from "moment";
+import dayjs from 'dayjs';
 import { Table } from "antd";
 
 function AdminComments({ comments }) {
@@ -28,7 +28,7 @@ function AdminComments({ comments }) {
       dataIndex: "created_at",
       key: "created_at",
       render: (text) => {
-        return moment(text).format("YYYY-MM-DD HH:mm:ss");
+        return dayjs(text).format("YYYY-MM-DD HH:mm:ss");
       },
     },
     {
