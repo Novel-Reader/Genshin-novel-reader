@@ -8,7 +8,7 @@ import { PAGES, PARAGRAPHS, DEFAULT_IMAGE } from "../utils/constants";
 
 import "./index.css";
 
-export default class Main extends Component {
+export default class MainPanel extends Component {
   static propTypes = {
     toggleRightPanel: PropTypes.func.isRequired,
     isShowRightPanel: PropTypes.bool.isRequired,

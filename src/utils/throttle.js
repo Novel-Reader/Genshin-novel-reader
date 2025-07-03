@@ -199,4 +199,4 @@ function toNumber(value) {
   return (isBinary || reIsOctal.test(value)) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : (reIsBadHex.test(value) ? NAN : +value);
 }
 
-module.exports = throttle;
+export { throttle };

@@ -45,7 +45,6 @@ const en = {
   'Batch import': 'Batch import',
   'This is an exclusive feature for networking': 'This is an exclusive feature for networking',
   'Hot': 'Hot',
-  'Online search': 'Online search',
   'Missing some required fields': 'Missing some required fields',
   'Name': 'Name',
   'Author': 'Author',

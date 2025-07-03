@@ -49,13 +49,13 @@ const Settings = (props) => {
       />
     </div>
   );
-};
+}
 
 Settings.propTypes = {
   isShowRightPanel: PropTypes.bool.isRequired,
   changeStyle: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   style: PropTypes.object.isRequired,
-};
+}
 
 export default Settings;
