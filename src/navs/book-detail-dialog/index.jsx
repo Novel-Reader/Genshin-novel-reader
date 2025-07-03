@@ -6,7 +6,7 @@ import { Modal } from "antd";
 import toaster from "../../common/toast";
 import CommentList from "./comment-list";
 import AddComment from "./add-comment";
-import throttle from "../../utils/throttle";
+import { throttle } from "../../utils/throttle";
 
 const LIMIT = 20;
 

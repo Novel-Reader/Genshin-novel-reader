@@ -2,12 +2,10 @@ import setting from "./setting.json";
 
 let localSetting = {};
 
-try {
-  localSetting = require("./setting.local.json");
-} catch (error) {
+localSetting = await import("./setting.local.json").then(module => module.default).catch((error) => {
   // eslint-disable-next-line
-  console.log("No local setting file found, use default setting.");
-}
+  console.log("Error loading local setting file, No local setting file found, use default setting.", error);
+});
 
 const newSetting = Object.assign({}, setting, localSetting);
 

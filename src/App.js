@@ -3,7 +3,7 @@ import cookie from "react-cookies";
 import intl from "react-intl-universal";
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import Main from "./main";
+import MainPanel from "./main-panel";
 import Navs from "./navs";
 import Settings from "./settings";
 import LocalAPI from "./api/local-api";
@@ -226,7 +226,7 @@ class App extends Component {
             changePageIndex={this.changePageIndex}
             isShowLeftPanel={this.state.isShowLeftPanel}
           />
-          <Main
+          <MainPanel
             currentFile={currentFile}
             style={style}
             toggleRightPanel={this.toggleRightPanel}
