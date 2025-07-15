@@ -1,6 +1,6 @@
 {
-  "name": "novel-reader",
-  "version": "2.0",
+  "name": "genshin-novel-reader",
+  "version": "2.0.0-alpha.1",
   "homepage": "/",
   "type": "module",
   "dependencies": {
