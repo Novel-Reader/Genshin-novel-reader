@@ -1,8 +1,10 @@
 {
   "name": "genshin-novel-reader",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.3",
   "homepage": "/",
   "type": "module",
+  "main": "dist/app.js",
+  "module": "dist/app.js",
   "dependencies": {
     "@antv/g2": "4.2.10",
     "@reduxjs/toolkit": "^1.9.5",
