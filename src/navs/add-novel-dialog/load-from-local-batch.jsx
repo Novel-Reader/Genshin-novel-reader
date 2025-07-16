@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 import axios from 'axios';
 import { Button } from "antd";
 import { INPUT_ACCEPT_FILE_TYPE } from "../../utils/constants.js";
-import setting from "../../setting.js";
 import toaster from "../../common/toast/index.js";
 
 class LoadFromLocalBatch extends Component {
   constructor(props) {
     super(props);
-    this.isOnline = setting.mode === "online";
+    this.isOnline = this.props.mode === "online";
   }
 
   onClick = () => {
@@ -23,7 +22,7 @@ class LoadFromLocalBatch extends Component {
       formData.append('files', file);
     });
     toaster.warning("正在上传中...");
-    axios.post(`${setting.server}/api/batch-upload-novel`, formData, {
+    axios.post(`${this.props.server}/api/batch-upload-novel`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

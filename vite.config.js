@@ -37,9 +37,9 @@ export default defineConfig(({ command }) => {
     return {
       build: {
         lib: {
-          entry: 'src/Router.js',
+          entry: 'src/app-container.js',
           name: 'MyApp',
-          fileName: (format) => `app.${format}.js`,
+          fileName: () => `app.js`,
           formats: ['es'],
         },
         rollupOptions: {
