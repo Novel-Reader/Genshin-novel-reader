@@ -14,7 +14,6 @@ import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel 
 import { DEFAULT_STYLE, PAGES, PARAGRAPHS } from "./utils/constants";
 import { AppContext } from "./context";
 import toaster from "./common/toast";
-import setting from "./setting.js";
 import File from './model/file';
 import { NUM_ADD, NUM_REDUCE, NUM_CHANGE } from './reducers/reducer-types';
 
@@ -41,7 +40,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if (setting.mode === "online") {
+    if (this.props.mode === "online") {
       this.initFromServer();
     } else {
       toaster.success(intl.get("Welcome_to_use_offline_mode"));
@@ -77,7 +76,7 @@ class App extends Component {
   initFromServer = () => {
     const api = new LocalAPI();
     api.init({
-      server: setting.server,
+      server: this.props.server,
       token: cookie.load("novelToken"),
     });
     this.setState({ api });
@@ -209,6 +208,7 @@ class App extends Component {
 
   render() {
     const { files, currentFileIndex, style } = this.state;
+    const { mode = 'offline', server = '' } = this.props;
     const username = cookie.load("username");
     const isAdmin = username === "admin";
     const currentFile = files[currentFileIndex];
@@ -225,6 +225,8 @@ class App extends Component {
             currentPageIndex={this.state.currentPageIndex}
             changePageIndex={this.changePageIndex}
             isShowLeftPanel={this.state.isShowLeftPanel}
+            mode={mode}
+            server={server}
           />
           <MainPanel
             currentFile={currentFile}

@@ -26,20 +26,7 @@ Realize the local novel reading, local novel upload, online novel reading, novel
 
 [v latest](https://novel-reader.github.io/latest/00-introduction/)
 
-## 配置 Setting
-
-默认配置文件 `/src/setting.json` 参数说明
-
-```json
-{
-  "server": "服务器端口号, 例如 http://127.0.0.1:8081",
-  "mode": "阅读器模式，online 或者 offline"
-}
-```
-
-在这个目录中，新建一个 `/src/setting.local.json` 配置文件，可以覆盖默认配置项。
-
-## 开发 Development
+## 开发和使用 Development and use
 
 安装依赖 Install dependencies:
 
@@ -57,6 +44,18 @@ npm run start
 
 ```bash
 npm run test
+```
+
+在项目中使用
+
+```js
+import AppContainer from 'genshin-novel-reader';
+
+const mode = "online"
+
+const server = "127.0.0.1:8081"
+
+<AppContainer mode={mode} server={server}>
 ```
 
 ## 说明 More

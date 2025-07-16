@@ -105,7 +105,12 @@ export default class Navs extends Component {
             />
           )}
         </div>
-        <NavFooter addFile={this.props.addFile} checkFileExist={this.checkFileExist} />
+        <NavFooter
+          addFile={this.props.addFile}
+          checkFileExist={this.checkFileExist}
+          mode={this.props.mode}
+          server={this.props.server}
+        />
       </div>
     );
   }

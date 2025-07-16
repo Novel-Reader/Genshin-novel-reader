@@ -29,6 +29,8 @@ class NavFooter extends Component {
             toggleDialog={this.toggleDialog}
             addFile={this.props.addFile}
             checkFileExist={this.props.checkFileExist}
+            mode={this.props.mode}
+            server={this.props.server}
           />
         )}
       </>

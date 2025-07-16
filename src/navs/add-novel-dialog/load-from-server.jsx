@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import intl from "react-intl-universal";
 import { Button } from "antd";
 import VipButton from "../../common/vip-button";
-import setting from "../../setting.js";
 import toaster from "../../common/toast";
 import BookList from "./book-list";
 import SearchFromServer from "./search-from-server";
@@ -12,7 +11,7 @@ import File from '../../model/file';
 class LoadFromServer extends Component {
   constructor(props) {
     super(props);
-    this.isOnline = setting.mode === "online";
+    this.isOnline = this.props.mode === "online";
     this.state = {
       isLoading: true,
       novelList: [],

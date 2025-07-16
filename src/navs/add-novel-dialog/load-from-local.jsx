@@ -4,7 +4,6 @@ import { Button, Form, Input, Upload } from "antd";
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
 import { INPUT_ACCEPT_FILE_TYPE } from "../../utils/constants";
-import setting from "../../setting.js";
 import toaster from "../../common/toast";
 import File from '../../model/file';
 
@@ -24,7 +23,7 @@ class LoadFromLocal extends Component {
       { value: "言情", label: "言情" },
       { value: "其他", label: "其他" },
     ];
-    this.isOnline = setting.mode === "online";
+    this.isOnline = this.props.mode === "online";
   }
 
   onChange = (option) => {

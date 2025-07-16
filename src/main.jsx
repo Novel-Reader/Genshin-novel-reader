@@ -1,10 +1,12 @@
 import { createRoot } from 'react-dom/client'
-import Router from "./router";
+import AppContainer from "./app-container";
 
 import "./css/common.css";
 
 export function renderApp(containerId) {
-  createRoot(document.getElementById('root')).render(Router);
+  createRoot(document.getElementById('root')).render(
+    <AppContainer mode={'offline'} server={'http://127.0.0.1:8081'} />
+  );
 }
 
 if (import.meta.env.DEV) {

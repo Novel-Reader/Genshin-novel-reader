@@ -5,7 +5,6 @@ import { Modal, Tabs, Button } from "antd";
 import LoadFromLocal from "./load-from-local";
 import LoadFromServer from "./load-from-server";
 import LoadFromLocalBatch from "./load-from-local-batch";
-import setting from "../../setting.js";
 
 import "./index.css";
 
@@ -15,7 +14,7 @@ class AddNovelDialog extends Component {
     this.state = {
       activeTab: "local",
     };
-    this.isOnline = setting.mode === "online";
+    this.isOnline = this.props.mode === "online";
   }
 
   handleTabChange = (activeTab) => {
@@ -40,12 +39,16 @@ class AddNovelDialog extends Component {
             <LoadFromLocal
               addFile={this.props.addFile}
               toggleDialog={this.props.toggleDialog}
+              mode={this.props.mode}
+              server={this.props.server}
             />
           </Tabs.TabPane>
           {this.isOnline && (
             <Tabs.TabPane tab={intl.get('Batch import')} key="batch">
               <LoadFromLocalBatch
                 toggleDialog={this.props.toggleDialog}
+                mode={this.props.mode}
+                server={this.props.server}
               />
             </Tabs.TabPane>
           )}
@@ -54,6 +57,8 @@ class AddNovelDialog extends Component {
               addFile={this.props.addFile}
               toggleDialog={this.props.toggleDialog}
               checkFileExist={this.props.checkFileExist}
+              mode={this.props.mode}
+              server={this.props.server}
             />
           </Tabs.TabPane>
         </Tabs>
