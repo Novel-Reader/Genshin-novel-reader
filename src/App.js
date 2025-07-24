@@ -16,6 +16,7 @@ import { AppContext } from "./context";
 import toaster from "./common/toast";
 import File from './model/file';
 import { NUM_ADD, NUM_REDUCE, NUM_CHANGE } from './reducers/reducer-types';
+import LoginDialog from "./dialog/login-dialog";
 
 import "./locale/index.js";
 
@@ -35,13 +36,14 @@ class App extends Component {
       currentPageIndex: 0,
       api: null,
       user: null,
+      isShowLoginDialog: false,
     };
     this.api = null;
   }
 
   componentDidMount() {
     if (this.props.mode === "online") {
-      this.initFromServer();
+      this.setState({ isShowLoginDialog: true });
     } else {
       toaster.success(intl.get("Welcome_to_use_offline_mode"));
     }
@@ -72,8 +74,18 @@ class App extends Component {
   changePageIndex = (currentPageIndex) => {
     this.setState({ currentPageIndex });
   };
+  
+  closeLoginDialog = () => {
+    this.setState({ isShowLoginDialog: false });
+    this.initFromServer();
+  };
 
   initFromServer = () => {
+    const username = cookie.load("username");
+    if (!username) {
+      toaster.warning(intl.get('Please login first'));
+      return;
+    }
     const api = new LocalAPI();
     api.init({
       server: this.props.server,
@@ -81,8 +93,6 @@ class App extends Component {
     });
     this.setState({ api });
     this.api = api;
-
-    const username = cookie.load("username");
     this.api.getUserInfo(username).then(res => {
       const user = res.data[0];
       if (!user) {
@@ -242,6 +252,9 @@ class App extends Component {
             changeMode={this.changeMode}
           />
         </div>
+        {this.state.isShowLoginDialog && (
+          <LoginDialog toggle={this.closeLoginDialog} server={this.props.server}/>
+        )}
       </AppContext.Provider>
     );
   }
