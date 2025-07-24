@@ -1,6 +1,6 @@
 {
   "name": "genshin-novel-reader",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "homepage": "/",
   "type": "module",
   "main": "dist/app.js",
@@ -37,6 +37,7 @@
     "dev": "vite",
     "build": "vite build && cp -r media ./dist",
     "lint": "eslint ./src/**/*.js[x] --fix",
+    "prepublishOnly": "npm run build",
     "preview": "vite preview",    
     "analyze-source-map": "source-map-explorer 'dist/assets/*.js'",
     "cypress:open": "cypress open",
