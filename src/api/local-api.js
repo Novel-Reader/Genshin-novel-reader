@@ -21,6 +21,62 @@ class LocalAPI {
     this.info = {};
     return this;
   }
+  
+  setUserInfo(info) {
+    this.info = Object.assign({}, this.info, info);
+  }
+
+  checkNet() {
+    const url = `${this.server}/api/ping/`;
+    return this.req.get(url);
+  }
+
+  login(email, password) {
+    const url = `${this.server}/api/login`;
+    const options = {
+      email,
+      password,
+    };
+    return this.req.post(url, options);
+  }
+
+  getUserInfo(email) {
+    const url = `${this.server}/api/user?email=${email}`;
+    return this.req.get(url);
+  }
+
+  addUser(email, name, password) {
+    const url = `${this.server}/api/user`;
+    const options = {
+      email,
+      name,
+      password,
+    };
+    return this.req.post(url, options);
+  }
+
+  deleteUser(email) {
+    const url = `${this.server}/api/user?email=${email}`;
+    return this.req.delete(url);
+  }
+
+  updateUserPassword(password, email) {
+    const url = `${this.server}/api/user-password`;
+    const options = {
+      email,
+      password,
+    };
+    return this.req.post(url, options);
+  }
+
+  updateUserAvatar(avatar, email) {
+    const url = `${this.server}/api/user-avatar`;
+    const options = {
+      email,
+      avatar,
+    };
+    return this.req.post(url, options);
+  }
 
   /**
    * add novel to database
