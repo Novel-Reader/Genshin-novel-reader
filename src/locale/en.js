@@ -77,6 +77,7 @@ const en = {
   'Paragraph not found, Paragraph mode not supported': 'Paragraph not found, Paragraph mode not supported',
   'Close': 'Close',
   'Submit': 'Submit',
+  'Search by book name or author': 'Search by book name or author',
 };
 
 export default en;

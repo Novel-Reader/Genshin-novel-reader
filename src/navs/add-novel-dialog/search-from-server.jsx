@@ -11,7 +11,8 @@ const SearchFromServer = ({ downLoadNovel }) => {
   const searchInputRef = useRef();
 
   const searchNovels = () => {
-    const keyword = searchInputRef.current.value.trim();
+    let keyword = searchInputRef.current?.input?.value || '';
+    keyword = keyword.trim();
     if (!keyword) {
       toaster.danger(intl.get('Missing some required fields'));
       return;
@@ -28,9 +29,16 @@ const SearchFromServer = ({ downLoadNovel }) => {
 
   return (
     <div className="novel-list">
-      <div>
-        <Input ref={searchInputRef} autoFocus placeholder={intl.get('Search by book name or author')} />
-        <Button type="primary" onClick={searchNovels}>{intl.get('Search')}</Button>
+      <div style={{ display: "flex", gap: 8 }}>
+        <Input
+          ref={searchInputRef}
+          autoFocus
+          placeholder={intl.get('Search by book name or author')}
+          style={{ flex: 1 }}
+        />
+        <Button type="primary" onClick={searchNovels}>
+          {intl.get('Search')}
+        </Button>
       </div>
       {isLoading ?
         <div>{intl.get('Searching...')}</div>
