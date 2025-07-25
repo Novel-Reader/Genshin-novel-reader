@@ -4,7 +4,6 @@ import intl from "react-intl-universal";
 import AdvanceThemeSettings from "./advance-theme-settings";
 import ColorSettings from "./color-settings";
 import FontSettings from "./font-settings";
-import WatermarkSettings from "./watermark-settings";
 import {
   FONT_SIZES,
   FONT_FAMILY,
@@ -21,7 +20,6 @@ function AdvanceSettings(props) {
   const changeStyle = props.changeStyle;
   return (
     <div className="advance-settings">
-      <WatermarkSettings />
       <AdvanceThemeSettings changeStyle={changeStyle} />
       <FontSettings
         options={FONT_SIZES}

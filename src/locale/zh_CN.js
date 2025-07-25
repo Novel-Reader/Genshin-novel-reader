@@ -23,8 +23,6 @@ const zh = {
   'Font color': '文字颜色',
   'Background color': '背景颜色',
   'Background transparency': '背景透明度',
-  'The watermark length cannot exceed 20 characters': '水印长度不能超过20个字符',
-  'The watermark was successfully removed, please refresh the interface later': '水印成功移除，稍后刷新界面',
   'Watermark': '水印',
   'Large': '大',
   'Middle': '中',

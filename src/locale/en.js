@@ -23,8 +23,6 @@ const en = {
   'Font color': 'Font color',
   'Background color': 'Background color',
   'Background transparency': 'Background transparency',
-  'The watermark length cannot exceed 20 characters': 'The watermark length cannot exceed 20 characters',
-  'The watermark was successfully removed, please refresh the interface later': 'The watermark was successfully removed, please refresh the interface later',
   'Watermark': 'Watermark',
   'Large': 'Large',
   'Middle': 'Middle',
