@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
 import axios from 'axios';
-import cookie from 'react-cookies';
+import Cookies from 'js-cookie';
 import { Modal, Form, Input, Typography } from 'antd';
 import toaster from '../common/toast';
 
@@ -27,8 +27,8 @@ const LoginDialog = (props) => {
         if (res.data.token) {
           toaster.success(`用户 ${email} 登录成功`);
           const token = res.data.token;
-          cookie.save("novelToken", token, { path: "/" });
-          cookie.save("username", email);
+          Cookies.set("novelToken", token, { path: "/" });
+          Cookies.set("username", email);
           setTimeout(() => {
             props.toggle();
           }, 100);

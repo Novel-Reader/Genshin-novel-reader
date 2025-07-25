@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
-import cookie from "react-cookies";
+import Cookies from 'js-cookie';
 import dayjs from 'dayjs';
 import intl from "react-intl-universal";
 import toaster from "../../common/toast";
@@ -9,7 +9,7 @@ import "./comment-list.css";
 
 function CommentItem(props) {
   const { comment } = props;
-  const author = cookie.load("username");
+  const author = Cookies.get("username");
   const [edit, setEdit] = useState(false);
   const commentElement = useRef();
 

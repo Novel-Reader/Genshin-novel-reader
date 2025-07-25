@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import cookie from "react-cookies";
+import Cookies from 'js-cookie';
 import intl from "react-intl-universal";
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
@@ -81,7 +81,7 @@ class App extends Component {
   };
 
   initFromServer = () => {
-    const username = cookie.load("username");
+    const username = Cookies.get("username");
     if (!username) {
       toaster.warning(intl.get('Please login first'));
       return;
@@ -89,7 +89,7 @@ class App extends Component {
     const api = new LocalAPI();
     api.init({
       server: this.props.server,
-      token: cookie.load("novelToken"),
+      token: Cookies.get("novelToken"),
     });
     this.setState({ api });
     this.api = api;
@@ -219,7 +219,7 @@ class App extends Component {
   render() {
     const { files, currentFileIndex, style } = this.state;
     const { mode = 'offline', server = '' } = this.props;
-    const username = cookie.load("username");
+    const username = Cookies.get("username");
     const isAdmin = username === "admin";
     const currentFile = files[currentFileIndex];
     return (

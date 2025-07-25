@@ -1,5 +1,5 @@
 import React from "react";
-import cookie from "react-cookies";
+import Cookies from 'js-cookie';
 import { Provider } from 'react-redux';
 import { ConfigProvider } from "antd";
 import zhCN from 'antd/locale/zh_CN';
@@ -9,7 +9,7 @@ import App from "./App";
 
 import "./css/common.css";
 
-const lang = cookie.load("lang") || "en";
+const lang = Cookies.get("lang") || "en";
 
 const AppContainer = ({ mode = 'offline', server = '' }) => {
   return (

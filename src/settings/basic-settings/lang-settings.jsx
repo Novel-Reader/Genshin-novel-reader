@@ -1,12 +1,12 @@
 import React from "react";
 import intl from "react-intl-universal";
-import cookie from "react-cookies";
+import Cookies from 'js-cookie';
 import Select from "react-select";
 import { Typography } from 'antd';
 import { MenuSelectStyle } from "../../utils";
 
 function LangSettings() {
-  const lang = cookie.load("lang") || "en";
+  const lang = Cookies.get("lang") || "en";
 
   const options = [
     { value: "zh_CN", label: "中文" },
@@ -15,7 +15,7 @@ function LangSettings() {
 
   const onChange = (selectedLang) => {
     if (lang !== selectedLang.value) {
-      cookie.save("lang", selectedLang.value);
+      Cookies.set("lang", selectedLang.value);
       location.reload();
     }
   };

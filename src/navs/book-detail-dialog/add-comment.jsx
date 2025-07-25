@@ -1,6 +1,6 @@
 import React, { useRef, useContext } from "react";
 import PropTypes from "prop-types";
-import cookie from "react-cookies";
+import Cookies from 'js-cookie';
 import intl from "react-intl-universal";
 import { Button } from "antd";
 import toaster from "../../common/toast";
@@ -22,7 +22,7 @@ function AddComment(props) {
       toaster.warning(intl.get('The comment word count cannot exceed 1000 characters'));
       return;
     }
-    const author = cookie.load("username");
+    const author = Cookies.get("username");
     api
       .addComment(props.novel.id, detail, author)
       .then((res) => {
