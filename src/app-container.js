@@ -7,6 +7,8 @@ import enUS from 'antd/locale/en_US';
 import store from './store';
 import App from "./App";
 
+import "./css/common.css";
+
 const lang = cookie.load("lang") || "en";
 
 const AppContainer = ({ mode = 'offline', server = '' }) => {
