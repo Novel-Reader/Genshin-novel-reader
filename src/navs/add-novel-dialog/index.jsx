@@ -23,6 +23,45 @@ class AddNovelDialog extends Component {
 
   render() {
     const { activeTab } = this.state;
+    const tabItems = [
+      {
+        key: "local",
+        label: intl.get('Local import'),
+        children: (
+          <LoadFromLocal
+            addFile={this.props.addFile}
+            toggleDialog={this.props.toggleDialog}
+            mode={this.props.mode}
+            server={this.props.server}
+          />
+        ),
+      },
+      this.isOnline && {
+        key: "batch",
+        label: intl.get('Batch import'),
+        children: (
+          <LoadFromLocalBatch
+            toggleDialog={this.props.toggleDialog}
+            mode={this.props.mode}
+            server={this.props.server}
+          />
+        ),
+      },
+      {
+        key: "network",
+        label: intl.get('Online search'),
+        children: (
+          <LoadFromServer
+            addFile={this.props.addFile}
+            toggleDialog={this.props.toggleDialog}
+            checkFileExist={this.props.checkFileExist}
+            mode={this.props.mode}
+            server={this.props.server}
+          />
+        ),
+      },
+    ].filter(Boolean);
+
     return (
       <Modal
         title="导入"
@@ -34,34 +73,11 @@ class AddNovelDialog extends Component {
         className="add-novel-dialog"
         width={800}
       >
-        <Tabs activeKey={activeTab} onChange={this.handleTabChange}>
-          <Tabs.TabPane tab={intl.get('Local import')} key="local">
-            <LoadFromLocal
-              addFile={this.props.addFile}
-              toggleDialog={this.props.toggleDialog}
-              mode={this.props.mode}
-              server={this.props.server}
-            />
-          </Tabs.TabPane>
-          {this.isOnline && (
-            <Tabs.TabPane tab={intl.get('Batch import')} key="batch">
-              <LoadFromLocalBatch
-                toggleDialog={this.props.toggleDialog}
-                mode={this.props.mode}
-                server={this.props.server}
-              />
-            </Tabs.TabPane>
-          )}
-          <Tabs.TabPane tab={intl.get('Online search')} key="network">
-            <LoadFromServer
-              addFile={this.props.addFile}
-              toggleDialog={this.props.toggleDialog}
-              checkFileExist={this.props.checkFileExist}
-              mode={this.props.mode}
-              server={this.props.server}
-            />
-          </Tabs.TabPane>
-        </Tabs>
+        <Tabs
+          activeKey={activeTab}
+          onChange={this.handleTabChange}
+          items={tabItems}
+        />
       </Modal>
     );
   }
