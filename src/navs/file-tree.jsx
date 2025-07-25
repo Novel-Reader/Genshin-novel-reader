@@ -25,15 +25,23 @@ function FileTree({ file, index, currentFileIndex, searchValue, changeFileIndex,
         {file.name}
       </span>
       <Dropdown
-        menu={
-          <Menu>
-            <Menu.Item key="1" onClick={() => setDialogOpen(true)}>{intl.get('Information')}</Menu.Item>
-            <Menu.Item key="2" onClick={() => deleteFile(index)}>{intl.get('Delete')}</Menu.Item>
-          </Menu>
-        }
         trigger={['click']}
         open={dropdownOpen}
         onOpenChange={(visible) => setDropdownOpen(visible)}
+        menu={{
+          items: [
+            {
+              key: '1',
+              label: intl.get('Information'),
+              onClick: () => setDialogOpen(true),
+            },
+            {
+              key: '2',
+              label: intl.get('Delete'),
+              onClick: () => deleteFile(index),
+            },
+          ],
+        }}
       >
         <Button
           type="link"
