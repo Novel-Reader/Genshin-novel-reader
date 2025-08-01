@@ -77,6 +77,7 @@ const zh = {
   'Paragraph not found, Paragraph mode not supported': '没有找到章节，不支持章节模式',
   'Close': '关闭',
   'Submit': '提交',
+  'Please login first': '请登录',
   'Search by book name or author': '通过小说名称或者作者搜索',
 };
 

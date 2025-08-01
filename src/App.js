@@ -43,7 +43,9 @@ class App extends Component {
 
   componentDidMount() {
     if (this.props.mode === "online") {
-      this.setState({ isShowLoginDialog: true });
+      if (!Cookies.get("username")) {
+        this.setState({ isShowLoginDialog: true }); 
+      }
     } else {
       toaster.success(intl.get("Welcome_to_use_offline_mode"));
     }
@@ -96,7 +98,7 @@ class App extends Component {
     this.api.getUserInfo(username).then(res => {
       const user = res.data[0];
       if (!user) {
-        toaster.warning('请登录');
+        toaster.warning(intl.get('Please login first'));
         return;
       }
       this.api.setUserInfo({ user_id: user.id, username: username });
