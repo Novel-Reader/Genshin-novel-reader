@@ -75,10 +75,15 @@ const generatorBase64Code = (keyLength = 4) => {
   return key;
 };
 
+const isMobile = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 export {
   parseTxtToHTML,
   isSameObject,
   MenuSelectStyle,
   loadExample,
   generatorBase64Code,
+  isMobile,
 };

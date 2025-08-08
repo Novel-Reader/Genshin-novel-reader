@@ -2,6 +2,7 @@
   background-color: #fafafa;
   flex-shrink: 0;
   border-right: 1px solid #cccccc;
+  transition: width 0.3s ease 0s;
 }
 .navs .navs-header {
   height: 40px;
@@ -55,3 +56,15 @@
 .navs .navs-footer .novel-reader-ant-btn {
   width: 100%;
 }
+
+@media screen and (max-width: 768px) {
+  .navs {
+    width: 100% !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 100;
+  }
+}
+

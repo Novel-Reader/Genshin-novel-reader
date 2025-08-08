@@ -17,7 +17,7 @@ const Settings = (props) => {
   return (
     <div
       id="settings"
-      className="settings"
+      className={`settings ${props.isShowRightPanel ? 'show' : ''}`}
       style={{ width: props.isShowRightPanel ? 250 : 0, padding: props.isShowRightPanel ? '0 10px' : 0 }}
     >
       <Tabs

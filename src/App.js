@@ -7,7 +7,7 @@ import MainPanel from "./main-panel";
 import Navs from "./navs";
 import Settings from "./settings";
 import LocalAPI from "./api/local-api";
-import { isSameObject, loadExample } from "./utils";
+import { isSameObject, loadExample, isMobile } from "./utils";
 import { getLocalValue, setLocalValue, NOVEL_READER_STYLE_SAVE_KEY } from "./utils/store";
 import { isUp, isDown } from "./utils/hotkey";
 import { convertNovel2Pages, convertNovel2Paragraph, checkParaGraph, parseNovel } from "./utils/parse";
@@ -26,13 +26,14 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    window.isMobile = isMobile();
     this.state = {
       files: [],
       currentFileIndex: 0,
       currentFile: null,
       style: DEFAULT_STYLE,
-      isShowRightPanel: true,
-      isShowLeftPanel: true,
+      isShowRightPanel: window.isMobile ? false : true,
+      isShowLeftPanel: window.isMobile ? false : true,
       currentPageIndex: 0,
       api: null,
       user: null,
@@ -185,7 +186,17 @@ class App extends Component {
       currentFileIndex,
       currentPageIndex: 0,
     });
+    this.showNovel();
   };
+  
+  showNovel = () => {
+    if (window.isMobile) {
+      this.setState({
+        isShowRightPanel: false,
+        isShowLeftPanel: false,
+      });
+    }
+  }
 
   deleteFile = (index) => {
     const files = this.state.files.slice(0);
@@ -210,11 +221,18 @@ class App extends Component {
       this.setState({ style });
       setLocalValue(NOVEL_READER_STYLE_SAVE_KEY, JSON.stringify(style));
     }
+    this.showNovel();
   };
 
   toggleRightPanel = () => {
     this.setState({
       isShowRightPanel: !this.state.isShowRightPanel,
+    });
+  };
+  
+  toggleLeftPanel = () => {
+    this.setState({
+      isShowLeftPanel: !this.state.isShowLeftPanel,
     });
   };
 
@@ -242,10 +260,12 @@ class App extends Component {
           />
           <MainPanel
             currentFile={currentFile}
+            files={files}
             style={style}
             toggleRightPanel={this.toggleRightPanel}
             isShowRightPanel={this.state.isShowRightPanel}
             currentPageIndex={this.state.currentPageIndex}
+            toggleLeftPanel={this.toggleLeftPanel}
           />
           <Settings
             style={style}

@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { TbCircleDotted } from "react-icons/tb";
+import PropTypes from "prop-types";
+import { TbCircleDotted, TbMenu2, TbSettings } from "react-icons/tb";
 import ScrollTopIcon from "../common/scroll-top-button";
 import TextViewer from "../common/text-viewer";
 import FoldedIcon from "./folded-icon";
@@ -11,11 +11,13 @@ import "./index.css";
 export default class MainPanel extends Component {
   static propTypes = {
     toggleRightPanel: PropTypes.func.isRequired,
+    toggleLeftPanel: PropTypes.func.isRequired,
     isShowRightPanel: PropTypes.bool.isRequired,
     currentPageIndex: PropTypes.number.isRequired,
     currentFile: PropTypes.object,
     detail: PropTypes.string,
     style: PropTypes.object,
+    files: PropTypes.array.isRequired,
   };
 
   constructor(props) {
@@ -49,27 +51,22 @@ export default class MainPanel extends Component {
   };
 
   scrollToTop = () => {
-    this.setState(
-      {
-        isMoving: true,
-      },
-      () => {
-        let currentTop = this.longPageRef.scrollTop;
-        const indent = currentTop / 50;
-        this.timer = setInterval(() => {
-          currentTop = currentTop - indent * 3;
-          this.longPageRef.scrollTop = currentTop;
-          if (currentTop < 0) {
-            clearInterval(this.timer);
-            this.timer = null;
-            this.setState({
-              isMoving: false,
-              isShowTopIcon: false,
-            });
-          }
-        }, 20);
-      }
-    );
+    this.setState({ isMoving: true }, () => {
+      let currentTop = this.longPageRef.scrollTop;
+      const indent = currentTop / 50;
+      this.timer = setInterval(() => {
+        currentTop = currentTop - indent * 3;
+        this.longPageRef.scrollTop = currentTop;
+        if (currentTop < 0) {
+          clearInterval(this.timer);
+          this.timer = null;
+          this.setState({
+            isMoving: false,
+            isShowTopIcon: false,
+          });
+        }
+      }, 20);
+    });
   };
 
   renderDetail = () => {
@@ -82,13 +79,34 @@ export default class MainPanel extends Component {
     }
     return <TextViewer detail={detail} />;
   };
+  
+  renderMobileHeader = () => {
+    const { currentFile, files } = this.props;
+    const headerName = currentFile ? files.find(file => file.id === currentFile.id).name : 'Novel reader';
+    return (
+      <div className="mobile-header">
+        <button onClick={this.props.toggleLeftPanel}>
+          <TbMenu2 />
+        </button>
+        <h1>{headerName}</h1>
+        <button onClick={this.props.toggleRightPanel}>
+          <TbSettings />
+        </button>
+      </div>
+    );
+  };
 
   render() {
     const { currentFile, style } = this.props;
 
     if (!currentFile) {
       return (
-        <div id="main" className="main center">
+        <div
+          id="main"
+          className="center"
+          style={window.isMobile ? { flexDirection: "column", justifyContent: "space-between" }: {}}
+        >
+          {window.isMobile && this.renderMobileHeader()}
           <TbCircleDotted />
         </div>
       );
@@ -96,6 +114,7 @@ export default class MainPanel extends Component {
 
     return (
       <div id="main" className="main">
+        {window.isMobile && this.renderMobileHeader()}
         <div
           className="long-page"
           style={{

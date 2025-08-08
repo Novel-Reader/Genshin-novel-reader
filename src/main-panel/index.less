@@ -37,3 +37,29 @@
     }
   }
 }
+.mobile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+  width: calc(100% - 20px);
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+  }
+  h1 {
+    font-size: 20px;
+    margin: 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  #main .long-page {
+    padding: 0;
+  }
+  #main .long-page .long-page-container {
+    padding: 0 20px;
+  }
+}

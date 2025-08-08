@@ -33,3 +33,9 @@
 .add-novel-dialog .modal-body .add-novel-dialog-main .local-file-info .modal-footer {
   border-top: none;
 }
+@media screen and (max-width: 768px) {
+  .add-novel-dialog {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
