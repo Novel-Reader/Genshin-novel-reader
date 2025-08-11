@@ -87,6 +87,9 @@ class App extends Component {
     const username = Cookies.get("username");
     if (!username) {
       toaster.warning(intl.get('Please login first'));
+      setTimeout(() => {
+        this.setState({ isShowLoginDialog: true });
+      }, 100);
       return;
     }
     const api = new LocalAPI();
@@ -119,6 +122,13 @@ class App extends Component {
           currentFileIndex: 0,
           currentFile: files[0],
         });
+      }).catch((err) => {
+        // eslint-disable-next-line no-console
+        console.log(err);
+        toaster.warning(intl.get('Please login first'));
+        setTimeout(() => {
+          this.setState({ isShowLoginDialog: true });
+        }, 100);
       });
     });
   };
