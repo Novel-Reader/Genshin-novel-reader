@@ -46,6 +46,8 @@ class App extends Component {
     if (this.props.mode === "online") {
       if (!Cookies.get("username")) {
         this.setState({ isShowLoginDialog: true }); 
+      } else {
+        this.initFromServer();
       }
     } else {
       toaster.success(intl.get("Welcome_to_use_offline_mode"));
