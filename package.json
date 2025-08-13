@@ -1,6 +1,6 @@
 {
   "name": "genshin-novel-reader",
-  "version": "2.1.5",
+  "version": "2.2.0",
   "homepage": "/",
   "type": "module",
   "main": "dist/app.js",
