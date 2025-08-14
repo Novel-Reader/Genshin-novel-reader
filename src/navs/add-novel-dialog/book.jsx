@@ -4,10 +4,19 @@ import { BsDownload } from "react-icons/bs";
 import { FaRegCommentDots } from "react-icons/fa";
 import BookDetailDialog from "../book-detail-dialog";
 
+const getRandomLightColor = () => {
+  const letters = 'ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 3; i++) {
+    color += letters[Math.floor(Math.random() * 6)];
+  }
+  return color;
+};
+
 function Book(props) {
   const [showDetail, setShowDetail] = useState(false);
   const { novel } = props;
-  const { id, author, brief, cover_photo, name, size, download_count } = novel;
+  const { id, author, brief, cover_photo, name, size, download_count, tag } = novel;
   return (
     <div className="book">
       <div className="book-left">
@@ -21,9 +30,15 @@ function Book(props) {
         <p className="book-right-detail">
           {brief.replace(/\s+/gi, "").slice(0, 80)}
         </p>
+        <div className="book-right-tags">
+          {tag.replace(/\n/gi, '').split(',').map((item, index) => (
+            item.trim() &&
+            <span className="book-right-tag" key={index} style={{ backgroundColor: getRandomLightColor() }}>{item}</span>
+          ))}
+        </div>
         <div className="book-right-price">
-          <span>字数{size}</span>
-          <span>下载{download_count}</span>
+          <span>字数 {size}</span>
+          <span>下载 {download_count}</span>
           <span className="icon" onClick={() => setShowDetail(true)}>
             <FaRegCommentDots />
           </span>

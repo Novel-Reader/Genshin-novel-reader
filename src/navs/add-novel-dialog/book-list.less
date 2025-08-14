@@ -35,16 +35,29 @@
         text-align: center;
       }
       .book-right-detail {
-        height: 70px;
         font-size: 12px;
         text-overflow: ellipsis;
         overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        margin: 0 0 4px;
       }
       .book-right-price {
         display: flex;
         justify-content: space-between;
         align-items: center;
         font-size: 14px;
+      }
+      .book-right-tags {
+        .book-right-tag {
+          margin: 4px;
+          display: inline-block;
+          font-size: 12px;
+          padding: 4px 8px;
+          border-radius: 4px;
+        }
       }
     }
   }
