@@ -25,3 +25,8 @@
 .icon:hover {
   color: #666666;
 }
+@media screen and (max-width: 768px) {
+  .icon {
+    padding: 0 8px;
+  }
+}

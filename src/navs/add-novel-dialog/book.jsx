@@ -37,8 +37,8 @@ function Book(props) {
           ))}
         </div>
         <div className="book-right-price">
-          <span>字数 {size}</span>
-          <span>下载 {download_count}</span>
+          {!window.isMobile && <span>字数 {size}</span>}
+          {!window.isMobile && <span>下载 {download_count || 0}</span>}
           <span className="icon" onClick={() => setShowDetail(true)}>
             <FaRegCommentDots />
           </span>
