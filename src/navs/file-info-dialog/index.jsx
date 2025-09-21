@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import { Modal, Button } from "antd";
+import { Modal, Button, Table } from "antd";
 import { generatorBase64Code } from '../../utils/index';
 
 function FileInfoDialog({ file, toggleDialog }) {
@@ -10,21 +10,39 @@ function FileInfoDialog({ file, toggleDialog }) {
     const fileArr = [];
     for (const key in file) {
       if (file[key] && key !== 'detail') {
-        fileArr.push([key, file[key]]);
+        fileArr.push({
+          key: generatorBase64Code(),
+          name: key,
+          value: file[key]
+        });
       }
     }
+    
+    const columns = [
+      {
+        title: '属性',
+        dataIndex: 'name',
+        key: 'name',
+        width: '20%',
+        render: text => <strong>{text}</strong>
+      },
+      {
+        title: '值',
+        dataIndex: 'value',
+        key: 'value',
+        width: '80%'
+      }
+    ];
+    
     return (
-      <div>
-        {fileArr.map(file => {
-          return (
-            <div key={generatorBase64Code()}>
-              <span>{file[0]}</span>
-              <span>: </span>
-              <span>{file[1]}</span>
-            </div>
-          );
-        })}
-      </div>
+      <Table
+        columns={columns}
+        dataSource={fileArr}
+        pagination={false}
+        size="small"
+        rowKey="key"
+        bordered
+      />
     );
   };
 
