@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Modal, Button, Checkbox, Typography } from 'antd';
-import "./index.css";
+
+import "./index.less";
 
 const VipDialog = ({ toggleUpgrade }) => {
   const serviceList = [

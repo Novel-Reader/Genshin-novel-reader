@@ -6,7 +6,7 @@ import { Button } from "antd";
 import toaster from "../../common/toast";
 import { AppContext } from "../../context";
 
-import "./add-comment.css";
+import "./add-comment.less";
 
 function AddComment(props) {
   const commentElement = useRef("");

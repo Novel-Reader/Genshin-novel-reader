@@ -6,7 +6,7 @@ import LoadFromLocal from "./load-from-local";
 import LoadFromServer from "./load-from-server";
 import LoadFromLocalBatch from "./load-from-local-batch";
 
-import "./index.css";
+import "./index.less";
 
 class AddNovelDialog extends Component {
   constructor(props) {

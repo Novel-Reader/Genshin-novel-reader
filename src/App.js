@@ -20,7 +20,7 @@ import LoginDialog from "./dialog/login-dialog";
 
 import "./locale/index.js";
 
-import "./css/App.css";
+import "./css/App.less";
 
 class App extends Component {
 

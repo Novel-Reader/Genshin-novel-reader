@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import intl from "react-intl-universal";
 import toaster from "../../common/toast";
 
-import "./comment-list.css";
+import "./comment-list.less";
 
 function CommentItem(props) {
   const { comment } = props;

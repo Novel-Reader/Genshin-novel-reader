@@ -5,7 +5,7 @@ import { Tabs } from "antd";
 import BasicSettings from "./basic-settings";
 import AdvanceSettings from "./advance-settings";
 
-import "./index.css";
+import "./index.less";
 
 const Settings = (props) => {
   const [activeTab, setActiveTab] = useState("basic");

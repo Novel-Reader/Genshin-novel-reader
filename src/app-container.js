@@ -7,7 +7,7 @@ import enUS from 'antd/locale/en_US';
 import store from './store';
 import App from "./App";
 
-import "./css/common.css";
+import "./css/common.less";
 
 const lang = Cookies.get("lang") || "en";
 

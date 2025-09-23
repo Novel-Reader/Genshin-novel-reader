@@ -6,7 +6,7 @@ import FileTree from "./file-tree";
 import Outline from "./outline";
 import { NAV_TYPE } from "./constants";
 
-import "./index.css";
+import "./index.less";
 
 export default class Navs extends Component {
 

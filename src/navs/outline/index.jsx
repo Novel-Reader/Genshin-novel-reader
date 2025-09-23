@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { PAGES, PARAGRAPHS } from "../../utils/constants";
 
-import "./index.css";
+import "./index.less";
 
 class Outline extends Component {
   render() {

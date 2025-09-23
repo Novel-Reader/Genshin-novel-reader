@@ -2,7 +2,8 @@ import React from "react";
 import intl from "react-intl-universal";
 import { BsFillStarFill } from "react-icons/bs";
 import VipDialog from "../vip-dialog";
-import "./index.css";
+
+import "./index.less";
 
 export default function VipButton() {
   const [isOpen, setOpen] = React.useState(false);

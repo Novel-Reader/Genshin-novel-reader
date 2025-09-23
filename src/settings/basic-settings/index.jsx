@@ -9,7 +9,7 @@ import FullScreen from "./full-screen";
 import Admin from "../admin-settings/admin";
 import { AppContext } from "../../context";
 
-import "./index.css";
+import "./index.less";
 
 function BasicSettings(props) {
 

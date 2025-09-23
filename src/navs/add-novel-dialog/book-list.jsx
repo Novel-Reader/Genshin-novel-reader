@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import intl from "react-intl-universal";
 import Book from "./book";
 
-import "./book-list.css";
+import "./book-list.less";
 
 function BookList(props) {
   if (!Array.isArray(props.novelList) || props.novelList.length === 0) {

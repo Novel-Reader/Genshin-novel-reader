@@ -6,7 +6,7 @@ import TextViewer from "../common/text-viewer";
 import FoldedIcon from "./folded-icon";
 import { PAGES, PARAGRAPHS, DEFAULT_IMAGE } from "../utils/constants";
 
-import "./index.css";
+import "./index.less";
 
 export default class MainPanel extends Component {
   static propTypes = {

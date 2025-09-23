@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
 import { Tooltip } from 'antd';
-import "./index.css";
+
+import "./index.less";
 
 const ScrollTopIcon = ({ onClick, style }) => {
   const id = "novel-scroll-top-icon";
