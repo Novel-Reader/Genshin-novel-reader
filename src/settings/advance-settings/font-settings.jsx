@@ -1,40 +1,33 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Select from "react-select";
 import { Typography } from 'antd';
 import { MenuSelectStyle } from "../../utils";
 
-class FontSettings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: null,
-    };
-  }
+const FontSettings = ({ title, options, save }) => {
+  const [selected, setSelected] = useState(null);
 
-  onChange = (option) => {
-    this.setState({ selected: option });
-    this.props.save(option);
+  const onChange = (option) => {
+    setSelected(option);
+    save(option);
   };
 
-  render() {
-    const preCls = "advance-font-settings";
-    return (
-      <div className={preCls}>
-        <Typography.Title level={5}>{this.props.title}</Typography.Title>
-        <Select
-          value={this.state.selected}
-          options={this.props.options}
-          onChange={this.onChange}
-          captureMenuScroll={false}
-          className={`${preCls}-select`}
-          classNamePrefix
-          styles={MenuSelectStyle}
-        />
-      </div>
-    );
-  }
-}
+  const preCls = "advance-font-settings";
+  return (
+    <div className={preCls}>
+      <Typography.Title level={5}>{title}</Typography.Title>
+      <Select
+        value={selected}
+        options={options}
+        onChange={onChange}
+        captureMenuScroll={false}
+        className={`${preCls}-select`}
+        classNamePrefix
+        styles={MenuSelectStyle}
+      />
+    </div>
+  );
+};
 
 FontSettings.propTypes = {
   title: PropTypes.string.isRequired,

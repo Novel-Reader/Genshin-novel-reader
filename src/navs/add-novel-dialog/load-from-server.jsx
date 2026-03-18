@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
 import { Button } from "antd";
@@ -8,47 +8,40 @@ import BookList from "./book-list";
 import SearchFromServer from "./search-from-server";
 import File from '../../model/file';
 
-class LoadFromServer extends Component {
-  constructor(props) {
-    super(props);
-    this.isOnline = this.props.mode === "online";
-    this.state = {
-      isLoading: true,
-      novelList: [],
-      isSearch: false,
-    };
-  }
+const LoadFromServer = (props) => {
+  const { addFile, checkFileExist, mode } = props;
+  const isOnline = mode === "online";
+  
+  const [isLoading, setIsLoading] = useState(true);
+  const [novelList, setNovelList] = useState([]);
+  const [isSearch, setIsSearch] = useState(false);
 
-  componentDidMount() {
-    if (this.isOnline) {
-      this.loadNovelsFromServer();
+  useEffect(() => {
+    if (isOnline) {
+      loadNovelsFromServer();
     }
-  }
+  }, [isOnline]);
 
-  loadNovelsFromServer = () => {
+  const loadNovelsFromServer = () => {
     window.app.api
       .getNovelList()
       .then((res) => {
-        this.setState({
-          isLoading: false,
-          novelList: res.data,
-        });
+        setIsLoading(false);
+        setNovelList(res.data);
       })
       .catch((err) => {
         toaster.danger(err);
-        this.setState({
-          isLoading: false,
-        });
+        setIsLoading(false);
       });
   };
 
-  downLoadNovel = (book_id) => {
-    if (this.props.checkFileExist(book_id)) {
+  const downLoadNovel = (book_id) => {
+    if (checkFileExist(book_id)) {
       toaster.danger('已经下载到本地，不需要再次下载');
       return;
     }
     window.app.api.getNovelDetail(book_id).then((res) => {
-      this.props.addFile(new File(res.data[0]));
+      addFile(new File(res.data[0]));
       const userId = window.app.state.user.id;
       window.app.api.updateUserBook(userId, book_id).then((res) => {
       });
@@ -57,40 +50,39 @@ class LoadFromServer extends Component {
     });
   };
 
-  changeSearch = () => {
-    this.setState({ isSearch: true });
+  const changeSearch = () => {
+    setIsSearch(true);
   };
 
-  render() {
-    if (!this.isOnline) {
-      return (
-        <div>
-          {intl.get('This is an exclusive feature for networking')}
-          <VipButton />
-        </div>
-      );
-    }
-    if (this.state.isSearch) {
-      return <SearchFromServer downLoadNovel={this.downLoadNovel} />;
-    }
+  if (!isOnline) {
     return (
-      <div className="novel-list">
-        <div>
-          <h3>{intl.get('Hot')}</h3>
-          <Button type="primary" onClick={this.changeSearch}>{intl.get('Online search')}</Button>
-        </div>
-        <BookList
-          novelList={this.state.novelList}
-          downLoadNovel={this.downLoadNovel}
-        />
+      <div>
+        {intl.get('This is an exclusive feature for networking')}
+        <VipButton />
       </div>
     );
   }
-}
+  if (isSearch) {
+    return <SearchFromServer downLoadNovel={downLoadNovel} />;
+  }
+  return (
+    <div className="novel-list">
+      <div>
+        <h3>{intl.get('Hot')}</h3>
+        <Button type="primary" onClick={changeSearch}>{intl.get('Online search')}</Button>
+      </div>
+      <BookList
+        novelList={novelList}
+        downLoadNovel={downLoadNovel}
+      />
+    </div>
+  );
+};
 
 LoadFromServer.propTypes = {
   addFile: PropTypes.func.isRequired,
   checkFileExist: PropTypes.func.isRequired,
+  mode: PropTypes.string,
 };
 
 export default LoadFromServer;

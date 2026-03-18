@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Cookies from 'js-cookie';
 import intl from "react-intl-universal";
 import PropTypes from "prop-types";
@@ -19,124 +19,120 @@ import { NUM_ADD, NUM_REDUCE, NUM_CHANGE } from './reducers/reducer-types';
 import LoginDialog from "./dialog/login-dialog";
 
 import "./locale/index.js";
-
 import "./css/App.less";
 
-class App extends Component {
+const App = ({ 
+  mode = 'offline',
+  server = '',
+}) => {
+  const [files, setFiles] = useState([]);
+  const [currentFileIndex, setCurrentFileIndex] = useState(0);
+  const [currentFile, setCurrentFile] = useState(null);
+  const [style, setStyle] = useState(DEFAULT_STYLE);
+  const [isShowRightPanel, setIsShowRightPanel] = useState(window.isMobile ? false : true);
+  const [isShowLeftPanel, setIsShowLeftPanel] = useState(window.isMobile ? false : true);
+  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [api, setApi] = useState(null);
+  const [user, setUser] = useState(null);
+  const [isShowLoginDialog, setIsShowLoginDialog] = useState(false);
+  
+  const apiRef = useRef(null);
 
-  constructor(props) {
-    super(props);
+  useEffect(() => {
     window.isMobile = isMobile();
-    this.state = {
-      files: [],
-      currentFileIndex: 0,
-      currentFile: null,
-      style: DEFAULT_STYLE,
-      isShowRightPanel: window.isMobile ? false : true,
-      isShowLeftPanel: window.isMobile ? false : true,
-      currentPageIndex: 0,
-      api: null,
-      user: null,
-      isShowLoginDialog: false,
-    };
-    this.api = null;
-  }
+  }, []);
 
-  componentDidMount() {
-    if (this.props.mode === "online") {
+  useEffect(() => {
+    if (mode === "online") {
       if (!Cookies.get("username")) {
-        this.setState({ isShowLoginDialog: true }); 
+        setIsShowLoginDialog(true); 
       } else {
-        this.initFromServer();
+        initFromServer();
       }
     } else {
       toaster.success(intl.get("Welcome_to_use_offline_mode"));
     }
-    this.initDataFromLocalStore();
-    document.addEventListener("keydown", this.onKeydown);
-    window.app = this;
-  }
+    initDataFromLocalStore();
+    document.addEventListener("keydown", onKeydown);
+    window.app = { 
+      changePageIndex, 
+      changeFileIndex: handleChangeFileIndex,
+      addFile,
+      deleteFile: handleDeleteFile
+    };
 
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.onKeydown);
-    window.app = null;
-  }
+    return () => {
+      document.removeEventListener("keydown", onKeydown);
+      window.app = null;
+    };
+  }, []);
 
-  /**
-   * get init data(novel-reader-style) from local store
-   * future support local novels and folder tree
-   */
-  initDataFromLocalStore = () => {
+  const initDataFromLocalStore = useCallback(() => {
     getLocalValue(NOVEL_READER_STYLE_SAVE_KEY).then((localStyleStr) => {
       if (localStyleStr) {
-        this.setState({
-          style: JSON.parse(localStyleStr) || DEFAULT_STYLE,
-        });
+        setStyle(JSON.parse(localStyleStr) || DEFAULT_STYLE);
       }
     });
-  };
+  }, []);
 
-  changePageIndex = (currentPageIndex) => {
-    this.setState({ currentPageIndex });
-  };
-  
-  closeLoginDialog = () => {
-    this.setState({ isShowLoginDialog: false });
-    this.initFromServer();
-  };
+  const changePageIndex = useCallback((newPageIndex) => {
+    setCurrentPageIndex(newPageIndex);
+  }, []);
 
-  initFromServer = () => {
+  const closeLoginDialog = useCallback(() => {
+    setIsShowLoginDialog(false);
+    initFromServer();
+  }, []);
+
+  const initFromServer = useCallback(() => {
     const username = Cookies.get("username");
     if (!username) {
       toaster.warning(intl.get('Please login first'));
       setTimeout(() => {
-        this.setState({ isShowLoginDialog: true });
+        setIsShowLoginDialog(true);
       }, 100);
       return;
     }
-    const api = new LocalAPI();
-    api.init({
-      server: this.props.server,
+    const newApi = new LocalAPI();
+    newApi.init({
+      server: server,
       token: Cookies.get("novelToken"),
     });
-    this.setState({ api });
-    this.api = api;
-    this.api.getUserInfo(username).then(res => {
-      const user = res.data[0];
-      if (!user) {
+    setApi(newApi);
+    apiRef.current = newApi;
+    newApi.getUserInfo(username).then(res => {
+      const userInfo = res.data[0];
+      if (!userInfo) {
         toaster.warning(intl.get('Please login first'));
         return;
       }
-      this.api.setUserInfo({ user_id: user.id, username: username });
-      this.api.getUserBookList(user.id).then(res => {
-        let files = res.data;
-        if (files.length === 0) {
+      newApi.setUserInfo({ user_id: userInfo.id, username: username });
+      newApi.getUserBookList(userInfo.id).then(res => {
+        let fileList = res.data;
+        if (fileList.length === 0) {
           const examples = loadExample();
-          files = examples.map((file) => {
+          fileList = examples.map((file) => {
             return Object.assign(new File(file), parseNovel(file.detail));
           });
         } else {
-          files = files.map(file => new File(file));
+          fileList = fileList.map(file => new File(file));
         }
-        this.setState({
-          user,
-          files,
-          currentFileIndex: 0,
-          currentFile: files[0],
-        });
+        setUser(userInfo);
+        setFiles(fileList);
+        setCurrentFileIndex(0);
+        setCurrentFile(fileList[0]);
       }).catch((err) => {
         // eslint-disable-next-line no-console
         console.log(err);
         toaster.warning(intl.get('Please login first'));
         setTimeout(() => {
-          this.setState({ isShowLoginDialog: true });
+          setIsShowLoginDialog(true);
         }, 100);
       });
     });
-  };
+  }, [server]);
 
-  onKeydown = (e) => {
-    const { files, currentFileIndex, currentPageIndex } = this.state;
+  const onKeydown = useCallback((e) => {
     if (isUp(e)) {
       if (document.activeElement.nodeName.toLowerCase() !== 'body') return;
       e.preventDefault();
@@ -145,7 +141,7 @@ class App extends Component {
         toaster.warning(intl.get('This is already the first page'));
         return;
       }
-      this.changePageIndex(currentPageIndex - 1);
+      changePageIndex(currentPageIndex - 1);
     } else if (isDown(e)) {
       if (document.activeElement.nodeName.toLowerCase() !== 'body') return;
       e.preventDefault();
@@ -156,12 +152,13 @@ class App extends Component {
         toaster.warning(intl.get('This is already the last page'));
         return;
       }
-      this.changePageIndex(currentPageIndex + 1);
+      changePageIndex(currentPageIndex + 1);
     }
-  };
+  }, [files, currentFileIndex, currentPageIndex, changePageIndex]);
 
-  changeMode = (mode) => {
-    const { currentFile } = this.state;
+  const changeMode = useCallback((mode) => {
+    if (!currentFile) return;
+    
     let detail = currentFile.detail;
     if (Array.isArray(detail)) {
       detail = detail.join(' ');
@@ -169,130 +166,109 @@ class App extends Component {
       detail = 'Article data structure is not correct, please reupload or re-download this article.';
     }
     if (mode === PAGES) {
-      this.setState({
-        currentFile: Object.assign({}, currentFile, convertNovel2Pages(detail)),
-        isShowRightPanel: true,
-      });
-    }
-    else if (mode === PARAGRAPHS) {
+      setCurrentFile(Object.assign({}, currentFile, convertNovel2Pages(detail)));
+      setIsShowRightPanel(true);
+    } else if (mode === PARAGRAPHS) {
       if (checkParaGraph(detail)) {
-        this.setState({
-          currentFile: Object.assign({}, currentFile, convertNovel2Paragraph(detail)),
-          isShowRightPanel: true,
-        });
+        setCurrentFile(Object.assign({}, currentFile, convertNovel2Paragraph(detail)));
+        setIsShowRightPanel(true);
       } else {
         toaster.warning(intl.get('Paragraph not found, Paragraph mode not supported'));
       }
     }
-  };
+  }, [currentFile]);
 
-  addFile = (file) => {
-    const files = this.state.files.slice(0);
-    files.push(file);
-    this.setState({ files });
-  };
+  const addFile = useCallback((file) => {
+    setFiles(prevFiles => [...prevFiles, file]);
+  }, []);
 
-  changeFileIndex = (currentFileIndex) => {
-    this.setState({
-      currentFile: this.state.files[currentFileIndex],
-      currentFileIndex,
-      currentPageIndex: 0,
-    });
-    this.showNovel();
-  };
-  
-  showNovel = () => {
+  const handleChangeFileIndex = useCallback((newFileIndex) => {
+    setCurrentFile(files[newFileIndex]);
+    setCurrentFileIndex(newFileIndex);
+    setCurrentPageIndex(0);
+    showNovel();
+  }, [files]);
+
+  const showNovel = useCallback(() => {
     if (window.isMobile) {
-      this.setState({
-        isShowRightPanel: false,
-        isShowLeftPanel: false,
-      });
+      setIsShowRightPanel(false);
+      setIsShowLeftPanel(false);
     }
-  }
+  }, []);
 
-  deleteFile = (index) => {
-    const files = this.state.files.slice(0);
-    const book_id = files[index].id;
-    files.splice(index, 1);
-    this.setState({
-      files,
-      currentFile: files[this.state.currentFileIndex],
-    });
-    if (index === this.state.currentFileIndex) {
-      this.setState({
-        currentFileIndex: 0,
-        currentPageIndex: 0,
-      });
+  const handleDeleteFile = useCallback((index) => {
+    const newFiles = [...files];
+    const book_id = newFiles[index].id;
+    newFiles.splice(index, 1);
+    setFiles(newFiles);
+    setCurrentFile(newFiles[currentFileIndex]);
+    
+    if (index === currentFileIndex) {
+      setCurrentFileIndex(0);
+      setCurrentPageIndex(0);
     }
-    this.api && this.api.deleteUserBook(this.state.user.id, book_id);
-  };
+    apiRef.current && apiRef.current.deleteUserBook(user?.id, book_id);
+  }, [files, currentFileIndex, user]);
 
-  changeStyle = (newStyle) => {
-    const style = Object.assign({}, this.state.style, newStyle);
-    if (!isSameObject(style, this.state.style)) {
-      this.setState({ style });
-      setLocalValue(NOVEL_READER_STYLE_SAVE_KEY, JSON.stringify(style));
+  const changeStyle = useCallback((newStyle) => {
+    const updatedStyle = Object.assign({}, style, newStyle);
+    if (!isSameObject(updatedStyle, style)) {
+      setStyle(updatedStyle);
+      setLocalValue(NOVEL_READER_STYLE_SAVE_KEY, JSON.stringify(updatedStyle));
     }
-    this.showNovel();
-  };
+    showNovel();
+  }, [style, showNovel]);
 
-  toggleRightPanel = () => {
-    this.setState({
-      isShowRightPanel: !this.state.isShowRightPanel,
-    });
-  };
-  
-  toggleLeftPanel = () => {
-    this.setState({
-      isShowLeftPanel: !this.state.isShowLeftPanel,
-    });
-  };
+  const toggleRightPanel = useCallback(() => {
+    setIsShowRightPanel(prev => !prev);
+  }, []);
 
-  render() {
-    const { files, currentFileIndex, style } = this.state;
-    const { mode = 'offline', server = '' } = this.props;
-    const username = Cookies.get("username");
-    const isAdmin = username === "admin";
-    const currentFile = files[currentFileIndex];
-    return (
-      <AppContext.Provider value={{ api: this.state.api, username, isAdmin }}>
-        <div id="app">
-          <Navs
-            addFile={this.addFile}
-            files={files}
-            changeFileIndex={this.changeFileIndex}
-            deleteFile={this.deleteFile}
-            currentFileIndex={currentFileIndex}
-            currentFile={currentFile}
-            currentPageIndex={this.state.currentPageIndex}
-            changePageIndex={this.changePageIndex}
-            isShowLeftPanel={this.state.isShowLeftPanel}
-            mode={mode}
-            server={server}
-          />
-          <MainPanel
-            currentFile={currentFile}
-            files={files}
-            style={style}
-            toggleRightPanel={this.toggleRightPanel}
-            isShowRightPanel={this.state.isShowRightPanel}
-            currentPageIndex={this.state.currentPageIndex}
-            toggleLeftPanel={this.toggleLeftPanel}
-          />
-          <Settings
-            style={style}
-            changeStyle={this.changeStyle}
-            isShowRightPanel={this.state.isShowRightPanel}
-            changeMode={this.changeMode}
-          />
-        </div>
-        {this.state.isShowLoginDialog && (
-          <LoginDialog toggle={this.closeLoginDialog} server={this.props.server}/>
-        )}
-      </AppContext.Provider>
-    );
-  }
-}
+  const toggleLeftPanel = useCallback(() => {
+    setIsShowLeftPanel(prev => !prev);
+  }, []);
+
+  const username = Cookies.get("username");
+  const isAdmin = username === "admin";
+  const currentFileObj = files[currentFileIndex];
+
+  return (
+    <AppContext.Provider value={{ api, username, isAdmin }}>
+      <div id="app">
+        <Navs
+          addFile={addFile}
+          files={files}
+          changeFileIndex={handleChangeFileIndex}
+          deleteFile={handleDeleteFile}
+          currentFileIndex={currentFileIndex}
+          currentFile={currentFileObj}
+          currentPageIndex={currentPageIndex}
+          changePageIndex={changePageIndex}
+          isShowLeftPanel={isShowLeftPanel}
+          mode={mode}
+          server={server}
+        />
+        <MainPanel
+          currentFile={currentFileObj}
+          files={files}
+          style={style}
+          toggleRightPanel={toggleRightPanel}
+          isShowRightPanel={isShowRightPanel}
+          currentPageIndex={currentPageIndex}
+          toggleLeftPanel={toggleLeftPanel}
+        />
+        <Settings
+          style={style}
+          changeStyle={changeStyle}
+          isShowRightPanel={isShowRightPanel}
+          changeMode={changeMode}
+        />
+      </div>
+      {isShowLoginDialog && (
+        <LoginDialog toggle={closeLoginDialog} server={server}/>
+      )}
+    </AppContext.Provider>
+  );
+};
 
 App.propTypes = {
   fileIndex: PropTypes.object.isRequired,

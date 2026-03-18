@@ -1,46 +1,42 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button } from "antd";
 import intl from "react-intl-universal";
 import AddNovelDialog from "./add-novel-dialog";
 
-class NavFooter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isShowAddDialog: false,
-    };
-  }
+const NavFooter = (props) => {
+  const { addFile, checkFileExist, mode, server } = props;
+  const [isShowAddDialog, setIsShowAddDialog] = useState(false);
 
-  toggleDialog = () => {
-    this.setState({ isShowAddDialog: !this.state.isShowAddDialog });
+  const toggleDialog = () => {
+    setIsShowAddDialog(!isShowAddDialog);
   };
 
-  render() {
-    return (
-      <>
-        <div className="navs-footer">
-          <Button onClick={this.toggleDialog} type="primary">
-            {intl.get('Add')}
-          </Button>
-        </div>
-        {this.state.isShowAddDialog && (
-          <AddNovelDialog
-            toggleDialog={this.toggleDialog}
-            addFile={this.props.addFile}
-            checkFileExist={this.props.checkFileExist}
-            mode={this.props.mode}
-            server={this.props.server}
-          />
-        )}
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <div className="navs-footer">
+        <Button onClick={toggleDialog} type="primary">
+          {intl.get('Add')}
+        </Button>
+      </div>
+      {isShowAddDialog && (
+        <AddNovelDialog
+          toggleDialog={toggleDialog}
+          addFile={addFile}
+          checkFileExist={checkFileExist}
+          mode={mode}
+          server={server}
+        />
+      )}
+    </>
+  );
+};
 
 NavFooter.propTypes = {
   addFile: PropTypes.func.isRequired,
   checkFileExist: PropTypes.func.isRequired,
+  mode: PropTypes.string,
+  server: PropTypes.string,
 };
 
 export default NavFooter;

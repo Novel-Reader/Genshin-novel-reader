@@ -1,27 +1,14 @@
-import React, { Component } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Typography, Popover } from 'antd';
 import { SketchPicker } from "react-color";
 
-class ColorSettings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      color: this.props.color,
-      isShowPicker: false,
-    };
-  }
+const ColorSettings = ({ color: initialColor, changeStyle, settingKey, title }) => {
+  const [color, setColor] = useState(initialColor);
+  const [isShowPicker, setIsShowPicker] = useState(false);
 
-  componentDidMount() {
-    document.addEventListener("click", this.onDocumentClick);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("click", this.onDocumentClick);
-  }
-
-  onDocumentClick = (e) => {
-    if (!this.state.isShowPicker) return;
+  const onDocumentClick = useCallback((e) => {
+    if (!isShowPicker) return;
     let dom = e.target;
     while (dom) {
       if (dom.className.includes("font-color-settings-picker")) {
@@ -29,54 +16,57 @@ class ColorSettings extends Component {
       }
       dom = dom.parentElement;
     }
-    this.setState({
-      isShowPicker: false,
-    });
-  };
+    setIsShowPicker(false);
+  }, [isShowPicker]);
 
-  handleChangeComplete = (colorObj) => {
-    this.setState({ color: colorObj.hex });
-    this.props.changeStyle({
-      [this.props.settingKey]: colorObj.hex,
-    });
-  };
+  useEffect(() => {
+    document.addEventListener("click", onDocumentClick);
+    return () => {
+      document.removeEventListener("click", onDocumentClick);
+    };
+  }, [onDocumentClick]);
 
-  toggle = (e) => {
+  const handleChangeComplete = useCallback((colorObj) => {
+    setColor(colorObj.hex);
+    changeStyle({
+      [settingKey]: colorObj.hex,
+    });
+  }, [changeStyle, settingKey]);
+
+  const toggle = useCallback((e) => {
     e.stopPropagation();
-    this.setState({ isShowPicker: !this.state.isShowPicker });
-  };
+    setIsShowPicker(prev => !prev);
+  }, []);
 
-  handleVisibleChange = (visible) => {
-    this.setState({ isShowPicker: visible });
-  };
+  const handleVisibleChange = useCallback((visible) => {
+    setIsShowPicker(visible);
+  }, []);
 
-  render() {
-    return (
-      <div className="advance-font-settings">
-        <Typography.Title level={5}>{this.props.title}</Typography.Title>
-        <div
-          style={{ backgroundColor: this.state.color }}
-          onClick={this.toggle}
-          className="font-color-settings-current"
-        ></div>
-        <Popover
-          content={
-            <SketchPicker
-              className="font-color-settings-picker"
-              color={this.state.color}
-              onChangeComplete={this.handleChangeComplete}
-            />
-          }
-          trigger="click"
-          open={this.state.isShowPicker}
-          onOpenChange={this.handleVisibleChange}
-        >
-          <div></div>
-        </Popover>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="advance-font-settings">
+      <Typography.Title level={5}>{title}</Typography.Title>
+      <div
+        style={{ backgroundColor: color }}
+        onClick={toggle}
+        className="font-color-settings-current"
+      ></div>
+      <Popover
+        content={
+          <SketchPicker
+            className="font-color-settings-picker"
+            color={color}
+            onChangeComplete={handleChangeComplete}
+          />
+        }
+        trigger="click"
+        open={isShowPicker}
+        onOpenChange={handleVisibleChange}
+      >
+        <div></div>
+      </Popover>
+    </div>
+  );
+};
 
 ColorSettings.propTypes = {
   color: PropTypes.string.isRequired,

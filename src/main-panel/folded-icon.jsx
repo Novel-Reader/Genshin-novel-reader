@@ -1,16 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
-class FoldedIcon extends Component {
-  render() {
-    return (
-      <div className="folder-icon" onClick={this.props.toggleRightPanel}>
-        {this.props.isShowRightPanel ? <BsArrowRight /> : <BsArrowLeft />}
-      </div>
-    );
-  }
-}
+const FoldedIcon = ({ isShowRightPanel, toggleRightPanel }) => {
+  return (
+    <div className="folder-icon" onClick={toggleRightPanel}>
+      {isShowRightPanel ? <BsArrowRight /> : <BsArrowLeft />}
+    </div>
+  );
+};
 
 FoldedIcon.propTypes = {
   isShowRightPanel: PropTypes.bool.isRequired,

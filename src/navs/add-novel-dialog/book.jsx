@@ -31,7 +31,7 @@ function Book(props) {
           {brief.replace(/\s+/gi, "").slice(0, 80)}
         </p>
         <div className="book-right-tags">
-          {tag.replace(/\n/gi, '').split(',').map((item, index) => (
+          {tag && tag.replace(/\n/gi, '').split(',').map((item, index) => (
             item.trim() &&
             <span className="book-right-tag" key={index} style={{ backgroundColor: getRandomLightColor() }}>{item}</span>
           ))}

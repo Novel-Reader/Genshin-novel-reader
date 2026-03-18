@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
 import { Button, Form, Input, Upload } from "antd";
 import Select from "react-select";
@@ -7,74 +7,50 @@ import { INPUT_ACCEPT_FILE_TYPE } from "../../utils/constants";
 import toaster from "../../common/toast";
 import File from '../../model/file';
 
-class LoadFromLocal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      file: null,
-      filename: "",
-      author: "",
-      brief: "",
-      currentSelected: null,
-    };
-    this.options = [
-      { value: "古典", label: "古典" },
-      { value: "同人", label: "同人" },
-      { value: "言情", label: "言情" },
-      { value: "其他", label: "其他" },
-    ];
-    this.isOnline = this.props.mode === "online";
-  }
+const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
+  const [file, setFile] = useState(null);
+  const [filename, setFilename] = useState("");
+  const [author, setAuthor] = useState("");
+  const [brief, setBrief] = useState("");
+  const [currentSelected, setCurrentSelected] = useState(null);
+  const [tmpFile, setTmpFile] = useState(null);
 
-  onChange = (option) => {
-    this.setState({ currentSelected: option });
-  };
+  const options = useMemo(() => [
+    { value: "古典", label: "古典" },
+    { value: "同人", label: "同人" },
+    { value: "言情", label: "言情" },
+    { value: "其他", label: "其他" },
+  ], []);
 
-  onFileChange = (info) => {
+  const isOnline = useMemo(() => mode === "online", [mode]);
+
+  const onChange = useCallback((option) => {
+    setCurrentSelected(option);
+  }, []);
+
+  const onFileChange = useCallback((info) => {
     const file = info.file;
     const reader = new FileReader();
     reader.readAsText(file, "utf-8");
-    const that = this;
     reader.onload = function () {
-      that.tmpFile = this.result;
-      that.setState({ file }, () => {
-        that.initFileInfo();
-      });
+      setTmpFile(this.result);
+      setFile(file);
+      initFileInfo(file, this.result);
     };
-  };
+  }, []);
 
-  initFileInfo = () => {
-    this.setState({
-      filename: this.state.file.name,
-      author: "",
-      brief: this.tmpFile.slice(0, 300).replace(/\s+/gi, "").slice(0, 100),
-    });
-  };
+  const initFileInfo = useCallback((file, tmpFileContent) => {
+    setFilename(file.name);
+    setAuthor("");
+    setBrief(tmpFileContent.slice(0, 300).replace(/\s+/gi, "").slice(0, 100));
+  }, []);
 
-  onClear = () => {
-    this.setState({ file: null });
-    this.tmpFile = null;
-  };
+  const onClear = useCallback(() => {
+    setFile(null);
+    setTmpFile(null);
+  }, []);
 
-  onUpload = () => {
-    const { filename, file, author, brief, currentSelected } = this.state;
-    const tag = currentSelected ? currentSelected.map((option) => option.value).join(" ") : "";
-    const fileObj = new File({
-      name: filename.trim(),
-      size: file.size,
-      author,
-      detail: this.tmpFile,
-      brief: brief.trim(),
-      tag,
-    });
-    this.props.addFile(fileObj);
-    if (this.isOnline) {
-      this.uploadToServer(fileObj);
-    }
-    this.props.toggleDialog();
-  };
-
-  uploadToServer = (fileObj) => {
+  const uploadToServer = useCallback((fileObj) => {
     const { name, author, detail, brief, tag, size } = fileObj;
     const cover_photo = "";
     const price = 0;
@@ -94,72 +70,89 @@ class LoadFromLocal extends Component {
       // eslint-disable-next-line no-console
       console.log(err);
     });
-  };
+  }, []);
 
-  render() {
-    if (!this.state.file) {
-      return (
-        <div>
-          <Upload
-            accept={INPUT_ACCEPT_FILE_TYPE}
-            onChange={this.onFileChange}
-            beforeUpload={() => false}
-          >
-            <Button type="primary">选择本地文件</Button>
-          </Upload>
-          <p>支持上传 {INPUT_ACCEPT_FILE_TYPE} 等文本文件</p>
-        </div>  
-      );
+  const onUpload = useCallback(() => {
+    const tag = currentSelected ? currentSelected.map((option) => option.value).join(" ") : "";
+    const fileObj = new File({
+      name: filename.trim(),
+      size: file.size,
+      author,
+      detail: tmpFile,
+      brief: brief.trim(),
+      tag,
+    });
+    addFile(fileObj);
+    if (isOnline) {
+      uploadToServer(fileObj);
     }
+    toggleDialog();
+  }, [file, filename, author, brief, currentSelected, tmpFile, isOnline, addFile, uploadToServer, toggleDialog]);
+
+  if (!file) {
     return (
-      <div className="local-file-info">
-        <Form>
-          <Form.Item label="名称">
-            <Input
-              value={this.state.filename}
-              onChange={(e) => {
-                this.setState({ filename: e.target.value });
-              }}
-            />
-          </Form.Item>
-          <Form.Item label="作者">
-            <Input
-              value={this.state.author}
-              onChange={(e) => {
-                this.setState({ author: e.target.value });
-              }}
-            />
-          </Form.Item>
-          <Form.Item label="分类">
-          <Select
-              value={this.state.currentSelected}
-              options={this.options}
-              onChange={this.onChange}
-              captureMenuScroll={false}
-              className="load-from-local-type-select"
-              classNamePrefix
-              isMulti
-              placeholder="选择分类"
-              styles={MenuSelectStyle}
-            />
-          </Form.Item>
-          <Form.Item label="摘要">
-            <Input.TextArea
-              value={this.state.brief}
-              onChange={(e) => {
-                this.setState({ brief: e.target.value });
-              }}
-            />
-          </Form.Item>
-          <Button onClick={this.onUpload} type="primary">上传</Button>
-          <Button onClick={this.onClear}>取消</Button>
-        </Form>
-      </div>
+      <div>
+        <Upload
+          accept={INPUT_ACCEPT_FILE_TYPE}
+          onChange={onFileChange}
+          beforeUpload={() => false}
+        >
+          <Button type="primary">选择本地文件</Button>
+        </Upload>
+        <p>支持上传 {INPUT_ACCEPT_FILE_TYPE} 等文本文件</p>
+      </div>  
     );
   }
-}
+
+  return (
+    <div className="local-file-info">
+      <Form>
+        <Form.Item label="名称">
+          <Input
+            value={filename}
+            onChange={(e) => {
+              setFilename(e.target.value);
+            }}
+          />
+        </Form.Item>
+        <Form.Item label="作者">
+          <Input
+            value={author}
+            onChange={(e) => {
+              setAuthor(e.target.value);
+            }}
+          />
+        </Form.Item>
+        <Form.Item label="分类">
+          <Select
+            value={currentSelected}
+            options={options}
+            onChange={onChange}
+            captureMenuScroll={false}
+            className="load-from-local-type-select"
+            classNamePrefix
+            isMulti
+            placeholder="选择分类"
+            styles={MenuSelectStyle}
+          />
+        </Form.Item>
+        <Form.Item label="摘要">
+          <Input.TextArea
+            value={brief}
+            onChange={(e) => {
+              setBrief(e.target.value);
+            }}
+          />
+        </Form.Item>
+        <Button onClick={onUpload} type="primary">上传</Button>
+        <Button onClick={onClear}>取消</Button>
+      </Form>
+    </div>
+  );
+};
 
 LoadFromLocal.propTypes = {
+  mode: PropTypes.string,
   addFile: PropTypes.func.isRequired,
   toggleDialog: PropTypes.func.isRequired,
 };
