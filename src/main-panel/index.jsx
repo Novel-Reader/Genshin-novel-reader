@@ -15,7 +15,6 @@ const MainPanel = (props) => {
     isShowRightPanel,
     currentPageIndex,
     currentFile,
-    detail,
     style,
     files
   } = props;
