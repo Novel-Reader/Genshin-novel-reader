@@ -10,6 +10,9 @@ function LangSettings() {
 
   const options = [
     { value: "zh_CN", label: "中文" },
+    { value: "de", label: "Deutsch" },
+    { value: "fr", label: "Français" },
+    { value: "ja", label: "日本語" },
     { value: "en", label: "English" },
   ];
 

@@ -1,10 +1,16 @@
 import intl from "react-intl-universal";
 import Cookies from 'js-cookie';
 import en from "./en";
+import de from "./de";
+import fr from "./fr";
+import ja from "./ja";
 import zh_CN from "./zh_CN";
 
 const locales = {
   en: en,
+  de: de,
+  fr: fr,
+  ja: ja,
   zh_CN: zh_CN,
 };
 
