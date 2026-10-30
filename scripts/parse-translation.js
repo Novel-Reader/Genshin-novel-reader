@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-let fs = require('fs');
+import fs from 'node:fs';
 
 // Problem: many existing files are copied from other places, without Chinese translation
 // So use this script to traverse all files, find out all the codes of intl.get('xxx'), and print them out
