@@ -6,8 +6,7 @@ import { INPUT_ACCEPT_FILE_TYPE } from "../../utils/constants.js";
 import toaster from "../../common/toast/index.js";
 
 const LoadFromLocalBatch = (props) => {
-  const { toggleDialog, mode, server } = props;
-  const isOnline = mode === "online";
+  const { toggleDialog, server } = props;
   const uploadRef = useRef(null);
 
   const onClick = () => {
@@ -25,10 +24,10 @@ const LoadFromLocalBatch = (props) => {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    }).then(response => {
+    }).then(() => {
       toaster.success("上传成功");
       toggleDialog();
-    }).catch(error => {
+    }).catch(() => {
       toaster.danger("上传失败");
       toggleDialog();
     });
@@ -52,7 +51,6 @@ const LoadFromLocalBatch = (props) => {
 
 LoadFromLocalBatch.propTypes = {
   toggleDialog: PropTypes.func.isRequired,
-  mode: PropTypes.string,
   server: PropTypes.string,
 };
 

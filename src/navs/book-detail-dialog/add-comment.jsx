@@ -25,7 +25,7 @@ function AddComment(props) {
     const author = Cookies.get("username");
     api
       .addComment(props.novel.id, detail, author)
-      .then((res) => {
+      .then(() => {
         toaster.success(intl.get('Comment successful'));
         commentElement.current.value = '';
         props.loadComments();
