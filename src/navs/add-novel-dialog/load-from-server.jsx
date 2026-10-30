@@ -35,6 +35,7 @@ const LoadFromServer = (props) => {
   }, [isOnline, loadNovelsFromServer]);
 
   const downLoadNovel = (book_id) => {
+    if (!api || !user) return;
     if (checkFileExist(book_id)) {
       toaster.danger('已经下载到本地，不需要再次下载');
       return;

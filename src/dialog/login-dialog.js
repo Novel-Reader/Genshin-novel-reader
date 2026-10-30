@@ -19,19 +19,17 @@ const LoginDialog = (props) => {
     setPassword(event.target.value);
   };
 
-  const onLogin = () => {
+  const onLogin = async () => {
     const options = { email, password };
     axios
       .post(`${props.server}/api/login`, options)
-      .then((res) => {
+      .then(async (res) => {
         if (res.data.token) {
           toaster.success(`用户 ${email} 登录成功`);
           const token = res.data.token;
           Cookies.set("novelToken", token, { path: "/" });
           Cookies.set("username", email);
-          setTimeout(() => {
-            props.toggle();
-          }, 100);
+          await props.onLoginSuccess();
         } else {
           toaster.danger("登录失败，请检查你的用户名和密码");
         }
@@ -50,7 +48,7 @@ const LoginDialog = (props) => {
       title={intl.get('Log in')}
       open={true}
       onOk={onLogin}
-      onCancel={props.toggle}
+      onCancel={props.onClose}
     >
       <Form>
         <Form.Item>
@@ -77,7 +75,8 @@ const LoginDialog = (props) => {
 };
 
 LoginDialog.propTypes = {
-  toggle: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onLoginSuccess: PropTypes.func.isRequired,
 };
 
 export default LoginDialog;

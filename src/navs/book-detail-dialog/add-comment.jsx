@@ -13,6 +13,7 @@ function AddComment(props) {
   const { api } = useContext(AppContext);
 
   function submitComment() {
+    if (!api) return;
     const detail = commentElement.current.value;
     if (detail.length < 3) {
       toaster.warning(intl.get('Comment should have at least 3 characters in length'));

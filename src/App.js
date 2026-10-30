@@ -46,55 +46,61 @@ const App = ({
     setCurrentPageIndex(newPageIndex);
   }, []);
 
-  const initFromServer = useCallback(() => {
+  const initFromServer = useCallback(async () => {
     const username = Cookies.get("username");
     if (!username) {
       toaster.warning(intl.get('Please login first'));
-      setTimeout(() => {
-        setIsShowLoginDialog(true);
-      }, 100);
-      return;
+      setIsShowLoginDialog(true);
+      return false;
     }
     const newApi = new LocalAPI();
     newApi.init({
       server: server,
       token: Cookies.get("novelToken"),
     });
-    setApi(newApi);
-    newApi.getUserInfo(username).then(res => {
-      const userInfo = res.data[0];
+
+    try {
+      const userResponse = await newApi.getUserInfo(username);
+      const userInfo = userResponse.data[0];
       if (!userInfo) {
-        toaster.warning(intl.get('Please login first'));
-        return;
+        throw new Error('User account was not returned by the server');
       }
-      newApi.setUserInfo({ user_id: userInfo.id, username: username });
-      newApi.getUserBookList(userInfo.id).then(res => {
-        let fileList = res.data;
-        if (fileList.length === 0) {
-          const examples = loadExample();
-          fileList = examples.map((file) => {
-            return Object.assign(new File(file), parseNovel(file.detail));
-          });
-        } else {
-          fileList = fileList.map(file => new File(file));
-        }
-        setUser(userInfo);
-        setFiles(fileList);
-        setCurrentFileIndex(0);
-        setCurrentFile(fileList[0]);
-      }).catch((err) => {
-        console.log(err);
-        toaster.warning(intl.get('Please login first'));
-        setTimeout(() => {
-          setIsShowLoginDialog(true);
-        }, 100);
-      });
-    });
+      newApi.setUserInfo({ user_id: userInfo.id, username });
+      const booksResponse = await newApi.getUserBookList(userInfo.id);
+      let fileList = booksResponse.data;
+      if (fileList.length === 0) {
+        const examples = loadExample();
+        fileList = examples.map((file) => {
+          return Object.assign(new File(file), parseNovel(file.detail));
+        });
+      } else {
+        fileList = fileList.map(file => new File(file));
+      }
+
+      setUser(userInfo);
+      setFiles(fileList);
+      setCurrentFileIndex(0);
+      setCurrentFile(fileList[0]);
+      setApi(newApi);
+      return true;
+    } catch (err) {
+      console.log(err);
+      setApi(null);
+      setUser(null);
+      toaster.warning(intl.get('Please login first'));
+      setIsShowLoginDialog(true);
+      return false;
+    }
   }, [server]);
 
   const closeLoginDialog = useCallback(() => {
     setIsShowLoginDialog(false);
-    initFromServer();
+  }, []);
+
+  const handleLoginSuccess = useCallback(async () => {
+    if (await initFromServer()) {
+      setIsShowLoginDialog(false);
+    }
   }, [initFromServer]);
 
   const onKeydown = useCallback((e) => {
@@ -245,7 +251,7 @@ const App = ({
         />
       </div>
       {isShowLoginDialog && (
-        <LoginDialog toggle={closeLoginDialog} server={server}/>
+        <LoginDialog onClose={closeLoginDialog} onLoginSuccess={handleLoginSuccess} server={server}/>
       )}
     </AppContext.Provider>
   );
