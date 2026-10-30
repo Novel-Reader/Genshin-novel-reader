@@ -1,14 +1,16 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useContext } from "react";
 import PropTypes from "prop-types";
 import { TbCircleDotted, TbMenu2, TbSettings } from "react-icons/tb";
 import ScrollTopIcon from "../common/scroll-top-button";
 import TextViewer from "../common/text-viewer";
 import FoldedIcon from "./folded-icon";
 import { PAGES, PARAGRAPHS, DEFAULT_IMAGE } from "../utils/constants";
+import { AppContext } from "../context";
 
 import "./index.less";
 
 const MainPanel = (props) => {
+  const { isMobile } = useContext(AppContext);
   const {
     toggleRightPanel,
     toggleLeftPanel,
@@ -90,9 +92,9 @@ const MainPanel = (props) => {
       <div
         id="main"
         className="center"
-        style={window.isMobile ? { flexDirection: "column", justifyContent: "space-between" }: {}}
+        style={isMobile ? { flexDirection: "column", justifyContent: "space-between" }: {}}
       >
-        {window.isMobile && renderMobileHeader()}
+        {isMobile && renderMobileHeader()}
         <TbCircleDotted />
       </div>
     );
@@ -100,7 +102,7 @@ const MainPanel = (props) => {
 
   return (
     <div id="main" className="main">
-      {window.isMobile && renderMobileHeader()}
+      {isMobile && renderMobileHeader()}
       <div
         className="long-page"
         style={{

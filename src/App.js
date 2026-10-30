@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Cookies from 'js-cookie';
 import intl from "react-intl-universal";
 import MainPanel from "./main-panel";
@@ -26,19 +26,14 @@ const App = ({
   const [currentFileIndex, setCurrentFileIndex] = useState(0);
   const [currentFile, setCurrentFile] = useState(null);
   const [style, setStyle] = useState(DEFAULT_STYLE);
-  const [isShowRightPanel, setIsShowRightPanel] = useState(window.isMobile ? false : true);
-  const [isShowLeftPanel, setIsShowLeftPanel] = useState(window.isMobile ? false : true);
+  const [isMobileDevice] = useState(isMobile);
+  const [isShowRightPanel, setIsShowRightPanel] = useState(!isMobileDevice);
+  const [isShowLeftPanel, setIsShowLeftPanel] = useState(!isMobileDevice);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [api, setApi] = useState(null);
   const [user, setUser] = useState(null);
   const [isShowLoginDialog, setIsShowLoginDialog] = useState(false);
   
-  const apiRef = useRef(null);
-
-  useEffect(() => {
-    window.isMobile = isMobile();
-  }, []);
-
   const initDataFromLocalStore = useCallback(() => {
     getLocalValue(NOVEL_READER_STYLE_SAVE_KEY).then((localStyleStr) => {
       if (localStyleStr) {
@@ -66,7 +61,6 @@ const App = ({
       token: Cookies.get("novelToken"),
     });
     setApi(newApi);
-    apiRef.current = newApi;
     newApi.getUserInfo(username).then(res => {
       const userInfo = res.data[0];
       if (!userInfo) {
@@ -172,11 +166,11 @@ const App = ({
   }, []);
 
   const showNovel = useCallback(() => {
-    if (window.isMobile) {
+    if (isMobileDevice) {
       setIsShowRightPanel(false);
       setIsShowLeftPanel(false);
     }
-  }, []);
+  }, [isMobileDevice]);
 
   const handleChangeFileIndex = useCallback((newFileIndex) => {
     setCurrentFile(files[newFileIndex]);
@@ -196,8 +190,8 @@ const App = ({
       setCurrentFileIndex(0);
       setCurrentPageIndex(0);
     }
-    apiRef.current && apiRef.current.deleteUserBook(user?.id, book_id);
-  }, [files, currentFileIndex, user]);
+    api && api.deleteUserBook(user?.id, book_id);
+  }, [api, files, currentFileIndex, user]);
 
   const changeStyle = useCallback((newStyle) => {
     const updatedStyle = Object.assign({}, style, newStyle);
@@ -216,24 +210,12 @@ const App = ({
     setIsShowLeftPanel(prev => !prev);
   }, []);
 
-  useEffect(() => {
-    window.app = {
-      changePageIndex,
-      changeFileIndex: handleChangeFileIndex,
-      addFile,
-      deleteFile: handleDeleteFile,
-    };
-    return () => {
-      window.app = null;
-    };
-  }, [changePageIndex, handleChangeFileIndex, addFile, handleDeleteFile]);
-
   const username = Cookies.get("username");
   const isAdmin = username === "admin";
   const currentFileObj = files[currentFileIndex];
 
   return (
-    <AppContext.Provider value={{ api, username, isAdmin }}>
+    <AppContext.Provider value={{ api, user, username, isAdmin, isMobile: isMobileDevice }}>
       <div id="app">
         <Navs
           addFile={addFile}
