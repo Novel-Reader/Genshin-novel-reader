@@ -36,7 +36,6 @@
     "prepublishOnly": "npm run build",
     "preview": "vite preview",
     "analyze-source-map": "source-map-explorer 'dist/assets/*.js'",
-    "cypress:open": "cypress open",
     "prettier": "prettier --check --write .",
     "translate": "node scripts/parse-translation.js",
     "local-build": "npm run build && cp -r ./dist ../Genshin-novel-reader-express-server/react/node_modules/genshin-novel-reader",
