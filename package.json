@@ -7,7 +7,6 @@
   "module": "dist/app.js",
   "dependencies": {
     "@antv/g2": "4.2.10",
-    "@reduxjs/toolkit": "^1.9.5",
     "antd": "^5.24.6",
     "axios": "^1.15.0",
     "classnames": "^2.3.2",
@@ -22,10 +21,8 @@
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",
     "react-intl-universal": "^2.12.0",
-    "react-redux": "^8.0.7",
     "react-select": "^5.7.0",
-    "react-transition-group": "^4.4.5",
-    "redux": "^4.2.1"
+    "react-transition-group": "^4.4.5"
   },
   "scripts": {
     "test": "jest --config=jest.config.mjs",

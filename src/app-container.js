@@ -1,9 +1,7 @@
 import React from "react";
 import Cookies from 'js-cookie';
-import { Provider } from 'react-redux';
 import { ConfigProvider } from "antd";
 import enUS from 'antd/locale/en_US';
-import store from './store';
 import App from "./App";
 import antdLocales from './locale/antd-locales';
 
@@ -20,12 +18,10 @@ const AppContainer = ({ mode = 'offline', server = '' }) => {
       direction="ltr"
       form={{ labelAlign: 'left' }}
     >
-      <Provider store={store}>
-        <App
-          mode={mode}
-          server={server}
-        />
-      </Provider>
+      <App
+        mode={mode}
+        server={server}
+      />
     </ConfigProvider>
   );
 }

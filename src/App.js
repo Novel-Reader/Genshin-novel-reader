@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Cookies from 'js-cookie';
 import intl from "react-intl-universal";
-import PropTypes from "prop-types";
-import { connect } from 'react-redux';
 import MainPanel from "./main-panel";
 import Navs from "./navs";
 import Settings from "./settings";
@@ -15,7 +13,6 @@ import { DEFAULT_STYLE, PAGES, PARAGRAPHS } from "./utils/constants";
 import { AppContext } from "./context";
 import toaster from "./common/toast";
 import File from './model/file';
-import { NUM_ADD, NUM_REDUCE, NUM_CHANGE } from './reducers/reducer-types';
 import LoginDialog from "./dialog/login-dialog";
 
 import "./locale/index.js";
@@ -270,21 +267,4 @@ const App = ({
   );
 };
 
-App.propTypes = {
-  fileIndex: PropTypes.object.isRequired,
-  addFileIndex: PropTypes.func.isRequired,
-  deleteFileIndex: PropTypes.func.isRequired,
-  changeFileIndex: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state, props) => ({ ...state, ...props });
-
-const mapDispatchToProps = (dispatch) => (
-  {
-    addFileIndex: (payload) => dispatch({ type: NUM_ADD, payload }),
-    deleteFileIndex: (payload) => dispatch({ type: NUM_REDUCE, payload }),
-    changeFileIndex: (payload) => dispatch({ type: NUM_CHANGE, payload }),
-  }
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
