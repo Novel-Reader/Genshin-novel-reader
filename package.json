@@ -38,8 +38,7 @@
     "analyze-source-map": "source-map-explorer 'dist/assets/*.js'",
     "prettier": "prettier --check --write .",
     "translate": "node scripts/parse-translation.js",
-    "local-build": "npm run build && cp -r ./dist ../Genshin-novel-reader-express-server/react/node_modules/genshin-novel-reader",
-    "build-api": "./node_modules/jsdoc-to-markdown/bin/cli.js ./src/api/local-api.js >> ./docs/api.md"
+    "local-build": "npm run build && cp -r ./dist ../Genshin-novel-reader-express-server/react/node_modules/genshin-novel-reader"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.0",
