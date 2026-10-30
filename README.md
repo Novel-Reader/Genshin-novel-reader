@@ -34,10 +34,10 @@ Realize the local novel reading, local novel upload, online novel reading, novel
 npm install
 ```
 
-在 localhost:3000 端口开启客户端 Run frontend page on localhost:3000 :
+启动客户端 Run the frontend:
 
 ```bash
-npm run start
+npm run dev
 ```
 
 运行单元测试 Run tests:
