@@ -1,4 +1,3 @@
-/* eslint-disable no-new-func */
 // copy from lodash.throttle, lodash (Custom Build) <https://lodash.com/>
 
 let FUNC_ERROR_TEXT = 'Expected a function';
@@ -17,7 +16,7 @@ let reIsOctal = /^0o[0-7]+$/i;
 
 let freeParseInt = parseInt;
 
-let freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+let freeGlobal = typeof globalThis == 'object' && globalThis && globalThis.Object === Object && globalThis;
 
 let freeSelf = typeof self == 'object' && self && self.Object === Object && self;
 

@@ -14,19 +14,31 @@ const ToastManager = ({ bindNotify, bindGetToasts, bindCloseAll }) => {
   const [toasts, setToasts] = useState([]);
   const idCounterRef = useRef(0);
 
-  useEffect(() => {
-    bindNotify(notify);
-    bindGetToasts(getToasts);
-    bindCloseAll(closeAll);
-  }, [bindNotify, bindGetToasts, bindCloseAll]);
+  const closeToast = useCallback((id) => {
+    setToasts(previousToasts =>
+      previousToasts.map(toast =>
+        toast.id === id
+          ? { ...toast, isShown: false }
+          : toast
+      )
+    );
+  }, []);
 
-  const getToasts = useCallback(() => {
-    return toasts;
-  }, [toasts]);
-
-  const closeAll = useCallback(() => {
-    toasts.forEach(toast => toast.close());
-  }, [toasts]);
+  const createToastInstance = useCallback((title, settings) => {
+    const uniqueId = ++idCounterRef.current;
+    const id = hasCustomId(settings) ? `${settings.id}-${uniqueId}` : uniqueId;
+    const hasCloseButton = settings.hasCloseButton !== undefined ? settings.hasCloseButton : true;
+    const duration = settings.duration !== undefined ? settings.duration : 3;
+    return {
+      id,
+      title,
+      description: settings.description,
+      hasCloseButton,
+      duration,
+      close: () => closeToast(id),
+      intent: settings.intent,
+    };
+  }, [closeToast]);
 
   const notify = useCallback((title, settings) => {
     if (hasCustomId(settings)) {
@@ -39,33 +51,19 @@ const ToastManager = ({ bindNotify, bindGetToasts, bindCloseAll }) => {
     const instance = createToastInstance(title, settings);
     setToasts(previousToasts => [instance, ...previousToasts]);
     return instance;
+  }, [toasts, closeToast, createToastInstance]);
+
+  const getToasts = useCallback(() => toasts, [toasts]);
+
+  const closeAll = useCallback(() => {
+    toasts.forEach(toast => toast.close());
   }, [toasts]);
 
-  const createToastInstance = useCallback((title, settings) => {
-    const uniqueId = ++idCounterRef.current;
-    const id = hasCustomId(settings) ? `${settings.id}-${uniqueId}` : uniqueId;
-    let hasCloseButton = settings.hasCloseButton !== undefined  ? settings.hasCloseButton  : true;
-    let duration = settings.duration !== undefined ? settings.duration : 3;
-    return {
-      id,
-      title,
-      description: settings.description,
-      hasCloseButton,
-      duration,
-      close: () => closeToast(id),
-      intent: settings.intent
-    };
-  }, []);
-
-  const closeToast = useCallback((id) => {
-    setToasts(previousToasts => 
-      previousToasts.map(toast => 
-        toast.id === id 
-          ? { ...toast, isShown: false }
-          : toast
-      )
-    );
-  }, []);
+  useEffect(() => {
+    bindNotify(notify);
+    bindGetToasts(getToasts);
+    bindCloseAll(closeAll);
+  }, [bindNotify, bindGetToasts, bindCloseAll, notify, getToasts, closeAll]);
 
   const removeToast = useCallback((id) => {
     setToasts(previousToasts => 

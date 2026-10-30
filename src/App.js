@@ -39,31 +39,6 @@ const App = ({
     window.isMobile = isMobile();
   }, []);
 
-  useEffect(() => {
-    if (mode === "online") {
-      if (!Cookies.get("username")) {
-        setIsShowLoginDialog(true); 
-      } else {
-        initFromServer();
-      }
-    } else {
-      toaster.success(intl.get("Welcome_to_use_offline_mode"));
-    }
-    initDataFromLocalStore();
-    document.addEventListener("keydown", onKeydown);
-    window.app = { 
-      changePageIndex, 
-      changeFileIndex: handleChangeFileIndex,
-      addFile,
-      deleteFile: handleDeleteFile
-    };
-
-    return () => {
-      document.removeEventListener("keydown", onKeydown);
-      window.app = null;
-    };
-  }, []);
-
   const initDataFromLocalStore = useCallback(() => {
     getLocalValue(NOVEL_READER_STYLE_SAVE_KEY).then((localStyleStr) => {
       if (localStyleStr) {
@@ -74,11 +49,6 @@ const App = ({
 
   const changePageIndex = useCallback((newPageIndex) => {
     setCurrentPageIndex(newPageIndex);
-  }, []);
-
-  const closeLoginDialog = useCallback(() => {
-    setIsShowLoginDialog(false);
-    initFromServer();
   }, []);
 
   const initFromServer = useCallback(() => {
@@ -119,7 +89,6 @@ const App = ({
         setCurrentFileIndex(0);
         setCurrentFile(fileList[0]);
       }).catch((err) => {
-        // eslint-disable-next-line no-console
         console.log(err);
         toaster.warning(intl.get('Please login first'));
         setTimeout(() => {
@@ -128,6 +97,11 @@ const App = ({
       });
     });
   }, [server]);
+
+  const closeLoginDialog = useCallback(() => {
+    setIsShowLoginDialog(false);
+    initFromServer();
+  }, [initFromServer]);
 
   const onKeydown = useCallback((e) => {
     if (isUp(e)) {
@@ -152,6 +126,24 @@ const App = ({
       changePageIndex(currentPageIndex + 1);
     }
   }, [files, currentFileIndex, currentPageIndex, changePageIndex]);
+
+  useEffect(() => {
+    if (mode === "online") {
+      if (!Cookies.get("username")) {
+        setIsShowLoginDialog(true);
+      } else {
+        initFromServer();
+      }
+    } else {
+      toaster.success(intl.get("Welcome_to_use_offline_mode"));
+    }
+    initDataFromLocalStore();
+  }, [mode, initDataFromLocalStore, initFromServer]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", onKeydown);
+    return () => document.removeEventListener("keydown", onKeydown);
+  }, [onKeydown]);
 
   const changeMode = useCallback((mode) => {
     if (!currentFile) return;
@@ -179,19 +171,19 @@ const App = ({
     setFiles(prevFiles => [...prevFiles, file]);
   }, []);
 
-  const handleChangeFileIndex = useCallback((newFileIndex) => {
-    setCurrentFile(files[newFileIndex]);
-    setCurrentFileIndex(newFileIndex);
-    setCurrentPageIndex(0);
-    showNovel();
-  }, [files]);
-
   const showNovel = useCallback(() => {
     if (window.isMobile) {
       setIsShowRightPanel(false);
       setIsShowLeftPanel(false);
     }
   }, []);
+
+  const handleChangeFileIndex = useCallback((newFileIndex) => {
+    setCurrentFile(files[newFileIndex]);
+    setCurrentFileIndex(newFileIndex);
+    setCurrentPageIndex(0);
+    showNovel();
+  }, [files, showNovel]);
 
   const handleDeleteFile = useCallback((index) => {
     const newFiles = [...files];
@@ -223,6 +215,18 @@ const App = ({
   const toggleLeftPanel = useCallback(() => {
     setIsShowLeftPanel(prev => !prev);
   }, []);
+
+  useEffect(() => {
+    window.app = {
+      changePageIndex,
+      changeFileIndex: handleChangeFileIndex,
+      addFile,
+      deleteFile: handleDeleteFile,
+    };
+    return () => {
+      window.app = null;
+    };
+  }, [changePageIndex, handleChangeFileIndex, addFile, handleDeleteFile]);
 
   const username = Cookies.get("username");
   const isAdmin = username === "admin";

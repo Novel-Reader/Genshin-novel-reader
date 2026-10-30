@@ -12,7 +12,6 @@ const LoadFromServer = (props) => {
   const { addFile, checkFileExist, mode } = props;
   const isOnline = mode === "online";
   
-  const [isLoading, setIsLoading] = useState(true);
   const [novelList, setNovelList] = useState([]);
   const [isSearch, setIsSearch] = useState(false);
 
@@ -26,12 +25,10 @@ const LoadFromServer = (props) => {
     window.app.api
       .getNovelList()
       .then((res) => {
-        setIsLoading(false);
         setNovelList(res.data);
       })
       .catch((err) => {
         toaster.danger(err);
-        setIsLoading(false);
       });
   };
 
@@ -43,7 +40,7 @@ const LoadFromServer = (props) => {
     window.app.api.getNovelDetail(book_id).then((res) => {
       addFile(new File(res.data[0]));
       const userId = window.app.state.user.id;
-      window.app.api.updateUserBook(userId, book_id).then((res) => {
+      window.app.api.updateUserBook(userId, book_id).then(() => {
       });
     }).catch((err) => {
       toaster.danger(err);

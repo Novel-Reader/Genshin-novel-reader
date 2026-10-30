@@ -35,11 +35,11 @@ const Toast = ({
     setIsShown(propIsShown);
   }, [propIsShown]);
 
-  useEffect(() => {
-    startCloseTimer();
-    return () => {
-      clearCloseTimer();
-    };
+  const clearCloseTimer = useCallback(() => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
   }, []);
 
   const close = useCallback((event) => {
@@ -49,7 +49,7 @@ const Toast = ({
     }
     clearCloseTimer();
     setIsShown(false);
-  }, []);
+  }, [clearCloseTimer]);
 
   const startCloseTimer = useCallback(() => {
     if (duration) {
@@ -59,12 +59,10 @@ const Toast = ({
     }
   }, [duration, close]);
 
-  const clearCloseTimer = useCallback(() => {
-    if (closeTimerRef.current) {
-      clearTimeout(closeTimerRef.current);
-      closeTimerRef.current = null;
-    }
-  }, []);
+  useEffect(() => {
+    startCloseTimer();
+    return clearCloseTimer;
+  }, [startCloseTimer, clearCloseTimer]);
 
   const handleMouseEnter = useCallback(() => {
     clearCloseTimer();

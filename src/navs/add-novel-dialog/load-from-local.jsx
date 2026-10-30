@@ -28,6 +28,12 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
     setCurrentSelected(option);
   }, []);
 
+  const initFileInfo = useCallback((file, tmpFileContent) => {
+    setFilename(file.name);
+    setAuthor("");
+    setBrief(tmpFileContent.slice(0, 300).replace(/\s+/gi, "").slice(0, 100));
+  }, []);
+
   const onFileChange = useCallback((info) => {
     const file = info.file;
     const reader = new FileReader();
@@ -37,13 +43,7 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
       setFile(file);
       initFileInfo(file, this.result);
     };
-  }, []);
-
-  const initFileInfo = useCallback((file, tmpFileContent) => {
-    setFilename(file.name);
-    setAuthor("");
-    setBrief(tmpFileContent.slice(0, 300).replace(/\s+/gi, "").slice(0, 100));
-  }, []);
+  }, [initFileInfo]);
 
   const onClear = useCallback(() => {
     setFile(null);
@@ -67,7 +67,6 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
     })
     .catch((err) => {
       toaster.danger("上传失败");
-      // eslint-disable-next-line no-console
       console.log(err);
     });
   }, []);

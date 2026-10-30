@@ -25,7 +25,7 @@ function CommentItem(props) {
     }
     window.app.api
       .editComment(comment.id, detail)
-      .then((res) => {
+      .then(() => {
         toaster.success(intl.get('Successfully saved'));
         setEdit(false);
         props.loadComments();
@@ -40,7 +40,7 @@ function CommentItem(props) {
   function onDelete() {
     window.app.api
       .deleteComment(comment.id)
-      .then((res) => {
+      .then(() => {
         toaster.danger(intl.get('The comment has been deleted'));
         props.loadComments();
       })
