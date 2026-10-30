@@ -1,11 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import toaster from "../../common/toast";
 import intl from "react-intl-universal";
 import { Button, Input } from "antd";
 import BookList from "./book-list";
+import { AppContext } from "../../context";
 
 const SearchFromServer = ({ downLoadNovel }) => {
+  const { api } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(false);
   const [novelList, setNovelList] = useState([]);
   const searchInputRef = useRef();
@@ -18,7 +20,7 @@ const SearchFromServer = ({ downLoadNovel }) => {
       return;
     }
     setIsLoading(true);
-    window.app.api.searchNovel(keyword).then((res) => {
+    api.searchNovel(keyword).then((res) => {
       setIsLoading(false);
       setNovelList(res.data);
     }).catch((err) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
 import { TbCircleDotted } from "react-icons/tb";
@@ -7,12 +7,14 @@ import toaster from "../../common/toast";
 import CommentList from "./comment-list";
 import AddComment from "./add-comment";
 import { throttle } from "../../utils/throttle";
+import { AppContext } from "../../context";
 
 import "./index.less";
 
 const LIMIT = 20;
 
 function BookDetailDialog(props) {
+  const { api } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
   const [loadAll, setLoadAll] = useState(false);
   const [comments, setComments] = useState([]);
@@ -28,8 +30,7 @@ function BookDetailDialog(props) {
   }, [start]);
 
   const loadComments = useCallback(() => {
-    window.app.api
-      .getCommentList(props.novel.id, start, LIMIT)
+    api.getCommentList(props.novel.id, start, LIMIT)
       .then((res) => {
         setComments(res.data);
         setLoading(false);
@@ -39,7 +40,7 @@ function BookDetailDialog(props) {
         toaster.danger(intl.get('Getting comments failed, please close the dialog box and try again'));
         toaster.danger(String(err));
       });
-  }, [props.novel.id, start, checkLoadAll]);
+  }, [api, props.novel.id, start, checkLoadAll]);
 
   useEffect(() => {
     loadComments();
@@ -48,8 +49,7 @@ function BookDetailDialog(props) {
 
   const loadMoreComment = () => {
     if (loading || loadAll) return;
-    window.app.api
-      .getCommentList(props.novel.id, start, LIMIT)
+    api.getCommentList(props.novel.id, start, LIMIT)
       .then((res) => {
         setComments([...comments, ...res.data]);
         setStart(start + 1);

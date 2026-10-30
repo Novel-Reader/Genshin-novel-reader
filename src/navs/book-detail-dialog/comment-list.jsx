@@ -1,14 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import Cookies from 'js-cookie';
 import dayjs from 'dayjs';
 import intl from "react-intl-universal";
 import toaster from "../../common/toast";
+import { AppContext } from "../../context";
 
 import "./comment-list.less";
 
 function CommentItem(props) {
   const { comment } = props;
+  const { api } = useContext(AppContext);
   const author = Cookies.get("username");
   const [edit, setEdit] = useState(false);
   const commentElement = useRef();
@@ -23,8 +25,7 @@ function CommentItem(props) {
       toaster.warning(intl.get('The comment word count cannot exceed 1000 characters'));
       return;
     }
-    window.app.api
-      .editComment(comment.id, detail)
+    api.editComment(comment.id, detail)
       .then(() => {
         toaster.success(intl.get('Successfully saved'));
         setEdit(false);
@@ -38,8 +39,7 @@ function CommentItem(props) {
   }
 
   function onDelete() {
-    window.app.api
-      .deleteComment(comment.id)
+    api.deleteComment(comment.id)
       .then(() => {
         toaster.danger(intl.get('The comment has been deleted'));
         props.loadComments();

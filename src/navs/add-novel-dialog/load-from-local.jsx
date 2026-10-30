@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useContext } from "react";
 import PropTypes from "prop-types";
 import { Button, Form, Input, Upload } from "antd";
 import Select from "react-select";
@@ -6,8 +6,10 @@ import { MenuSelectStyle } from "../../utils";
 import { INPUT_ACCEPT_FILE_TYPE } from "../../utils/constants";
 import toaster from "../../common/toast";
 import File from '../../model/file';
+import { AppContext } from "../../context";
 
 const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
+  const { api, user } = useContext(AppContext);
   const [file, setFile] = useState(null);
   const [filename, setFilename] = useState("");
   const [author, setAuthor] = useState("");
@@ -55,11 +57,11 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
     const cover_photo = "";
     const price = 0;
     toaster.warning("正在上传中...");
-    window.app.api.addNovel(name, cover_photo, author, detail, price, brief, size, tag)
+    api.addNovel(name, cover_photo, author, detail, price, brief, size, tag)
     .then((res) => {
-      const userId = window.app.state.user.id;
+      const userId = user.id;
       const book_id = res.data[0].id;
-      window.app.api.updateUserBook(userId, book_id).then((res) => {
+      api.updateUserBook(userId, book_id).then((res) => {
         if (res.data === 'success') {
           toaster.success("上传成功");
         }
@@ -69,7 +71,7 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
       toaster.danger("上传失败");
       console.log(err);
     });
-  }, []);
+  }, [api, user]);
 
   const onUpload = useCallback(() => {
     const tag = currentSelected ? currentSelected.map((option) => option.value).join(" ") : "";

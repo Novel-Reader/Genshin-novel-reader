@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { BsDownload } from "react-icons/bs";
 import { FaRegCommentDots } from "react-icons/fa";
 import BookDetailDialog from "../book-detail-dialog";
+import { AppContext } from "../../context";
 
 const getRandomLightColor = () => {
   const letters = 'ABCDEF';
@@ -15,6 +16,7 @@ const getRandomLightColor = () => {
 
 function Book(props) {
   const [showDetail, setShowDetail] = useState(false);
+  const { isMobile } = useContext(AppContext);
   const { novel } = props;
   const { id, author, brief, cover_photo, name, size, download_count, tag } = novel;
   return (
@@ -37,8 +39,8 @@ function Book(props) {
           ))}
         </div>
         <div className="book-right-price">
-          {!window.isMobile && <span>字数 {size}</span>}
-          {!window.isMobile && <span>下载 {download_count || 0}</span>}
+          {!isMobile && <span>字数 {size}</span>}
+          {!isMobile && <span>下载 {download_count || 0}</span>}
           <span className="icon" onClick={() => setShowDetail(true)}>
             <FaRegCommentDots />
           </span>
