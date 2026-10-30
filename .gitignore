@@ -31,6 +31,7 @@ npm-debug.log*
 node_modules
 dist
 dist-ssr
+/dist-analyze
 *.local
 
 # Editor directories and files

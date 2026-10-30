@@ -17,7 +17,7 @@ const basicConfig = {
   },
 };
 
-export default defineConfig(({ command }) => {
+export default defineConfig(({ command, mode }) => {
   if (command === 'serve') {
     return {
       root: '.',
@@ -29,6 +29,7 @@ export default defineConfig(({ command }) => {
   } else {
     return {
       build: {
+        sourcemap: mode === 'analyze',
         lib: {
           entry: 'src/app-container.js',
           name: 'MyApp',

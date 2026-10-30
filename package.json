@@ -32,7 +32,7 @@
     "lint": "eslint ./src/**/*.js[x] --fix",
     "prepublishOnly": "npm run build",
     "preview": "vite preview",
-    "analyze-source-map": "source-map-explorer 'dist/assets/*.js'",
+    "analyze-source-map": "vite build --mode analyze --outDir dist-analyze && source-map-explorer 'dist-analyze/app.js' --no-border-checks",
     "translate": "node scripts/parse-translation.js",
     "local-build": "npm run build && cp -r ./dist ../Genshin-novel-reader-express-server/react/node_modules/genshin-novel-reader"
   },
