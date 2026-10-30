@@ -8,6 +8,8 @@ import CommentList from "./comment-list";
 import AddComment from "./add-comment";
 import { throttle } from "../../utils/throttle";
 
+import "./index.less";
+
 const LIMIT = 20;
 
 function BookDetailDialog(props) {
