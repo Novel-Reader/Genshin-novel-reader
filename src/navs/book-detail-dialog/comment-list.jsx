@@ -88,7 +88,7 @@ CommentItem.propTypes = {
 function CommentList({ comments, loadComments, onRef, novel }) {
   return (
     <div className="comment-list" ref={(node) => onRef(node)}>
-      {comments.length === 0 && <span>还没有评论哦，请点击下方添加评论</span>}
+      {comments.length === 0 && <span>{intl.get('No comments yet, add one below')}</span>}
       {comments.length > 0 &&
         comments.map((comment) => {
           return (

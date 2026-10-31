@@ -1,5 +1,6 @@
 import React from "react";
 import Cookies from 'js-cookie';
+import intl from 'react-intl-universal';
 import { ConfigProvider } from "antd";
 import enUS from 'antd/locale/en_US';
 import App from "./App";
@@ -14,7 +15,7 @@ const AppContainer = ({ mode = 'offline', server = '' }) => {
     <ConfigProvider
       locale={antdLocales[lang] || antdLocales.en || enUS}
       prefixCls="novel-reader-ant"
-      renderEmpty={() => <div>暂无数据</div>}
+      renderEmpty={() => <div>{intl.get('No data')}</div>}
       direction="ltr"
       form={{ labelAlign: 'left' }}
     >

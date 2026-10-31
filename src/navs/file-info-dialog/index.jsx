@@ -20,14 +20,14 @@ function FileInfoDialog({ file, toggleDialog }) {
     
     const columns = [
       {
-        title: '属性',
+        title: intl.get('Property'),
         dataIndex: 'name',
         key: 'name',
         width: '20%',
         render: text => <strong>{text}</strong>
       },
       {
-        title: '值',
+        title: intl.get('Value'),
         dataIndex: 'value',
         key: 'value',
         width: '80%'

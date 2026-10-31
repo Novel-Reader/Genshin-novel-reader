@@ -1,30 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import { Modal, Button, Checkbox, Typography } from 'antd';
 
 import "./index.less";
 
 const VipDialog = ({ toggleUpgrade }) => {
   const serviceList = [
-    "超过30万本在线小说",
-    "在线极速查询",
-    "在线24小时客服",
-    "本地存储100本小说",
+    intl.get('Over 300,000 online novels'),
+    intl.get('Fast online search'),
+    intl.get('24-hour online support'),
+    intl.get('Store up to 100 books locally'),
   ];
   return (
     <Modal
       open={true}
       onCancel={toggleUpgrade}
       className="vip-dialog"
-      title="升级 VIP"
+      title={intl.get('Upgrade to VIP')}
       footer={[
         <Button key="submit" type="primary" className="vip-dialog-upgrade-btn">
-          升级VIP
+          {intl.get('Upgrade to VIP')}
         </Button>,
       ]}
     >
       <div style={{ marginBottom: 5 }}>
-        你当前的账户不支持这个功能，升级 VIP，使用更多精彩的功能。
+        {intl.get('Your account does not support this feature. Upgrade to VIP to enjoy more features.')}
       </div>
       {serviceList.map((item, index) => {
         return (

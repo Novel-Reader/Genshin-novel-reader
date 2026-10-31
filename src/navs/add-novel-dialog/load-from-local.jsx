@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useMemo, useContext } from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import { Button, Form, Input, Upload } from "antd";
 import Select from "react-select";
 import { MenuSelectStyle } from "../../utils";
@@ -18,10 +19,10 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
   const [tmpFile, setTmpFile] = useState(null);
 
   const options = useMemo(() => [
-    { value: "古典", label: "古典" },
-    { value: "同人", label: "同人" },
-    { value: "言情", label: "言情" },
-    { value: "其他", label: "其他" },
+    { value: "古典", label: intl.get('Classical') },
+    { value: "同人", label: intl.get('Fan fiction') },
+    { value: "言情", label: intl.get('Romance') },
+    { value: "其他", label: intl.get('Other') },
   ], []);
 
   const isOnline = useMemo(() => mode === "online", [mode]);
@@ -57,19 +58,19 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
     const { name, author, detail, brief, tag, size } = fileObj;
     const cover_photo = "";
     const price = 0;
-    toaster.warning("正在上传中...");
+    toaster.warning(intl.get('Uploading...'));
     api.addNovel(name, cover_photo, author, detail, price, brief, size, tag)
     .then((res) => {
       const userId = user.id;
       const book_id = res.data[0].id;
       api.updateUserBook(userId, book_id).then((res) => {
         if (res.data === 'success') {
-          toaster.success("上传成功");
+          toaster.success(intl.get('Upload successful'));
         }
       });
     })
     .catch((err) => {
-      toaster.danger("上传失败");
+      toaster.danger(intl.get('Upload failed'));
       console.log(err);
     });
   }, [api, user]);
@@ -99,9 +100,9 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
           onChange={onFileChange}
           beforeUpload={() => false}
         >
-          <Button type="primary">选择本地文件</Button>
+          <Button type="primary">{intl.get('Choose local file')}</Button>
         </Upload>
-        <p>支持上传 {INPUT_ACCEPT_FILE_TYPE} 等文本文件</p>
+        <p>{intl.get('Supported text file types', { fileTypes: INPUT_ACCEPT_FILE_TYPE })}</p>
       </div>  
     );
   }
@@ -109,7 +110,7 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
   return (
     <div className="local-file-info">
       <Form>
-        <Form.Item label="名称">
+        <Form.Item label={intl.get('Name')}>
           <Input
             value={filename}
             onChange={(e) => {
@@ -117,7 +118,7 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
             }}
           />
         </Form.Item>
-        <Form.Item label="作者">
+        <Form.Item label={intl.get('Author')}>
           <Input
             value={author}
             onChange={(e) => {
@@ -125,7 +126,7 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
             }}
           />
         </Form.Item>
-        <Form.Item label="分类">
+        <Form.Item label={intl.get('Category')}>
           <Select
             value={currentSelected}
             options={options}
@@ -134,11 +135,11 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
             className="load-from-local-type-select"
             classNamePrefix
             isMulti
-            placeholder="选择分类"
+            placeholder={intl.get('Select category')}
             styles={MenuSelectStyle}
           />
         </Form.Item>
-        <Form.Item label="摘要">
+        <Form.Item label={intl.get('Summary')}>
           <Input.TextArea
             value={brief}
             onChange={(e) => {
@@ -146,8 +147,8 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
             }}
           />
         </Form.Item>
-        <Button onClick={onUpload} type="primary">上传</Button>
-        <Button onClick={onClear}>取消</Button>
+        <Button onClick={onUpload} type="primary">{intl.get('Upload')}</Button>
+        <Button onClick={onClear}>{intl.get('Cancel')}</Button>
       </Form>
     </div>
   );

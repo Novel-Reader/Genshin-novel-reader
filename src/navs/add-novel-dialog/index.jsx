@@ -57,10 +57,10 @@ const AddNovelDialog = (props) => {
 
   return (
     <Modal
-      title="导入"
+      title={intl.get('Import')}
       open={true}
       footer={[
-        <Button key="back" onClick={toggleDialog}>取消</Button>
+        <Button key="back" onClick={toggleDialog}>{intl.get('Cancel')}</Button>
       ]}
       onCancel={toggleDialog}
       className="add-novel-dialog"

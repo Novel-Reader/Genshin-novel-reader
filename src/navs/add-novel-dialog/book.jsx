@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import { BsDownload } from "react-icons/bs";
 import { FaRegCommentDots } from "react-icons/fa";
 import BookDetailDialog from "../book-detail-dialog";
@@ -39,8 +40,8 @@ function Book(props) {
           ))}
         </div>
         <div className="book-right-price">
-          {!isMobile && <span>字数 {size}</span>}
-          {!isMobile && <span>下载 {download_count || 0}</span>}
+          {!isMobile && <span>{intl.get('Word count')}: {size}</span>}
+          {!isMobile && <span>{intl.get('Downloads')}: {download_count || 0}</span>}
           <span className="icon" onClick={() => setShowDetail(true)}>
             <FaRegCommentDots />
           </span>

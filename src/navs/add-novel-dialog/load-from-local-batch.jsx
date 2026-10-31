@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import axios from 'axios';
 import { Button } from "antd";
 import { INPUT_ACCEPT_FILE_TYPE } from "../../utils/constants.js";
@@ -19,24 +20,24 @@ const LoadFromLocalBatch = (props) => {
     files.forEach(file => {
       formData.append('files', file);
     });
-    toaster.warning("正在上传中...");
+    toaster.warning(intl.get('Uploading...'));
     axios.post(`${server}/api/batch-upload-novel`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     }).then(() => {
-      toaster.success("上传成功");
+      toaster.success(intl.get('Upload successful'));
       toggleDialog();
     }).catch(() => {
-      toaster.danger("上传失败");
+      toaster.danger(intl.get('Upload failed'));
       toggleDialog();
     });
   };
 
   return (
     <div>
-      <Button type="primary" onClick={onClick}>选择多个本地文件</Button>
-      <p>支持上传 {INPUT_ACCEPT_FILE_TYPE} 等文本文件，不超过10个文件</p>
+      <Button type="primary" onClick={onClick}>{intl.get('Choose multiple local files')}</Button>
+      <p>{intl.get('Batch upload file guidance', { fileTypes: INPUT_ACCEPT_FILE_TYPE })}</p>
       <input
         className="local-file-input"
         type="file"

@@ -25,18 +25,18 @@ const LoginDialog = (props) => {
       .post(`${props.server}/api/login`, options)
       .then(async (res) => {
         if (res.data.token) {
-          toaster.success(`用户 ${email} 登录成功`);
+          toaster.success(intl.get('Login successful for {email}', { email }));
           const token = res.data.token;
           Cookies.set("novelToken", token, { path: "/" });
           Cookies.set("username", email);
           await props.onLoginSuccess();
         } else {
-          toaster.danger("登录失败，请检查你的用户名和密码");
+          toaster.danger(intl.get('Login failed, please check your email and password'));
         }
       })
       .catch((err) => {
         if (err.response && err.response.status === 400) {
-          toaster.danger("登录失败，请检查你的用户名和密码");
+          toaster.danger(intl.get('Login failed, please check your email and password'));
         } else {
           toaster.danger(String(err));
         }

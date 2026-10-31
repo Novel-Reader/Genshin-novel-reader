@@ -22,7 +22,7 @@ function ModeSettings(props) {
 
   return (
     <div className="basic-settings-item">
-      <Typography.Title level={5}>阅读模式</Typography.Title>
+      <Typography.Title level={5}>{intl.get('Read mode')}</Typography.Title>
       <Select
         value={options.find((option) => option.value === mode) || options[0]}
         options={options}

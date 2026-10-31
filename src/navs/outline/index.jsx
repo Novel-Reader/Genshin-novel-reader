@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import intl from "react-intl-universal";
 import { PAGES, PARAGRAPHS } from "../../utils/constants";
 
 import "./index.less";
@@ -25,7 +26,7 @@ const Outline = ({ currentPageIndex, currentFile, changePageIndex }) => {
               style={{ color: currentPageIndex === index ? "red" : "#333" }}
               onClick={() => changePageIndex(index)}
               key={item + index}
-            >{`第${index + 1}${type === PAGES ? "页" : "章"}`}</div>
+            >{intl.get(type === PAGES ? 'Page {number}' : 'Chapter {number}', { number: index + 1 })}</div>
           );
         })}
       </div>
