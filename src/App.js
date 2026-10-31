@@ -210,12 +210,10 @@ const App = ({
     setIsShowLeftPanel(prev => !prev);
   }, []);
 
-  const username = Cookies.get("username");
-  const isAdmin = username === "admin";
   const currentFileObj = files[currentFileIndex];
 
   return (
-    <AppContext.Provider value={{ api, user, username, isAdmin, isMobile: isMobileDevice }}>
+    <AppContext.Provider value={{ api, user, isMobile: isMobileDevice }}>
       <div id="app">
         <Navs
           addFile={addFile}

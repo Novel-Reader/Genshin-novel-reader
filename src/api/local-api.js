@@ -177,21 +177,6 @@ class LocalAPI {
     return this.req.post(url, { keyword });
   }
 
-  adminGetUsers() {
-    const url = `${this.server}/api/admin/users`;
-    return this.req.get(url);
-  }
-
-  adminGetBooks() {
-    const url = `${this.server}/api/admin/books`;
-    return this.req.get(url);
-  }
-
-  adminGetComments() {
-    const url = `${this.server}/api/admin/comments`;
-    return this.req.get(url);
-  }
-
   getUserBookList(user_id) {
     const url = `${this.server}/api/user-book?user_id=${user_id}`;
     return this.req.get(url);

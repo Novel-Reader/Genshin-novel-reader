@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import FontSettings from "./font-settings";
 import ThemeSettings from "./theme-settings";
@@ -6,8 +6,6 @@ import ModeSettings from "./mode-settings";
 import LangSettings from "./lang-settings";
 import Share from "./share";
 import FullScreen from "./full-screen";
-import Admin from "../admin-settings/admin";
-import { AppContext } from "../../context";
 
 import "./index.less";
 
@@ -54,11 +52,8 @@ function BasicSettings(props) {
     }
   };
 
-  const { isAdmin, api } = useContext(AppContext);
-
   return (
     <div className="basic-settings">
-      {isAdmin && api && <Admin />}
       <Share />
       <FullScreen />
       <LangSettings />

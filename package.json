@@ -6,7 +6,6 @@
   "main": "dist/app.js",
   "module": "dist/app.js",
   "dependencies": {
-    "@antv/g2": "4.2.10",
     "antd": "^5.24.6",
     "axios": "^1.15.0",
     "classnames": "^2.3.2",
@@ -35,7 +34,7 @@
     "preview": "vite preview",
     "analyze-source-map": "vite build --mode analyze --outDir dist-analyze && source-map-explorer 'dist-analyze/app.js' --no-border-checks",
     "translate": "node scripts/parse-translation.js",
-    "local-build": "npm run build && cp -r ./dist ../Genshin-novel-reader-express-server/react/node_modules/genshin-novel-reader"
+    "local-build": "npm run build && cp -r ./dist ../novel-reader-express-server/react/node_modules/genshin-novel-reader && cp package.json ../novel-reader-express-server/react/node_modules/genshin-novel-reader/package.json"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.0",
