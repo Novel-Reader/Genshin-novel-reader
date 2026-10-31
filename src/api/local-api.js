@@ -96,6 +96,12 @@ class LocalAPI {
     return this.req.post(url, options);
   }
 
+  uploadNovels(files) {
+    const formData = new FormData();
+    files.forEach((file) => formData.append("files", file));
+    return this.req.post("/api/batch-upload-novel", formData);
+  }
+
   /**
    * delete novel by id
    * @param {string} id

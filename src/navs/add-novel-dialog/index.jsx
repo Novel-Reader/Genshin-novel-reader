@@ -36,7 +36,6 @@ const AddNovelDialog = (props) => {
       children: (
         <LoadFromLocalBatch
           toggleDialog={toggleDialog}
-          server={server}
         />
       ),
     },

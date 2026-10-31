@@ -1,13 +1,14 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import intl from "react-intl-universal";
-import axios from 'axios';
 import { Button } from "antd";
 import { INPUT_ACCEPT_FILE_TYPE } from "../../utils/constants.js";
 import toaster from "../../common/toast/index.js";
+import { AppContext } from "../../context";
 
 const LoadFromLocalBatch = (props) => {
-  const { toggleDialog, server } = props;
+  const { toggleDialog } = props;
+  const { api } = useContext(AppContext);
   const uploadRef = useRef(null);
 
   const onClick = () => {
@@ -16,16 +17,8 @@ const LoadFromLocalBatch = (props) => {
 
   const onFileChange = (event) => {
     const files = Array.from(event.target.files);
-    const formData = new FormData();
-    files.forEach(file => {
-      formData.append('files', file);
-    });
     toaster.warning(intl.get('Uploading...'));
-    axios.post(`${server}/api/batch-upload-novel`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(() => {
+    api.uploadNovels(files).then(() => {
       toaster.success(intl.get('Upload successful'));
       toggleDialog();
     }).catch(() => {
@@ -52,7 +45,6 @@ const LoadFromLocalBatch = (props) => {
 
 LoadFromLocalBatch.propTypes = {
   toggleDialog: PropTypes.func.isRequired,
-  server: PropTypes.string,
 };
 
 export default LoadFromLocalBatch;

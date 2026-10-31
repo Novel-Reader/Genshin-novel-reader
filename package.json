@@ -34,7 +34,7 @@
     "preview": "vite preview",
     "analyze-source-map": "vite build --mode analyze --outDir dist-analyze && source-map-explorer 'dist-analyze/app.js' --no-border-checks",
     "translate": "node scripts/parse-translation.js",
-    "local-build": "npm run build && cp -r ./dist ../novel-reader-express-server/react/node_modules/genshin-novel-reader && cp package.json ../novel-reader-express-server/react/node_modules/genshin-novel-reader/package.json"
+    "local-build": "npm run build && cp -r ./dist ../genshin-novel-reader-api-node/react/node_modules/genshin-novel-reader && cp package.json ../genshin-novel-reader-api-node/react/node_modules/genshin-novel-reader/package.json"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.0",
