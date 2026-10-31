@@ -53,6 +53,7 @@ const LoadFromLocal = ({ mode, addFile, toggleDialog }) => {
   }, []);
 
   const uploadToServer = useCallback((fileObj) => {
+    if (!api || !user) return;
     const { name, author, detail, brief, tag, size } = fileObj;
     const cover_photo = "";
     const price = 0;

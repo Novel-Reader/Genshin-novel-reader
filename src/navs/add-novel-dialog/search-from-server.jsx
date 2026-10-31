@@ -13,6 +13,7 @@ const SearchFromServer = ({ downLoadNovel }) => {
   const searchInputRef = useRef();
 
   const searchNovels = () => {
+    if (!api) return;
     let keyword = searchInputRef.current?.input?.value || '';
     keyword = keyword.trim();
     if (!keyword) {

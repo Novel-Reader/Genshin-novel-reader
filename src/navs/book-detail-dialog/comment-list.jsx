@@ -16,6 +16,7 @@ function CommentItem(props) {
   const commentElement = useRef();
 
   function onFinish() {
+    if (!api) return;
     const detail = commentElement.current.value;
     if (detail.length < 3) {
       toaster.warning(intl.get('Comment should have at least 3 characters in length'));
@@ -39,6 +40,7 @@ function CommentItem(props) {
   }
 
   function onDelete() {
+    if (!api) return;
     api.deleteComment(comment.id)
       .then(() => {
         toaster.danger(intl.get('The comment has been deleted'));
